@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutpic2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/hottopnewslist_bgr"
+    android:orientation="vertical" >
+
+    padding内边距 layout_maegin 外边距 android:layout_alignPatentTop 布局的位置是否处于顶部
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="3dp"
+    android:paddingRight="3dp"
+    tools:context=".HomeActivity" >
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" 
+     android:background="@drawable/listview_shape"
+     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/layout_list"
+    android:orientation="vertical"
+    android:paddingLeft="3dp"
+    android:paddingRight="3dp"
+    tools:context=".HomeActivity" >
+    <com.yqapp.widget.KeywordsFlow 
+        android:id="@+id/keywordsflow" 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/home_background"
+        android:layout_marginTop="5dp"
+        />
+</RelativeLayout>
+    <ListView
+        android:id="@+id/hot_doc_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       
+        android:cacheColorHint="#00000000"
+        android:scrollbars="none"
+        android:gravity="center"
+        android:divider="@color/white"
+        >
+    </ListView>
+</RelativeLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/layout_list"
+    android:orientation="vertical"
+    android:paddingLeft="3dp"
+    android:paddingRight="3dp"
+    tools:context=".HomeActivity" >
+    <com.yqapp.widget.KeywordsFlow 
+        android:id="@+id/keywordsflow" 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/home_background"
+        android:layout_marginTop="5dp"
+        />
+</RelativeLayout>
+
+</RelativeLayout> -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" >
+
+        <Button
+            android:id="@+id/photo_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="0.5"
+            android:text="拍照" />
+
+        <Button
+            android:id="@+id/video_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="40dp"
+            android:layout_weight="0.5"
+            android:text="视频" />
+
+    </LinearLayout>
+
+     <ListView
+         android:id="@+id/hot_doc_list"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:cacheColorHint="#00000000"
+         android:divider="@color/white"
+         android:gravity="center" >
+
+    </ListView>
+</LinearLayout>
+    

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="app_name">wloaa</string>
+  
+   <string name="tab_home">现场</string>
+    <string name="tab_source">群发</string>
+    <string name="tab_topic">审批</string>
+    <string name="tab_category">下派</string>
+    <string name="tab_my">我</string>
+    
+    <string name="exit_dialog">确定退出吗？</string>
+    <string name="exit_dialog_determine">退出</string>
+    <string name="exit_dialog_cancle">取消</string>
+    
+    <string name="pull_to_refresh_pull_label">下拉可以刷新</string>
+    <string name="pull_to_refresh_release_label">松开可以刷新</string>
+    <string name="pull_to_refresh_refreshing_label">加载中...</string>
+    <string name="pull_to_refresh_tap_label">下拉可以刷新</string>
+    <string name="pull_to_refresh_update">最近更新：</string>
+    
+    <string name="login_label_username">账号</string>
+    <string name="login_label_password">密码</string>
+    <string name="login_username_hint">请输入用户名</string>
+    <string name="login_userpass_hint">请输入密码</string>
+    <string name="login_label_signin">登录</string>
+    <string name="login_label_error">用户名或密码错误！</string>
+    
+    <string name="my_button_updatepass">修改密码</string>
+    <string name="my_button_showad">系统公告</string>
+    <string name="my_button_exit">退出登录</string>
+    <string name="my_text_username">用户名</string>
+    <string name="my_text_loginname">账号</string>
+    <string name="my_text_local">地址</string>
+    <string name="my_text_email">邮箱</string>
+    <string name="my_text_company">公司</string>
+    
+    <string name="my_password">修改密码</string>
+    <string name="my_old_password">原始密码：</string>
+    <string name="my_new_password">新   密   码  ：</string>
+    <string name="my_again_password">确认密码：</string>
+    <string name="my_password_sure">确定</string>
+    <string name="my_password_cancel">关闭</string>
+    <string name="my_old_warn">当前密码输入不正确！</string>
+    <string name="my_new_warn">密码由6-20个字符构成，区分大小写！</string>
+    <string name="my_newagain_warn">请输入相同的密码！</string>
+    
+    <string name="my_ad">系统公告</string>
+    
+    <string name="detail_text_back">返回</string>
+    <string name="detail_text_report">编报</string>
+    <string name="detail_text_mark">标记</string>
+    <string name="detail_text_snap">快照</string>
+    <string name="detail_text_url">原链</string>
+    
+    <string name="detail_report_name">编报标签管理</string>
+    <string name="detail_report_cancel">关闭</string>
+    <string name="detail_report_add">已添加至：</string>
+    <string name="detail_report_all">编报标签：</string>
+    
+    <string name="detail_mark_name">标记标签管理</string>
+    <string name="detail_mark_cancel">关闭</string>
+    <string name="detail_mark_add">可标记为：</string>
+    <string name="detail_mark_all">标记标签：</string>
+    
+    <string name="detail_snap_kv">命中关键词：</string>
+    <string name="detail_snap_keyword">关键词：</string>
+    <string name="detail_snap_rl">地点：</string>
+    <string name="detail_snap_pl">人物：</string>
+    <string name="detail_snap_ol">机构：</string>
+    <string name="detail_snap_comment">评论</string>
+    <string name="detail_snap_commentname">网友名称：</string>
+    
+    
+    <string name="topic_name_hint">名称不能超过5个汉字或10个字符！</string>
+    <string name="topic_keywords_hint">多个关键词以空格隔开,如"台湾 大选"</string>
+    <string name="title_modify_hint">建议</string>
+    <string name="groupnum_over_maxnum_hint">您已关注的分组超过上限，请取消关注后再添加</string>
+   
+    
+</resources>

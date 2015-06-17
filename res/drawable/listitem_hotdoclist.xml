@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/hottopnews_listview_selector"
+    android:gravity="left" >
+
+    <TextView
+        android:id="@+id/itemsTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:paddingBottom="@dimen/list_item_title_bottom"
+        android:paddingLeft="10dip"
+        android:paddingTop="@dimen/list_item_padding_top"
+        android:singleLine="true"
+        android:text="发布人"
+        android:textColor="@color/list_item_title"
+        android:textSize="17dip" />
+
+    <TextView
+        android:id="@+id/itemsAbstract"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemsTitle"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:lineSpacingMultiplier="1.2"
+        android:maxLines="2"
+        android:paddingBottom="2dip"
+        android:paddingLeft="10dip"
+        android:text="内容"
+        android:textColor="@color/list_item_abstract"
+        android:textSize="14dip" />
+
+    <ImageView
+        android:id="@+id/itemsImage"
+        android:layout_width="80dip"
+        android:layout_height="60dip"
+        android:layout_below="@+id/itemsAbstract"
+        android:layout_marginLeft="10dp"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/itemsImage"
+        android:layout_below="@+id/itemsImage"
+        android:layout_marginTop="14dp"
+        android:gravity="left"
+        android:lines="1"
+        android:paddingBottom="@dimen/list_item_padding_bottom"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:text="时间"
+        android:textColor="@color/list_item_time"
+        android:textSize="11dip" />
+
+    <ImageView
+        android:id="@+id/itemsImage2"
+        android:layout_width="80dip"
+        android:layout_height="60dip"
+        android:layout_above="@+id/time"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/itemsImage"
+        android:scaleType="fitXY" />
+
+    <ImageView
+        android:id="@+id/itemsImage3"
+        android:layout_width="80dip"
+        android:layout_height="60dip"
+        android:layout_above="@+id/time"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/itemsImage2"
+        android:scaleType="fitXY" />
+
+</RelativeLayout>

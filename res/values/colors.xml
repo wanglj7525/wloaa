@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 列表,标题颜色 -->
+     <color name="list_item_title">#000</color>
+     <color name="list_item_abstract">#555</color>
+     <color name="list_item_time">#a2a2a2</color>
+     <!-- 文章详情横断线 -->
+     <color name="doc_detail_h">#437fec</color>
+     <color name="top_selected">#427eec</color>
+     <color name="global_red">#e0493e</color>
+     <color name="global_green">#33b579</color>
+     <color name="global_blue">#427eec</color>
+     <color name="global_gray">#bbb</color>
+     
+    <color name="lightgray">#ccccccff</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#808080</color>
+    <color name="red">#FF0000</color>
+    <color name="gold">#FFD700</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#008000</color>
+    <color name="blue">#0000FF</color>
+    <color name="purple">#800080</color>
+    <color name="pink">#FFC0CB</color>
+    <color name="orange">#FFA500</color>
+    <color name="lemonyellow">#FFFACD</color>
+    <color name="graywhite">#F5F5F5</color>
+    <color name="grayslate">#708090</color>
+    <color name="lightblue">#0083FF</color>
+    <color name="full_transparent">#00000000</color>
+    <color name="half_transparent">#aa000000</color>
+    <color name="listitem_transparent">#00000000</color>
+    <color name="listitem_black">#ff000000</color>
+    <color name="listitem_white">#ffffffff</color>
+    <color name="listitem_blue">#0e5986</color>
+    <color name="listitem_gray">#ff9da19e</color>
+    <color name="listitem_green">#ffe3ffc6</color>
+    <color name="listitem_greenyellow">#ff87b869</color>
+    <color name="listitem_yellow">#fffaffbf</color>
+    <color name="reportH">#32b578</color>
+    <color name="warn">#f5683d</color>
+    <color name="reportC">#555555</color>
+    <color name="markH">#da473b</color>
+    
+    <color name="content">#444444</color>
+    <color name="comment">#437fec</color>
+
+    <drawable name="btndef">#55FFFFFF</drawable>
+    <drawable name="btngreen">#14DED4</drawable>
+    
+<!--     首页列表的背景颜色 -->
+    <color name="hottopnewslist_bgr">#f3f3f3</color>
+    <color name="hottopnewslist_selected">#e5e5e5</color>
+<!-- 登录页背景颜色 -->
+    <color name="loginbj">#427eec</color>
+    <!-- 我 页面颜色 -->
+    <color name="mybj">#437fec</color>
+    <color name="mybtnbj">#396bca</color>
+    <color name="myexit">#32b578</color>
+    <color name="my">#f3f3f3</color>
+    <color name="myphoto">#bbbbbb</color>
+    <color name="mytext">#555555</color>
+</resources>
