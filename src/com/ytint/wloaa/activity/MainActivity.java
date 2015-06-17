@@ -43,6 +43,7 @@ public class MainActivity extends TabActivity {
 		context=MainActivity.this;
 		mAbHttpUtil.setDebug(true);
 		//TODO 以后可以改成该手机电话号 或者 用户ID 等唯一标识
+		
 		application.setProperty("loginKey", "1");
 		
 		radio_home = (RadioButton) findViewById(R.id.radio_home);
@@ -142,7 +143,8 @@ public class MainActivity extends TabActivity {
 						if(clicked_id!=checked_id){
 							clicked_id = checked_id;
 						}else{
-							((HomeActivity)(getLocalActivityManager().getCurrentActivity())).refresh();;
+							HomeActivity a=((HomeActivity)(getLocalActivityManager().getCurrentActivity()));
+							a.refresh_show_page();
 						}
 					}
 					break;

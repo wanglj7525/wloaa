@@ -107,6 +107,17 @@ public class HomeActivity  extends BaseActivity{
     	hotNewsList.clear();
     	loadHotTopNews();
     }
+	public void refresh_show_page() {
+		loadHotTopNews();
+//		if (topicInfoList_show.size() <= 0) {
+//			reCreate();
+//		} else {
+//			CommonDocsListActivity cl = (CommonDocsListActivity) getLocalActivityManager()
+//					.getActivity("topic_activity" + selectedId);
+//			cl.showRefreshHead();
+//			cl.loadDocs(false, true);
+//		}
+	}
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub

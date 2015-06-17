@@ -26,7 +26,6 @@
         android:ellipsize="end"
         android:gravity="left"
         android:lineSpacingMultiplier="1.2"
-        android:maxLines="2"
         android:paddingBottom="2dip"
         android:paddingLeft="10dip"
         android:text="内容"
