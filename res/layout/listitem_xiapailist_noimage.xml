@@ -55,7 +55,7 @@
         android:layout_alignTop="@+id/create_time"
         android:layout_marginLeft="50dp"
         android:layout_toRightOf="@+id/create_time"
-        android:text="接收人："
+        android:text="下发人："
         android:textColor="@color/content"
         android:textColorHint="@color/black"
         android:textSize="11dip" />
@@ -71,7 +71,6 @@
            android:paddingBottom="@dimen/list_item_padding_bottom"
            android:paddingLeft="10dip"
            android:paddingRight="10dip"
-           android:text="审批人"
            android:textColor="@color/content"
            android:textSize="11dip" />
 <ImageView
