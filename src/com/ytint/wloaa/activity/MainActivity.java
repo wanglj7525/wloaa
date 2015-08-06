@@ -15,6 +15,7 @@ import cn.jpush.android.api.JPushInterface;
 import com.ab.http.AbHttpUtil;
 import com.ab.http.AbRequestParams;
 import com.ab.http.AbStringHttpResponseListener;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
@@ -39,6 +40,27 @@ public class MainActivity extends TabActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+        // configure the SlidingMenu  
+        SlidingMenu menu = new SlidingMenu(this);  
+        menu.setMode(SlidingMenu.LEFT);  
+        // 设置触摸屏幕的模式  
+        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);  
+        menu.setShadowWidthRes(R.dimen.shadow_width);  
+        menu.setShadowDrawable(R.drawable.shadow);  
+  
+        // 设置滑动菜单视图的宽度  
+        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);  
+        // 设置渐入渐出效果的值  
+        menu.setFadeDegree(0.35f);  
+        /** 
+         * SLIDING_WINDOW will include the Title/ActionBar in the content 
+         * section of the SlidingMenu, while SLIDING_CONTENT does not. 
+         */  
+        menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);  
+        //为侧滑菜单设置布局  
+        menu.setMenu(R.layout.leftmenu);  
+		
 		application = (MyApplication) this.getApplication();
 		context=MainActivity.this;
 		mAbHttpUtil.setDebug(true);
@@ -51,29 +73,29 @@ public class MainActivity extends TabActivity {
 		radio_shenpi = (RadioButton) findViewById(R.id.radio_shenpi);
 		radio_xiapai = (RadioButton) findViewById(R.id.radio_xiapai);
 
-		tabHost = getTabHost();
-		tabHost.addTab(tabHost.newTabSpec("Home").setIndicator("Home")
-				.setContent(new Intent(this, HomeActivity.class)));
-		tabHost.addTab(tabHost.newTabSpec("CollectingSource")
-				.setIndicator("CollectingSource")
-				.setContent(new Intent(this, QunfaActivity.class)));
-		tabHost.addTab(tabHost.newTabSpec("shenpi").setIndicator("Shenpi")
-				.setContent(new Intent(this, ShenpiActivity.class)));
-		tabHost.addTab(tabHost.newTabSpec("xiapai").setIndicator("Xiapai")
-				.setContent(new Intent(this, XiapaiActivity.class)));
-
-		radioGroup = (RadioGroup) findViewById(R.id.radiogroup);
-		radioGroup.setOnCheckedChangeListener(checkedChangeListener);
-
-		radio_home.setOnClickListener(clickListener);
-		radio_chat.setOnClickListener(clickListener);
-		radio_shenpi.setOnClickListener(clickListener);
-		radio_xiapai.setOnClickListener(clickListener);
-		
-		checked_id = R.id.radio_home;
-		clicked_id = R.id.radio_home;
-		
-		init();
+//		tabHost = getTabHost();
+//		tabHost.addTab(tabHost.newTabSpec("Home").setIndicator("Home")
+//				.setContent(new Intent(this, HomeActivity.class)));
+//		tabHost.addTab(tabHost.newTabSpec("CollectingSource")
+//				.setIndicator("CollectingSource")
+//				.setContent(new Intent(this, QunfaActivity.class)));
+//		tabHost.addTab(tabHost.newTabSpec("shenpi").setIndicator("Shenpi")
+//				.setContent(new Intent(this, ShenpiActivity.class)));
+//		tabHost.addTab(tabHost.newTabSpec("xiapai").setIndicator("Xiapai")
+//				.setContent(new Intent(this, XiapaiActivity.class)));
+//
+//		radioGroup = (RadioGroup) findViewById(R.id.radiogroup);
+//		radioGroup.setOnCheckedChangeListener(checkedChangeListener);
+//
+//		radio_home.setOnClickListener(clickListener);
+//		radio_chat.setOnClickListener(clickListener);
+//		radio_shenpi.setOnClickListener(clickListener);
+//		radio_xiapai.setOnClickListener(clickListener);
+//		
+//		checked_id = R.id.radio_home;
+//		clicked_id = R.id.radio_home;
+//		
+//		init();
 	}
 	// 初始化 JPush。如果已经初始化，但没有登录成功，则执行重新登录。
 	private void init(){
