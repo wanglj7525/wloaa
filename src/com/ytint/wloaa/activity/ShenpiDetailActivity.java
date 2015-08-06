@@ -85,7 +85,7 @@ public class ShenpiDetailActivity extends AbActivity {
 	}
 
 	private void initUi() {
-		//Ìí¼Ó
+		//æ·»åŠ 
 		sure_shenpi.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -127,34 +127,34 @@ public class ShenpiDetailActivity extends AbActivity {
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		String loginKey = application.getProperty("loginKey");
 		if (!application.isNetworkConnected()) {
-			showToast("Çë¼ì²éÍøÂçÁ¬½Ó");
+			showToast("è¯·æ£€æŸ¥ç½‘ç»œè¿æ¥");
 			return;
 		}
 		AbRequestParams params = new AbRequestParams();
 		params.put("id", shenpi_id+"");
 		
-		//1£ºÒ»¼¶ÉóºË£»2£º¶ş¼¶ÉóºË
+		//1ï¼šä¸€çº§å®¡æ ¸ï¼›2ï¼šäºŒçº§å®¡æ ¸
 		if (shenpi.first_verify_status==0) {
-			//Ò»¼¶ÉóºË
+			//ä¸€çº§å®¡æ ¸
 			params.put("verify_step", 1+"");
 		}else if (shenpi.first_verify_status==1){
-			//Ò»¼¶Í¨¹ı ½øĞĞ¶ş¼¶ÉóºË
+			//ä¸€çº§é€šè¿‡ è¿›è¡ŒäºŒçº§å®¡æ ¸
 			params.put("verify_step", 2+"");
 		}
 		
-		//0£ºÎ´ÉóºË£»1£ºÉóºËÍ¨¹ı£»2£ºÉóºËÎ´Í¨¹ı
+		//0ï¼šæœªå®¡æ ¸ï¼›1ï¼šå®¡æ ¸é€šè¿‡ï¼›2ï¼šå®¡æ ¸æœªé€šè¿‡
 		params.put("verify_status", verify_status+"");
 		if (verify_status==1) {
-			params.put("comment", "ÉóºËÍ¨¹ı");
+			params.put("comment", "å®¡æ ¸é€šè¿‡");
 		}else{
-			params.put("comment", "ÉóºË²»Í¨¹ı");
+			params.put("comment", "å®¡æ ¸ä¸é€šè¿‡");
 		}
 		params.put("user_id", loginKey);
 		
 		
 		mAbHttpUtil.post(URLs.SHENPI ,params,
 				new AbStringHttpResponseListener() {
-					// »ñÈ¡Êı¾İ³É¹¦»áµ÷ÓÃÕâÀï
+					// è·å–æ•°æ®æˆåŠŸä¼šè°ƒç”¨è¿™é‡Œ
 					@Override
 					public void onSuccess(int statusCode, String content) {
 						Log.d(TAG, content);
@@ -164,9 +164,9 @@ public class ShenpiDetailActivity extends AbActivity {
 									.parseJson(content);
 							if (gList.code == 200) {
 								if (verify_status==1) {
-									showToast("ÉêÇëÒÑ¾­Í¬Òâ£¡");
+									showToast("ç”³è¯·å·²ç»åŒæ„ï¼");
 								}else if (verify_status==2) {
-									showToast("ÉêÇëÒÑ¾­¾Ü¾ø£¡");
+									showToast("ç”³è¯·å·²ç»æ‹’ç»ï¼");
 								}
 								finish();
 							} else {
@@ -175,27 +175,27 @@ public class ShenpiDetailActivity extends AbActivity {
 							
 						} catch (Exception e) {
 							e.printStackTrace();
-							showToast("Êı¾İ½âÎöÊ§°Ü");
+							showToast("æ•°æ®è§£æå¤±è´¥");
 						}
 					};
 
-					// ¿ªÊ¼Ö´ĞĞÇ°
+					// å¼€å§‹æ‰§è¡Œå‰
 					@Override
 					public void onStart() {
-						// ÏÔÊ¾½ø¶È¿ò
+						// æ˜¾ç¤ºè¿›åº¦æ¡†
 						showProgressDialog();
 					}
 
 					@Override
 					public void onFailure(int statusCode, String content,
 							Throwable error) {
-						showToast("ÍøÂçÁ¬½ÓÊ§°Ü£¡");
+						showToast("ç½‘ç»œè¿æ¥å¤±è´¥ï¼");
 					}
 
-					// Íê³Éºóµ÷ÓÃ£¬Ê§°Ü£¬³É¹¦
+					// å®Œæˆåè°ƒç”¨ï¼Œå¤±è´¥ï¼ŒæˆåŠŸ
 					@Override
 					public void onFinish() {
-						// ÒÆ³ı½ø¶È¿ò
+						// ç§»é™¤è¿›åº¦æ¡†
 						removeProgressDialog();
 					};
 
@@ -208,12 +208,12 @@ public class ShenpiDetailActivity extends AbActivity {
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		String loginKey = application.getProperty("loginKey");
 		if (!application.isNetworkConnected()) {
-			showToast("Çë¼ì²éÍøÂçÁ¬½Ó");
+			showToast("è¯·æ£€æŸ¥ç½‘ç»œè¿æ¥");
 			return;
 		}
 		mAbHttpUtil.get(URLs.SHENPIDETAIL + "?id=" + shenpi_id,
 				new AbStringHttpResponseListener() {
-					// »ñÈ¡Êı¾İ³É¹¦»áµ÷ÓÃÕâÀï
+					// è·å–æ•°æ®æˆåŠŸä¼šè°ƒç”¨è¿™é‡Œ
 					@Override
 					public void onSuccess(int statusCode, String content) {
 						Log.d(TAG, content);
@@ -229,7 +229,7 @@ public class ShenpiDetailActivity extends AbActivity {
 								
 								int status = Integer.parseInt(application.getProperty("status").toString());
 								if (status==0) {
-									//Ã»ÓĞÉóÅúÈ¨ÏŞ
+									//æ²¡æœ‰å®¡æ‰¹æƒé™
 									show_shenpi_button.setVisibility(View.GONE);
 								}
 								
@@ -242,7 +242,7 @@ public class ShenpiDetailActivity extends AbActivity {
 								}
 								
 								if (shenpi.first_verify_status==0) {
-									first_verify_user_name.setText("Î´ÉóÅú");
+									first_verify_user_name.setText("æœªå®¡æ‰¹");
 								}else{
 									first_verify_user_name.setText(shenpi.first_verify_user_name);
 									first_verify_comment.setText(shenpi.first_verify_comment);
@@ -256,27 +256,27 @@ public class ShenpiDetailActivity extends AbActivity {
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
-							showToast("Êı¾İ½âÎöÊ§°Ü");
+							showToast("æ•°æ®è§£æå¤±è´¥");
 						}
 					};
 
-					// ¿ªÊ¼Ö´ĞĞÇ°
+					// å¼€å§‹æ‰§è¡Œå‰
 					@Override
 					public void onStart() {
-						// ÏÔÊ¾½ø¶È¿ò
+						// æ˜¾ç¤ºè¿›åº¦æ¡†
 						showProgressDialog();
 					}
 
 					@Override
 					public void onFailure(int statusCode, String content,
 							Throwable error) {
-						showToast("ÍøÂçÁ¬½ÓÊ§°Ü£¡");
+						showToast("ç½‘ç»œè¿æ¥å¤±è´¥ï¼");
 					}
 
-					// Íê³Éºóµ÷ÓÃ£¬Ê§°Ü£¬³É¹¦
+					// å®Œæˆåè°ƒç”¨ï¼Œå¤±è´¥ï¼ŒæˆåŠŸ
 					@Override
 					public void onFinish() {
-						// ÒÆ³ı½ø¶È¿ò
+						// ç§»é™¤è¿›åº¦æ¡†
 						removeProgressDialog();
 					};
 

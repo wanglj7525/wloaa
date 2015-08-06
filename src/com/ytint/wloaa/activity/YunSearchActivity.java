@@ -40,7 +40,7 @@ import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.widget.DragListView;
 
 /**
- * ÔÆËÑË÷µ¯³ö²ãÒ³Ãæ
+ * äº‘æœç´¢å¼¹å‡ºå±‚é¡µé¢
  * 
  * @author zhangyg
  * 
@@ -92,16 +92,16 @@ public class YunSearchActivity extends AbActivity implements
 	}
 
 	private void initSpinner() {
-		// ½«¿ÉÑ¡ÄÚÈİÓëArrayAdapterÁ¬½ÓÆğÀ´
+		// å°†å¯é€‰å†…å®¹ä¸ArrayAdapterè¿æ¥èµ·æ¥
 		adapter = new ArrayAdapter<String>(YunSearchActivity.this,
 				R.layout.spinner_item, channel_names);
-		// ÉèÖÃÏÂÀ­ÁĞ±íµÄ·ç¸ñ
+		// è®¾ç½®ä¸‹æ‹‰åˆ—è¡¨çš„é£æ ¼
 		adapter.setDropDownViewResource(R.layout.drop_down_item);
-		// ½«adapter Ìí¼Óµ½spinnerÖĞ
+		// å°†adapter æ·»åŠ åˆ°spinnerä¸­
 		channelSpinner.setAdapter(adapter);
-		// ÉèÖÃÄ¬ÈÏÑ¡ÖĞ
+		// è®¾ç½®é»˜è®¤é€‰ä¸­
 //		channelSpinner.setSelection(0);
-		// ÉèÖÃÄ¬ÈÏÖµ
+		// è®¾ç½®é»˜è®¤å€¼
 //		channelSpinner.setVisibility(View.VISIBLE);
 		channelSpinner
 				.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
@@ -110,10 +110,10 @@ public class YunSearchActivity extends AbActivity implements
 							int arg2, long arg3) {
 //						channel = channels.get(arg2).cid;
 						TextView tv = (TextView) view;
-						tv.setTextColor(getResources().getColor(R.color.white)); // ÉèÖÃÑÕÉ«
-						tv.setGravity(android.view.Gravity.CENTER); // ÉèÖÃ¾ÓÖĞ
+						tv.setTextColor(getResources().getColor(R.color.white)); // è®¾ç½®é¢œè‰²
+						tv.setGravity(android.view.Gravity.CENTER); // è®¾ç½®å±…ä¸­
 
-						// Ñ¡ÔñÍ¨µÀºó£¬Èç¹ûËÑË÷¿òÓĞÄÚÈİÔòÁ¢¼´½øĞĞËÑË÷
+						// é€‰æ‹©é€šé“åï¼Œå¦‚æœæœç´¢æ¡†æœ‰å†…å®¹åˆ™ç«‹å³è¿›è¡Œæœç´¢
 						if (keyword_input.getText() != null
 								&& !keyword_input.getText().toString().trim()
 										.equals("")) {
@@ -133,7 +133,7 @@ public class YunSearchActivity extends AbActivity implements
 	}
 
 	private void oneSearch() {
-		// Í¨µÀ·µ»Ø³É¹¦£¬½øĞĞËÑË÷
+		// é€šé“è¿”å›æˆåŠŸï¼Œè¿›è¡Œæœç´¢
 		Intent intent = getIntent();
 		String keyword = intent.getStringExtra("SearchWord");
 		if (keyword != null && !keyword.equals("")) {
@@ -143,9 +143,9 @@ public class YunSearchActivity extends AbActivity implements
 			loadDocs(false, true);
 		} else {
 			list.onLoadMoreComplete(true);
-			list.changeLoadMoreViewText("ÔİÎŞÊı¾İ");
+			list.changeLoadMoreViewText("æš‚æ— æ•°æ®");
 		}
-		// Í¨µÀ·µ»Ø³É¹¦£¬½øĞĞËÑË÷½áÊø
+		// é€šé“è¿”å›æˆåŠŸï¼Œè¿›è¡Œæœç´¢ç»“æŸ
 	}
 
 	private void initUi() {
@@ -155,17 +155,17 @@ public class YunSearchActivity extends AbActivity implements
 		search_close = (TextView) findViewById(R.id.search_close);
 		yunsearch_full = (LinearLayout) findViewById(R.id.yunsearch_full);
 		config_head = (TextView) findViewById(R.id.config_head);
-		list = (DragListView) findViewById(R.id.draglistview); // °ó¶¨LayoutÀïÃæµÄListView
+		list = (DragListView) findViewById(R.id.draglistview); // ç»‘å®šLayouté‡Œé¢çš„ListView
 
 		config_head.setFocusable(true);
 		config_head.setFocusableInTouchMode(true);
-		config_head.requestFocus(); // ³õÊ¼²»ÈÃEditTextµÃ½¹µã
+		config_head.requestFocus(); // åˆå§‹ä¸è®©EditTextå¾—ç„¦ç‚¹
 		config_head.requestFocusFromTouch();
 		yun_search.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// ¹Ø±Õ¼üÅÌ
+				// å…³é—­é”®ç›˜
 				InputMethodManager imm = (InputMethodManager) YunSearchActivity.this
 						.getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
@@ -195,22 +195,22 @@ public class YunSearchActivity extends AbActivity implements
 	}
 
 	private void initListView() {
-		// Éú³ÉÊÊÅäÆ÷µÄItemºÍ¶¯Ì¬Êı×é¶ÔÓ¦µÄÔªËØ
+		// ç”Ÿæˆé€‚é…å™¨çš„Itemå’ŒåŠ¨æ€æ•°ç»„å¯¹åº”çš„å…ƒç´ 
 		listItemAdapter = new DocListViewAdapter(this, listItems);
 
-		// Ìí¼Ó²¢ÇÒÏÔÊ¾
+		// æ·»åŠ å¹¶ä¸”æ˜¾ç¤º
 		list.setAdapter(listItemAdapter);
 		list.setOnRefreshListener(this);
 		list.setLastFreshTime(new Date().getTime());
 
-		// Ìí¼Óµã»÷
+		// æ·»åŠ ç‚¹å‡»
 		list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view, int arg2,
 					long arg3) {
 				DocInfo info = null;
-				// ÅĞ¶ÏÊÇ·ñÊÇTextView
+				// åˆ¤æ–­æ˜¯å¦æ˜¯TextView
 				if (view instanceof TextView) {
 					info = (DocInfo) view.getTag();
 				} else {
@@ -241,12 +241,12 @@ public class YunSearchActivity extends AbActivity implements
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		String loginKey = application.getProperty("loginKey");
 		if (!application.isNetworkConnected()) {
-			showToast("Çë¼ì²éÍøÂçÁ¬½Ó");
+			showToast("è¯·æ£€æŸ¥ç½‘ç»œè¿æ¥");
 			return;
 		}
 		mAbHttpUtil.get(URLs.CHANNELS + "?access_token=" + loginKey,
 				new AbStringHttpResponseListener() {
-					// »ñÈ¡Êı¾İ³É¹¦»áµ÷ÓÃÕâÀï
+					// è·å–æ•°æ®æˆåŠŸä¼šè°ƒç”¨è¿™é‡Œ
 					@Override
 					public void onSuccess(int statusCode, String content) {
 						try {
@@ -267,27 +267,27 @@ public class YunSearchActivity extends AbActivity implements
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
-							showToast("Êı¾İ½âÎöÊ§°Ü");
+							showToast("æ•°æ®è§£æå¤±è´¥");
 						}
 					};
 
-					// ¿ªÊ¼Ö´ĞĞÇ°
+					// å¼€å§‹æ‰§è¡Œå‰
 					@Override
 					public void onStart() {
-						// ÏÔÊ¾½ø¶È¿ò
+						// æ˜¾ç¤ºè¿›åº¦æ¡†
 						showProgressDialog();
 					}
 
 					@Override
 					public void onFailure(int statusCode, String content,
 							Throwable error) {
-						showToast("ÍøÂçÁ¬½ÓÊ§°Ü£¡");
+						showToast("ç½‘ç»œè¿æ¥å¤±è´¥ï¼");
 					}
 
-					// Íê³Éºóµ÷ÓÃ£¬Ê§°Ü£¬³É¹¦
+					// å®Œæˆåè°ƒç”¨ï¼Œå¤±è´¥ï¼ŒæˆåŠŸ
 					@Override
 					public void onFinish() {
-						// ÒÆ³ı½ø¶È¿ò
+						// ç§»é™¤è¿›åº¦æ¡†
 						removeProgressDialog();
 					};
 
@@ -320,7 +320,7 @@ public class YunSearchActivity extends AbActivity implements
 			list.setLoading();
 		}
 		if ("".equals(keyword)) {
-			showToast("ÇëÊäÈë¹Ø¼ü´Ê");
+			showToast("è¯·è¾“å…¥å…³é”®è¯");
 //			list.onLoadMoreComplete(true);
 			list.onRefreshComplete();
 			return;
@@ -337,19 +337,19 @@ public class YunSearchActivity extends AbActivity implements
 
 		Log.d(TAG, urlString);
 		mAbHttpUtil.get(urlString, new AbStringHttpResponseListener() {
-			// »ñÈ¡Êı¾İ³É¹¦»áµ÷ÓÃÕâÀï
+			// è·å–æ•°æ®æˆåŠŸä¼šè°ƒç”¨è¿™é‡Œ
 			@Override
 			public void onSuccess(int statusCode, String content) {
 				try {
 					DocInfoList docList = DocInfoList.parseJson(content);
 					if (docList.code == 200) {
-						//¸ù¾İµ±Ç°Ò³ÊÇ·ñÂú£¬ÅĞ¶ÏÊÇ·ñÓĞÏÂÒ»Ò³
+						//æ ¹æ®å½“å‰é¡µæ˜¯å¦æ»¡ï¼Œåˆ¤æ–­æ˜¯å¦æœ‰ä¸‹ä¸€é¡µ
 						if(docList.getInfo().size()<Constants.PAGE_SIZE){
 							hasNextPage = false;
 						}else{
 							hasNextPage = true;
 						}
-						// ÅĞ¶ÏÊÇ·ñÊÇ²é¿´¸ü¶à£¬ÊÇµÄ»°×·¼Ó
+						// åˆ¤æ–­æ˜¯å¦æ˜¯æŸ¥çœ‹æ›´å¤šï¼Œæ˜¯çš„è¯è¿½åŠ 
 						if (isRefresh) {
 							listItems.clear();
 							listItems.addAll(docList.getInfo());
@@ -357,13 +357,13 @@ public class YunSearchActivity extends AbActivity implements
 							listItems.addAll(docList.getInfo());
 						}
 						//listItems.addAll(docList.getInfo());
-						// Èç¹ûÓĞÏÂÒ»Ò³ÏÔÊ¾¼ÓÔØ¸ü¶à£¬Ã»ÓĞÏÔÊ¾¼ÓÔØÍê±Ï
+						// å¦‚æœæœ‰ä¸‹ä¸€é¡µæ˜¾ç¤ºåŠ è½½æ›´å¤šï¼Œæ²¡æœ‰æ˜¾ç¤ºåŠ è½½å®Œæ¯•
 						if (hasNextPage) {
 							list.onLoadMoreComplete(false);
 						} else {
 							list.onLoadMoreComplete(true);
 							if (listItems.size() <= 0) {
-								list.changeLoadMoreViewText("ÔİÎŞÊı¾İ");
+								list.changeLoadMoreViewText("æš‚æ— æ•°æ®");
 							}
 						}
 						listItemAdapter.notifyDataSetChanged();
@@ -380,11 +380,11 @@ public class YunSearchActivity extends AbActivity implements
 						listItems.clear();
 						listItemAdapter.notifyDataSetChanged();
 					}
-					showToast("Êı¾İ½âÎöÊ§°Ü");
+					showToast("æ•°æ®è§£æå¤±è´¥");
 				}
 			}
 
-			// Ê§°Ü£¬µ÷ÓÃ
+			// å¤±è´¥ï¼Œè°ƒç”¨
 			@Override
 			public void onFailure(int statusCode, String content,
 					Throwable error) {
@@ -393,16 +393,16 @@ public class YunSearchActivity extends AbActivity implements
 					listItemAdapter.notifyDataSetChanged();
 				}
 				list.onLoadMoreComplete(false);
-				showToast("ÍøÂçÁ¬½ÓÊ§°Ü£¡");
+				showToast("ç½‘ç»œè¿æ¥å¤±è´¥ï¼");
 			}
 
-			// ¿ªÊ¼Ö´ĞĞÇ°
+			// å¼€å§‹æ‰§è¡Œå‰
 			@Override
 			public void onStart() {
 
 			}
 
-			// Íê³Éºóµ÷ÓÃ£¬Ê§°Ü£¬³É¹¦
+			// å®Œæˆåè°ƒç”¨ï¼Œå¤±è´¥ï¼ŒæˆåŠŸ
 			@Override
 			public void onFinish() {
 				Log.d(TAG, "onFinish");

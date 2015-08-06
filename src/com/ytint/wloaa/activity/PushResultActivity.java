@@ -41,14 +41,14 @@ public class PushResultActivity extends AbActivity {
 		detail_content = (TextView) findViewById(R.id.doc_detail_content);
 		push_detail_title = (Button) findViewById(R.id.push_detail_title);
 		push_detail_back = (ImageView) findViewById(R.id.push_detail_back);
-		push_detail_title.setText("ĞÂÎÅ");
+		push_detail_title.setText("æ–°é—»");
 		
 		push_detail_back.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				PushResultActivity.this.finish();
-//				// Ìø×ªµ½Ê×Ò³
+//				// è·³è½¬åˆ°é¦–é¡µ
 //				Intent intent = new Intent(PushResultActivity.this,
 //						WelcomeActivity.class);
 //				PushResultActivity.this.startActivity(intent);
@@ -71,10 +71,10 @@ public class PushResultActivity extends AbActivity {
 				e.printStackTrace();
 			}
         }
-//		// »ñÈ¡Http¹¤¾ßÀà
+//		// è·å–Httpå·¥å…·ç±»
 //		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 //		mAbHttpUtil.get(Constants.PUSHDOCDETAIL +"?doc_id=" + doc_id, new AbStringHttpResponseListener() {
-//			// »ñÈ¡Êı¾İ³É¹¦»áµ÷ÓÃÕâÀï
+//			// è·å–æ•°æ®æˆåŠŸä¼šè°ƒç”¨è¿™é‡Œ
 //			@Override
 //			public void onSuccess(int statusCode, String content) {
 //				try {
@@ -92,7 +92,7 @@ public class PushResultActivity extends AbActivity {
 //								try {
 //									url = new URL(source);
 //									drawable = Drawable.createFromStream(
-//											url.openStream(), ""); // »ñÈ¡ÍøÂ·Í¼Æ¬
+//											url.openStream(), ""); // è·å–ç½‘è·¯å›¾ç‰‡
 //								} catch (Exception e) {
 //									return null;
 //								}
@@ -117,24 +117,24 @@ public class PushResultActivity extends AbActivity {
 //
 //			}
 //
-//			// ¿ªÊ¼Ö´ĞĞÇ°
+//			// å¼€å§‹æ‰§è¡Œå‰
 //			@Override
 //			public void onStart() {
-//				// ÏÔÊ¾½ø¶È¿ò
+//				// æ˜¾ç¤ºè¿›åº¦æ¡†
 ////				showProgressDialog();
 //			}
 //
-//			// Ê§°Ü£¬µ÷ÓÃ
+//			// å¤±è´¥ï¼Œè°ƒç”¨
 //			@Override
 //			public void onFailure(int statusCode, String content,
 //					Throwable error) {
-////				showToast("ÍøÂçÁ¬½ÓÊ§°Ü£¡");
+////				showToast("ç½‘ç»œè¿æ¥å¤±è´¥ï¼");
 //			}
 //
-//			// Íê³Éºóµ÷ÓÃ£¬Ê§°Ü£¬³É¹¦
+//			// å®Œæˆåè°ƒç”¨ï¼Œå¤±è´¥ï¼ŒæˆåŠŸ
 //			@Override
 //			public void onFinish() {
-//				// ÒÆ³ı½ø¶È¿ò
+//				// ç§»é™¤è¿›åº¦æ¡†
 ////				removeProgressDialog();
 //			};
 //

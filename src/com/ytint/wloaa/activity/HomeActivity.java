@@ -34,11 +34,11 @@ import com.ytint.wloaa.bean.HotNewsList;
 import com.ytint.wloaa.bean.URLs;
 
 /**
- * ÏÖ³¡Ö´·¨ Ò»¸öÊÖ»úÅÄÕÕ»òÂ¼ÖÆÊÓÆµºóÄÜÉÏ´«£¬ÁíÍâÒ»¸öÊÖ»úÄÜ¿´µ½ 
- * ÁĞ±íÏÔÊ¾ËùÓĞ¸ÃÊÖ»úÊÕµ½µÄÕÕÆ¬ºÍÊÓÆµ
- * µã»÷Ò»¸ö°´Å¥£¬Ñ¡ÔñÅÄÕÕ»òÊÓÆµ£¬Íê³ÉºóÑ¡ÔñÁªÏµÈË£¬·¢ËÍ
+ * ç°åœºæ‰§æ³• ä¸€ä¸ªæ‰‹æœºæ‹ç…§æˆ–å½•åˆ¶è§†é¢‘åèƒ½ä¸Šä¼ ï¼Œå¦å¤–ä¸€ä¸ªæ‰‹æœºèƒ½çœ‹åˆ° 
+ * åˆ—è¡¨æ˜¾ç¤ºæ‰€æœ‰è¯¥æ‰‹æœºæ”¶åˆ°çš„ç…§ç‰‡å’Œè§†é¢‘
+ * ç‚¹å‡»ä¸€ä¸ªæŒ‰é’®ï¼Œé€‰æ‹©æ‹ç…§æˆ–è§†é¢‘ï¼Œå®Œæˆåé€‰æ‹©è”ç³»äººï¼Œå‘é€
  * @author wlj
- * @date 2015-6-12ÉÏÎç9:32:13
+ * @date 2015-6-12ä¸Šåˆ9:32:13
  */
 public class HomeActivity  extends BaseActivity{
 	ListView hotDocListView;
@@ -49,7 +49,7 @@ public class HomeActivity  extends BaseActivity{
 	int size = 1;
 	String TAG = "HomeActivity";
 	MediaController mMediaController;
-	// »ñÈ¡Http¹¤¾ßÀà
+	// è·å–Httpå·¥å…·ç±»
 	private MyApplication application;
 	
 	@AbIocView(id = R.id.photo_button)
@@ -57,11 +57,11 @@ public class HomeActivity  extends BaseActivity{
 	@AbIocView(id = R.id.video_button)
 	Button video_button;
 	
-    // ³õÊ¼»¯×é¼ş
+    // åˆå§‹åŒ–ç»„ä»¶
     private void initWidget() {
     	hotDocListView = (ListView) findViewById(R.id.hot_doc_list);
     	
-    	//ÅÄÕÕ
+    	//æ‹ç…§
     	photo_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -70,19 +70,19 @@ public class HomeActivity  extends BaseActivity{
 			}
 		});
     }
-    // ³õÊ¼»¯°ó¶¨Êı¾İ
+    // åˆå§‹åŒ–ç»‘å®šæ•°æ®
     private void initData() {
     	application=(MyApplication) this.getApplication();
         if (hotDocListView == null)
             return;
         listItemAdapter = new HotNewsListAdapter(this);
-        // µÚÈı²½£º¸ølistviewÉèÖÃÊÊÅäÆ÷£¨view£©
+        // ç¬¬ä¸‰æ­¥ï¼šç»™listviewè®¾ç½®é€‚é…å™¨ï¼ˆviewï¼‰
         hotDocListView.setAdapter(listItemAdapter);
         hotDocListView.setOnItemClickListener(new ListView.OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int index,
 					long arg3) {
-				//µã»÷ÕÕÆ¬»òÊÓÆµ ·Å´ó»ò²¥·Å
+				//ç‚¹å‡»ç…§ç‰‡æˆ–è§†é¢‘ æ”¾å¤§æˆ–æ’­æ”¾
 				//TODO
 //				   String url = (String) hotNewsList.get(index).u;
 //				   Long doc_id = hotNewsList.get(index)._id;
@@ -94,14 +94,14 @@ public class HomeActivity  extends BaseActivity{
 	        }
         });
       //  appendData();
-        // µÚ¶ş²½£ºnewÒ»¸öÊÊÅäÆ÷£¨controller£©
-        // ²ÎÊı1£ºContext
-        // ²ÎÊı2£ºlistviewµÄitem²¼¾Ö
-        // ²ÎÊı3£ºÊı¾İÌî³äÔÚitem²¼¾ÖÏÂµÄÄÇ¸ö¿Ø¼şid
-        // ²ÎÊı4£ºÌî³äµÄÊı¾İ
+        // ç¬¬äºŒæ­¥ï¼šnewä¸€ä¸ªé€‚é…å™¨ï¼ˆcontrollerï¼‰
+        // å‚æ•°1ï¼šContext
+        // å‚æ•°2ï¼šlistviewçš„itemå¸ƒå±€
+        // å‚æ•°3ï¼šæ•°æ®å¡«å……åœ¨itemå¸ƒå±€ä¸‹çš„é‚£ä¸ªæ§ä»¶id
+        // å‚æ•°4ï¼šå¡«å……çš„æ•°æ®
     }
     /**
-     * Ë¢ĞÂÊı¾İ
+     * åˆ·æ–°æ•°æ®
      */
     public void refresh(){
     	hotNewsList.clear();
@@ -142,12 +142,12 @@ public class HomeActivity  extends BaseActivity{
 		mAbHttpUtil.setDebug(true);
 		String loginKey = application.getProperty("loginKey");
 		Log.d(TAG, loginKey);
-		//»ñÈ¡ÏÖ³¡·¢²¼µÄ ¸ÃÊÖ»úµÄËùÓĞÕÕÆ¬ºÍÊÓÆµÁĞ±í
-		//TODO Í¨¹ıºóÌ¨»ñÈ¡ÏÖ³¡·¢²¼µÄ ¸ÃÊÖ»úµÄËùÓĞÕÕÆ¬ºÍÊÓÆµÁĞ±í
+		//è·å–ç°åœºå‘å¸ƒçš„ è¯¥æ‰‹æœºçš„æ‰€æœ‰ç…§ç‰‡å’Œè§†é¢‘åˆ—è¡¨
+		//TODO é€šè¿‡åå°è·å–ç°åœºå‘å¸ƒçš„ è¯¥æ‰‹æœºçš„æ‰€æœ‰ç…§ç‰‡å’Œè§†é¢‘åˆ—è¡¨
 		String urlString = String.format("%s?user_id=0",URLs.PHOTOLIST);
 		Log.d(TAG,urlString);
 		mAbHttpUtil.get(urlString, new AbStringHttpResponseListener() {
-			// »ñÈ¡Êı¾İ³É¹¦»áµ÷ÓÃÕâÀï
+			// è·å–æ•°æ®æˆåŠŸä¼šè°ƒç”¨è¿™é‡Œ
 			@Override
 			public void onSuccess(int statusCode, String content) {
 				Log.d(TAG, content);
@@ -163,33 +163,33 @@ public class HomeActivity  extends BaseActivity{
 					
 				} catch (Exception e) {
 					e.printStackTrace();
-					showToast("Êı¾İ½âÎöÊ§°Ü");
+					showToast("æ•°æ®è§£æå¤±è´¥");
 				}
 			}
 
-			// Ê§°Ü£¬µ÷ÓÃ
+			// å¤±è´¥ï¼Œè°ƒç”¨
 			@Override
 			public void onFailure(int statusCode, String content,
 					Throwable error) {
 
 				Log.d(TAG, "onFailure");
-				showToast("ÍøÂçÁ¬½ÓÊ§°Ü£¡");
+				showToast("ç½‘ç»œè¿æ¥å¤±è´¥ï¼");
 			}
 
-			// ¿ªÊ¼Ö´ĞĞÇ°
+			// å¼€å§‹æ‰§è¡Œå‰
 			@Override
 			public void onStart() {
 				Log.d(TAG, "onStart");
-				// ÏÔÊ¾½ø¶È¿ò
+				// æ˜¾ç¤ºè¿›åº¦æ¡†
 				showProgressDialog();
 				
 			}
 
-			// Íê³Éºóµ÷ÓÃ£¬Ê§°Ü£¬³É¹¦
+			// å®Œæˆåè°ƒç”¨ï¼Œå¤±è´¥ï¼ŒæˆåŠŸ
 			@Override
 			public void onFinish() {
 				Log.d(TAG, "onFinish");
-				// ÒÆ³ı½ø¶È¿ò
+				// ç§»é™¤è¿›åº¦æ¡†
 				removeProgressDialog();
 
 			};
@@ -198,13 +198,13 @@ public class HomeActivity  extends BaseActivity{
 
 	}
     
-    /** ×Ô¶¨ÒåÊÊÅäÆ÷ */  
+    /** è‡ªå®šä¹‰é€‚é…å™¨ */  
     public class HotNewsListAdapter extends BaseAdapter {  
-        private LayoutInflater mInflater;// ¶¯Ì¬²¼¾ÖÓ³Éä  
+        private LayoutInflater mInflater;// åŠ¨æ€å¸ƒå±€æ˜ å°„  
   
         public HotNewsListAdapter(Context context) {  
             this.mInflater = LayoutInflater.from(context);  
-    		// Í¼Æ¬ÏÂÔØÆ÷
+    		// å›¾ç‰‡ä¸‹è½½å™¨
     		mAbImageDownloader = new AbImageDownloader(context);
     		mAbImageDownloader.setWidth(200);
     		mAbImageDownloader.setHeight(150);
@@ -214,10 +214,10 @@ public class HomeActivity  extends BaseActivity{
     		mAbImageDownloader.setNoImage(R.drawable.image_no);
         }  
   
-        // ¾ö¶¨ListViewÓĞ¼¸ĞĞ¿É¼û  
+        // å†³å®šListViewæœ‰å‡ è¡Œå¯è§  
         @Override  
         public int getCount() {  
-            return hotNewsList.size();// ListViewµÄÌõÄ¿Êı  
+            return hotNewsList.size();// ListViewçš„æ¡ç›®æ•°  
         }  
   
         @Override  
@@ -237,9 +237,9 @@ public class HomeActivity  extends BaseActivity{
         	TextView title = null;
         	TextView abstr = null;
         	TextView timeView = null;
-			//ÁĞ±íÖĞÓĞÍ¼Æ¬
+			//åˆ—è¡¨ä¸­æœ‰å›¾ç‰‡
 			if (news.type==1) {
-	            convertView = mInflater.inflate(R.layout.listitem_hotdoclist, null);//¸ù¾İ²¼¾ÖÎÄ¼şÊµÀı»¯view  
+	            convertView = mInflater.inflate(R.layout.listitem_hotdoclist, null);//æ ¹æ®å¸ƒå±€æ–‡ä»¶å®ä¾‹åŒ–view  
 	            title = (TextView) convertView
 						.findViewById(R.id.itemsTitle);
 	            
@@ -252,19 +252,19 @@ public class HomeActivity  extends BaseActivity{
 				mAbImageDownloader.display(imageView,URLs.URL_API_HOST+news.url);
 				
 //			}else{
-//				//ÁĞ±íÖĞÓĞÊÓÆµ
+//				//åˆ—è¡¨ä¸­æœ‰è§†é¢‘
 //	            convertView = mInflater.inflate(R.layout.listitem_hotdoclist_noimage, null);
 //	            VideoView mVideoView = (VideoView)convertView.findViewById(R.id.videoView1);
 //	            Uri uri = Uri.parse(news.mov);  
 //	            mVideoView.setVideoURI(uri);  
 ////	            mVideoView.setMediaController(mMediaController);  
 //	            /** 
-//	             * ÊÓÆµ»òÕßÒôÆµµ½½áÎ²Ê±´¥·¢µÄ·½·¨ 
+//	             * è§†é¢‘æˆ–è€…éŸ³é¢‘åˆ°ç»“å°¾æ—¶è§¦å‘çš„æ–¹æ³• 
 //	             */  
 //	            mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {  
 //	                @Override  
 //	                public void onCompletion(MediaPlayer mp) {  
-//	                    Log.i("Í¨Öª", "Íê³É");  
+//	                    Log.i("é€šçŸ¥", "å®Œæˆ");  
 //	                }  
 //	            });  
 //	              
@@ -272,7 +272,7 @@ public class HomeActivity  extends BaseActivity{
 //	                  
 //	                @Override  
 //	                public boolean onError(MediaPlayer mp, int what, int extra) {  
-//	                    Log.i("Í¨Öª", "²¥·ÅÖĞ³öÏÖ´íÎó");  
+//	                    Log.i("é€šçŸ¥", "æ’­æ”¾ä¸­å‡ºç°é”™è¯¯");  
 //	                    return false;  
 //	                }  
 //	            });  

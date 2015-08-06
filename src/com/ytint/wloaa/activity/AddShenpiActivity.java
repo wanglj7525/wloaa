@@ -61,7 +61,7 @@ public class AddShenpiActivity extends AbActivity {
 		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
 		initUi();
-//		//¼ÓÔØÁªÏµÈËÏÂÀ­¿ò
+//		//åŠ è½½è”ç³»äººä¸‹æ‹‰æ¡†
 //		peoples = (List<People>) application.readObject("peoples");
 //		if(null==peoples||peoples.size()<=0){
 //			loadPeoples();
@@ -80,11 +80,11 @@ public class AddShenpiActivity extends AbActivity {
 	private void initUi() {
 		
 		
-		//Ìí¼Ó
+		//æ·»åŠ 
 		add.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// ¹Ø±Õ¼üÅÌ
+				// å…³é—­é”®ç›˜
 				InputMethodManager imm = (InputMethodManager) AddShenpiActivity.this
 						.getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
@@ -116,16 +116,16 @@ public class AddShenpiActivity extends AbActivity {
 	}
 	
 	/**
-	 * Ìá½»ÉêÇë
+	 * æäº¤ç”³è¯·
 	 * @author wlj
-	 * @date 2015-6-16ÏÂÎç7:21:20
+	 * @date 2015-6-16ä¸‹åˆ7:21:20
 	 */
 	private void submitShenpi(){
-		// »ñÈ¡Http¹¤¾ßÀà
+		// è·å–Httpå·¥å…·ç±»
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		mAbHttpUtil.setDebug(true);
 		if (!application.isNetworkConnected()) {
-			UIHelper.ToastMessage(context, "Çë¼ì²éÍøÂçÁ¬½Ó");
+			UIHelper.ToastMessage(context, "è¯·æ£€æŸ¥ç½‘ç»œè¿æ¥");
 			return;
 		}
 		
@@ -144,21 +144,21 @@ public class AddShenpiActivity extends AbActivity {
 							ShenpiInfo gList = ShenpiInfo
 									.parseJson(content);
 							if (gList.code == 200) {
-								showToast("ÉêÇëÌá½»³É¹¦£¡");
+								showToast("ç”³è¯·æäº¤æˆåŠŸï¼");
 								finish();
 							} else {
 								UIHelper.ToastMessage(context, gList.msg);
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
-							UIHelper.ToastMessage(context, "Êı¾İ½âÎöÊ§°Ü");
+							UIHelper.ToastMessage(context, "æ•°æ®è§£æå¤±è´¥");
 						}
 					}
 
 					@Override
 					public void onFailure(int statusCode, String content,
 							Throwable error) {
-						UIHelper.ToastMessage(context, "ÍøÂçÁ¬½ÓÊ§°Ü£¡");
+						UIHelper.ToastMessage(context, "ç½‘ç»œè¿æ¥å¤±è´¥ï¼");
 					}
 
 					@Override
@@ -166,7 +166,7 @@ public class AddShenpiActivity extends AbActivity {
 						showProgressDialog(null);
 					}
 
-					// Íê³Éºóµ÷ÓÃ
+					// å®Œæˆåè°ƒç”¨
 					@Override
 					public void onFinish() {
 						finish();

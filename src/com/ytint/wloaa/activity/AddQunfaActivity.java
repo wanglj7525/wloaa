@@ -53,11 +53,11 @@ public class AddQunfaActivity extends BaseActivity {
 
 	private void initUi() {
 		
-		//Ìí¼Ó
+		//æ·»åŠ 
 		add.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// ¹Ø±Õ¼üÅÌ
+				// å…³é—­é”®ç›˜
 				InputMethodManager imm = (InputMethodManager) AddQunfaActivity.this
 						.getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
@@ -89,16 +89,16 @@ public class AddQunfaActivity extends BaseActivity {
 	}
 	
 	/**
-	 * Èº·¢ÏûÏ¢
+	 * ç¾¤å‘æ¶ˆæ¯
 	 * @author wlj
-	 * @date 2015-6-16ÏÂÎç7:21:20
+	 * @date 2015-6-16ä¸‹åˆ7:21:20
 	 */
 	private void submitXiaoxi(){
-		// »ñÈ¡Http¹¤¾ßÀà
+		// è·å–Httpå·¥å…·ç±»
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		mAbHttpUtil.setDebug(true);
 		if (!application.isNetworkConnected()) {
-			UIHelper.ToastMessage(context, "Çë¼ì²éÍøÂçÁ¬½Ó");
+			UIHelper.ToastMessage(context, "è¯·æ£€æŸ¥ç½‘ç»œè¿æ¥");
 			return;
 		}
 		
@@ -118,21 +118,21 @@ public class AddQunfaActivity extends BaseActivity {
 							QunfaInfo gList = QunfaInfo
 									.parseJson(content);
 							if (gList.code == 200) {
-								showToast("ÏûÏ¢ÒÑ¾­·¢ËÍ£¡");
+								showToast("æ¶ˆæ¯å·²ç»å‘é€ï¼");
 								finish();
 							} else {
 								UIHelper.ToastMessage(context, gList.msg);
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
-							UIHelper.ToastMessage(context, "Êı¾İ½âÎöÊ§°Ü");
+							UIHelper.ToastMessage(context, "æ•°æ®è§£æå¤±è´¥");
 						}
 					}
 
 					@Override
 					public void onFailure(int statusCode, String content,
 							Throwable error) {
-						UIHelper.ToastMessage(context, "ÍøÂçÁ¬½ÓÊ§°Ü£¡");
+						UIHelper.ToastMessage(context, "ç½‘ç»œè¿æ¥å¤±è´¥ï¼");
 					}
 
 					@Override
@@ -140,7 +140,7 @@ public class AddQunfaActivity extends BaseActivity {
 						showProgressDialog(null);
 					}
 
-					// Íê³Éºóµ÷ÓÃ
+					// å®Œæˆåè°ƒç”¨
 					@Override
 					public void onFinish() {
 						finish();
@@ -150,10 +150,10 @@ public class AddQunfaActivity extends BaseActivity {
 //	@SuppressLint("NewApi")
 //	private void loadPeoples() {
 //		try {
-//			String content="{\"result\":\"success\",\"msg\":\"²Ù×÷³É¹¦\",\"code\":\"200\",\"info\":[" +
-//					"{\"pid\":\"1\",\"pcall\":\"18660019999\",\"pn\":\"ÕÔÇ®Ëï\",\"sid\":\"0\"}," +
-//					"{\"pid\":\"2\",\"pcall\":\"18660019998\",\"pn\":\"ÖÜÎâÖ£\",\"sid\":\"1\"}," +
-//					"{\"pid\":\"3\",\"pcall\":\"18660019997\",\"pn\":\"¼×ÒÒ±û\",\"sid\":\"2\"}]}";
+//			String content="{\"result\":\"success\",\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":\"200\",\"info\":[" +
+//					"{\"pid\":\"1\",\"pcall\":\"18660019999\",\"pn\":\"èµµé’±å­™\",\"sid\":\"0\"}," +
+//					"{\"pid\":\"2\",\"pcall\":\"18660019998\",\"pn\":\"å‘¨å´éƒ‘\",\"sid\":\"1\"}," +
+//					"{\"pid\":\"3\",\"pcall\":\"18660019997\",\"pn\":\"ç”²ä¹™ä¸™\",\"sid\":\"2\"}]}";
 //			
 //			PeopleList cList = PeopleList.parseJson(content);
 //			if (cList.code == 200) {
@@ -170,25 +170,25 @@ public class AddQunfaActivity extends BaseActivity {
 //			}
 //		} catch (Exception e) {
 //			e.printStackTrace();
-//			showToast("Êı¾İ½âÎöÊ§°Ü");
+//			showToast("æ•°æ®è§£æå¤±è´¥");
 //		}
 //		
 ////		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 ////		String loginKey = application.getProperty("loginKey");
 ////		if (!application.isNetworkConnected()) {
-////			showToast("Çë¼ì²éÍøÂçÁ¬½Ó");
+////			showToast("è¯·æ£€æŸ¥ç½‘ç»œè¿æ¥");
 ////			return;
 ////		}
 ////		mAbHttpUtil.get(URLs.CHANNELS + "?access_token=" + loginKey,
 ////				new AbStringHttpResponseListener() {
-////					// »ñÈ¡Êı¾İ³É¹¦»áµ÷ÓÃÕâÀï
+////					// è·å–æ•°æ®æˆåŠŸä¼šè°ƒç”¨è¿™é‡Œ
 ////					@Override
 ////					public void onSuccess(int statusCode, String content) {
 ////						try {
-////							content="{\"result\":\"success\",\"msg\":\"²Ù×÷³É¹¦\",\"code\":\"200\",\"info\":[" +
-////									"{\"pid\":\"1\",\"pcall\":\"18660019999\",\"pn\":\"ÕÔÇ®Ëï\",\"sid\":\"0\"}," +
-////									"{\"pid\":\"2\",\"pcall\":\"18660019998\",\"pn\":\"ÖÜÎâÖ£\",\"sid\":\"1\"}," +
-////									"{\"pid\":\"3\",\"pcall\":\"18660019997\",\"pn\":\"¼×ÒÒ±û\",\"sid\":\"2\"}]}";
+////							content="{\"result\":\"success\",\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":\"200\",\"info\":[" +
+////									"{\"pid\":\"1\",\"pcall\":\"18660019999\",\"pn\":\"èµµé’±å­™\",\"sid\":\"0\"}," +
+////									"{\"pid\":\"2\",\"pcall\":\"18660019998\",\"pn\":\"å‘¨å´éƒ‘\",\"sid\":\"1\"}," +
+////									"{\"pid\":\"3\",\"pcall\":\"18660019997\",\"pn\":\"ç”²ä¹™ä¸™\",\"sid\":\"2\"}]}";
 ////							
 ////							PeopleList cList = PeopleList.parseJson(content);
 ////							if (cList.code == 200) {
@@ -206,27 +206,27 @@ public class AddQunfaActivity extends BaseActivity {
 ////							}
 ////						} catch (Exception e) {
 ////							e.printStackTrace();
-////							showToast("Êı¾İ½âÎöÊ§°Ü");
+////							showToast("æ•°æ®è§£æå¤±è´¥");
 ////						}
 ////					};
 ////
-////					// ¿ªÊ¼Ö´ĞĞÇ°
+////					// å¼€å§‹æ‰§è¡Œå‰
 ////					@Override
 ////					public void onStart() {
-////						// ÏÔÊ¾½ø¶È¿ò
+////						// æ˜¾ç¤ºè¿›åº¦æ¡†
 ////						showProgressDialog();
 ////					}
 ////
 ////					@Override
 ////					public void onFailure(int statusCode, String content,
 ////							Throwable error) {
-////						showToast("ÍøÂçÁ¬½ÓÊ§°Ü£¡");
+////						showToast("ç½‘ç»œè¿æ¥å¤±è´¥ï¼");
 ////					}
 ////
-////					// Íê³Éºóµ÷ÓÃ£¬Ê§°Ü£¬³É¹¦
+////					// å®Œæˆåè°ƒç”¨ï¼Œå¤±è´¥ï¼ŒæˆåŠŸ
 ////					@Override
 ////					public void onFinish() {
-////						// ÒÆ³ı½ø¶È¿ò
+////						// ç§»é™¤è¿›åº¦æ¡†
 ////						removeProgressDialog();
 ////					};
 ////

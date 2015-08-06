@@ -14,9 +14,9 @@ public class BaseActivityGroup extends ActivityGroup {
 	  if (keyCode == KeyEvent.KEYCODE_BACK) {
      	CustomDialog.Builder builder = new CustomDialog.Builder(
 					this);
-			builder.setTitle("提示")
-					.setMessage("您确定要退出天玑舆情系统吗")
-					.setNegativeButton("取消",
+			builder.setTitle("鎻愮ず")
+					.setMessage("鎮ㄧ‘瀹氳閫�鍑哄ぉ鐜戣垎鎯呯郴缁熷悧")
+					.setNegativeButton("鍙栨秷",
 								new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface dialog,
@@ -24,7 +24,7 @@ public class BaseActivityGroup extends ActivityGroup {
 										dialog.dismiss();
 									}
 								})
-					.setPositiveButton("确定", getResources()
+					.setPositiveButton("纭畾", getResources()
 					.getColor(R.color.global_blue),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,

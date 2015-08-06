@@ -32,9 +32,9 @@ import com.ytint.wloaa.bean.QunfaInfoList;
 import com.ytint.wloaa.bean.URLs;
 
 /**
- * Èº·¢ÏûÏ¢
+ * ç¾¤å‘æ¶ˆæ¯
  * @author wlj
- * @date 2015-6-13ÉÏÎç11:14:05
+ * @date 2015-6-13ä¸Šåˆ11:14:05
  */
 public class QunfaActivity extends BaseActivity{
 
@@ -78,14 +78,14 @@ public class QunfaActivity extends BaseActivity{
 		super.onResume();
 		getGroupData();
 	}
-	//³õÊ¼»¯°ó¶¨Êı¾İ »ñÈ¡¸ÃÓÃ»§²ÎÓëµÄËùÓĞÉóÅúÁĞ±í
+	//åˆå§‹åŒ–ç»‘å®šæ•°æ® è·å–è¯¥ç”¨æˆ·å‚ä¸çš„æ‰€æœ‰å®¡æ‰¹åˆ—è¡¨
 	private void getGroupData() {
 		
-		// »ñÈ¡Http¹¤¾ßÀà
+		// è·å–Httpå·¥å…·ç±»
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		mAbHttpUtil.setDebug(true);
 		if (!application.isNetworkConnected()) {
-			UIHelper.ToastMessage(context, "Çë¼ì²éÍøÂçÁ¬½Ó");
+			UIHelper.ToastMessage(context, "è¯·æ£€æŸ¥ç½‘ç»œè¿æ¥");
 			return;
 		}
 		Log.d(TAG, String.format("%s?user_id=%s&user_type=2&notice_type=0&p=1&ps=20", URLs.QUNFALIST,
@@ -106,14 +106,14 @@ public class QunfaActivity extends BaseActivity{
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
-							UIHelper.ToastMessage(context, "Êı¾İ½âÎöÊ§°Ü");
+							UIHelper.ToastMessage(context, "æ•°æ®è§£æå¤±è´¥");
 						}
 					}
 
 					@Override
 					public void onFailure(int statusCode, String content,
 							Throwable error) {
-						UIHelper.ToastMessage(context, "ÍøÂçÁ¬½ÓÊ§°Ü£¡");
+						UIHelper.ToastMessage(context, "ç½‘ç»œè¿æ¥å¤±è´¥ï¼");
 					}
 
 					@Override
@@ -121,7 +121,7 @@ public class QunfaActivity extends BaseActivity{
 						showProgressDialog(null);
 					}
 
-					// Íê³Éºóµ÷ÓÃ
+					// å®Œæˆåè°ƒç”¨
 					@Override
 					public void onFinish() {
 						mProgressDialog.dismiss();
@@ -131,7 +131,7 @@ public class QunfaActivity extends BaseActivity{
 	}
 	
 	/**
-	 * ³õÊ¼»¯ÒªÓÃµ½µÄÔªËØ
+	 * åˆå§‹åŒ–è¦ç”¨åˆ°çš„å…ƒç´ 
 	 */
 	private void initUI() {
 		
@@ -145,19 +145,19 @@ public class QunfaActivity extends BaseActivity{
 		});
 
 	}
-	// ³õÊ¼»¯°ó¶¨Êı¾İ
+	// åˆå§‹åŒ–ç»‘å®šæ•°æ®
     private void initData() {
     	application=(MyApplication) this.getApplication();
         if (qunfaListView == null)
             return;
         listItemAdapter = new QunfaListAdapter(this);
-        // µÚÈı²½£º¸ølistviewÉèÖÃÊÊÅäÆ÷£¨view£©
+        // ç¬¬ä¸‰æ­¥ï¼šç»™listviewè®¾ç½®é€‚é…å™¨ï¼ˆviewï¼‰
         qunfaListView.setAdapter(listItemAdapter);
         qunfaListView.setOnItemClickListener(new ListView.OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int index,
 					long arg3) {
-				//µã»÷½øÈë ÉóÅúÊÂÏî ÏêÇéÒ³
+				//ç‚¹å‡»è¿›å…¥ å®¡æ‰¹äº‹é¡¹ è¯¦æƒ…é¡µ
 				//TODO
 //				   String content =  qunfaList.get(index).c;
 //				   String pic =  qunfaList.get(index).pic;
@@ -175,7 +175,7 @@ public class QunfaActivity extends BaseActivity{
     }
 
 	public void showProgressDialog(String message) {
-		// ´´½¨Ò»¸öÏÔÊ¾½ø¶ÈµÄDialog
+		// åˆ›å»ºä¸€ä¸ªæ˜¾ç¤ºè¿›åº¦çš„Dialog
 		if (AbStrUtil.isEmpty(message)) {
 			message = Constants.PROGRESSMESSAGE;
 		}
@@ -199,13 +199,13 @@ public class QunfaActivity extends BaseActivity{
 //		}
 	}
 	
-    /** ×Ô¶¨ÒåÊÊÅäÆ÷ */  
+    /** è‡ªå®šä¹‰é€‚é…å™¨ */  
     public class QunfaListAdapter extends BaseAdapter {  
-        private LayoutInflater mInflater;// ¶¯Ì¬²¼¾ÖÓ³Éä  
+        private LayoutInflater mInflater;// åŠ¨æ€å¸ƒå±€æ˜ å°„  
   
         public QunfaListAdapter(Context context) {  
             this.mInflater = LayoutInflater.from(context);  
-    		// Í¼Æ¬ÏÂÔØÆ÷
+    		// å›¾ç‰‡ä¸‹è½½å™¨
     		mAbImageDownloader = new AbImageDownloader(context);
     		mAbImageDownloader.setWidth(80);
     		mAbImageDownloader.setHeight(60);
@@ -215,10 +215,10 @@ public class QunfaActivity extends BaseActivity{
     		mAbImageDownloader.setNoImage(R.drawable.image_no);
         }  
   
-        // ¾ö¶¨ListViewÓĞ¼¸ĞĞ¿É¼û  
+        // å†³å®šListViewæœ‰å‡ è¡Œå¯è§  
         @Override  
         public int getCount() {  
-            return qunfaList.size();// ListViewµÄÌõÄ¿Êı  
+            return qunfaList.size();// ListViewçš„æ¡ç›®æ•°  
         }  
   
         @Override  
@@ -239,9 +239,9 @@ public class QunfaActivity extends BaseActivity{
         	TextView abstr = null;
         	TextView timeView = null;
         	TextView topeo = null;
-//			//ÁĞ±íÖĞÓĞÍ¼Æ¬
+//			//åˆ—è¡¨ä¸­æœ‰å›¾ç‰‡
 //			if (news.pic!=null&&news.pic!=""&&news.pic.split(",").length > 0) {
-//	            convertView = mInflater.inflate(R.layout.listitem_qunfalist, null);//¸ù¾İ²¼¾ÖÎÄ¼şÊµÀı»¯view  
+//	            convertView = mInflater.inflate(R.layout.listitem_qunfalist, null);//æ ¹æ®å¸ƒå±€æ–‡ä»¶å®ä¾‹åŒ–view  
 //	            frompeo = (TextView) convertView
 //						.findViewById(R.id.frompeople);
 //	            topeo = (TextView) convertView
@@ -266,7 +266,7 @@ public class QunfaActivity extends BaseActivity{
 //				}
 //				
 //			}else{
-				//ÁĞ±íÖĞÓĞÊÓÆµ
+				//åˆ—è¡¨ä¸­æœ‰è§†é¢‘
 	            convertView = mInflater.inflate(R.layout.listitem_qunfalist_noimage, null);
 	            frompeo = (TextView) convertView
 						.findViewById(R.id.push_user_id);
@@ -277,7 +277,7 @@ public class QunfaActivity extends BaseActivity{
 				timeView = (TextView) convertView
 						.findViewById(R.id.create_time);
 //			}
-//			frompeo.setText("·¢²¼ÈË£º"+news.push_user_name);
+//			frompeo.setText("å‘å¸ƒäººï¼š"+news.push_user_name);
 //			topeo.setText(news.receive_user_ids);
 			frompeo.setText(news.title);
 			topeo.setText(" "+news.push_user_name);

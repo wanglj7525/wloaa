@@ -46,7 +46,7 @@ import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.bean.URLs;
 
 /**
- * ±¾µØÉÏ´«ºÍµ÷ÓÃÏµÍ³ÅÄÕÕ
+ * æœ¬åœ°ä¸Šä¼ å’Œè°ƒç”¨ç³»ç»Ÿæ‹ç…§
  * @author Administrator
  *
  */
@@ -63,8 +63,8 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
 	LinearLayout photo_full;
     
     private static String srcPath;
-    private static final int TIME_OUT = 10*1000;   //³¬Ê±Ê±¼ä
-    private static final String CHARSET = "utf-8"; //ÉèÖÃ±àÂë
+    private static final int TIME_OUT = 10*1000;   //è¶…æ—¶æ—¶é—´
+    private static final String CHARSET = "utf-8"; //è®¾ç½®ç¼–ç 
     private String loginKey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +114,7 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
                 break;
             case R.id.submit:
             	if (srcPath == null || srcPath=="") {
-            		showToast("ÎÄ¼ş²»´æÔÚ");
+            		showToast("æ–‡ä»¶ä¸å­˜åœ¨");
             	}else{
             		submitUploadFile();
             	}
@@ -123,7 +123,7 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
     }
 
     /**
-     * ÅÄÕÕÉÏ´«
+     * æ‹ç…§ä¸Šä¼ 
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -137,7 +137,7 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
                     String name = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
                     String fileNmae = Environment.getExternalStorageDirectory().toString()+File.separator+"dong/image/"+name+".jpg";
                     srcPath = fileNmae;
-                    System.out.println(srcPath+"----------±£´æÂ·¾¶1");
+                    System.out.println(srcPath+"----------ä¿å­˜è·¯å¾„1");
                     File myCaptureFile =new File(fileNmae);
                     try {
                         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
@@ -151,7 +151,7 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
                             bos.close();
                         }else{
 
-                            Toast toast= Toast.makeText(PhotoActivity.this, "±£´æÊ§°Ü£¬SD¿¨ÎŞĞ§", Toast.LENGTH_SHORT);
+                            Toast toast= Toast.makeText(PhotoActivity.this, "ä¿å­˜å¤±è´¥ï¼ŒSDå¡æ— æ•ˆ", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
                         }
@@ -167,9 +167,9 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
                     ContentResolver cr = this.getContentResolver();
                     Cursor c = cr.query(uri, null, null, null, null);
                     c.moveToFirst();
-                    //ÕâÊÇ»ñÈ¡µÄÍ¼Æ¬±£´æÔÚsdcardÖĞµÄÎ»ÖÃ
+                    //è¿™æ˜¯è·å–çš„å›¾ç‰‡ä¿å­˜åœ¨sdcardä¸­çš„ä½ç½®
                     srcPath = c.getString(c.getColumnIndex("_data"));
-                    System.out.println(srcPath+"----------±£´æÂ·¾¶2");
+                    System.out.println(srcPath+"----------ä¿å­˜è·¯å¾„2");
                     break;
                 default:
                     break;
@@ -186,14 +186,14 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
     		return;
     	}
 
-		Log.i(TAG, "ÇëÇóµÄURL=" + RequestURL);
-		Log.i(TAG, "ÇëÇóµÄfileName=" + file.getName());
+		Log.i(TAG, "è¯·æ±‚çš„URL=" + RequestURL);
+		Log.i(TAG, "è¯·æ±‚çš„fileName=" + file.getName());
 		final Map<String, String> params = new HashMap<String, String>();  
         params.put("user_id", loginKey);  
         params.put("file_type", "1");  
         params.put("content", img_content.getText().toString());  
         showProgressDialog();
-    	new Thread(new Runnable() { //¿ªÆôÏß³ÌÉÏ´«ÎÄ¼ş
+    	new Thread(new Runnable() { //å¼€å¯çº¿ç¨‹ä¸Šä¼ æ–‡ä»¶
     		@Override
     		public void run() {
     			uploadFile(file, RequestURL,params);
@@ -202,33 +202,33 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
     }
 
     /**
-     * androidÉÏ´«ÎÄ¼şµ½·şÎñÆ÷
-     * @param file  ĞèÒªÉÏ´«µÄÎÄ¼ş
-     * @param RequestURL  ÇëÇóµÄrul
-     * @return  ·µ»ØÏìÓ¦µÄÄÚÈİ
+     * androidä¸Šä¼ æ–‡ä»¶åˆ°æœåŠ¡å™¨
+     * @param file  éœ€è¦ä¸Šä¼ çš„æ–‡ä»¶
+     * @param RequestURL  è¯·æ±‚çš„rul
+     * @return  è¿”å›å“åº”çš„å†…å®¹
      */
     private String uploadFile(File file,String RequestURL,Map<String, String> param){
         String result = null;
-        String  BOUNDARY =  UUID.randomUUID().toString();  //±ß½ç±êÊ¶   Ëæ»úÉú³É
+        String  BOUNDARY =  UUID.randomUUID().toString();  //è¾¹ç•Œæ ‡è¯†   éšæœºç”Ÿæˆ
         String PREFIX = "--" , LINE_END = "\r\n";
-        String CONTENT_TYPE = "multipart/form-data";   //ÄÚÈİÀàĞÍ
-        // ÏÔÊ¾½ø¶È¿ò
+        String CONTENT_TYPE = "multipart/form-data";   //å†…å®¹ç±»å‹
+        // æ˜¾ç¤ºè¿›åº¦æ¡†
 //		showProgressDialog();
         try {
             URL url = new URL(RequestURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(TIME_OUT);
             conn.setConnectTimeout(TIME_OUT);
-            conn.setDoInput(true);  //ÔÊĞíÊäÈëÁ÷
-            conn.setDoOutput(true); //ÔÊĞíÊä³öÁ÷
-            conn.setUseCaches(false);  //²»ÔÊĞíÊ¹ÓÃ»º´æ
-            conn.setRequestMethod("POST");  //ÇëÇó·½Ê½
-            conn.setRequestProperty("Charset", CHARSET);  //ÉèÖÃ±àÂë
+            conn.setDoInput(true);  //å…è®¸è¾“å…¥æµ
+            conn.setDoOutput(true); //å…è®¸è¾“å‡ºæµ
+            conn.setUseCaches(false);  //ä¸å…è®¸ä½¿ç”¨ç¼“å­˜
+            conn.setRequestMethod("POST");  //è¯·æ±‚æ–¹å¼
+            conn.setRequestProperty("Charset", CHARSET);  //è®¾ç½®ç¼–ç 
             conn.setRequestProperty("connection", "keep-alive");
             conn.setRequestProperty("Content-Type", CONTENT_TYPE + ";boundary=" + BOUNDARY);
             if(file!=null){
                 /**
-                 * µ±ÎÄ¼ş²»Îª¿Õ£¬°ÑÎÄ¼ş°ü×°²¢ÇÒÉÏ´«
+                 * å½“æ–‡ä»¶ä¸ä¸ºç©ºï¼ŒæŠŠæ–‡ä»¶åŒ…è£…å¹¶ä¸”ä¸Šä¼ 
                  */
                 DataOutputStream dos = new DataOutputStream( conn.getOutputStream());
                 StringBuffer sb = new StringBuffer();
@@ -255,9 +255,9 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
                 sb.append(BOUNDARY);
                 sb.append(LINE_END);
                 /**
-                 * ÕâÀïÖØµã×¢Òâ£º
-                 * nameÀïÃæµÄÖµÎª·şÎñÆ÷¶ËĞèÒªkey   Ö»ÓĞÕâ¸ökey ²Å¿ÉÒÔµÃµ½¶ÔÓ¦µÄÎÄ¼ş
-                 * filenameÊÇÎÄ¼şµÄÃû×Ö£¬°üº¬ºó×ºÃûµÄ   ±ÈÈç:abc.png
+                 * è¿™é‡Œé‡ç‚¹æ³¨æ„ï¼š
+                 * nameé‡Œé¢çš„å€¼ä¸ºæœåŠ¡å™¨ç«¯éœ€è¦key   åªæœ‰è¿™ä¸ªkey æ‰å¯ä»¥å¾—åˆ°å¯¹åº”çš„æ–‡ä»¶
+                 * filenameæ˜¯æ–‡ä»¶çš„åå­—ï¼ŒåŒ…å«åç¼€åçš„   æ¯”å¦‚:abc.png
                  */
                 sb.append("Content-Disposition: form-data; name=\"upfile\";filename=\""+file.getName()+"\""+LINE_END);
                 sb.append("Content-Type: image/pjpeg; charset="+CHARSET+LINE_END);
@@ -276,8 +276,8 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
                 
                 dos.flush();
                 /**
-                 * »ñÈ¡ÏìÓ¦Âë  200=³É¹¦
-                 * µ±ÏìÓ¦³É¹¦£¬»ñÈ¡ÏìÓ¦µÄÁ÷
+                 * è·å–å“åº”ç   200=æˆåŠŸ
+                 * å½“å“åº”æˆåŠŸï¼Œè·å–å“åº”çš„æµ
                  */
 
                 int res = conn.getResponseCode();
@@ -290,7 +290,7 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
                         sb1.append((char)ss);
                     }
                     result = sb1.toString();
-//                 // ÒÆ³ı½ø¶È¿ò
+//                 // ç§»é™¤è¿›åº¦æ¡†
 //    				removeProgressDialog();
                     finish();
                 }

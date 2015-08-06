@@ -42,7 +42,7 @@ public class MainActivity extends TabActivity {
 		application = (MyApplication) this.getApplication();
 		context=MainActivity.this;
 		mAbHttpUtil.setDebug(true);
-		//TODO ÒÔºó¿ÉÒÔ¸Ä³É¸ÃÊÖ»úµç»°ºÅ »òÕß ÓÃ»§ID µÈÎ¨Ò»±êÊ¶
+		//TODO ä»¥åå¯ä»¥æ”¹æˆè¯¥æ‰‹æœºç”µè¯å· æˆ–è€… ç”¨æˆ·ID ç­‰å”¯ä¸€æ ‡è¯†
 		
 		application.setProperty("loginKey", "1");
 		
@@ -75,19 +75,19 @@ public class MainActivity extends TabActivity {
 		
 		init();
 	}
-	// ³õÊ¼»¯ JPush¡£Èç¹ûÒÑ¾­³õÊ¼»¯£¬µ«Ã»ÓĞµÇÂ¼³É¹¦£¬ÔòÖ´ĞĞÖØĞÂµÇÂ¼¡£
+	// åˆå§‹åŒ– JPushã€‚å¦‚æœå·²ç»åˆå§‹åŒ–ï¼Œä½†æ²¡æœ‰ç™»å½•æˆåŠŸï¼Œåˆ™æ‰§è¡Œé‡æ–°ç™»å½•ã€‚
 	private void init(){
 		 JPushInterface.init(getApplicationContext());
 		 String registrationid=JPushInterface.getRegistrationID(context);
 		 
-		 //¸øÓÃ»§Ìí¼Ójpush±ê¼Ç
+		 //ç»™ç”¨æˆ·æ·»åŠ jpushæ ‡è®°
 		 System.out.println("******************"+registrationid);
 		 if (registrationid!=null) {
-			 // »ñÈ¡Http¹¤¾ßÀà
+			 // è·å–Httpå·¥å…·ç±»
 			 final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 			 mAbHttpUtil.setDebug(true);
 			 if (!application.isNetworkConnected()) {
-				 UIHelper.ToastMessage(context, "Çë¼ì²éÍøÂçÁ¬½Ó");
+				 UIHelper.ToastMessage(context, "è¯·æ£€æŸ¥ç½‘ç»œè¿æ¥");
 				 return;
 			 }
 			 loginKey = application.getProperty("loginKey");
@@ -109,21 +109,21 @@ public class MainActivity extends TabActivity {
 						 }
 					 } catch (Exception e) {
 						 e.printStackTrace();
-						 UIHelper.ToastMessage(context, "Êı¾İ½âÎöÊ§°Ü");
+						 UIHelper.ToastMessage(context, "æ•°æ®è§£æå¤±è´¥");
 					 }
 				 }
 				 
 				 @Override
 				 public void onFailure(int statusCode, String content,
 						 Throwable error) {
-					 UIHelper.ToastMessage(context, "ÍøÂçÁ¬½ÓÊ§°Ü£¡");
+					 UIHelper.ToastMessage(context, "ç½‘ç»œè¿æ¥å¤±è´¥ï¼");
 				 }
 				 
 				 @Override
 				 public void onStart() {
 				 }
 				 
-				 // Íê³Éºóµ÷ÓÃ
+				 // å®Œæˆåè°ƒç”¨
 				 @Override
 				 public void onFinish() {
 				 };

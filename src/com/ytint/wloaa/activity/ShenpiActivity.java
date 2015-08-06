@@ -33,12 +33,12 @@ import com.ytint.wloaa.bean.ShenpiInfoList;
 import com.ytint.wloaa.bean.URLs;
 
 /**
- * ÉóÅú
- * ÁĞ±íÏÔÊ¾ËùÓĞµÄ¸ÃÊÖ»úºÅ»òÓÃ»§²ÎÓëµÄÉóÅúÊÂ¼ş
- * µã»÷¿ÉÒÔ²é¿´ÏêÏ¸ ¿ÉÒÔ²Ù×÷ºóĞø²½Öè »òÕß²Ù×÷¹ıºóÖ»ÄÜ²é¿´
- * ¾­¹ı×Ô¼ºµÄÉóÅúÊÂÏî ÉóÅúºó±¨¸øÉÏ¼¶
+ * å®¡æ‰¹
+ * åˆ—è¡¨æ˜¾ç¤ºæ‰€æœ‰çš„è¯¥æ‰‹æœºå·æˆ–ç”¨æˆ·å‚ä¸çš„å®¡æ‰¹äº‹ä»¶
+ * ç‚¹å‡»å¯ä»¥æŸ¥çœ‹è¯¦ç»† å¯ä»¥æ“ä½œåç»­æ­¥éª¤ æˆ–è€…æ“ä½œè¿‡ååªèƒ½æŸ¥çœ‹
+ * ç»è¿‡è‡ªå·±çš„å®¡æ‰¹äº‹é¡¹ å®¡æ‰¹åæŠ¥ç»™ä¸Šçº§
  * @author wlj
- * @date 2015-6-13ÉÏÎç11:14:05
+ * @date 2015-6-13ä¸Šåˆ11:14:05
  */
 public class ShenpiActivity extends BaseActivity{
 
@@ -85,14 +85,14 @@ public class ShenpiActivity extends BaseActivity{
 		getGroupData();
 	}
 	
-	//³õÊ¼»¯°ó¶¨Êı¾İ »ñÈ¡¸ÃÓÃ»§²ÎÓëµÄËùÓĞÉóÅúÁĞ±í
+	//åˆå§‹åŒ–ç»‘å®šæ•°æ® è·å–è¯¥ç”¨æˆ·å‚ä¸çš„æ‰€æœ‰å®¡æ‰¹åˆ—è¡¨
 	private void getGroupData() {
 		
-		// »ñÈ¡Http¹¤¾ßÀà
+		// è·å–Httpå·¥å…·ç±»
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		mAbHttpUtil.setDebug(true);
 		if (!application.isNetworkConnected()) {
-			UIHelper.ToastMessage(context, "Çë¼ì²éÍøÂçÁ¬½Ó");
+			UIHelper.ToastMessage(context, "è¯·æ£€æŸ¥ç½‘ç»œè¿æ¥");
 			return;
 		}
 		Log.d(TAG, String.format("%s?verify_step=3&user_id=0&p=1&ps=20", URLs.SHENPILIST));
@@ -112,14 +112,14 @@ public class ShenpiActivity extends BaseActivity{
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
-							UIHelper.ToastMessage(context, "Êı¾İ½âÎöÊ§°Ü");
+							UIHelper.ToastMessage(context, "æ•°æ®è§£æå¤±è´¥");
 						}
 					}
 
 					@Override
 					public void onFailure(int statusCode, String content,
 							Throwable error) {
-						UIHelper.ToastMessage(context, "ÍøÂçÁ¬½ÓÊ§°Ü£¡");
+						UIHelper.ToastMessage(context, "ç½‘ç»œè¿æ¥å¤±è´¥ï¼");
 					}
 
 					@Override
@@ -127,7 +127,7 @@ public class ShenpiActivity extends BaseActivity{
 						showProgressDialog(null);
 					}
 
-					// Íê³Éºóµ÷ÓÃ
+					// å®Œæˆåè°ƒç”¨
 					@Override
 					public void onFinish() {
 						mProgressDialog.dismiss();
@@ -137,7 +137,7 @@ public class ShenpiActivity extends BaseActivity{
 	}
 	
 	/**
-	 * ³õÊ¼»¯ÒªÓÃµ½µÄÔªËØ
+	 * åˆå§‹åŒ–è¦ç”¨åˆ°çš„å…ƒç´ 
 	 */
 	private void initUI() {
 		
@@ -151,19 +151,19 @@ public class ShenpiActivity extends BaseActivity{
 		});
 
 	}
-	// ³õÊ¼»¯°ó¶¨Êı¾İ
+	// åˆå§‹åŒ–ç»‘å®šæ•°æ®
     private void initData() {
     	application=(MyApplication) this.getApplication();
         if (shenpiListView == null)
             return;
         listItemAdapter = new ShenpiListAdapter(this);
-        // µÚÈı²½£º¸ølistviewÉèÖÃÊÊÅäÆ÷£¨view£©
+        // ç¬¬ä¸‰æ­¥ï¼šç»™listviewè®¾ç½®é€‚é…å™¨ï¼ˆviewï¼‰
         shenpiListView.setAdapter(listItemAdapter);
         shenpiListView.setOnItemClickListener(new ListView.OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int index,
 					long arg3) {
-				//µã»÷½øÈë ÉóÅúÊÂÏî ÏêÇéÒ³
+				//ç‚¹å‡»è¿›å…¥ å®¡æ‰¹äº‹é¡¹ è¯¦æƒ…é¡µ
 				   Integer shenpi_id = shenpiList.get(index).id;
 		           Intent intent = new Intent(ShenpiActivity.this, ShenpiDetailActivity.class);  
 		           intent.putExtra("shenpi_id", shenpi_id);
@@ -175,7 +175,7 @@ public class ShenpiActivity extends BaseActivity{
     }
 
 	public void showProgressDialog(String message) {
-		// ´´½¨Ò»¸öÏÔÊ¾½ø¶ÈµÄDialog
+		// åˆ›å»ºä¸€ä¸ªæ˜¾ç¤ºè¿›åº¦çš„Dialog
 		if (AbStrUtil.isEmpty(message)) {
 			message = Constants.PROGRESSMESSAGE;
 		}
@@ -198,13 +198,13 @@ public class ShenpiActivity extends BaseActivity{
 //		}
 	}
 	
-    /** ×Ô¶¨ÒåÊÊÅäÆ÷ */  
+    /** è‡ªå®šä¹‰é€‚é…å™¨ */  
     public class ShenpiListAdapter extends BaseAdapter {  
-        private LayoutInflater mInflater;// ¶¯Ì¬²¼¾ÖÓ³Éä  
+        private LayoutInflater mInflater;// åŠ¨æ€å¸ƒå±€æ˜ å°„  
   
         public ShenpiListAdapter(Context context) {  
             this.mInflater = LayoutInflater.from(context);  
-    		// Í¼Æ¬ÏÂÔØÆ÷
+    		// å›¾ç‰‡ä¸‹è½½å™¨
     		mAbImageDownloader = new AbImageDownloader(context);
     		mAbImageDownloader.setWidth(80);
     		mAbImageDownloader.setHeight(60);
@@ -214,10 +214,10 @@ public class ShenpiActivity extends BaseActivity{
     		mAbImageDownloader.setNoImage(R.drawable.image_no);
         }  
   
-        // ¾ö¶¨ListViewÓĞ¼¸ĞĞ¿É¼û  
+        // å†³å®šListViewæœ‰å‡ è¡Œå¯è§  
         @Override  
         public int getCount() {  
-            return shenpiList.size();// ListViewµÄÌõÄ¿Êı  
+            return shenpiList.size();// ListViewçš„æ¡ç›®æ•°  
         }  
   
         @Override  
@@ -238,9 +238,9 @@ public class ShenpiActivity extends BaseActivity{
         	TextView abstr = null;
         	TextView timeView = null;
         	TextView topeo = null;
-//			//ÁĞ±íÖĞÓĞÍ¼Æ¬
+//			//åˆ—è¡¨ä¸­æœ‰å›¾ç‰‡
 //			if (news.pic!=null&&news.pic!=""&&news.pic.split(",").length > 0) {
-//	            convertView = mInflater.inflate(R.layout.listitem_shenpilist, null);//¸ù¾İ²¼¾ÖÎÄ¼şÊµÀı»¯view  
+//	            convertView = mInflater.inflate(R.layout.listitem_shenpilist, null);//æ ¹æ®å¸ƒå±€æ–‡ä»¶å®ä¾‹åŒ–view  
 //	            frompeo = (TextView) convertView
 //						.findViewById(R.id.frompeople);
 //	            topeo = (TextView) convertView
@@ -265,7 +265,7 @@ public class ShenpiActivity extends BaseActivity{
 //				}
 //				
 //			}else{
-//				//ÁĞ±íÖĞÓĞÊÓÆµ
+//				//åˆ—è¡¨ä¸­æœ‰è§†é¢‘
 //	            convertView = mInflater.inflate(R.layout.listitem_shenpilist_noimage, null);
 //	            frompeo = (TextView) convertView
 //						.findViewById(R.id.frompeople);
@@ -276,12 +276,12 @@ public class ShenpiActivity extends BaseActivity{
 //				timeView = (TextView) convertView
 //						.findViewById(R.id.time);
 //			}
-//			frompeo.setText("ÉêÇëÈË£º"+news.frompeo);
+//			frompeo.setText("ç”³è¯·äººï¼š"+news.frompeo);
 //			topeo.setText(news.topeo);
 //			abstr.setText(news.c);
 //			timeView.setText(news.pt.toString());
 //            return convertView;  
-            //ÁĞ±íÖĞÓĞÊÓÆµ
+            //åˆ—è¡¨ä¸­æœ‰è§†é¢‘
             convertView = mInflater.inflate(R.layout.listitem_shenpilist_noimage, null);
             frompeo = (TextView) convertView
             		.findViewById(R.id.apply_user_name);
@@ -292,10 +292,10 @@ public class ShenpiActivity extends BaseActivity{
             timeView = (TextView) convertView
             		.findViewById(R.id.shenpi_create_time);
 //			}
-            frompeo.setText("ÉêÇëÈË£º"+news.apply_user_name);
+            frompeo.setText("ç”³è¯·äººï¼š"+news.apply_user_name);
             topeo.setText(news.first_verify_user_name);
             abstr.setText(news.content);
-            timeView.setText("ÉêÇëÊ±¼ä£º"+news.create_time.toString());
+            timeView.setText("ç”³è¯·æ—¶é—´ï¼š"+news.create_time.toString());
             return convertView;  
         }
 

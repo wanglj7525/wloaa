@@ -42,8 +42,8 @@ public class ChatActivity extends TabActivity{
 //	int[] faceId={R.drawable.f_static_000,R.drawable.f_static_001,R.drawable.f_static_002,R.drawable.f_static_003
 //			,R.drawable.f_static_004,R.drawable.f_static_005,R.drawable.f_static_006,R.drawable.f_static_009,R.drawable.f_static_010,R.drawable.f_static_011
 //			,R.drawable.f_static_012,R.drawable.f_static_013,R.drawable.f_static_014,R.drawable.f_static_015,R.drawable.f_static_017,R.drawable.f_static_018};
-//	String[] faceName={"\\ßÚÑÀ","\\ÌÔÆø","\\Á÷º¹","\\ÍµĞ¦","\\ÔÙ¼û","\\ÇÃ´ò","\\²Áº¹","\\Á÷Àá","\\µôÀá","\\Ğ¡Éù","\\ìÅ¿á","\\·¢¿ñ"
-//			 ,"\\Î¯Çü","\\±ã±ã","\\²Ëµ¶","\\Î¢Ğ¦","\\É«É«","\\º¦Ğß"};
+//	String[] faceName={"\\å‘²ç‰™","\\æ·˜æ°”","\\æµæ±—","\\å·ç¬‘","\\å†è§","\\æ•²æ‰“","\\æ“¦æ±—","\\æµæ³ª","\\æ‰æ³ª","\\å°å£°","\\ç‚«é…·","\\å‘ç‹‚"
+//			 ,"\\å§”å±ˆ","\\ä¾¿ä¾¿","\\èœåˆ€","\\å¾®ç¬‘","\\è‰²è‰²","\\å®³ç¾"};
 	
 //	HashMap<String,Integer> faceMap=null;
 	ArrayList<HashMap<String,Object>> chatList=null;
@@ -52,11 +52,11 @@ public class ChatActivity extends TabActivity{
 	int[] layout={R.layout.chat_listitem_me,R.layout.chat_listitem_other};
 	String userQQ=null;
 	/**
-	 * ÕâÀïÁ½¸ö²¼¾ÖÎÄ¼şÊ¹ÓÃÁËÍ¬Ò»¸öid£¬²âÊÔÒ»ÏÂÊÇ·ñ¹ÜÓÃ
-	 * TTÊÂÊµÖ¤Ã÷Õâ»Ø²úÉúidµÄÆ¥ÅäÒì³££¡ËùÒÔ»¹ÊÇÒª·Ö¿ª¡£¡£
+	 * è¿™é‡Œä¸¤ä¸ªå¸ƒå±€æ–‡ä»¶ä½¿ç”¨äº†åŒä¸€ä¸ªidï¼Œæµ‹è¯•ä¸€ä¸‹æ˜¯å¦ç®¡ç”¨
+	 * TTäº‹å®è¯æ˜è¿™å›äº§ç”Ÿidçš„åŒ¹é…å¼‚å¸¸ï¼æ‰€ä»¥è¿˜æ˜¯è¦åˆ†å¼€ã€‚ã€‚
 	 * 
-	 * userQQÓÃÓÚ½ÓÊÕIntent´«µİµÄqqºÅ£¬½ø¶øÓÃÀ´µ÷ÓÃÊı¾İ¿âÖĞµÄÏà¹ØµÄÁªÏµÈËĞÅÏ¢£¬ÕâÀïÏÈ²»½²
-	 * ÏÈÔİÊ±Ê¹ÓÃÒ»¸öÍ·Ïñ
+	 * userQQç”¨äºæ¥æ”¶Intentä¼ é€’çš„qqå·ï¼Œè¿›è€Œç”¨æ¥è°ƒç”¨æ•°æ®åº“ä¸­çš„ç›¸å…³çš„è”ç³»äººä¿¡æ¯ï¼Œè¿™é‡Œå…ˆä¸è®²
+	 * å…ˆæš‚æ—¶ä½¿ç”¨ä¸€ä¸ªå¤´åƒ
 	 */
 	
 	public final static int OTHER=1;
@@ -97,10 +97,10 @@ public class ChatActivity extends TabActivity{
 		
         
 		
-		addTextToList("²»¹ÜÄãÊÇË­", ME);
-		addTextToList("Èº·¢µÄÎÒ²»»Ø\n  ^_^", OTHER);
-		addTextToList("¹ş¹ş¹ş¹ş", ME);
-		addTextToList("ĞÂÄê¿ìÀÖ£¡", OTHER);
+		addTextToList("ä¸ç®¡ä½ æ˜¯è°", ME);
+		addTextToList("ç¾¤å‘çš„æˆ‘ä¸å›\n  ^_^", OTHER);
+		addTextToList("å“ˆå“ˆå“ˆå“ˆ", ME);
+		addTextToList("æ–°å¹´å¿«ä¹ï¼", OTHER);
 		
 		chatSendButton=(Button)findViewById(R.id.chat_bottom_sendbutton);
 		editText=(EditText)findViewById(R.id.chat_bottom_edittext);
@@ -115,7 +115,7 @@ public class ChatActivity extends TabActivity{
  
 		
 		/**
-		 * Ìí¼ÓÑ¡Ïî¿¨
+		 * æ·»åŠ é€‰é¡¹å¡
 		 */
 //		tabSpecFaceHistory=tabHost.newTabSpec("faceHistory");
 //		tabFaceHistory=LayoutInflater.from(this).inflate(R.layout.tabwidget_image_disselected,null);
@@ -177,7 +177,7 @@ public class ChatActivity extends TabActivity{
 //			}
 //		});
 //		
-		//TODO Ô­À´µÄ±íÇé°´Å¥ ¿ÉÒÔ¸ÄÎªÁªÏµÈË
+		//TODO åŸæ¥çš„è¡¨æƒ…æŒ‰é’® å¯ä»¥æ”¹ä¸ºè”ç³»äºº
 //		chatBottomLook.setOnClickListener(new OnClickListener(){
 //  
 //			@Override
@@ -191,10 +191,10 @@ public class ChatActivity extends TabActivity{
 //					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);  
 //					imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);  
 //
-//					/**height²»ÉèÎª0ÊÇÒòÎª£¬Ï£Íû¿ÉÒÔÊ¹ÔÙ´Î´ò¿ªÊ±viewFlipperÒÑ¾­³õÊ¼»¯ÎªµÚÒ»Ò³ ±ÜÃâ
-//					*ÔÙ´Î´ò¿ªViewFlipperÊ±»­ÃæÔÚ¶¯µÄ½á¹û,
-//					*ÎªÁË±ÜÃâÒòÎª1dipµÄ¸ß¶È²úÉúÒ»¸ö°×·ì£¬ËùÒÔÕâÀïÔÚViewFlipperËùÔÚµÄRelativeLayout
-//					*×îÉÏÃæÌí¼ÓÁËÒ»¸ö1dip¸ßµÄºÚÉ«É«¿é
+//					/**heightä¸è®¾ä¸º0æ˜¯å› ä¸ºï¼Œå¸Œæœ›å¯ä»¥ä½¿å†æ¬¡æ‰“å¼€æ—¶viewFlipperå·²ç»åˆå§‹åŒ–ä¸ºç¬¬ä¸€é¡µ é¿å…
+//					*å†æ¬¡æ‰“å¼€ViewFlipperæ—¶ç”»é¢åœ¨åŠ¨çš„ç»“æœ,
+//					*ä¸ºäº†é¿å…å› ä¸º1dipçš„é«˜åº¦äº§ç”Ÿä¸€ä¸ªç™½ç¼ï¼Œæ‰€ä»¥è¿™é‡Œåœ¨ViewFlipperæ‰€åœ¨çš„RelativeLayout
+//					*æœ€ä¸Šé¢æ·»åŠ äº†ä¸€ä¸ª1dipé«˜çš„é»‘è‰²è‰²å—
 //					*/
 //					
 //					
@@ -210,10 +210,9 @@ public class ChatActivity extends TabActivity{
 //			
 //		});
 		
-		/**EditText´ÓÎ´»ñµÃ½¹µãµ½Ê×´Î»ñµÃ½¹µãÊ±²»»áµ÷ÓÃOnClickListener·½·¨£¬ËùÒÔÓ¦¸Ã¸Ä³ÉOnTouchListener
-		 * ´Ó¶ø±£Ö¤µãEditTextµÚÒ»ÏÂ¾ÍÄÜ¹»°Ñ±íÇé½çÃæ¹Ø±Õ
+		/**EditTextä»æœªè·å¾—ç„¦ç‚¹åˆ°é¦–æ¬¡è·å¾—ç„¦ç‚¹æ—¶ä¸ä¼šè°ƒç”¨OnClickListeneræ–¹æ³•ï¼Œæ‰€ä»¥åº”è¯¥æ”¹æˆOnTouchListener
+		 * ä»è€Œä¿è¯ç‚¹EditTextç¬¬ä¸€ä¸‹å°±èƒ½å¤ŸæŠŠè¡¨æƒ…ç•Œé¢å…³é—­
 		editText.setOnClickListener(new OnClickListener(){
-
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -248,9 +247,9 @@ public class ChatActivity extends TabActivity{
 				String myWord=null;
 				
 				/**
-				 * ÕâÊÇÒ»¸ö·¢ËÍÏûÏ¢µÄ¼àÌıÆ÷£¬×¢ÒâÈç¹ûÎÄ±¾¿òÖĞÃ»ÓĞÄÚÈİ£¬ÄÇÃ´getText()µÄ·µ»ØÖµ¿ÉÄÜÎª
-				 * null£¬ÕâÊ±µ÷ÓÃtoString()»áÓĞÒì³££¡ËùÒÔÕâÀï±ØĞëÔÚºóÃæ¼ÓÉÏÒ»¸ö""ÒşÊ½×ª»»³ÉStringÊµÀı
-				 * £¬²¢ÇÒ²»ÄÜ·¢ËÍ¿ÕÏûÏ¢¡£
+				 * è¿™æ˜¯ä¸€ä¸ªå‘é€æ¶ˆæ¯çš„ç›‘å¬å™¨ï¼Œæ³¨æ„å¦‚æœæ–‡æœ¬æ¡†ä¸­æ²¡æœ‰å†…å®¹ï¼Œé‚£ä¹ˆgetText()çš„è¿”å›å€¼å¯èƒ½ä¸º
+				 * nullï¼Œè¿™æ—¶è°ƒç”¨toString()ä¼šæœ‰å¼‚å¸¸ï¼æ‰€ä»¥è¿™é‡Œå¿…é¡»åœ¨åé¢åŠ ä¸Šä¸€ä¸ª""éšå¼è½¬æ¢æˆStringå®ä¾‹
+				 * ï¼Œå¹¶ä¸”ä¸èƒ½å‘é€ç©ºæ¶ˆæ¯ã€‚
 				 */
 				
 				myWord=(editText.getText()+"").toString();
@@ -259,7 +258,7 @@ public class ChatActivity extends TabActivity{
 				editText.setText("");
 				addTextToList(myWord, ME);
 				/**
-				 * ¸üĞÂÊı¾İÁĞ±í£¬²¢ÇÒÍ¨¹ısetSelection·½·¨Ê¹ListViewÊ¼ÖÕ¹ö¶¯ÔÚ×îµ×¶Ë
+				 * æ›´æ–°æ•°æ®åˆ—è¡¨ï¼Œå¹¶ä¸”é€šè¿‡setSelectionæ–¹æ³•ä½¿ListViewå§‹ç»ˆæ»šåŠ¨åœ¨æœ€åº•ç«¯
 				 */
 				adapter.notifyDataSetChanged();
 				chatListView.setSelection(chatList.size()-1);
@@ -283,7 +282,7 @@ public class ChatActivity extends TabActivity{
 		});
 		
 //		/**
-//		 * Îª±íÇéMapÌí¼ÓÊı¾İ
+//		 * ä¸ºè¡¨æƒ…Mapæ·»åŠ æ•°æ®
 //		 */
 //		for(int i=0; i<faceId.length; i++){
 //			faceMap.put(faceName[i], faceId[i]);
@@ -308,7 +307,7 @@ public class ChatActivity extends TabActivity{
 			// TODO Auto-generated method stub
 //			switch(msg.what){
 //			case MyFaceActivity.ActivityId:
-//				if(msg.arg1==0){            //Ìí¼Ó±íÇé×Ö·û´®
+//				if(msg.arg1==0){            //æ·»åŠ è¡¨æƒ…å­—ç¬¦ä¸²
 //					editText.append(msg.obj.toString());
 //				}
 //			
@@ -321,7 +320,7 @@ public class ChatActivity extends TabActivity{
 	
 	
 	/**
-	 * ´ò¿ª»òÕß¹Ø±ÕÈí¼üÅÌ£¬Ö®Ç°Èô´ò¿ª£¬µ÷ÓÃ¸Ã·½·¨ºó¹Ø±Õ£»Ö®Ç°Èô¹Ø±Õ£¬µ÷ÓÃ¸Ã·½·¨ºó´ò¿ª
+	 * æ‰“å¼€æˆ–è€…å…³é—­è½¯é”®ç›˜ï¼Œä¹‹å‰è‹¥æ‰“å¼€ï¼Œè°ƒç”¨è¯¥æ–¹æ³•åå…³é—­ï¼›ä¹‹å‰è‹¥å…³é—­ï¼Œè°ƒç”¨è¯¥æ–¹æ³•åæ‰“å¼€
 	 */
 	
 	private void setSoftInputState(){
@@ -349,7 +348,7 @@ public class ChatActivity extends TabActivity{
 //			if(FaceHistoryActivity.faceHistoryHandler!=null)
 //				FaceHistoryActivity.faceHistoryHandler.sendMessage(msg2);
 	
-			chatListView.setSelection(chatList.size()-1);//Ê¹»á»°ÁĞ±í×Ô¶¯»¬¶¯µ½×îµÍ¶Ë
+			chatListView.setSelection(chatList.size()-1);//ä½¿ä¼šè¯åˆ—è¡¨è‡ªåŠ¨æ»‘åŠ¨åˆ°æœ€ä½ç«¯
 			
 		}
 		else{
@@ -411,7 +410,7 @@ public class ChatActivity extends TabActivity{
 //			setFace(spb, faceName);
 			tempStr=tempStr.substring(end, tempStr.length());
 			/**
-			 * ¸üĞÂ²éÕÒµÄ×Ö·û´®
+			 * æ›´æ–°æŸ¥æ‰¾çš„å­—ç¬¦ä¸²
 			 */
 			mMatcher.reset(tempStr);
 		}
