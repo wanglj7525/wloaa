@@ -8,6 +8,7 @@
     <dimen name="list_item_padding_top">10dp</dimen>
     <dimen name="list_item_padding_bottom">10dp</dimen>
     <dimen name="list_item_title_bottom">3dp</dimen>
-    <dimen name="shadow_width">15dp</dimen>
-    <dimen name="slidingmenu_offset">80dp</dimen>
+    
+    <dimen name="shadow_width">3dp</dimen>
+    <dimen name="slidingmenu_offset">50dp</dimen>
 </resources>
