@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+     <Button
+         android:id="@+id/zhifa1"
+         android:layout_width="200dp"
+         android:layout_height="65dp"
+         android:layout_gravity="center"
+         android:layout_marginTop="10dp"
+         android:drawableLeft="@drawable/azhifa"
+         android:text="下派执法任务" />
+
+     <Button
+         android:id="@+id/zhifa2"
+         android:layout_width="200dp"
+         android:layout_height="65dp"
+         android:layout_gravity="center"
+         android:layout_marginTop="20dp"
+         android:drawableLeft="@drawable/azhifa"
+         android:text="上报执法任务" />
+
+     <Button
+         android:id="@+id/zhifa3"
+         android:layout_width="200dp"
+         android:layout_height="65dp"
+         android:layout_gravity="center"
+         android:layout_marginTop="20dp"
+         android:drawableLeft="@drawable/azhifa"
+         android:text="已完成任务" />
+
+     <Button
+         android:id="@+id/zhifa4"
+         android:layout_width="200dp"
+         android:layout_height="65dp"
+         android:layout_gravity="center"
+         android:layout_marginTop="20dp"
+         android:drawableLeft="@drawable/azhifa"
+         android:text="未完成任务" />
+
+     <Button
+         android:id="@+id/zhifa5"
+         android:layout_width="200dp"
+         android:layout_height="65dp"
+         android:layout_gravity="center"
+         android:layout_marginTop="20dp"
+         android:drawableLeft="@drawable/azhifa"
+         android:text="所有任务列表" />
+
+</LinearLayout>

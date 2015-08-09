@@ -82,19 +82,19 @@ private SlidingMenu mSlidingMenu;
 //          getSlidingMenu().showMenu();//显示SlidingMenu
 //          getSlidingMenu().showContent();//显示内容
             return true;
-        case R.id.action_refresh:
-            
-        	Toast.makeText(getApplicationContext(), R.string.refresh, Toast.LENGTH_SHORT).show();
-            
-            return true;
-        case R.id.action_person:
-            
-        	if(mSlidingMenu.isSecondaryMenuShowing()){
-        		mSlidingMenu.showContent();
-        	}else{
-        		mSlidingMenu.showSecondaryMenu();
-        	}
-            return true;
+//        case R.id.action_refresh:
+//            
+//        	Toast.makeText(getApplicationContext(), R.string.refresh, Toast.LENGTH_SHORT).show();
+//            
+//            return true;
+//        case R.id.action_person:
+//            
+//        	if(mSlidingMenu.isSecondaryMenuShowing()){
+//        		mSlidingMenu.showContent();
+//        	}else{
+//        		mSlidingMenu.showSecondaryMenu();
+//        	}
+//            return true;
         default:
             return super.onOptionsItemSelected(item);
         }
