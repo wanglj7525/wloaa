@@ -5,129 +5,48 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp" >
+     <Button
+         android:id="@+id/zhiliang1"
+         android:layout_width="200dp"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center"
+         android:layout_marginTop="10dp"
+         android:drawableLeft="@drawable/azhiliang"
+         android:text="下派质检任务" />
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|fill_vertical"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="0.2"
-            android:src="@drawable/azhiliang" />
+     <Button
+         android:id="@+id/zhiliang2"
+         android:layout_width="200dp"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center"
+         android:layout_marginTop="30dp"
+         android:drawableLeft="@drawable/azhiliang"
+         android:text="上报质检任务" />
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.2"
-            android:text="下派质检任务"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/black" />
+     <Button
+         android:id="@+id/zhiliang3"
+         android:layout_width="200dp"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center"
+         android:layout_marginTop="30dp"
+         android:drawableLeft="@drawable/azhiliang"
+         android:text="已完成任务" />
 
-    </LinearLayout>
-     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp" >
+     <Button
+         android:id="@+id/zhiliang4"
+         android:layout_width="200dp"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center"
+         android:layout_marginTop="30dp"
+         android:drawableLeft="@drawable/azhiliang"
+         android:text="未完成任务" />
+     <Button
+         android:id="@+id/zhiliang5"
+         android:layout_width="200dp"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center"
+         android:layout_marginTop="30dp"
+         android:drawableLeft="@drawable/azhiliang"
+         android:text="所有任务列表" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|fill_vertical"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="0.2"
-            android:src="@drawable/azhiliang" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.2"
-            android:text="上报质检任务"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/black" />
-
-    </LinearLayout>
- <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp" >
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|fill_vertical"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="0.2"
-            android:src="@drawable/azhiliang" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.2"
-            android:text="已完成任务"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/black" />
-
-    </LinearLayout>
-     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp" >
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|fill_vertical"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="0.2"
-            android:src="@drawable/azhiliang" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.2"
-            android:text="未完成任务"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/black" />
-
-    </LinearLayout>
-     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp" >
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|fill_vertical"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="0.2"
-            android:src="@drawable/azhiliang" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.2"
-            android:text="所有任务列表"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/black" />
-
-    </LinearLayout>
 </LinearLayout>

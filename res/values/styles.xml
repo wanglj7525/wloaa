@@ -1,8 +1,11 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppBaseTheme" parent="android:Theme.Light"></style>
-
-    <style name="AppTheme" parent="AppBaseTheme"></style>
+    
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
 
     <style name="progress">
         <item name="android:indeterminateDrawable">@drawable/progress_medium_white</item>

@@ -13,14 +13,13 @@ import android.widget.Toast;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.ytint.wloaa.R;
-import com.ytint.wloaa.fragment.CommunityFragment;
-import com.ytint.wloaa.fragment.FindPeopleFragment;
+import com.ytint.wloaa.fragment.AnquanFragment;
 import com.ytint.wloaa.fragment.HomeFragment;
 import com.ytint.wloaa.fragment.MenuFragment;
 import com.ytint.wloaa.fragment.MenuFragment.SLMenuListOnItemClickListener;
 import com.ytint.wloaa.fragment.PagesFragment;
-import com.ytint.wloaa.fragment.PhotosFragment;
-import com.ytint.wloaa.fragment.WhatsHotFragment;
+import com.ytint.wloaa.fragment.QiyeFragment;
+import com.ytint.wloaa.fragment.ZhifaFragment;
 
 public class MainActivity extends SlidingFragmentActivity implements SLMenuListOnItemClickListener{
 
@@ -63,7 +62,7 @@ private SlidingMenu mSlidingMenu;
         fragmentTransaction.commit();
         
         //使用左上方icon可点，这样在onOptionsItemSelected里面才可以监听到R.id.home
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 //        getActionBar().setLogo(R.drawable.ic_logo);
 	}
 
@@ -112,19 +111,16 @@ private SlidingMenu mSlidingMenu;
 	        fragment = new HomeFragment();  
 	        break;  
 	    case 1:  
-	        fragment = new FindPeopleFragment();  
+	        fragment = new AnquanFragment();  
 	        break;  
 	    case 2:  
-	        fragment = new PhotosFragment();  
+	        fragment = new ZhifaFragment();  
 	        break;  
 	    case 3:  
-	        fragment = new CommunityFragment();  
+	        fragment = new QiyeFragment();  
 	        break;  
 	    case 4:  
 	        fragment = new PagesFragment();  
-	        break;  
-	    case 5:  
-	        fragment = new WhatsHotFragment();  
 	        break;  
 	    default:  
 	        break;  

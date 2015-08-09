@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <string name="app_name">wloaa</string>
+  <string name="app_name">无线办公系统</string>
   
    <string name="tab_home">现场</string>
     <string name="tab_source">群发</string>
