@@ -155,7 +155,7 @@
         </activity>
         <!-- 话题 -->
         <activity
-            android:name="com.ytint.wloaa.activity.ShenpiActivity"
+            android:name="com.ytint.wloaa.activity.ZhiliangListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>

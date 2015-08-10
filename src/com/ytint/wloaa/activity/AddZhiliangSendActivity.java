@@ -50,15 +50,31 @@ public class AddZhiliangSendActivity extends AbActivity {
 	EditText task_info;
 	@AbIocView(id = R.id.task_title)
 	EditText task_title;
-	@AbIocView(id = R.id.search_close)
-	TextView search_close;
+//	@AbIocView(id = R.id.search_close)
+//	TextView search_close;
 	@AbIocView(id = R.id.addxiapai_full)
 	LinearLayout addxiapai_full;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AbTitleBar mAbTitleBar = this.getTitleBar();
-		mAbTitleBar.setVisibility(View.GONE);
+		mAbTitleBar.setTitleText("质量检查-下派质检任务");
+		mAbTitleBar.setLogo(R.drawable.button_selector_back); 
+//		 设置文字边距，常用来控制高度：
+		 mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
+//		 设置标题栏背景：
+		 mAbTitleBar.setTitleBarBackground(R.drawable.abg_top); 
+//		 左边图片右边的线：
+		 mAbTitleBar.setLogoLine(R.drawable.aline);
+//		  左边图片的点击事件：
+		 mAbTitleBar.getLogoView().setOnClickListener(new View.OnClickListener() {
+		     @Override
+		     public void onClick(View v) {
+		        finish();
+		     }
+
+		 }); 
+		 
 		setAbContentView(R.layout.layout_addzhiliangsend);
 		context = AddZhiliangSendActivity.this;
 		application = (MyApplication) this.getApplication();
@@ -94,13 +110,13 @@ public class AddZhiliangSendActivity extends AbActivity {
 				submitXiaoxi();
 			}
 		});
-		search_close.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
+//		search_close.setOnClickListener(new View.OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				finish();
+//			}
+//		});
 		
 		
 		OnClickListener keyboard_hide = new OnClickListener() {

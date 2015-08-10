@@ -11,7 +11,7 @@ import android.widget.Button;
 import com.ytint.wloaa.R;
 import com.ytint.wloaa.activity.AddZhiliangReportActivity;
 import com.ytint.wloaa.activity.AddZhiliangSendActivity;
-import com.ytint.wloaa.activity.ShenpiActivity;
+import com.ytint.wloaa.activity.ZhiliangListActivity;
 
 public class HomeFragment extends Fragment {
 	
@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment {
 			
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),ShenpiActivity.class);
+				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
 				startActivity(intent);
 			}
 		});

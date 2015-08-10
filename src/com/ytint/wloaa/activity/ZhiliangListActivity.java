@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,6 +24,7 @@ import com.ab.http.AbHttpUtil;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.util.AbStrUtil;
 import com.ab.view.ioc.AbIocView;
+import com.ab.view.titlebar.AbTitleBar;
 import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
@@ -41,7 +41,7 @@ import com.ytint.wloaa.bean.URLs;
  * @author wlj
  * @date 2015-6-13上午11:14:05
  */
-public class ShenpiActivity extends AbActivity{
+public class ZhiliangListActivity extends AbActivity{
 
 	Context context = null;
 	private MyApplication application;
@@ -56,22 +56,44 @@ public class ShenpiActivity extends AbActivity{
 	@AbIocView(id = R.id.shenpi_list)
 	ListView shenpiListView;
 	
-	
+	@AbIocView(id = R.id.addShenpi)
+	RelativeLayout addShenpi;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.layout_shenpi);
+		
+		AbTitleBar mAbTitleBar = this.getTitleBar();
+		mAbTitleBar.setTitleText("质量检查-所有任务列表");
+		mAbTitleBar.setLogo(R.drawable.button_selector_back); 
+//		 设置文字边距，常用来控制高度：
+		 mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
+//		 设置标题栏背景：
+		 mAbTitleBar.setTitleBarBackground(R.drawable.abg_top); 
+//		 左边图片右边的线：
+		 mAbTitleBar.setLogoLine(R.drawable.aline);
+//		  左边图片的点击事件：
+		 mAbTitleBar.getLogoView().setOnClickListener(new View.OnClickListener() {
+		     @Override
+		     public void onClick(View v) {
+		        finish();
+		     }
 
-		context = ShenpiActivity.this;
+		 }); 
+		 mAbTitleBar.setVisibility(View.VISIBLE);
+		 
+		setContentView(R.layout.layout_zhilianglist);
+
+		context = ZhiliangListActivity.this;
 		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
+		
 		initUI();
 		initData();
 		getGroupData();
 	}
 
 	private void reCreate() {
-		setContentView(R.layout.layout_shenpi);
+		setContentView(R.layout.layout_zhilianglist);
 		initUI();
 		initData();
 		getGroupData();
@@ -140,14 +162,12 @@ public class ShenpiActivity extends AbActivity{
 	 */
 	private void initUI() {
 		
-//		addShenpi.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				Intent intent = new Intent(ShenpiActivity.this,
-//						AddZhiliangReportActivity.class);
-//				startActivity(intent);
-//			}
-//		});
+		addShenpi.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 
 	}
 	// 初始化绑定数据
@@ -164,7 +184,7 @@ public class ShenpiActivity extends AbActivity{
 					long arg3) {
 				//点击进入 审批事项 详情页
 				   Integer shenpi_id = shenpiList.get(index).id;
-		           Intent intent = new Intent(ShenpiActivity.this, ShenpiDetailActivity.class);  
+		           Intent intent = new Intent(ZhiliangListActivity.this, ShenpiDetailActivity.class);  
 		           intent.putExtra("shenpi_id", shenpi_id);
 		           System.out.println(intent.getIntExtra("shenpi_id", 0));
 		           startActivity(intent);

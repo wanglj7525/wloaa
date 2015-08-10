@@ -10,13 +10,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.ab.activity.AbActivity;
 import com.ab.http.AbHttpUtil;
@@ -50,18 +47,34 @@ public class AddZhiliangReportActivity extends AbActivity {
 //	Spinner peopleSpinner;
 	@AbIocView(id = R.id.commitShenpi)
 	Button add;
-	@AbIocView(id = R.id.shenpi_title)
-	EditText shenpi_title;
+	@AbIocView(id = R.id.task_name)
+	EditText task_name;
 	@AbIocView(id = R.id.task_tell)
 	EditText task_tell;
-	@AbIocView(id = R.id.shenpi_close)
-	TextView shenpi_close;
+//	@AbIocView(id = R.id.shenpi_close)
+//	TextView shenpi_close;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AbTitleBar mAbTitleBar = this.getTitleBar();
-		mAbTitleBar.setVisibility(View.GONE);
+		mAbTitleBar.setTitleText("质量检查-上报质检任务");
+		mAbTitleBar.setLogo(R.drawable.button_selector_back); 
+//		 设置文字边距，常用来控制高度：
+		 mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
+//		 设置标题栏背景：
+		 mAbTitleBar.setTitleBarBackground(R.drawable.abg_top); 
+//		 左边图片右边的线：
+		 mAbTitleBar.setLogoLine(R.drawable.aline);
+//		  左边图片的点击事件：
+		 mAbTitleBar.getLogoView().setOnClickListener(new View.OnClickListener() {
+		     @Override
+		     public void onClick(View v) {
+		        finish();
+		     }
+
+		 }); 
+		 
 		setAbContentView(R.layout.layout_addzhiliangreport);
 		context = AddZhiliangReportActivity.this;
 		application = (MyApplication) this.getApplication();
@@ -157,13 +170,13 @@ public class AddZhiliangReportActivity extends AbActivity {
 				submitShenpi();
 			}
 		});
-		shenpi_close.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
+//		shenpi_close.setOnClickListener(new View.OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				finish();
+//			}
+//		});
 		
 		
 		OnClickListener keyboard_hide = new OnClickListener() {
@@ -195,7 +208,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 		}
 		
 		AbRequestParams params = new AbRequestParams();
-		params.put("androidApplyVerifyInfo.title", shenpi_title.getText().toString());
+		params.put("androidApplyVerifyInfo.title", task_name.getText().toString());
 		params.put("androidApplyVerifyInfo.content", task_tell.getText().toString());
 		params.put("androidApplyVerifyInfo.apply_user_id", loginKey);
 		Log.d(TAG, String.format("%s?", URLs.ADDSHENPI,
