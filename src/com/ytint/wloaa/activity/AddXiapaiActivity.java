@@ -67,7 +67,7 @@ public class AddXiapaiActivity extends AbActivity {
 		initUi();
 		//加载联系人下拉框
 		if(null==peoples||peoples.size()<=0){
-			loadPeoples();
+//			loadPeoples();
 		}else{
 			people_names = new String[peoples.size()];
 			int i = 0;
