@@ -65,6 +65,7 @@ public class Constants {
     public static final int DOWN_TO_UP = 2;
     
     public static final String END_TIME_DEFAULT= "2020-01-01";
-
+    // 本机imei
+ 	public static String USER_IMEI_ID = "";
 
 }

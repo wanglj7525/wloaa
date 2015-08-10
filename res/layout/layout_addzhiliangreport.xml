@@ -84,17 +84,16 @@
                 android:textColor="@color/content"
                 android:textSize="16dp" />
 
-            <Spinner
-                android:id="@+id/select_people"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/search_xiala"
-                android:divider="@color/full_transparent"
-                android:gravity="center"
-                android:popupBackground="@drawable/spinner_shape" />
+			<EditText
+			    android:id="@+id/task_people"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:ems="10"
+			    android:enabled="false"
+			    android:inputType="textMultiLine" >
 
+            </EditText>
         </LinearLayout>
 
         <LinearLayout
@@ -110,7 +109,7 @@
                 android:textSize="16dp"/>
 
             <EditText
-                android:id="@+id/task_title"
+                android:id="@+id/task_tell"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ab.activity.AbActivity;
 import com.ab.bitmap.AbImageDownloader;
 import com.ab.global.AbConstant;
 import com.ab.http.AbHttpUtil;
@@ -40,7 +41,7 @@ import com.ytint.wloaa.bean.URLs;
  * @author wlj
  * @date 2015-6-13上午11:14:05
  */
-public class ShenpiActivity extends BaseActivity{
+public class ShenpiActivity extends AbActivity{
 
 	Context context = null;
 	private MyApplication application;
@@ -55,8 +56,6 @@ public class ShenpiActivity extends BaseActivity{
 	@AbIocView(id = R.id.shenpi_list)
 	ListView shenpiListView;
 	
-	@AbIocView(id = R.id.addShenpi)
-	RelativeLayout addShenpi;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -141,14 +140,14 @@ public class ShenpiActivity extends BaseActivity{
 	 */
 	private void initUI() {
 		
-		addShenpi.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(ShenpiActivity.this,
-						AddZhiliangReportActivity.class);
-				startActivity(intent);
-			}
-		});
+//		addShenpi.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Intent intent = new Intent(ShenpiActivity.this,
+//						AddZhiliangReportActivity.class);
+//				startActivity(intent);
+//			}
+//		});
 
 	}
 	// 初始化绑定数据

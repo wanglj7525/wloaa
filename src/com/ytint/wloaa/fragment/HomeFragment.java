@@ -11,6 +11,7 @@ import android.widget.Button;
 import com.ytint.wloaa.R;
 import com.ytint.wloaa.activity.AddZhiliangReportActivity;
 import com.ytint.wloaa.activity.AddZhiliangSendActivity;
+import com.ytint.wloaa.activity.ShenpiActivity;
 
 public class HomeFragment extends Fragment {
 	
@@ -60,6 +61,14 @@ public class HomeFragment extends Fragment {
 			}
 		});
 		button3=(Button)rootView.findViewById(R.id.zhiliang3);
+		button3.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(getActivity(),ShenpiActivity.class);
+				startActivity(intent);
+			}
+		});
 		button4=(Button)rootView.findViewById(R.id.zhiliang4);
 		button5=(Button)rootView.findViewById(R.id.zhiliang5);
 //		mViewPager = (ViewPager) rootView.findViewById(R.id.mViewPager);

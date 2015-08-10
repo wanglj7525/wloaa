@@ -1,17 +1,32 @@
 package com.ytint.wloaa.activity;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import cn.jpush.android.api.JPushInterface;
 
+import com.ab.http.AbHttpUtil;
+import com.ab.http.AbRequestParams;
+import com.ab.http.AbStringHttpResponseListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.ytint.wloaa.R;
+import com.ytint.wloaa.app.Constants;
+import com.ytint.wloaa.app.MyApplication;
+import com.ytint.wloaa.app.UIHelper;
+import com.ytint.wloaa.bean.People;
+import com.ytint.wloaa.bean.PeopleInfo;
+import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.fragment.AnquanFragment;
 import com.ytint.wloaa.fragment.HomeFragment;
 import com.ytint.wloaa.fragment.MenuFragment;
@@ -23,11 +38,20 @@ import com.ytint.wloaa.fragment.ZhifaFragment;
 public class MainActivity extends SlidingFragmentActivity implements SLMenuListOnItemClickListener{
 
 private SlidingMenu mSlidingMenu;
-	
+private MyApplication application;
+private String loginKey;
+final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+Context context = null;
 	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		application = (MyApplication) this.getApplication();
+		context=MainActivity.this;
+		mAbHttpUtil.setDebug(true);
+		//TODO 以后可以改成该手机电话号 或者 用户ID 等唯一标识
+		application.setProperty("loginKey", "1");
 		
 		setTitle("wloaa");
 //		setTitle(R.string.sliding_title);
@@ -63,6 +87,9 @@ private SlidingMenu mSlidingMenu;
         //使用左上方icon可点，这样在onOptionsItemSelected里面才可以监听到R.id.home
         getActionBar().setDisplayHomeAsUpEnabled(true);
 //        getActionBar().setLogo(R.drawable.ic_logo);
+        
+        init();
+        
 	}
 
     @Override
@@ -138,6 +165,89 @@ private SlidingMenu mSlidingMenu;
 	    }  
 	}
 	
+	// 初始化 JPush。如果已经初始化，但没有登录成功，则执行重新登录。
+	private void init(){
+		initialLocalConfig();
+		 JPushInterface.init(getApplicationContext());
+		 String registrationid=JPushInterface.getRegistrationID(context);
+		 
+		 //给用户添加jpush标记
+		 System.out.println("******************"+registrationid);
+		 if (registrationid!=null) {
+			 // 获取Http工具类
+			 final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+			 mAbHttpUtil.setDebug(true);
+			 if (!application.isNetworkConnected()) {
+				 UIHelper.ToastMessage(context, "请检查网络连接");
+				 return;
+			 }
+			 loginKey = application.getProperty("loginKey");
+			 AbRequestParams params = new AbRequestParams();
+			 params.put("user_id", loginKey);
+			 params.put("jpush_registration_id", registrationid);
+			 mAbHttpUtil.post(URLs.ADDREGIS ,params,
+					 new AbStringHttpResponseListener() {
+				 @Override
+				 public void onSuccess(int statusCode, String content) {
+					 System.out.println(content);
+					 try {
+						 PeopleInfo cList = PeopleInfo.parseJson(content);
+						 if (cList.code == 200) {
+							 People peoples = cList.getInfo();
+							 application.setProperty("status", peoples.status+"");
+							 application.saveObject((Serializable) peoples,"onePeople");
+						 } else {
+							 UIHelper.ToastMessage(context, cList.msg);
+						 }
+					 } catch (Exception e) {
+						 e.printStackTrace();
+						 UIHelper.ToastMessage(context, "数据解析失败");
+					 }
+				 }
+				 
+				 @Override
+				 public void onFailure(int statusCode, String content,
+						 Throwable error) {
+					 UIHelper.ToastMessage(context, "网络连接失败！");
+				 }
+				 
+				 @Override
+				 public void onStart() {
+				 }
+				 
+				 // 完成后调用
+				 @Override
+				 public void onFinish() {
+				 };
+			 });
+			
+		}
+	}
+	/**
+	 * 初始化本地数据
+	 */
+	private void initialLocalConfig() {
+		// 初始化imei信息
+		String user_imei_id = application.getProperty("imei");
+		if (user_imei_id == null || user_imei_id.equals("")) {
+			// 第一次登陆逻辑处理，能获取imei就获取不能获取到换成时间戳
+			TelephonyManager mTm = (TelephonyManager) this
+					.getSystemService(Context.TELEPHONY_SERVICE);
+			String _user_imei_id = mTm.getDeviceId();
+			if (_user_imei_id == null || _user_imei_id.length() <= 2) {
+				// 如果获取不到imei则获取当前时间戳
+				Constants.USER_IMEI_ID = String.valueOf(new Date().getTime());
+			} else {
+				Constants.USER_IMEI_ID = mTm.getDeviceId();
+			}
+			// imei写到缓存中，以后直接用缓存的
+			application.setProperty("imei", Constants.USER_IMEI_ID);
+		} else {
+			Constants.USER_IMEI_ID = user_imei_id;
+		}
+
+	}
+
 //	private TabHost tabHost;
 //	private RadioGroup radioGroup;
 //	private RadioButton radio_home;
@@ -211,62 +321,7 @@ private SlidingMenu mSlidingMenu;
 ////		
 ////		init();
 //	}
-//	// 初始化 JPush。如果已经初始化，但没有登录成功，则执行重新登录。
-//	private void init(){
-//		 JPushInterface.init(getApplicationContext());
-//		 String registrationid=JPushInterface.getRegistrationID(context);
-//		 
-//		 //给用户添加jpush标记
-//		 System.out.println("******************"+registrationid);
-//		 if (registrationid!=null) {
-//			 // 获取Http工具类
-//			 final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
-//			 mAbHttpUtil.setDebug(true);
-//			 if (!application.isNetworkConnected()) {
-//				 UIHelper.ToastMessage(context, "请检查网络连接");
-//				 return;
-//			 }
-//			 loginKey = application.getProperty("loginKey");
-//			 AbRequestParams params = new AbRequestParams();
-//			 params.put("user_id", loginKey);
-//			 params.put("jpush_registration_id", registrationid);
-//			 mAbHttpUtil.post(URLs.ADDREGIS ,params,
-//					 new AbStringHttpResponseListener() {
-//				 @Override
-//				 public void onSuccess(int statusCode, String content) {
-//					 System.out.println(content);
-//					 try {
-//						 PeopleInfo cList = PeopleInfo.parseJson(content);
-//						 if (cList.code == 200) {
-//							 People peoples = cList.getInfo();
-//							 application.setProperty("status", peoples.status+"");
-//						 } else {
-//							 UIHelper.ToastMessage(context, cList.msg);
-//						 }
-//					 } catch (Exception e) {
-//						 e.printStackTrace();
-//						 UIHelper.ToastMessage(context, "数据解析失败");
-//					 }
-//				 }
-//				 
-//				 @Override
-//				 public void onFailure(int statusCode, String content,
-//						 Throwable error) {
-//					 UIHelper.ToastMessage(context, "网络连接失败！");
-//				 }
-//				 
-//				 @Override
-//				 public void onStart() {
-//				 }
-//				 
-//				 // 完成后调用
-//				 @Override
-//				 public void onFinish() {
-//				 };
-//			 });
-//			
-//		}
-//	}
+
 //	
 //	
 //	private OnClickListener clickListener = new OnClickListener() {

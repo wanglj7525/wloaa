@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.net.URLEncoder;
 
 /**
- * ½Ó¿ÚURLÊµÌåÀà
+ * æ¥å£URLå®ä½“ç±»
  * 
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
@@ -16,7 +16,7 @@ public class URLs implements Serializable {
 //	public final static String HOST = "221.0.111.130:14401";
 //    public final static String HOST = "221.0.111.130:9009";
 //    public final static String HOST = "10.200.3.136:9000";
-    public final static String HOST = "122.5.18.196:9061";
+    public final static String HOST = "windoer.com:9010";
 	public final static String HTTP = "http://";
 	public final static String HTTPS = "https://";
 
@@ -24,48 +24,48 @@ public class URLs implements Serializable {
 
 	public final static String URL_API_HOST = HTTP + HOST + URL_SPLITTER;
 
-	//»ñÈ¡ÓÃ»§ÁĞ±í
+	//è·å–ç”¨æˆ·åˆ—è¡¨
 	public final static String USERLIST=URL_API_HOST+"api/user/get_user_list";
 	
-	//Ìí¼ÓjpushÍÆËÍ±ê¼Ç
+	//æ·»åŠ jpushæ¨é€æ ‡è®°
 	public final static String ADDREGIS=URL_API_HOST+"api/user/update_user_registration";
 	
-	//ÉÏ´«ÕÕÆ¬
+	//ä¸Šä¼ ç…§ç‰‡
 	public final static String UPLOADPHOTO=URL_API_HOST+"api/upload/file_upload";
-	//Í¼Æ¬ÁĞ±í
+	//å›¾ç‰‡åˆ—è¡¨
 	public final static String PHOTOLIST=URL_API_HOST+"api/upload/get_file_list";
 	
-	//»ñÈ¡Èº·¢ÏûÏ¢ÁĞ±í ÈÎÎñÁĞ±í
+	//è·å–ç¾¤å‘æ¶ˆæ¯åˆ—è¡¨ ä»»åŠ¡åˆ—è¡¨
 	public final static String QUNFALIST=URL_API_HOST+"api/notice/get_user_notice_list";
 	
-	//·¢ËÍÏûÏ¢»òÈÎÎñ
+	//å‘é€æ¶ˆæ¯æˆ–ä»»åŠ¡
 	public final static String ADDMSG=URL_API_HOST+"api/notice/add_notice_doc";
 	
-	//·¢ËÍÏûÏ¢»òÈÎÎñ
+	//å‘é€æ¶ˆæ¯æˆ–ä»»åŠ¡
 	public final static String ADDSHENPI=URL_API_HOST+"api/verify/add_apply_info";
 	
-	//»ñÈ¡ÉóÅúÁĞ±í
+	//è·å–å®¡æ‰¹åˆ—è¡¨
 	public final static String SHENPILIST=URL_API_HOST+"api/verify/get_apply_list";
 	
-	//»ñÈ¡ÉóÅúÏêÇé
+	//è·å–å®¡æ‰¹è¯¦æƒ…
 	public final static String SHENPIDETAIL=URL_API_HOST+"api/verify/get_apply_info";
 	
-	//Í¬Òâ ²»Í¬Òâ ÉóÅú
+	//åŒæ„ ä¸åŒæ„ å®¡æ‰¹
 	public final static String SHENPI=URL_API_HOST+"api/verify/verify_apply_info";
 	
 	// begin
 	public final static String VERIFY_TOKEN_URL = URL_API_HOST
 			+ "loginservice/verifyToken";
-	// µÇÂ¼
+	// ç™»å½•
 	public final static String LOGINURL = URL_API_HOST + "loginservice/login";
 
-	// ¹«¸æ
+	// å…¬å‘Š
 	public final static String LOAD_NOTICE_URL = URL_API_HOST
 			+ "notice/noticeHistory";
-	// ÓÃ»§ĞÅÏ¢
+	// ç”¨æˆ·ä¿¡æ¯
 	public final static String LOAD_USERINFO_URL = URL_API_HOST
 			+ "userService/userInfo";
-	// ĞŞ¸ÄÃÜÂë
+	// ä¿®æ”¹å¯†ç 
 	public final static String UPADTE_PASSWORD_URL = URL_API_HOST
 			+ "UserService/setPassword";
 
@@ -74,89 +74,89 @@ public class URLs implements Serializable {
 	public final static String LOAD_HOTTOPWORDS_URL = URL_API_HOST
 			+ "Home/HotTopWords";
 
-	// ĞÅÔ´·Ö×é
+	// ä¿¡æºåˆ†ç»„
 	public final static String GATHERSOURCE_MYGROUP = URL_API_HOST
 			+ "GatherSource/mygroup";
-	// ĞÅÔ´ÅäÖÃÏêÇé
+	// ä¿¡æºé…ç½®è¯¦æƒ…
 	public final static String GATHERSOURCE_DETAIL = URL_API_HOST
 			+ "GatherSource/mygroupConfig";
-	// ĞÅÔ´ÎÄÕÂÁĞ±í
+	// ä¿¡æºæ–‡ç« åˆ—è¡¨
 	public final static String GATHERSOURCE_GROUPDOCS = URL_API_HOST
 			+ "GatherSource/groupDocs";
-	// »°Ìâ
+	// è¯é¢˜
 	public final static String TOPIC_MYGROUP = URL_API_HOST + "topic/mytopic";
 	public final static String TOPIC_GROUPDOCS = URL_API_HOST
 			+ "topic/topicDocs";
 	public final static String TOPIC_ADDTOPIC = URL_API_HOST + "topic/addTopic";
 
-	// ·ÖÀàÓßÇé
+	// åˆ†ç±»èˆ†æƒ…
 	public final static String CATEGORY = URL_API_HOST
 			+ "category/getAttentionList";
 	public final static String CATEGORYDOCS = URL_API_HOST
 			+ "category/categoryDocs";
 
-	// ÔÆËÑË÷
+	// äº‘æœç´¢
 	public final static String SEARCH = URL_API_HOST + "search/searchDocs";
 	public final static String CHANNELS = URL_API_HOST + "search/getChannel";
 
-	// ±à±¨ ²éÑ¯ÓÃ»§ËùÓĞ±à±¨±êÇ©
+	// ç¼–æŠ¥ æŸ¥è¯¢ç”¨æˆ·æ‰€æœ‰ç¼–æŠ¥æ ‡ç­¾
 	public final static String ALL_REPORT = URL_API_HOST
 			+ "TempFavorites/getFavoritesTag";
-	// ²éÑ¯Ò»ÆªÎÄÕÂµÄÒÑÌí¼ÓµÄ±à±¨±êÇ©
+	// æŸ¥è¯¢ä¸€ç¯‡æ–‡ç« çš„å·²æ·»åŠ çš„ç¼–æŠ¥æ ‡ç­¾
 	public final static String HAS_REPORT = URL_API_HOST
 			+ "tempFavorites/getHasFavoritesDocTag";
-	// ¸øÒ»ÆªÎÄÕÂÌí¼ÓÒ»¸ö±à±¨±êÇ©
+	// ç»™ä¸€ç¯‡æ–‡ç« æ·»åŠ ä¸€ä¸ªç¼–æŠ¥æ ‡ç­¾
 	public final static String ADD_DOC_REPORT = URL_API_HOST
 			+ "tempFavorites/favoritesDoc";
-	// ¸øÒ»ÆªÎÄÕÂÉ¾³ıÒ»¸ö±à±¨±êÇ©
+	// ç»™ä¸€ç¯‡æ–‡ç« åˆ é™¤ä¸€ä¸ªç¼–æŠ¥æ ‡ç­¾
 	public final static String DELETE_DOC_REPORT = URL_API_HOST
 			+ "tempFavorites/cancelFavoritesDoc";
-	// Ìí¼Ó±à±¨±êÇ©
+	// æ·»åŠ ç¼–æŠ¥æ ‡ç­¾
 	public final static String ADD_REPORT = URL_API_HOST
 			+ "tempFavorites/addFavoritesTag";
-	// É¾³ı±à±¨±êÇ©
+	// åˆ é™¤ç¼–æŠ¥æ ‡ç­¾
 	public final static String DELETE_REPORT = URL_API_HOST
 			+ "tempFavorites/removeFavoritesTag";
 
-	// ±ê¼Ç ²éÑ¯ÓÃ»§ËùÓĞ±ê¼Ç±êÇ©
+	// æ ‡è®° æŸ¥è¯¢ç”¨æˆ·æ‰€æœ‰æ ‡è®°æ ‡ç­¾
 	public final static String ALL_MARK = URL_API_HOST + "mark/getUsefulMarks";
-	// ²éÑ¯Ò»ÆªÎÄÕÂµÄÒÑÌí¼ÓµÄ±ê¼Ç±êÇ©
+	// æŸ¥è¯¢ä¸€ç¯‡æ–‡ç« çš„å·²æ·»åŠ çš„æ ‡è®°æ ‡ç­¾
 	public final static String HAS_MARK = URL_API_HOST
 			+ "mark/getDocMarkByDocId";
-	// ¸øÒ»ÆªÎÄÕÂÌí¼ÓÒ»¸ö±ê¼Ç±êÇ©
+	// ç»™ä¸€ç¯‡æ–‡ç« æ·»åŠ ä¸€ä¸ªæ ‡è®°æ ‡ç­¾
 	public final static String ADD_DOC_MARK = URL_API_HOST + "mark/markDoc";
-	// ¸øÒ»ÆªÎÄÕÂÉ¾³ıÒ»¸ö±ê¼Ç±êÇ©
+	// ç»™ä¸€ç¯‡æ–‡ç« åˆ é™¤ä¸€ä¸ªæ ‡è®°æ ‡ç­¾
 	public final static String DELETE_DOC_MARK = URL_API_HOST
 			+ "mark/cancelMarkDoc";
-	// Ìí¼Ó±ê¼Ç±êÇ©
+	// æ·»åŠ æ ‡è®°æ ‡ç­¾
 	public final static String ADD_MARK = URL_API_HOST + "mark/addMark";
-	// É¾³ı±ê¼Ç±êÇ©
+	// åˆ é™¤æ ‡è®°æ ‡ç­¾
 	public final static String DELETE_MARK = URL_API_HOST + "mark/deleteMark";
 
-	// ÎÄÕÂÏêÇé
+	// æ–‡ç« è¯¦æƒ…
 	public final static String DOC_DETAIL = URL_API_HOST
 			+ "docService/docDetail";
-	// Î¢²©ÓÃ»§ĞÅÏ¢
+	// å¾®åšç”¨æˆ·ä¿¡æ¯
 	public final static String WEIBO_PERSON = URL_API_HOST
 			+ "docService/getWeiboPerson";
-	// ×îĞÂÎ¢²©
+	// æœ€æ–°å¾®åš
 	public final static String WEIBORELA = URL_API_HOST
 			+ "docService/getWeiboRela";
-	// »ñÈ¡ÎÄÕÂÆÀÂÛ
+	// è·å–æ–‡ç« è¯„è®º
 	public final static String DOC_COMMENT = URL_API_HOST
 			+ "docService/getComments";
 
-	// È¡ĞÅÔ´ÅäÖÃĞÅÏ¢½Ó¿Ú£º/GatherSource/mygroupConfig
+	// å–ä¿¡æºé…ç½®ä¿¡æ¯æ¥å£ï¼š/GatherSource/mygroupConfig
 	public final static String GATHERSOURCECONFIG = URL_API_HOST
 			+ "GatherSource/mygroupConfig";
-	// È¡Ö÷ÌâÅäÖÃĞÅÏ¢½Ó¿Ú£º/topic/topicConfig
+	// å–ä¸»é¢˜é…ç½®ä¿¡æ¯æ¥å£ï¼š/topic/topicConfig
 	public final static String TOPICCONFIG = URL_API_HOST + "topic/topicConfig";
-	// È¡·ÖÀàÅäÖÃĞÅÏ¢½Ó¿Ú£º/category/categoryConfig
+	// å–åˆ†ç±»é…ç½®ä¿¡æ¯æ¥å£ï¼š/category/categoryConfig
 	public final static String CATEGORYCONFIG = URL_API_HOST
 			+ "category/categoryConfig";
 
 	/**
-	 * ¶ÔURL½øĞĞ¸ñÊ½´¦Àí
+	 * å¯¹URLè¿›è¡Œæ ¼å¼å¤„ç†
 	 * 
 	 * @param path
 	 * @return

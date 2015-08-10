@@ -67,7 +67,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 		initUi();
 		//加载联系人下拉框
 		if(null==peoples||peoples.size()<=0){
-//			loadPeoples();
+			loadPeoples();
 		}else{
 			people_names = new String[peoples.size()];
 			int i = 0;
@@ -155,58 +155,58 @@ public class AddZhiliangSendActivity extends AbActivity {
 	 */
 	private void submitXiaoxi(){
 		// 获取Http工具类
-//		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
-//		mAbHttpUtil.setDebug(true);
-//		if (!application.isNetworkConnected()) {
-//			UIHelper.ToastMessage(context, "请检查网络连接");
-//			return;
-//		}
-//		
-//		AbRequestParams params = new AbRequestParams();
-//		params.put("androidNoticeInfo.title", task_title.getText().toString());
-//		params.put("androidNoticeInfo.content", task_info.getText().toString());
-//		params.put("androidNoticeInfo.push_user_id", loginKey);
-//		params.put("androidNoticeInfo.notice_type", "1");
-//		params.put("androidNoticeInfo.receive_user_ids", people+"");
-//		Log.d(TAG, String.format("%s?", URLs.ADDMSG,
-//				params));
-//		mAbHttpUtil.post(URLs.ADDMSG ,params,
-//				new AbStringHttpResponseListener() {
-//					@Override
-//					public void onSuccess(int statusCode, String content) {
-//						Log.d(TAG, content);
-//						try {
-//							QunfaInfo gList = QunfaInfo
-//									.parseJson(content);
-//							if (gList.code == 200) {
+		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+		mAbHttpUtil.setDebug(true);
+		if (!application.isNetworkConnected()) {
+			UIHelper.ToastMessage(context, "请检查网络连接");
+			return;
+		}
+		
+		AbRequestParams params = new AbRequestParams();
+		params.put("androidNoticeInfo.title", task_title.getText().toString());
+		params.put("androidNoticeInfo.content", task_info.getText().toString());
+		params.put("androidNoticeInfo.push_user_id", loginKey);
+		params.put("androidNoticeInfo.notice_type", "1");
+		params.put("androidNoticeInfo.receive_user_ids", people+"");
+		Log.d(TAG, String.format("%s?", URLs.ADDMSG,
+				params));
+		mAbHttpUtil.post(URLs.ADDMSG ,params,
+				new AbStringHttpResponseListener() {
+					@Override
+					public void onSuccess(int statusCode, String content) {
+						Log.d(TAG, content);
+						try {
+							QunfaInfo gList = QunfaInfo
+									.parseJson(content);
+							if (gList.code == 200) {
 								showToast("任务下发成功！");
 								finish();
-//							} else {
-//								UIHelper.ToastMessage(context, gList.msg);
-//							}
-//						} catch (Exception e) {
-//							e.printStackTrace();
-//							UIHelper.ToastMessage(context, "数据解析失败");
-//						}
-//					}
-//
-//					@Override
-//					public void onFailure(int statusCode, String content,
-//							Throwable error) {
-//						UIHelper.ToastMessage(context, "网络连接失败！");
-//					}
-//
-//					@Override
-//					public void onStart() {
-//						showProgressDialog(null);
-//					}
-//
-//					// 完成后调用
-//					@Override
-//					public void onFinish() {
-//						finish();
-//					};
-//				});
+							} else {
+								UIHelper.ToastMessage(context, gList.msg);
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							UIHelper.ToastMessage(context, "数据解析失败");
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, String content,
+							Throwable error) {
+						UIHelper.ToastMessage(context, "网络连接失败！");
+					}
+
+					@Override
+					public void onStart() {
+						showProgressDialog(null);
+					}
+
+					// 完成后调用
+					@Override
+					public void onFinish() {
+						finish();
+					};
+				});
 	}
 	@SuppressLint("NewApi")
 	private void loadPeoples() {

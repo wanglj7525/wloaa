@@ -19,12 +19,12 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="审批列表"
+                android:text="质量检查-所有任务列表"
                 android:textColor="@color/black"
                 android:textSize="@dimen/title_size" />
 
         </LinearLayout>
-
+<!-- 
         <RelativeLayout
             android:id="@+id/addShenpi"
             android:layout_width="wrap_content"
@@ -33,6 +33,7 @@
             android:background="@drawable/add" >
 
         </RelativeLayout>
+ -->
     </LinearLayout>
 
      <ListView
