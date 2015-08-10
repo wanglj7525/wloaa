@@ -19,7 +19,7 @@
             android:layout_marginLeft="5dp"
             android:background="@drawable/daohang"
             android:gravity="center"
-            android:text="新任务"
+            android:text="质量检查-下派质检任务"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -50,7 +50,29 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.35"
         android:orientation="vertical" >
+ 		<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="工程名称" 
+                android:textColor="@color/content"
+                android:textSize="16dp"/>
 
+            <EditText
+                android:id="@+id/task_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textMultiLine" >
+
+                <requestFocus />
+            </EditText>
+
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -59,20 +81,20 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="执行人"
+                android:text="指派人员"
                 android:textColor="@color/content"
                 android:textSize="16dp" />
 
             <Spinner
                 android:id="@+id/select_people"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginLeft="15dp"
+                android:layout_weight="1"
                 android:background="@drawable/search_xiala"
                 android:divider="@color/full_transparent"
-            	android:gravity="center"
-            	android:popupBackground="@drawable/spinner_shape"
-                android:layout_weight="1" />
+                android:gravity="center"
+                android:popupBackground="@drawable/spinner_shape" />
 
         </LinearLayout>
 
@@ -84,7 +106,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="任务标题" 
+                android:text="联系方式" 
                 android:textColor="@color/content"
                 android:textSize="16dp"/>
 
@@ -95,8 +117,6 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textMultiLine" >
-
-                <requestFocus />
             </EditText>
 
         </LinearLayout>
@@ -109,7 +129,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="任务详情"
+                android:text="备注"
                 android:textColor="@color/content"
                 android:textSize="16dp" />
 
@@ -119,22 +139,48 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:lines="5"
+                android:lines="4"
                 android:inputType="textMultiLine" />
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="可发送音频消息（按住录音，长按删除）"
+            android:textSize="17sp" />
+
+ 		<LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" >
+	
+	            <Button
+	                android:id="@+id/addVoice"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:background="@drawable/aluyin"
+	                android:text="" />
+	
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" >
 
             <Button
                 android:id="@+id/addTask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_weight="0.43"
                 android:text="下派" />
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.43"
+                android:text="取消" />
 
         </LinearLayout>
 
