@@ -66,11 +66,30 @@ public class HomeFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
+				intent.putExtra("whichOne", 1);
 				startActivity(intent);
 			}
 		});
 		button4=(Button)rootView.findViewById(R.id.zhiliang4);
+		button4.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
+				intent.putExtra("whichOne", 2);
+				startActivity(intent);
+			}
+		});
 		button5=(Button)rootView.findViewById(R.id.zhiliang5);
+		button5.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
+				intent.putExtra("whichOne", 3);
+				startActivity(intent);
+			}
+		});
 //		mViewPager = (ViewPager) rootView.findViewById(R.id.mViewPager);
 		
 //		PagerTabStrip mPagerTabStrip = (PagerTabStrip) rootView.findViewById(R.id.mPagerTabStrip);
