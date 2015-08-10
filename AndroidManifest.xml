@@ -166,7 +166,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.ytint.wloaa.activity.AddXiapaiActivity"
+            android:name="com.ytint.wloaa.activity.AddZhiliangSendActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
@@ -201,7 +201,7 @@
         </activity>
         <!-- 云搜索页 -->
         <activity
-            android:name="com.ytint.wloaa.activity.AddShenpiActivity"
+            android:name="com.ytint.wloaa.activity.AddZhiliangReportActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>

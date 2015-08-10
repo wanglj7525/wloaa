@@ -145,7 +145,7 @@ public class ShenpiActivity extends BaseActivity{
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(ShenpiActivity.this,
-						AddShenpiActivity.class);
+						AddZhiliangReportActivity.class);
 				startActivity(intent);
 			}
 		});

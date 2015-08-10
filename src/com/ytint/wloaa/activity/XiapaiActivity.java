@@ -146,7 +146,7 @@ public class XiapaiActivity extends BaseActivity{
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(XiapaiActivity.this,
-						AddXiapaiActivity.class);
+						AddZhiliangSendActivity.class);
 				startActivity(intent);
 			}
 		});

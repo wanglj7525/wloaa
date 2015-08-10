@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.ytint.wloaa.R;
-import com.ytint.wloaa.activity.AddXiapaiActivity;
+import com.ytint.wloaa.activity.AddZhiliangReportActivity;
+import com.ytint.wloaa.activity.AddZhiliangSendActivity;
 
 public class HomeFragment extends Fragment {
 	
@@ -44,12 +45,20 @@ public class HomeFragment extends Fragment {
 			
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),AddXiapaiActivity.class);
+				Intent intent = new Intent(getActivity(),AddZhiliangSendActivity.class);
 				startActivity(intent);
 			}
 		});
 		
 		button2=(Button)rootView.findViewById(R.id.zhiliang2);
+		button2.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(getActivity(),AddZhiliangReportActivity.class);
+				startActivity(intent);
+			}
+		});
 		button3=(Button)rootView.findViewById(R.id.zhiliang3);
 		button4=(Button)rootView.findViewById(R.id.zhiliang4);
 		button5=(Button)rootView.findViewById(R.id.zhiliang5);

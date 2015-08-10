@@ -32,7 +32,7 @@ import com.ytint.wloaa.bean.PeopleList;
 import com.ytint.wloaa.bean.QunfaInfo;
 import com.ytint.wloaa.bean.URLs;
 
-public class AddXiapaiActivity extends AbActivity {
+public class AddZhiliangSendActivity extends AbActivity {
 	String TAG = "AddXiapaiActivity";
 	private MyApplication application;
 	Context context = null;
@@ -59,8 +59,8 @@ public class AddXiapaiActivity extends AbActivity {
 		super.onCreate(savedInstanceState);
 		AbTitleBar mAbTitleBar = this.getTitleBar();
 		mAbTitleBar.setVisibility(View.GONE);
-		setAbContentView(R.layout.layout_addxiapai);
-		context = AddXiapaiActivity.this;
+		setAbContentView(R.layout.layout_addzhiliangsend);
+		context = AddZhiliangSendActivity.this;
 		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
 		
@@ -87,7 +87,7 @@ public class AddXiapaiActivity extends AbActivity {
 			@Override
 			public void onClick(View v) {
 				// 关闭键盘
-				InputMethodManager imm = (InputMethodManager) AddXiapaiActivity.this
+				InputMethodManager imm = (InputMethodManager) AddZhiliangSendActivity.this
 						.getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 				
@@ -107,7 +107,7 @@ public class AddXiapaiActivity extends AbActivity {
 
 			@Override
 			public void onClick(View v) {
-				InputMethodManager imm = (InputMethodManager) AddXiapaiActivity.this
+				InputMethodManager imm = (InputMethodManager) AddZhiliangSendActivity.this
 						.getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 			}
@@ -118,7 +118,7 @@ public class AddXiapaiActivity extends AbActivity {
 	}
 	private void initSpinner() {
 		// 将可选内容与ArrayAdapter连接起来
-		adapter = new ArrayAdapter<String>(AddXiapaiActivity.this,
+		adapter = new ArrayAdapter<String>(AddZhiliangSendActivity.this,
 				R.layout.spinner_item, people_names);
 		// 设置下拉列表的风格
 		adapter.setDropDownViewResource(R.layout.drop_down_item);
@@ -155,58 +155,58 @@ public class AddXiapaiActivity extends AbActivity {
 	 */
 	private void submitXiaoxi(){
 		// 获取Http工具类
-		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
-		mAbHttpUtil.setDebug(true);
-		if (!application.isNetworkConnected()) {
-			UIHelper.ToastMessage(context, "请检查网络连接");
-			return;
-		}
-		
-		AbRequestParams params = new AbRequestParams();
-		params.put("androidNoticeInfo.title", task_title.getText().toString());
-		params.put("androidNoticeInfo.content", task_info.getText().toString());
-		params.put("androidNoticeInfo.push_user_id", loginKey);
-		params.put("androidNoticeInfo.notice_type", "1");
-		params.put("androidNoticeInfo.receive_user_ids", people+"");
-		Log.d(TAG, String.format("%s?", URLs.ADDMSG,
-				params));
-		mAbHttpUtil.post(URLs.ADDMSG ,params,
-				new AbStringHttpResponseListener() {
-					@Override
-					public void onSuccess(int statusCode, String content) {
-						Log.d(TAG, content);
-						try {
-							QunfaInfo gList = QunfaInfo
-									.parseJson(content);
-							if (gList.code == 200) {
+//		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+//		mAbHttpUtil.setDebug(true);
+//		if (!application.isNetworkConnected()) {
+//			UIHelper.ToastMessage(context, "请检查网络连接");
+//			return;
+//		}
+//		
+//		AbRequestParams params = new AbRequestParams();
+//		params.put("androidNoticeInfo.title", task_title.getText().toString());
+//		params.put("androidNoticeInfo.content", task_info.getText().toString());
+//		params.put("androidNoticeInfo.push_user_id", loginKey);
+//		params.put("androidNoticeInfo.notice_type", "1");
+//		params.put("androidNoticeInfo.receive_user_ids", people+"");
+//		Log.d(TAG, String.format("%s?", URLs.ADDMSG,
+//				params));
+//		mAbHttpUtil.post(URLs.ADDMSG ,params,
+//				new AbStringHttpResponseListener() {
+//					@Override
+//					public void onSuccess(int statusCode, String content) {
+//						Log.d(TAG, content);
+//						try {
+//							QunfaInfo gList = QunfaInfo
+//									.parseJson(content);
+//							if (gList.code == 200) {
 								showToast("任务下发成功！");
 								finish();
-							} else {
-								UIHelper.ToastMessage(context, gList.msg);
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
-							UIHelper.ToastMessage(context, "数据解析失败");
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, String content,
-							Throwable error) {
-						UIHelper.ToastMessage(context, "网络连接失败！");
-					}
-
-					@Override
-					public void onStart() {
-						showProgressDialog(null);
-					}
-
-					// 完成后调用
-					@Override
-					public void onFinish() {
-						finish();
-					};
-				});
+//							} else {
+//								UIHelper.ToastMessage(context, gList.msg);
+//							}
+//						} catch (Exception e) {
+//							e.printStackTrace();
+//							UIHelper.ToastMessage(context, "数据解析失败");
+//						}
+//					}
+//
+//					@Override
+//					public void onFailure(int statusCode, String content,
+//							Throwable error) {
+//						UIHelper.ToastMessage(context, "网络连接失败！");
+//					}
+//
+//					@Override
+//					public void onStart() {
+//						showProgressDialog(null);
+//					}
+//
+//					// 完成后调用
+//					@Override
+//					public void onFinish() {
+//						finish();
+//					};
+//				});
 	}
 	@SuppressLint("NewApi")
 	private void loadPeoples() {

@@ -27,7 +27,7 @@ import com.ytint.wloaa.bean.People;
 import com.ytint.wloaa.bean.ShenpiInfo;
 import com.ytint.wloaa.bean.URLs;
 
-public class AddShenpiActivity extends AbActivity {
+public class AddZhiliangReportActivity extends AbActivity {
 	String TAG = "AddShenpiActivity";
 	private MyApplication application;
 	private ArrayAdapter<String> adapter;
@@ -46,8 +46,8 @@ public class AddShenpiActivity extends AbActivity {
 	Button add;
 	@AbIocView(id = R.id.shenpi_title)
 	EditText shenpi_title;
-	@AbIocView(id = R.id.shenpi_content)
-	EditText shenpi_content;
+//	@AbIocView(id = R.id.shenpi_content)
+//	EditText shenpi_content;
 	@AbIocView(id = R.id.shenpi_close)
 	TextView shenpi_close;
 	
@@ -56,8 +56,8 @@ public class AddShenpiActivity extends AbActivity {
 		super.onCreate(savedInstanceState);
 		AbTitleBar mAbTitleBar = this.getTitleBar();
 		mAbTitleBar.setVisibility(View.GONE);
-		setAbContentView(R.layout.layout_addshenpi);
-		context = AddShenpiActivity.this;
+		setAbContentView(R.layout.layout_addzhiliangreport);
+		context = AddZhiliangReportActivity.this;
 		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
 		initUi();
@@ -85,7 +85,7 @@ public class AddShenpiActivity extends AbActivity {
 			@Override
 			public void onClick(View v) {
 				// 关闭键盘
-				InputMethodManager imm = (InputMethodManager) AddShenpiActivity.this
+				InputMethodManager imm = (InputMethodManager) AddZhiliangReportActivity.this
 						.getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 				
@@ -105,7 +105,7 @@ public class AddShenpiActivity extends AbActivity {
 
 			@Override
 			public void onClick(View v) {
-				InputMethodManager imm = (InputMethodManager) AddShenpiActivity.this
+				InputMethodManager imm = (InputMethodManager) AddZhiliangReportActivity.this
 						.getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 			}
@@ -122,56 +122,56 @@ public class AddShenpiActivity extends AbActivity {
 	 */
 	private void submitShenpi(){
 		// 获取Http工具类
-		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
-		mAbHttpUtil.setDebug(true);
-		if (!application.isNetworkConnected()) {
-			UIHelper.ToastMessage(context, "请检查网络连接");
-			return;
-		}
-		
-		AbRequestParams params = new AbRequestParams();
-		params.put("androidApplyVerifyInfo.title", shenpi_title.getText().toString());
-		params.put("androidApplyVerifyInfo.content", shenpi_content.getText().toString());
-		params.put("androidApplyVerifyInfo.apply_user_id", loginKey);
-		Log.d(TAG, String.format("%s?", URLs.ADDSHENPI,
-				params));
-		mAbHttpUtil.post(URLs.ADDSHENPI ,params,
-				new AbStringHttpResponseListener() {
-					@Override
-					public void onSuccess(int statusCode, String content) {
-						Log.d(TAG, content);
-						try {
-							ShenpiInfo gList = ShenpiInfo
-									.parseJson(content);
-							if (gList.code == 200) {
+//		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+//		mAbHttpUtil.setDebug(true);
+//		if (!application.isNetworkConnected()) {
+//			UIHelper.ToastMessage(context, "请检查网络连接");
+//			return;
+//		}
+//		
+//		AbRequestParams params = new AbRequestParams();
+//		params.put("androidApplyVerifyInfo.title", shenpi_title.getText().toString());
+////		params.put("androidApplyVerifyInfo.content", shenpi_content.getText().toString());
+//		params.put("androidApplyVerifyInfo.apply_user_id", loginKey);
+//		Log.d(TAG, String.format("%s?", URLs.ADDSHENPI,
+//				params));
+//		mAbHttpUtil.post(URLs.ADDSHENPI ,params,
+//				new AbStringHttpResponseListener() {
+//					@Override
+//					public void onSuccess(int statusCode, String content) {
+//						Log.d(TAG, content);
+//						try {
+//							ShenpiInfo gList = ShenpiInfo
+//									.parseJson(content);
+//							if (gList.code == 200) {
 								showToast("申请提交成功！");
 								finish();
-							} else {
-								UIHelper.ToastMessage(context, gList.msg);
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
-							UIHelper.ToastMessage(context, "数据解析失败");
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, String content,
-							Throwable error) {
-						UIHelper.ToastMessage(context, "网络连接失败！");
-					}
-
-					@Override
-					public void onStart() {
-						showProgressDialog(null);
-					}
-
-					// 完成后调用
-					@Override
-					public void onFinish() {
-						finish();
-					};
-				});
+//							} else {
+//								UIHelper.ToastMessage(context, gList.msg);
+//							}
+//						} catch (Exception e) {
+//							e.printStackTrace();
+//							UIHelper.ToastMessage(context, "数据解析失败");
+//						}
+//					}
+//
+//					@Override
+//					public void onFailure(int statusCode, String content,
+//							Throwable error) {
+//						UIHelper.ToastMessage(context, "网络连接失败！");
+//					}
+//
+//					@Override
+//					public void onStart() {
+//						showProgressDialog(null);
+//					}
+//
+//					// 完成后调用
+//					@Override
+//					public void onFinish() {
+//						finish();
+//					};
+//				});
 	}
 
 }
