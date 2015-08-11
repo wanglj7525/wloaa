@@ -57,7 +57,7 @@ public class URLs implements Serializable {
 	public final static String VERIFY_TOKEN_URL = URL_API_HOST
 			+ "loginservice/verifyToken";
 	// 登录
-	public final static String LOGINURL = URL_API_HOST + "loginservice/login";
+	public final static String LOGINURL = URL_API_HOST + "api/user/login";
 
 	// 公告
 	public final static String LOAD_NOTICE_URL = URL_API_HOST

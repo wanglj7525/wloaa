@@ -135,9 +135,9 @@
         <meta-data android:name="JPUSH_APPKEY" android:value="827b6542ac9caf2b5a12095c"/> 
         
         
-        <!-- 主页 -->
+        <!-- 登录 -->
         <activity
-            android:name="com.ytint.wloaa.activity.MainActivity"
+            android:name="com.ytint.wloaa.activity.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
@@ -146,6 +146,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <!-- 首页 -->
+        <activity
+            android:name="com.ytint.wloaa.activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" >
         </activity>
         <!-- 首页 -->
         <activity

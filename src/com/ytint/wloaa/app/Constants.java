@@ -67,5 +67,6 @@ public class Constants {
     public static final String END_TIME_DEFAULT= "2020-01-01";
     // 本机imei
  	public static String USER_IMEI_ID = "";
+ 	public static String USER_NAME = "user_name";
 
 }

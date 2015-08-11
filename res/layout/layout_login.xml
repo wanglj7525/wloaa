@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutpic2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="66dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical" >
+           <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:gravity="left|bottom"
+                android:src="@drawable/user"
+                android:paddingRight="10dip"
+                 />
+             <EditText
+                android:id="@+id/username_edit"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+                android:layout_gravity="fill_horizontal|top"
+                android:gravity="bottom"
+                android:background="@drawable/bg_edittext_selector"
+                android:drawablePadding="10dp"
+                android:hint="@string/login_username_hint"
+                android:inputType="text"
+                android:paddingBottom="10dp"
+                android:layout_marginBottom="15dip"
+                android:textSize="@dimen/register_hint_textsize"
+                android:singleLine="true"
+                android:layout_weight="1" />
+             </LinearLayout>
+
+                    <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:gravity="left|bottom"
+                android:src="@drawable/password"
+                android:paddingRight="10dip"
+              
+                 />
+          <EditText
+                android:id="@+id/password_edit"
+                android:layout_width="fill_parent"
+                android:layout_height="46dp"
+                android:layout_gravity="left|bottom"
+                android:gravity="bottom"
+                android:background="@drawable/bg_edittext_selector"
+                android:paddingBottom="10dp"
+                android:hint="@string/login_userpass_hint"
+                android:inputType="textPassword"
+                android:textSize="@dimen/register_hint_textsize"
+                android:singleLine="true" />
+             </LinearLayout>
+  
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="fill"
+                android:layout_marginTop="20dp"
+                android:background="@color/global_blue"
+                android:text="@string/login_label_signin"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+    </LinearLayout>
