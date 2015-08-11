@@ -26,7 +26,7 @@ public class AnquanFragment extends Fragment {
             Bundle savedInstanceState) {
  
         View rootView = inflater.inflate(R.layout.fragment_anquan, container, false);
-         
+        findView(rootView);
         return rootView;
     }
 
