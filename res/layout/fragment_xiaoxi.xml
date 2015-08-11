@@ -7,47 +7,57 @@
 
      <Button
          android:id="@+id/xiaoxi1"
-         android:layout_width="200dp"
+         android:layout_width="match_parent"
+         android:layout_marginLeft="40dp"
+         android:layout_marginRight="40dp"
          android:layout_height="65dp"
          android:layout_gravity="center"
          android:layout_marginTop="10dp"
-         android:drawableLeft="@drawable/agonggao"
+         android:drawableLeft="@drawable/xiaoxi_fabugonggao"
          android:text="发布公告" />
 
      <Button
          android:id="@+id/xiaoxi2"
-         android:layout_width="200dp"
+         android:layout_width="match_parent"
+         android:layout_marginLeft="40dp"
+         android:layout_marginRight="40dp"
          android:layout_height="65dp"
          android:layout_gravity="center"
          android:layout_marginTop="20dp"
-         android:drawableLeft="@drawable/agonggao"
+         android:drawableLeft="@drawable/xiaoxi_gonggaoliebiao"
          android:text="公告列表" />
 
      <Button
          android:id="@+id/xiaoxi3"
-         android:layout_width="200dp"
+         android:layout_width="match_parent"
+         android:layout_marginLeft="40dp"
+         android:layout_marginRight="40dp"
          android:layout_height="65dp"
          android:layout_gravity="center"
          android:layout_marginTop="20dp"
-         android:drawableLeft="@drawable/axiaoxi"
+         android:drawableLeft="@drawable/xiaoxi_qunfaxiaoxi"
          android:text="群发消息" />
 
      <Button
          android:id="@+id/xiaoxi4"
-         android:layout_width="200dp"
+         android:layout_width="match_parent"
+         android:layout_marginLeft="40dp"
+         android:layout_marginRight="40dp"
          android:layout_height="65dp"
          android:layout_gravity="center"
          android:layout_marginTop="20dp"
-         android:drawableLeft="@drawable/axiaoxi"
+         android:drawableLeft="@drawable/xiaoxi_xiaoxiliebiao"
          android:text="消息列表" />
 
      <Button
          android:id="@+id/xiaoxi5"
-         android:layout_width="200dp"
+         android:layout_width="match_parent"
+         android:layout_marginLeft="40dp"
+         android:layout_marginRight="40dp"
          android:layout_height="65dp"
          android:layout_gravity="center"
          android:layout_marginTop="20dp"
-         android:drawableLeft="@drawable/axiaoxigonggao"
+         android:drawableLeft="@drawable/xiaoxi_liebiao"
          android:text="公告消息列表" />
 
 </LinearLayout>

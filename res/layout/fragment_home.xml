@@ -7,46 +7,56 @@
 
      <Button
          android:id="@+id/zhiliang1"
-         android:layout_width="200dp"
-         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:layout_marginLeft="40dp"
+         android:layout_marginRight="40dp"
+         android:layout_height="65dp"
          android:layout_gravity="center"
          android:layout_marginTop="10dp"
-         android:drawableLeft="@drawable/azhiliang"
+         android:drawableLeft="@drawable/zhiliang_xiapai"
          android:text="下派质检任务" />
 
      <Button
          android:id="@+id/zhiliang2"
-         android:layout_width="200dp"
-         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:layout_marginLeft="40dp"
+         android:layout_marginRight="40dp"
+         android:layout_height="65dp"
          android:layout_gravity="center"
-         android:layout_marginTop="30dp"
-         android:drawableLeft="@drawable/azhiliang"
+         android:layout_marginTop="20dp"
+         android:drawableLeft="@drawable/zhiliang_shangbao"
          android:text="上报质检任务" />
 
      <Button
          android:id="@+id/zhiliang3"
-         android:layout_width="200dp"
-         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:layout_marginLeft="40dp"
+         android:layout_marginRight="40dp"
+         android:layout_height="65dp"
          android:layout_gravity="center"
-         android:layout_marginTop="30dp"
-         android:drawableLeft="@drawable/azhiliang"
+         android:layout_marginTop="20dp"
+         android:drawableLeft="@drawable/zhiliang_yiwancheng"
          android:text="已完成任务" />
 
      <Button
          android:id="@+id/zhiliang4"
-         android:layout_width="200dp"
-         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:layout_marginLeft="40dp"
+         android:layout_marginRight="40dp"
+         android:layout_height="65dp"
          android:layout_gravity="center"
-         android:layout_marginTop="30dp"
-         android:drawableLeft="@drawable/azhiliang"
+         android:layout_marginTop="20dp"
+         android:drawableLeft="@drawable/zhiliang_weiwancheng"
          android:text="未完成任务" />
      <Button
          android:id="@+id/zhiliang5"
-         android:layout_width="200dp"
-         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:layout_marginLeft="40dp"
+         android:layout_marginRight="40dp"
+         android:layout_height="65dp"
          android:layout_gravity="center"
-         android:layout_marginTop="30dp"
-         android:drawableLeft="@drawable/azhiliang"
+         android:layout_marginTop="20dp"
+         android:drawableLeft="@drawable/zhiliang_liebiao"
          android:text="所有任务列表" />
 
 </LinearLayout>
