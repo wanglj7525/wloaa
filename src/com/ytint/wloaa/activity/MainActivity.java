@@ -1,32 +1,20 @@
 package com.ytint.wloaa.activity;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import cn.jpush.android.api.JPushInterface;
 
 import com.ab.http.AbHttpUtil;
-import com.ab.http.AbRequestParams;
-import com.ab.http.AbStringHttpResponseListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.ytint.wloaa.R;
-import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
-import com.ytint.wloaa.app.UIHelper;
-import com.ytint.wloaa.bean.People;
-import com.ytint.wloaa.bean.PeopleInfo;
-import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.fragment.AnquanFragment;
 import com.ytint.wloaa.fragment.HomeFragment;
 import com.ytint.wloaa.fragment.MenuFragment;
@@ -53,7 +41,6 @@ Context context = null;
 		//TODO 以后可以改成该手机电话号 或者 用户ID 等唯一标识
 		application.setProperty("loginKey", "1");
 		
-		setTitle("wloaa");
 //		setTitle(R.string.sliding_title);
         setContentView(R.layout.frame_content);
 

@@ -20,10 +20,6 @@ public class HomeFragment extends Fragment {
 	private Button button3;
 	private Button button4;
 	private Button button5;
-//	private ViewPager mViewPager;
-//	private static final String[] titles = {"One","Two","Three","Four","Five"};
-//	private List<ContentBean> list = new ArrayList<ContentBean>();
-//	private ContentFragmentPagerAdapter mAdapter;
 	
 	public HomeFragment(){}
 	
@@ -47,6 +43,7 @@ public class HomeFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(getActivity(),AddZhiliangSendActivity.class);
+				intent.putExtra("from", 1);
 				startActivity(intent);
 			}
 		});
@@ -57,6 +54,7 @@ public class HomeFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(getActivity(),AddZhiliangReportActivity.class);
+				intent.putExtra("from", 1);
 				startActivity(intent);
 			}
 		});
@@ -66,6 +64,7 @@ public class HomeFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
+				intent.putExtra("from", 1);
 				intent.putExtra("whichOne", 1);
 				startActivity(intent);
 			}
@@ -76,6 +75,7 @@ public class HomeFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
+				intent.putExtra("from", 1);
 				intent.putExtra("whichOne", 2);
 				startActivity(intent);
 			}
@@ -86,26 +86,11 @@ public class HomeFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
+				intent.putExtra("from", 1);
 				intent.putExtra("whichOne", 3);
 				startActivity(intent);
 			}
 		});
-//		mViewPager = (ViewPager) rootView.findViewById(R.id.mViewPager);
-		
-//		PagerTabStrip mPagerTabStrip = (PagerTabStrip) rootView.findViewById(R.id.mPagerTabStrip);
-//		mPagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.select_text_color)); 
-		
-//		mAdapter = new ContentFragmentPagerAdapter(getActivity().getSupportFragmentManager(),list);
-//		mViewPager.setAdapter(mAdapter);
 	}
 	
-	@Override
-	public void onStart() {
-		
-//		if(mAdapter!=null){
-//			mAdapter.notifyDataSetChanged();
-//		}
-//		
-		super.onStart();
-	}
 }

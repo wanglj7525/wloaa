@@ -159,10 +159,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
-        <!-- 话题 -->
         <activity
             android:name="com.ytint.wloaa.activity.ZhiliangListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 分类舆情 -->

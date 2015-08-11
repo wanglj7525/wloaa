@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -41,6 +42,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 	String[] people_names = new String[0];
 	private long people = 0;
 	private List<People> peoples;
+	private int from;
 	
 	@AbIocView(id = R.id.select_people)
 	Spinner peopleSpinner;
@@ -57,8 +59,16 @@ public class AddZhiliangSendActivity extends AbActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Intent intent = getIntent();
+		from = Integer.parseInt(intent.getExtras().get("from").toString());
 		AbTitleBar mAbTitleBar = this.getTitleBar();
-		mAbTitleBar.setTitleText("质量检查-下派质检任务");
+		if (from==1) {
+			mAbTitleBar.setTitleText("质量检查-下派质检任务");
+		}else if(from==2){
+			mAbTitleBar.setTitleText("安全检查-下派安检任务");
+		}else{
+			mAbTitleBar.setTitleText("执法管理-下派执法任务");
+		}
 		mAbTitleBar.setLogo(R.drawable.button_selector_back); 
 //		 设置文字边距，常用来控制高度：
 		 mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);

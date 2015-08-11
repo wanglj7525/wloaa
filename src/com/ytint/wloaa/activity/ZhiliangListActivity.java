@@ -3,16 +3,21 @@ package com.ytint.wloaa.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.R.integer;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -48,6 +53,8 @@ public class ZhiliangListActivity extends AbActivity{
 	private List<Shenpi> shenpiList = new ArrayList<Shenpi>();
 	private AbImageDownloader mAbImageDownloader = null;
 	private ShenpiListAdapter listItemAdapter;
+	private int from;
+	private int whichOne;
 	
 	String TAG = "ShenpiActivity";
 	private ProgressDialog mProgressDialog;
@@ -56,33 +63,37 @@ public class ZhiliangListActivity extends AbActivity{
 	@AbIocView(id = R.id.shenpi_list)
 	ListView shenpiListView;
 	
+	@AbIocView(id = R.id.showtitle)
+	LinearLayout showtitle;
+	
+	@AbIocView(id = R.id.titlebar)
+	TextView titlebar;
+	
 	@AbIocView(id = R.id.addShenpi)
 	RelativeLayout addShenpi;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		AbTitleBar mAbTitleBar = this.getTitleBar();
-		mAbTitleBar.setTitleText("质量检查-所有任务列表");
-		mAbTitleBar.setLogo(R.drawable.button_selector_back); 
-//		 设置文字边距，常用来控制高度：
-		 mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
-//		 设置标题栏背景：
-		 mAbTitleBar.setTitleBarBackground(R.drawable.abg_top); 
-//		 左边图片右边的线：
-		 mAbTitleBar.setLogoLine(R.drawable.aline);
-//		  左边图片的点击事件：
-		 mAbTitleBar.getLogoView().setOnClickListener(new View.OnClickListener() {
-		     @Override
-		     public void onClick(View v) {
-		        finish();
-		     }
-
-		 }); 
-		 mAbTitleBar.setVisibility(View.VISIBLE);
-		 
 		setContentView(R.layout.layout_zhilianglist);
-
+		
+//		AbTitleBar mAbTitleBar = this.getTitleBar();
+//		mAbTitleBar.setTitleText("质量检查-上报质检任务");
+//		mAbTitleBar.setLogo(R.drawable.button_selector_back); 
+////		 设置文字边距，常用来控制高度：
+//		 mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
+////		 设置标题栏背景：
+//		 mAbTitleBar.setTitleBarBackground(R.drawable.abg_top); 
+////		 左边图片右边的线：
+//		 mAbTitleBar.setLogoLine(R.drawable.aline);
+////		  左边图片的点击事件：
+//		 mAbTitleBar.getLogoView().setOnClickListener(new View.OnClickListener() {
+//		     @Override
+//		     public void onClick(View v) {
+//		        finish();
+//		     }
+//
+//		 }); 
+		
 		context = ZhiliangListActivity.this;
 		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
@@ -92,12 +103,12 @@ public class ZhiliangListActivity extends AbActivity{
 		getGroupData();
 	}
 
-	private void reCreate() {
-		setContentView(R.layout.layout_zhilianglist);
-		initUI();
-		initData();
-		getGroupData();
-	}
+//	private void reCreate() {
+//		setContentView(R.layout.layout_zhilianglist);
+//		initUI();
+//		initData();
+//		getGroupData();
+//	}
 
 	@Override
 	protected void onResume() {
@@ -108,7 +119,6 @@ public class ZhiliangListActivity extends AbActivity{
 	
 	//初始化绑定数据 获取该用户参与的所有审批列表
 	private void getGroupData() {
-		
 		// 获取Http工具类
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		mAbHttpUtil.setDebug(true);
@@ -161,6 +171,42 @@ public class ZhiliangListActivity extends AbActivity{
 	 * 初始化要用到的元素
 	 */
 	private void initUI() {
+		Intent intent = getIntent();
+		whichOne = Integer.parseInt(intent.getExtras().get("whichOne").toString());
+		from = Integer.parseInt(intent.getExtras().get("from").toString());
+		if (from==1) {
+			if (whichOne==1) {
+				titlebar.setText("质量检查-已完成任务");
+			}else if(whichOne==2){
+				titlebar.setText("质量检查-未完成任务");
+			}else{
+				titlebar.setText("质量检查-所有任务列表");
+			}
+		}else if(from==2){
+			if (whichOne==1) {
+				titlebar.setText("安全检查-已完成任务");
+			}else if(whichOne==2){
+				titlebar.setText("安全检查-未完成任务");
+			}else{
+				titlebar.setText("安全检查-所有任务列表");
+			}
+		}else{
+			if (whichOne==1) {
+				titlebar.setText("执法管理-已完成任务");
+			}else if(whichOne==2){
+				titlebar.setText("执法管理-未完成任务");
+			}else{
+				titlebar.setText("执法管理-所有任务列表");
+			}
+		}
+		
+		Rect frame = new Rect();  
+		getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);  
+		int statusBarHeight = frame.top;
+		int contentTop = getWindow().findViewById(Window.ID_ANDROID_CONTENT).getTop();  
+		//statusBarHeight是上面所求的状态栏的高度  
+		int titleBarHeight = contentTop - statusBarHeight ;
+		showtitle.setMinimumHeight(titleBarHeight);
 		
 		addShenpi.setOnClickListener(new View.OnClickListener() {
 			@Override

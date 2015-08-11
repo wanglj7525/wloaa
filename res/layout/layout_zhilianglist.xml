@@ -1,36 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/addxiapai_full111"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:background="@color/white"
+    android:orientation="vertical" >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/listitem_white" >
+        android:layout_weight="0.35"
+        android:orientation="vertical" >
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5" >
+    <LinearLayout
+            android:id="@+id/showtitle"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/abg_top" >
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="质量检查-所有任务列表"
-                android:textColor="@color/black"
-                android:textSize="@dimen/title_size" />
-
-        </LinearLayout>
-        <RelativeLayout
+		<RelativeLayout
             android:id="@+id/addShenpi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/x_black" >
+            android:background="@drawable/button_selector_back" >
 
         </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/r"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/aline" >
+
+        </RelativeLayout>
+            <TextView
+                android:id="@+id/titlebar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="质量检查-所有任务列表"
+                android:textColor="@color/white"
+                android:textSize="@dimen/title_size" />
+
+        
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,6 +57,7 @@
          android:gravity="center" >
 
     </ListView>
+</LinearLayout>
 </LinearLayout>
 </LinearLayout>
     

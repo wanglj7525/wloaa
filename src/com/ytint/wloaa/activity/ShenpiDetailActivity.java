@@ -50,8 +50,6 @@ public class ShenpiDetailActivity extends AbActivity {
 	
 	@AbIocView(id = R.id.shenpi_detail_full)
 	LinearLayout shenpi_detail_full;
-	@AbIocView(id = R.id.shenpi_detail_close)
-	TextView shenpi_detail_close;
 	
 	@AbIocView(id = R.id.show_shenpi_button)
 	LinearLayout show_shenpi_button;
@@ -72,7 +70,23 @@ public class ShenpiDetailActivity extends AbActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AbTitleBar mAbTitleBar = this.getTitleBar();
-		mAbTitleBar.setVisibility(View.GONE);
+		mAbTitleBar.setTitleText("质量检查-下派质检任务");
+		mAbTitleBar.setLogo(R.drawable.button_selector_back); 
+//		 设置文字边距，常用来控制高度：
+		 mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
+//		 设置标题栏背景：
+		 mAbTitleBar.setTitleBarBackground(R.drawable.abg_top); 
+//		 左边图片右边的线：
+		 mAbTitleBar.setLogoLine(R.drawable.aline);
+//		  左边图片的点击事件：
+		 mAbTitleBar.getLogoView().setOnClickListener(new View.OnClickListener() {
+		     @Override
+		     public void onClick(View v) {
+		        finish();
+		     }
+
+		 }); 
+		 
 		setAbContentView(R.layout.layout_shenpidetail);
 		application = (MyApplication) abApplication;
 		context=ShenpiDetailActivity.this;
@@ -99,14 +113,6 @@ public class ShenpiDetailActivity extends AbActivity {
 				shenpi(2);
 			}
 		});
-		shenpi_detail_close.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-		
 		
 		OnClickListener keyboard_hide = new OnClickListener() {
 

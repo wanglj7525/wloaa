@@ -1,134 +1,134 @@
-package com.ytint.wloaa.receiver;
-
-import com.ytint.wloaa.activity.PushResultActivity;
-
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningServiceInfo;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.service.PushService;
-
-/**
- * ×Ô¶¨Òå½ÓÊÕÆ÷
- * 
- * Èç¹û²»¶¨ÒåÕâ¸ö Receiver£¬Ôò£º 1) Ä¬ÈÏÓÃ»§»á´ò¿ªÖ÷½çÃæ 2) ½ÓÊÕ²»µ½×Ô¶¨ÒåÏûÏ¢
- */
-public class MyReceiver extends BroadcastReceiver {
-	private static final String TAG = "JPush";
-
-	@Override
-	public void onReceive(Context context, Intent intent) {
-		if (intent.getAction().equals(Intent.ACTION_TIME_TICK)) {
-			// ¼ì²éService×´Ì¬
-			ActivityManager manager = (ActivityManager) context
-					.getSystemService(Context.ACTIVITY_SERVICE);
-			boolean isServiceRunning = false;
-			for (RunningServiceInfo service : manager
-					.getRunningServices(Integer.MAX_VALUE)) {
-				if ("cn.jpush.android.service.PushService"
-						.equals(service.service.getClassName())) {
-					isServiceRunning = true;
-				}
-			}
-			if (!isServiceRunning) {
-				Intent i = new Intent(context, PushService.class);
-				context.startService(i);
-			}
-		}
-
-		Bundle bundle = intent.getExtras();
-		Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction()
-				+ ", extras: " + printBundle(bundle));
-
-		if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
-			String regId = bundle
-					.getString(JPushInterface.EXTRA_REGISTRATION_ID);
-			Log.d(TAG, "[MyReceiver] ½ÓÊÕRegistration Id : " + regId);
-
-		} else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent
-				.getAction())) {
-			Log.d(TAG,
-					"[MyReceiver] ½ÓÊÕµ½ÍÆËÍÏÂÀ´µÄ×Ô¶¨ÒåÏûÏ¢: "
-							+ bundle.getString(JPushInterface.EXTRA_MESSAGE));
-			processCustomMessage(context, bundle);
-
-		} else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent
-				.getAction())) {
-			Log.d(TAG, "[MyReceiver] ½ÓÊÕµ½ÍÆËÍÏÂÀ´µÄÍ¨Öª");
-			int notifactionId = bundle
-					.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
-			Log.d(TAG, "[MyReceiver] ½ÓÊÕµ½ÍÆËÍÏÂÀ´µÄÍ¨ÖªµÄID: " + notifactionId);
-
-		} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent
-				.getAction())) {
-			Log.d(TAG, "[MyReceiver] ÓÃ»§µã»÷´ò¿ªÁËÍ¨Öª");
-
-			JPushInterface.reportNotificationOpened(context,
-					bundle.getString(JPushInterface.EXTRA_MSG_ID));
-			// ´ò¿ª×Ô¶¨ÒåµÄActivity
-			Intent i = new Intent(context, PushResultActivity.class);
-			i.putExtras(bundle);
-			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			context.startActivity(i);
-
-		} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent
-				.getAction())) {
-			Log.d(TAG,
-					"[MyReceiver] ÓÃ»§ÊÕµ½µ½RICH PUSH CALLBACK: "
-							+ bundle.getString(JPushInterface.EXTRA_EXTRA));
-			// ÔÚÕâÀï¸ù¾Ý JPushInterface.EXTRA_EXTRA µÄÄÚÈÝ´¦Àí´úÂë£¬±ÈÈç´ò¿ªÐÂµÄActivity£¬
-			// ´ò¿ªÒ»¸öÍøÒ³µÈ..
-
-		} else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent
-				.getAction())) {
-			boolean connected = intent.getBooleanExtra(
-					JPushInterface.EXTRA_CONNECTION_CHANGE, false);
-			Log.e(TAG, "[MyReceiver]" + intent.getAction()
-					+ " connected state change to " + connected);
-		} else {
-			Log.d(TAG, "[MyReceiver] Unhandled intent - " + intent.getAction());
-		}
-	}
-
-	// ´òÓ¡ËùÓÐµÄ intent extra Êý¾Ý
-	private static String printBundle(Bundle bundle) {
-		StringBuilder sb = new StringBuilder();
-		for (String key : bundle.keySet()) {
-			if (key.equals(JPushInterface.EXTRA_NOTIFICATION_ID)) {
-				sb.append("\nkey:" + key + ", value:" + bundle.getInt(key));
-			} else if (key.equals(JPushInterface.EXTRA_CONNECTION_CHANGE)) {
-				sb.append("\nkey:" + key + ", value:" + bundle.getBoolean(key));
-			} else {
-				sb.append("\nkey:" + key + ", value:" + bundle.getString(key));
-			}
-		}
-		return sb.toString();
-	}
-
-	// send msg to MainActivity
-	private void processCustomMessage(Context context, Bundle bundle) {
-		// if (MainActivity.isForeground) {
-		// String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-		// String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-		// Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
-		// msgIntent.putExtra(MainActivity.KEY_MESSAGE, message);
-		// if (!ExampleUtil.isEmpty(extras)) {
-		// try {
-		// JSONObject extraJson = new JSONObject(extras);
-		// if (null != extraJson && extraJson.length() > 0) {
-		// msgIntent.putExtra(MainActivity.KEY_EXTRAS, extras);
-		// }
-		// } catch (JSONException e) {
-		//
-		// }
-		//
-		// }
-		// context.sendBroadcast(msgIntent);
-		// }
-	}
-}
-
+//package com.ytint.wloaa.receiver;
+//
+//import com.ytint.wloaa.activity.PushResultActivity;
+//
+//import android.app.ActivityManager;
+//import android.app.ActivityManager.RunningServiceInfo;
+//import android.content.BroadcastReceiver;
+//import android.content.Context;
+//import android.content.Intent;
+//import android.os.Bundle;
+//import android.util.Log;
+//import cn.jpush.android.api.JPushInterface;
+//import cn.jpush.android.service.PushService;
+//
+///**
+// * ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// * 
+// * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Receiverï¿½ï¿½ï¿½ï¿½ 1) Ä¬ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2) ï¿½ï¿½ï¿½Õ²ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+// */
+//public class MyReceiver extends BroadcastReceiver {
+//	private static final String TAG = "JPush";
+//
+//	@Override
+//	public void onReceive(Context context, Intent intent) {
+//		if (intent.getAction().equals(Intent.ACTION_TIME_TICK)) {
+//			// ï¿½ï¿½ï¿½Service×´Ì¬
+//			ActivityManager manager = (ActivityManager) context
+//					.getSystemService(Context.ACTIVITY_SERVICE);
+//			boolean isServiceRunning = false;
+//			for (RunningServiceInfo service : manager
+//					.getRunningServices(Integer.MAX_VALUE)) {
+//				if ("cn.jpush.android.service.PushService"
+//						.equals(service.service.getClassName())) {
+//					isServiceRunning = true;
+//				}
+//			}
+//			if (!isServiceRunning) {
+//				Intent i = new Intent(context, PushService.class);
+//				context.startService(i);
+//			}
+//		}
+//
+//		Bundle bundle = intent.getExtras();
+//		Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction()
+//				+ ", extras: " + printBundle(bundle));
+//
+//		if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
+//			String regId = bundle
+//					.getString(JPushInterface.EXTRA_REGISTRATION_ID);
+//			Log.d(TAG, "[MyReceiver] ï¿½ï¿½ï¿½ï¿½Registration Id : " + regId);
+//
+//		} else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent
+//				.getAction())) {
+//			Log.d(TAG,
+//					"[MyReceiver] ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢: "
+//							+ bundle.getString(JPushInterface.EXTRA_MESSAGE));
+//			processCustomMessage(context, bundle);
+//
+//		} else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent
+//				.getAction())) {
+//			Log.d(TAG, "[MyReceiver] ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨Öª");
+//			int notifactionId = bundle
+//					.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
+//			Log.d(TAG, "[MyReceiver] ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½ID: " + notifactionId);
+//
+//		} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent
+//				.getAction())) {
+//			Log.d(TAG, "[MyReceiver] ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨Öª");
+//
+//			JPushInterface.reportNotificationOpened(context,
+//					bundle.getString(JPushInterface.EXTRA_MSG_ID));
+//			// ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Activity
+//			Intent i = new Intent(context, PushResultActivity.class);
+//			i.putExtras(bundle);
+//			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//			context.startActivity(i);
+//
+//		} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent
+//				.getAction())) {
+//			Log.d(TAG,
+//					"[MyReceiver] ï¿½Ã»ï¿½ï¿½Õµï¿½ï¿½ï¿½RICH PUSH CALLBACK: "
+//							+ bundle.getString(JPushInterface.EXTRA_EXTRA));
+//			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ JPushInterface.EXTRA_EXTRA ï¿½ï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½Activityï¿½ï¿½
+//			// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½..
+//
+//		} else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent
+//				.getAction())) {
+//			boolean connected = intent.getBooleanExtra(
+//					JPushInterface.EXTRA_CONNECTION_CHANGE, false);
+//			Log.e(TAG, "[MyReceiver]" + intent.getAction()
+//					+ " connected state change to " + connected);
+//		} else {
+//			Log.d(TAG, "[MyReceiver] Unhandled intent - " + intent.getAction());
+//		}
+//	}
+//
+//	// ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½Ðµï¿½ intent extra ï¿½ï¿½ï¿½
+//	private static String printBundle(Bundle bundle) {
+//		StringBuilder sb = new StringBuilder();
+//		for (String key : bundle.keySet()) {
+//			if (key.equals(JPushInterface.EXTRA_NOTIFICATION_ID)) {
+//				sb.append("\nkey:" + key + ", value:" + bundle.getInt(key));
+//			} else if (key.equals(JPushInterface.EXTRA_CONNECTION_CHANGE)) {
+//				sb.append("\nkey:" + key + ", value:" + bundle.getBoolean(key));
+//			} else {
+//				sb.append("\nkey:" + key + ", value:" + bundle.getString(key));
+//			}
+//		}
+//		return sb.toString();
+//	}
+//
+//	// send msg to MainActivity
+//	private void processCustomMessage(Context context, Bundle bundle) {
+//		// if (MainActivity.isForeground) {
+//		// String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+//		// String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
+//		// Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
+//		// msgIntent.putExtra(MainActivity.KEY_MESSAGE, message);
+//		// if (!ExampleUtil.isEmpty(extras)) {
+//		// try {
+//		// JSONObject extraJson = new JSONObject(extras);
+//		// if (null != extraJson && extraJson.length() > 0) {
+//		// msgIntent.putExtra(MainActivity.KEY_EXTRAS, extras);
+//		// }
+//		// } catch (JSONException e) {
+//		//
+//		// }
+//		//
+//		// }
+//		// context.sendBroadcast(msgIntent);
+//		// }
+//	}
+//}
+//
