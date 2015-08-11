@@ -232,6 +232,7 @@ public class ZhiliangListActivity extends AbActivity{
 				   Integer shenpi_id = shenpiList.get(index).id;
 		           Intent intent = new Intent(ZhiliangListActivity.this, ShenpiDetailActivity.class);  
 		           intent.putExtra("shenpi_id", shenpi_id);
+		           intent.putExtra("from", from);
 		           System.out.println(intent.getIntExtra("shenpi_id", 0));
 		           startActivity(intent);
 
