@@ -153,9 +153,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
-        <!-- 首页 -->
         <activity
-            android:name="com.ytint.wloaa.activity.HomeActivity"
+            android:name="com.ytint.wloaa.activity.AddQiyeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
@@ -165,9 +164,8 @@
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" >
         </activity>
-        <!-- 分类舆情 -->
         <activity
-            android:name="com.ytint.wloaa.activity.XiapaiActivity"
+            android:name="com.ytint.wloaa.activity.DeleteQiyeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
@@ -176,19 +174,16 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
-        <!-- 信源配置详情 -->
         <activity
-            android:name="com.ytint.wloaa.activity.PhotoActivity"
+            android:name="com.ytint.wloaa.activity.QiyeListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
-        <!-- 采集源 -->
         <activity
             android:name="com.ytint.wloaa.activity.ChatActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
-        <!-- 首页文章详情 -->
         <activity
             android:name="com.ytint.wloaa.activity.QunfaActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -205,7 +200,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
-        <!-- 云搜索页 -->
         <activity
             android:name="com.ytint.wloaa.activity.AddZhiliangReportActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
