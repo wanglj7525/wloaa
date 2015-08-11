@@ -112,7 +112,7 @@
                 android:textSize="16dp"/>
 
             <EditText
-                android:id="@+id/task_title"
+                android:id="@+id/task_tell"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

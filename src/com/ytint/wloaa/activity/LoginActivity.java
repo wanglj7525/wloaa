@@ -156,8 +156,6 @@ public class LoginActivity extends AbActivity {
 							if (code == Constants.SUCCESS) {
 								JSONObject info=jsonObject.getJSONObject("info");
 								String id=info.getString("id");
-//								String token = jsonObject
-//										.getString("access_token");
 								application.setProperty("loginKey",id);
 								application.setProperty(Constants.USER_NAME,
 										username);

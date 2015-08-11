@@ -48,8 +48,8 @@ public class AddZhiliangSendActivity extends AbActivity {
 	Button add;
 	@AbIocView(id = R.id.task_info)
 	EditText task_info;
-	@AbIocView(id = R.id.task_title)
-	EditText task_title;
+	@AbIocView(id = R.id.task_tell)
+	EditText task_tell;
 //	@AbIocView(id = R.id.search_close)
 //	TextView search_close;
 	@AbIocView(id = R.id.addxiapai_full)
@@ -179,7 +179,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 		}
 		
 		AbRequestParams params = new AbRequestParams();
-		params.put("androidNoticeInfo.title", task_title.getText().toString());
+		params.put("androidNoticeInfo.title", task_tell.getText().toString());
 		params.put("androidNoticeInfo.content", task_info.getText().toString());
 		params.put("androidNoticeInfo.push_user_id", loginKey);
 		params.put("androidNoticeInfo.notice_type", "1");
