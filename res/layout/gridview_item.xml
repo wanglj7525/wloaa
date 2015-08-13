@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/widget29"
+	android:layout_width="wrap_content" android:layout_height="wrap_content"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<ImageView
+	    android:id="@+id/mImage"
+	    android:layout_width="120dp"
+	    android:layout_height="100dp"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentTop="true"
+	    android:src="@drawable/contact_0" >
+
+	</ImageView>
+</RelativeLayout>

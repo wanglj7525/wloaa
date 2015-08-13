@@ -87,4 +87,6 @@
     <string name="person">个人中心</string>
     <string name="sliding_title">SlidingMenu Demo</string>
     <string name="desc_list_item_icon">SlidingMenu</string>
+    
+    <string name="download_failed">下载失败</string>
 </resources>

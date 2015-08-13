@@ -1,23 +1,29 @@
 package com.ytint.wloaa.activity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SimpleAdapter;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.ab.activity.AbActivity;
 import com.ab.bitmap.AbImageDownloader;
+import com.ab.global.AbConstant;
 import com.ab.http.AbHttpUtil;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
@@ -34,8 +40,19 @@ public class ShenpiDetailActivity extends AbActivity {
 	private MyApplication application;
 	private AbImageDownloader mAbImageDownloader = null;
 	Context context = null;
-	
-	
+	 private List<String> imageList = new ArrayList<String>();
+	 static class ViewHolder {
+	        ImageView mImg;
+	    }
+
+    /**
+     * 列宽
+     */
+    private int cWidth = 120;
+    /**
+     * 水平间距
+     */
+    private int hSpacing = 10;
 	@AbIocView(id = R.id.shenpi_detail)
 	TextView shenpi_detail;
 	@AbIocView(id = R.id.shenpi_title)
@@ -52,6 +69,8 @@ public class ShenpiDetailActivity extends AbActivity {
 	@AbIocView(id = R.id.first_verify_comment)
 	TextView first_verify_comment;
 	
+	@AbIocView(id = R.id.scrollView_image)
+	HorizontalScrollView scrollView_image;
 	@AbIocView(id = R.id.gridView_image)
 	GridView gridView_image;
 	@AbIocView(id = R.id.gridView_voice)
@@ -60,14 +79,6 @@ public class ShenpiDetailActivity extends AbActivity {
 	private int from;
 	Integer shenpi_id;
 	private Shenpi shenpi = new Shenpi();
-	
-	
-	 private List<Map<String, Object>> data_list;
-	    private SimpleAdapter sim_adapter;
-	    // 图片封装为一个数组
-	    private int[] icon = { R.drawable.contact_0, R.drawable.contact_1,
-	            R.drawable.contact_3, R.drawable.azhifa, R.drawable.aanquan,
-	            R.drawable.azhiliang};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +114,7 @@ public class ShenpiDetailActivity extends AbActivity {
 		context=ShenpiDetailActivity.this;
 		
 		shenpi_id=intent.getIntExtra("shenpi_id",0);
-		
+		scrollView_image.setHorizontalScrollBarEnabled(true);
 		loadDatas();
 	}
 	
@@ -132,28 +143,24 @@ public class ShenpiDetailActivity extends AbActivity {
 								shenpi_title.setText(shenpi.title);
 								shenpi_detail.setText(shenpi.content);
 								
-								int status = Integer.parseInt(application.getProperty("status").toString());
+//								int status = Integer.parseInt(application.getProperty("status").toString());
+//								
+//								if (shenpi.first_verify_status==0) {
+//									first_verify_user_name.setText("未审批");
+//								}else{
+//									first_verify_user_name.setText(shenpi.first_verify_user_name);
+//									first_verify_comment.setText(shenpi.first_verify_comment);
+//								}
 								
-								if (shenpi.first_verify_status==0) {
-									first_verify_user_name.setText("未审批");
-								}else{
-									first_verify_user_name.setText(shenpi.first_verify_user_name);
-									first_verify_comment.setText(shenpi.first_verify_comment);
-								}
-								
-								
-								//TODO
-//								//新建List
-//						        data_list = new ArrayList<Map<String, Object>>();
-//						        //获取数据
-//						        getData();
-//						        //新建适配器
-//						        String [] from ={"image"};
-//						        int [] to = {R.id.image};
-//						        sim_adapter = new SimpleAdapter(this, data_list, R.layout.image_item, from, to);
-//						        //配置适配器
-//						        gridView_image.setAdapter(sim_adapter);
-								
+								imageList.add("http://hi.csdn.net/attachment/201108/9/0_1312862481agG1.gif");
+								imageList.add("https://github.com/nostra13/Android-Universal-Image-Loader/raw/master/wiki/UIL_Flow.png");
+								imageList.add("https://github.com/square/picasso/raw/master/website/static/sample.png");
+								imageList.add("http://hi.csdn.net/attachment/201108/9/0_1312862481agG1.gif");
+								imageList.add("https://github.com/nostra13/Android-Universal-Image-Loader/raw/master/wiki/UIL_Flow.png");
+								imageList.add("https://github.com/square/picasso/raw/master/website/static/sample.png");
+								imageList.add("http://hi.csdn.net/attachment/201108/9/0_1312862481agG1.gif");
+								setValue();
+								setListener();
 							} else {
 								UIHelper.ToastMessage(context, gList.msg);
 							}
@@ -185,15 +192,95 @@ public class ShenpiDetailActivity extends AbActivity {
 
 				});
 	}
-	 public List<Map<String, Object>> getData(){        
-	        //cion和iconName的长度是相同的，这里任选其一都可以
-	        for(int i=0;i<icon.length;i++){
-	            Map<String,Object> map = new HashMap<String, Object>();
-	            map.put("image", icon[i]);
-	            data_list.add(map);
-	        }
-	            
-	        return data_list;
+	    private void setValue() {
+	        MAdapter mAdapter = new MAdapter(context);
+	        gridView_image.setAdapter(mAdapter);
+	        LayoutParams params = new LayoutParams(mAdapter.getCount() * (120 + 10),
+	                LayoutParams.WRAP_CONTENT);
+	        gridView_image.setLayoutParams(params);
+	        gridView_image.setColumnWidth(cWidth);
+	        gridView_image.setHorizontalSpacing(hSpacing);
+	        gridView_image.setStretchMode(GridView.NO_STRETCH);
+	        gridView_image.setNumColumns(mAdapter.getCount());
 	    }
 
+	    private void setListener() {
+	    	gridView_image.setOnItemClickListener(new OnItemClickListener() {
+
+	            @Override
+	            public void onItemClick(AdapterView<?> parent, View view,
+	                    int position, long id) {
+	                // TODO Auto-generated method stub
+	                Log.e(TAG, "position = " + position);
+	                String url=imageList.get(position);
+	                Intent intent = new Intent(ShenpiDetailActivity.this, PicturePreviewActivity.class);  
+	        		intent.putExtra("url", url);
+	        		startActivity(intent);
+//	                DialogImage dialog=new DialogImage(context, url);
+//	                DialogImage dialog = new DialogImage(this,url,new DialogImage.OnCustomDialogListener() {
+//                        
+////                        @Override
+////                        public void back(String url) {
+////                                resultText.setText("Enter name is "+name);
+////                               
+////                        }
+//                });
+//                dialog.show();
+	            }
+	        });
+	    }
+
+	    class MAdapter extends BaseAdapter {
+	    	 Context mContext;
+	         LayoutInflater mInflater;
+
+	         public MAdapter(Context c) {
+	             mContext = c;
+	             mInflater = LayoutInflater.from(mContext);
+	    		// 图片下载器
+	    		mAbImageDownloader = new AbImageDownloader(mContext);
+	    		mAbImageDownloader.setWidth(120);
+	    		mAbImageDownloader.setHeight(100);
+	    		mAbImageDownloader.setType(AbConstant.SCALEIMG);
+	    		mAbImageDownloader.setLoadingImage(R.drawable.image_loading);
+	    		mAbImageDownloader.setErrorImage(R.drawable.image_error);
+	    		mAbImageDownloader.setNoImage(R.drawable.image_no);
+	        }
+
+
+			@Override
+	        public int getCount() {
+	            // TODO Auto-generated method stub
+	            return imageList.size();
+	        }
+
+	        @Override
+	        public Object getItem(int arg0) {
+	            // TODO Auto-generated method stub
+	            return arg0;
+	        }
+
+	        @Override
+	        public long getItemId(int arg0) {
+	            // TODO Auto-generated method stub
+	            return arg0;
+	        }
+
+	        @Override
+	        public View getView(int position, View contentView, ViewGroup arg2) {
+	        	String image=imageList.get(position);
+	            ViewHolder holder;
+	            if (contentView == null) {
+	                holder = new ViewHolder();
+	                contentView = mInflater.inflate(R.layout.gridview_item, null);
+	                holder.mImg = (ImageView) contentView.findViewById(R.id.mImage);
+	                mAbImageDownloader.display(holder.mImg,image);
+	            } else {
+	                holder = (ViewHolder) contentView.getTag();
+	            }
+	            contentView.setTag(holder);
+	            return contentView;
+	        }
+
+	    }
 }

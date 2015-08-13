@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+	<color name="no_back">#00000000</color>
     <!-- 列表,标题颜色 -->
      <color name="list_item_title">#000</color>
      <color name="list_item_abstract">#555</color>
