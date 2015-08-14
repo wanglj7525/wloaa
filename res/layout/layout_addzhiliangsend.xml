@@ -160,9 +160,33 @@
 	                android:id="@+id/addVoice"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
+	                android:layout_marginRight="10dp"
 	                android:background="@drawable/aluyin"
 	                android:text="" />
-	
+
+				<LinearLayout
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content" >
+			        <HorizontalScrollView
+			            android:id="@+id/horizontalScrollView_addvoice"
+			            android:orientation="horizontal"
+						android:layout_width="fill_parent" 
+						android:layout_height="wrap_content"
+						android:background="#FFFFFF">
+						<LinearLayout 
+						    android:layout_width="fill_parent"
+							android:layout_height="wrap_content"
+							 android:orientation="horizontal">
+		
+			                 <GridView
+			                     android:id="@+id/addvoicegridview"
+			                     android:layout_width="match_parent"
+			                     android:layout_height="70dp" >
+		
+					        </GridView>
+			            </LinearLayout>
+			        </HorizontalScrollView>
+		        </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
