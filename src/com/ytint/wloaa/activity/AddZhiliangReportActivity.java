@@ -1,20 +1,40 @@
 package com.ytint.wloaa.activity;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.LinearLayout.LayoutParams;
 
 import com.ab.activity.AbActivity;
 import com.ab.http.AbHttpUtil;
@@ -23,6 +43,7 @@ import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
 import com.ytint.wloaa.R;
+import com.ytint.wloaa.activity.AddZhiliangSendActivity.MyGridAdapter;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.People;
@@ -55,7 +76,39 @@ public class AddZhiliangReportActivity extends AbActivity {
 	EditText task_tell;
 //	@AbIocView(id = R.id.shenpi_close)
 //	TextView shenpi_close;
-	
+	@AbIocView(id = R.id.addVoicereport)
+	Button addVoicereport;
+	@AbIocView(id = R.id.addvoicegridviewreport)
+	GridView addvoicegridviewreport;
+	@AbIocView(id=R.id.horizontalScrollView_addvoicereport)
+	HorizontalScrollView horizontalScrollView_addvoicereport;
+	/** 显示语音列表 */
+	private ListView mVoidListView;
+	/** 语音列表适配器 */
+	private MyGridAdapter mAdapter;
+	/** 语音列表 */
+	private List<String> mVoicesList;
+	/** 语音名称列表 */
+	private List<String> mVoicesListname;
+	/** 录音存储路径 */
+	private static final String PATH = "/sdcard/MyVoiceForder/Record/";
+	/** 用于语音播放 */
+	private MediaPlayer mPlayer = null;
+	/** 用于完成录音 */
+	private MediaRecorder mRecorder = null;
+	/** 语音文件保存路径 */
+	private String mFileName = null;
+	/** 语音文件显示名称 */
+	private String mFileNameShow = null;
+	/**
+	 * 列宽
+	 */
+	private int cWidth = 500;
+	/**
+	 * 水平间距
+	 */
+	private int hSpacing = 10;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -89,6 +142,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 		context = AddZhiliangReportActivity.this;
 		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
+		initData() 
 		initUi();
 		//加载联系人下拉框
 		peoples = (List<People>) application.readObject("peoples");
@@ -107,6 +161,48 @@ public class AddZhiliangReportActivity extends AbActivity {
 	private void initEdittext(){
 		People onePeople=peoples.get(Integer.parseInt(loginKey)-1);
 		task_people.setText(onePeople.name);
+	}
+	/** 初始化数据 */
+	private void initData() {
+		mVoicesList = new ArrayList<String>();
+		mVoicesListname = new ArrayList<String>();
+		mPlayer = new MediaPlayer();
+	}
+	private void initGridView(){
+		MyGridAdapter mAdapter = new MyGridAdapter(context);
+		addvoicegridviewreport.setAdapter(mAdapter);
+		LayoutParams params = new LayoutParams(mAdapter.getCount()
+				* (cWidth + hSpacing), LayoutParams.WRAP_CONTENT);
+		addvoicegridviewreport.setLayoutParams(params);
+		addvoicegridviewreport.setColumnWidth(cWidth);
+		addvoicegridviewreport.setHorizontalSpacing(hSpacing);
+		addvoicegridviewreport.setStretchMode(GridView.NO_STRETCH);
+		addvoicegridviewreport.setNumColumns(mAdapter.getCount());
+
+		addvoicegridviewreport.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				try {
+					mPlayer.reset();
+					mPlayer.setDataSource(mVoicesList.get(position));
+					mPlayer.prepare();
+					mPlayer.start();
+				} catch (IOException e) {
+					Log.e(TAG, "播放失败");
+				}
+			}
+		});
+		addvoicegridviewreport.setOnItemLongClickListener(new OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				mVoicesList.remove(arg2);
+				mVoicesListname.remove(arg2);
+				initGridView();
+				return false;
+			}
+		});
 	}
 	@SuppressLint("NewApi")
 	private void loadPeoples() {
@@ -166,7 +262,8 @@ public class AddZhiliangReportActivity extends AbActivity {
 	}
 
 	private void initUi() {
-		
+		horizontalScrollView_addvoicereport.setHorizontalScrollBarEnabled(true);
+		initGridView();
 		
 		//添加
 		add.setOnClickListener(new View.OnClickListener() {
@@ -180,13 +277,30 @@ public class AddZhiliangReportActivity extends AbActivity {
 				submitShenpi();
 			}
 		});
-//		shenpi_close.setOnClickListener(new View.OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				finish();
-//			}
-//		});
+		addVoicereport.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					if (mVoicesList.size()>=1) {
+						Toast.makeText(getApplicationContext(), "只能上传一个录音", 0).show();
+					}else{
+						startVoice();
+					}
+					break;
+				case MotionEvent.ACTION_UP:
+					if (mVoicesList.size()>=1) {
+					}else{
+						stopVoice();
+					}
+					break;
+				default:
+					break;
+				}
+				return false;
+			}
+		});
 		
 		
 		OnClickListener keyboard_hide = new OnClickListener() {
@@ -261,5 +375,81 @@ public class AddZhiliangReportActivity extends AbActivity {
 					};
 				});
 	}
+	/** 开始录音 */
+	private void startVoice() {
+		// 设置录音保存路径
+		mFileNameShow=UUID.randomUUID().toString();
+		mFileName = PATH +mFileNameShow + ".amr";
+		String state = android.os.Environment.getExternalStorageState();
+		if (!state.equals(android.os.Environment.MEDIA_MOUNTED)) {
+			Log.i(TAG, "SD Card is not mounted,It is  " + state + ".");
+		}
+		File directory = new File(mFileName).getParentFile();
+		if (!directory.exists() && !directory.mkdirs()) {
+			Log.i(TAG, "Path to file could not be created");
+		}
+		Toast.makeText(getApplicationContext(), "开始录音", 0).show();
+		mRecorder = new MediaRecorder();
+		mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+		mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+		mRecorder.setOutputFile(mFileName);
+		mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+		try {
+			mRecorder.prepare();
+		} catch (IOException e) {
+			Log.e(TAG, "prepare() failed");
+		}
+		mRecorder.start();
+	}
 
+	/** 停止录音 */
+	@SuppressLint("NewApi")
+	private void stopVoice() {
+		mRecorder.stop();
+		mRecorder.release();
+		mRecorder = null;
+		mVoicesList.add(mFileName);
+		mVoicesListname.add(mFileNameShow);
+		mAdapter = new MyGridAdapter(AddZhiliangSendActivity.this);
+		addvoicegridview.setAdapter(mAdapter);
+		initGridView();
+		Toast.makeText(getApplicationContext(), "保存录音" + mFileName, 0).show();
+	}
+
+	class MyGridAdapter extends BaseAdapter {
+		Context mContext;
+		LayoutInflater mInflater;
+
+		public MyGridAdapter(Context c) {
+			mContext = c;
+			mInflater = LayoutInflater.from(mContext);
+		}
+
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return mVoicesList.size();
+		}
+
+		@Override
+		public Object getItem(int arg0) {
+			// TODO Auto-generated method stub
+			return arg0;
+		}
+
+		@Override
+		public long getItemId(int arg0) {
+			// TODO Auto-generated method stub
+			return arg0;
+		}
+
+		@Override
+		public View getView(int position, View contentView, ViewGroup arg2) {
+			contentView = mInflater.inflate(R.layout.item_voicelist, null);
+			TextView tv = (TextView) contentView.findViewById(R.id.tv_armName);
+			tv.setText(mVoicesListname.get(position)+ ".amr");
+			return contentView;
+		}
+
+	}
 }
