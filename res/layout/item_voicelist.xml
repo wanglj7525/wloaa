@@ -5,7 +5,7 @@
 
 	<TextView
 	    android:id="@+id/tv_armName"
-	    android:layout_width="120dp"
+	    android:layout_width="fill_parent"
 	    android:layout_height="70dp"
 	    android:background="@drawable/chat_button_fillet_shape"
 	    android:gravity="center"

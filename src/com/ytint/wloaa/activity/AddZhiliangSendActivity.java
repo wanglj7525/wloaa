@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -102,7 +103,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 	/**
 	 * 列宽
 	 */
-	private int cWidth = 400;
+	private int cWidth = 500;
 	/**
 	 * 水平间距
 	 */
@@ -190,6 +191,16 @@ public class AddZhiliangSendActivity extends AbActivity {
 				}
 			}
 		});
+		addvoicegridview.setOnItemLongClickListener(new OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				mVoicesList.remove(arg2);
+				mVoicesListname.remove(arg2);
+				initGridView();
+				return false;
+			}
+		});
 	}
 	private void initUi() {
 		horizontalScrollView_addvoice.setHorizontalScrollBarEnabled(true);
@@ -212,10 +223,17 @@ public class AddZhiliangSendActivity extends AbActivity {
 			public boolean onTouch(View v, MotionEvent event) {
 				switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:
-					startVoice();
+					if (mVoicesList.size()>=1) {
+						Toast.makeText(getApplicationContext(), "只能上传一个录音", 0).show();
+					}else{
+						startVoice();
+					}
 					break;
 				case MotionEvent.ACTION_UP:
-					stopVoice();
+					if (mVoicesList.size()>=1) {
+					}else{
+						stopVoice();
+					}
 					break;
 				default:
 					break;
@@ -391,10 +409,6 @@ public class AddZhiliangSendActivity extends AbActivity {
 
 	/** 开始录音 */
 	private void startVoice() {
-		if (mVoicesList.size()>=1) {
-			Toast.makeText(getApplicationContext(), "只能上传一个录音", 0).show();
-			return;
-		}
 		// 设置录音保存路径
 		mFileNameShow=UUID.randomUUID().toString();
 		mFileName = PATH +mFileNameShow + ".amr";
@@ -428,7 +442,6 @@ public class AddZhiliangSendActivity extends AbActivity {
 		mRecorder = null;
 		mVoicesList.add(mFileName);
 		mVoicesListname.add(mFileNameShow);
-//		mVoidListView.deferNotifyDataSetChanged();
 		mAdapter = new MyGridAdapter(AddZhiliangSendActivity.this);
 		addvoicegridview.setAdapter(mAdapter);
 		initGridView();
@@ -466,7 +479,6 @@ public class AddZhiliangSendActivity extends AbActivity {
 		public View getView(int position, View contentView, ViewGroup arg2) {
 			contentView = mInflater.inflate(R.layout.item_voicelist, null);
 			TextView tv = (TextView) contentView.findViewById(R.id.tv_armName);
-			tv.setWidth(400);
 			tv.setText(mVoicesListname.get(position)+ ".amr");
 			return contentView;
 		}
