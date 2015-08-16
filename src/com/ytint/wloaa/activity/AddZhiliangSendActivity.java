@@ -82,8 +82,6 @@ public class AddZhiliangSendActivity extends AbActivity {
 	GridView addvoicegridview;
 	@AbIocView(id=R.id.horizontalScrollView_addvoice)
 	HorizontalScrollView horizontalScrollView_addvoice;
-	/** 显示语音列表 */
-	private ListView mVoidListView;
 	/** 语音列表适配器 */
 	private MyGridAdapter mAdapter;
 	/** 语音列表 */

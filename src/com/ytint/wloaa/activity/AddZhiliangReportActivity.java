@@ -82,8 +82,8 @@ public class AddZhiliangReportActivity extends AbActivity {
 	GridView addvoicegridviewreport;
 	@AbIocView(id=R.id.horizontalScrollView_addvoicereport)
 	HorizontalScrollView horizontalScrollView_addvoicereport;
-	/** 显示语音列表 */
-	private ListView mVoidListView;
+	/*@AbIocView(id = R.id.addvoicegridview)
+	GridView addvoicegridview;VoidListView;
 	/** 语音列表适配器 */
 	private MyGridAdapter mAdapter;
 	/** 语音列表 */
@@ -142,7 +142,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 		context = AddZhiliangReportActivity.this;
 		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
-		initData() 
+		initData(); 
 		initUi();
 		//加载联系人下拉框
 		peoples = (List<People>) application.readObject("peoples");
@@ -410,8 +410,8 @@ public class AddZhiliangReportActivity extends AbActivity {
 		mRecorder = null;
 		mVoicesList.add(mFileName);
 		mVoicesListname.add(mFileNameShow);
-		mAdapter = new MyGridAdapter(AddZhiliangSendActivity.this);
-		addvoicegridview.setAdapter(mAdapter);
+		mAdapter = new MyGridAdapter(AddZhiliangReportActivity.this);
+		addvoicegridviewreport.setAdapter(mAdapter);
 		initGridView();
 		Toast.makeText(getApplicationContext(), "保存录音" + mFileName, 0).show();
 	}
