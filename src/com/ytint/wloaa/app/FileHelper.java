@@ -14,15 +14,23 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
-import android.util.Log;
+import org.json.JSONObject;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.ytint.wloaa.activity.LoginActivity;
+import com.ytint.wloaa.activity.MainActivity;
 import com.ytint.wloaa.bean.URLs;
 
-public class FileHelper {
+public class FileHelper extends Activity{
 	String TAG = "FileHelper";
 	private static final int TIME_OUT = 10 * 1000; // 超时时间
 	private static final String CHARSET = "utf-8"; // 设置编码
 	String result;
+	private MyApplication application = (MyApplication) this.getApplication();
 	public void submitUploadFile(ArrayList<String> srcPath, String loginKey,String type) {
 		final ArrayList<File> files=new ArrayList<File>();
 		for (String path : srcPath) {
@@ -155,6 +163,19 @@ public class FileHelper {
 					}
 					result = sb1.toString();
 					System.out.println("result=========" + result);
+					
+//					JSONObject jsonObject = null;
+//					try {
+//						jsonObject = new JSONObject(result);
+//						int code = Integer.parseInt(jsonObject.getString(
+//								"code").toString());
+//						if (code == Constants.SUCCESS) {
+//							String ids=jsonObject.getString("info");
+//							application.setProperty("addImageReport",ids);
+//						}
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}
 					
 				} else {
 				}

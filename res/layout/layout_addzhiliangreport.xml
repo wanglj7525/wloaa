@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/addshenpi_full"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +20,7 @@
                 android:textSize="16dp"/>
 
             <EditText
-                android:id="@+id/task_name"
+                android:id="@+id/task_name_report"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -33,6 +31,30 @@
             </EditText>
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="指派人员"
+                android:textColor="@color/content"
+                android:textSize="16dp" />
+
+            <Spinner
+                android:id="@+id/select_people_report"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/search_xiala"
+                android:divider="@color/full_transparent"
+                android:gravity="center"
+                android:popupBackground="@drawable/spinner_shape" />
+        </LinearLayout>
+       
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -51,8 +73,8 @@
 			    android:layout_height="wrap_content"
 			    android:layout_weight="1"
 			    android:ems="10"
-			    android:enabled="false"
-			    android:inputType="textMultiLine" >
+			    android:text="111"
+			    android:enabled="false" >
 
             </EditText>
         </LinearLayout>
@@ -103,6 +125,29 @@
             </EditText>
 
         </LinearLayout>
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="相关企业"
+                android:textColor="@color/content"
+                android:textSize="16dp" />
+
+            <Spinner
+                android:id="@+id/select_company_report"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/search_xiala"
+                android:divider="@color/full_transparent"
+                android:gravity="center"
+                android:popupBackground="@drawable/spinner_shape" />
+
+        </LinearLayout>
 		<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -115,7 +160,7 @@
                 android:textColor="@color/content" />
 
 			<CheckBox
-	            android:id="@+id/checkBox1"
+	            android:id="@+id/is_reply"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:text="" />
@@ -126,7 +171,7 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/is_review"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="是否复查"
@@ -275,4 +320,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

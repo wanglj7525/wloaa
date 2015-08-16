@@ -28,11 +28,15 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +50,7 @@ import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
 import com.ytint.wloaa.R;
 import com.ytint.wloaa.activity.ShenpiDetailActivity.ViewHolder;
+import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.ImageLoader;
@@ -66,10 +71,13 @@ public class AddZhiliangReportActivity extends AbActivity {
 	
 	Context context = null;
 	private String loginKey;
+	private String userName;
 	@AbIocView(id = R.id.task_people)
 	EditText task_people;
+	@AbIocView(id = R.id.select_people_report)
+	Spinner peopleSpinner;
 	@AbIocView(id = R.id.addshenpi_full)
-	LinearLayout addxiapai_full;
+	ScrollView addxiapai_full;
 	@AbIocView(id=R.id.gridView_image_report)
 	GridView gridView_image_report;
 //	@AbIocView(id = R.id.select_shenpi_people)
@@ -77,10 +85,16 @@ public class AddZhiliangReportActivity extends AbActivity {
 	/**提交上报**/
 	@AbIocView(id = R.id.commitShenpi)
 	Button add;
-	@AbIocView(id = R.id.task_name)
+	@AbIocView(id = R.id.task_name_report)
 	EditText task_name;
 	@AbIocView(id = R.id.task_tell)
 	EditText task_tell;
+	@AbIocView(id = R.id.task_method)
+	EditText task_method;
+	@AbIocView(id=R.id.is_reply)
+	CheckBox is_reply;
+	@AbIocView(id=R.id.is_review)
+	CheckBox is_review;
 	/**	确定位置*/
 	@AbIocView(id = R.id.findlocal)
 	Button findlocal;
@@ -152,25 +166,43 @@ public class AddZhiliangReportActivity extends AbActivity {
 		context = AddZhiliangReportActivity.this;
 		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
+		userName = application.getProperty("userName");
 		initData(); 
 		initUi();
 		//加载联系人下拉框
-		peoples = (List<People>) application.readObject("peoples");
-		if(null==peoples||peoples.size()<=0){
-			loadPeoples();
-		}else{
-			people_names = new String[peoples.size()];
-			int i = 0;
-			for (People cn : peoples) {
-				people_names[i] = cn.name;
-				i++;
-			}
-			initEdittext();
-		}
+		loadPeoples();
 	}
-	private void initEdittext(){
-		People onePeople=peoples.get(Integer.parseInt(loginKey)-1);
-		task_people.setText(onePeople.name);
+	private void initSpinner() {
+		// 将可选内容与ArrayAdapter连接起来
+		adapter = new ArrayAdapter<String>(AddZhiliangReportActivity.this,
+				R.layout.spinner_item, people_names);
+		// 设置下拉列表的风格
+		adapter.setDropDownViewResource(R.layout.drop_down_item);
+		// 将adapter 添加到spinner中
+		peopleSpinner.setAdapter(adapter);
+		// 设置默认选中
+		peopleSpinner.setSelection(0);
+		// 设置默认值
+		// channelSpinner.setVisibility(View.VISIBLE);
+		peopleSpinner
+				.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> arg0, View view,
+							int arg2, long arg3) {
+						people = peoples.get(arg2).id;
+						TextView tv = (TextView) view;
+						tv.setTextColor(getResources().getColor(R.color.white)); // 设置颜色
+						tv.setGravity(android.view.Gravity.CENTER); // 设置居中
+
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> arg0) {
+						arg0.setVisibility(View.VISIBLE);
+					}
+
+				});
+
 	}
 	/** 初始化数据 */
 	private void initData() {
@@ -222,7 +254,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 			showToast("请检查网络连接");
 			return;
 		}
-		mAbHttpUtil.get(URLs.USERLIST ,
+		mAbHttpUtil.get(URLs.USERLIST+"?user_id="+loginKey+"&department_id="+from+"&type=1" ,
 				new AbStringHttpResponseListener() {
 					// 获取数据成功会调用这里
 					@Override
@@ -238,7 +270,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 									people_names[i] = cn.name;
 									i++;
 								}
-								initEdittext();
+								initSpinner();
 							} else {
 								showToast(cList.msg);
 							}
@@ -305,7 +337,6 @@ public class AddZhiliangReportActivity extends AbActivity {
 		});
 		//添加录音
 		addVoicereport.setOnTouchListener(new OnTouchListener() {
-
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				switch (event.getAction()) {
@@ -338,10 +369,11 @@ public class AddZhiliangReportActivity extends AbActivity {
 						.getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 			}
-
 		};
 		addxiapai_full.setClickable(true);
 		addxiapai_full.setOnClickListener(keyboard_hide);
+		
+		task_people.setText(userName);
 	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -350,7 +382,6 @@ public class AddZhiliangReportActivity extends AbActivity {
 			switch(requestCode) {
             case 11:
 				ArrayList<String> strs=(ArrayList<String>) data.getExtras().get("data");
-				System.out.println(strs.toString());
 				imagelist=strs;
 				setImageGrideValue();
 			    break;
@@ -375,9 +406,19 @@ public class AddZhiliangReportActivity extends AbActivity {
 		}
 		
 		AbRequestParams params = new AbRequestParams();
-		params.put("androidApplyVerifyInfo.title", task_name.getText().toString());
-		params.put("androidApplyVerifyInfo.content", task_tell.getText().toString());
-		params.put("androidApplyVerifyInfo.apply_user_id", loginKey);
+		params.put("taskInfo.name", task_name.getText().toString());
+		System.out.println(peopleSpinner.getSelectedItem().toString());
+		params.put("taskInfo.receive_user_id", peopleSpinner.getSelectedItem().toString());
+		params.put("taskInfo.company_id", loginKey);
+		params.put("taskInfo.contact", task_tell.getText().toString());
+		params.put("taskInfo.handle_mode", task_method.getText().toString());
+		params.put("taskInfo.remark", loginKey);
+		params.put("taskInfo.is_reply", is_reply.isChecked()?"1":"2");
+		params.put("taskInfo.is_review", is_review.isChecked()?"1":"2");
+		params.put("taskInfo.attachment", loginKey);
+		params.put("taskInfo.media", loginKey);
+		params.put("taskInfo.task_type", "1");
+		params.put("taskInfo.create_user_id", loginKey);
 		Log.d(TAG, String.format("%s?", URLs.ADDSHENPI,
 				params));
 		mAbHttpUtil.post(URLs.ADDSHENPI ,params,
