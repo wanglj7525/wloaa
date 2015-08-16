@@ -317,6 +317,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 		params.put("taskInfo.task_type", "2");
 		params.put("taskInfo.create_user_id", loginKey);
 		params.put("taskInfo.department_id", from+"");
+		params.put("taskInfo.status", "0");
 		Log.d(TAG, String.format("%s?", URLs.ADDSHENPI,
 				params));
 		mAbHttpUtil.post(URLs.ADDRS ,params,

@@ -16,8 +16,33 @@
         android:singleLine="true"
         android:text="发布人"
         android:textColor="@color/listitem_black"
-        android:textSize="17dip" />
+        android:textSize="16dip" />
+		<LinearLayout
+		    android:id="@+id/shenpi_contnet"
+		    android:layout_below="@+id/apply_user_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+	        <HorizontalScrollView
+	            android:id="@+id/scrollView_image_list"
+	            android:orientation="horizontal"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				android:background="#FFFFFF">
+				<LinearLayout 
+				    android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					 android:orientation="horizontal">
 
+	                 <GridView
+	                     android:id="@+id/gridView_image_list"
+	                     android:layout_width="match_parent"
+	                     android:layout_height="100dp" >
+
+			        </GridView>
+	            </LinearLayout>
+	        </HorizontalScrollView>
+        </LinearLayout>
+        <!-- 
     <TextView
         android:id="@+id/shenpi_contnet"
         android:layout_width="fill_parent"
@@ -31,6 +56,7 @@
         android:text="内容"
         android:textColor="@color/list_item_abstract"
         android:textSize="14dip" />
+         -->
 
     <TextView
         android:id="@+id/shenpi_create_time"
@@ -54,7 +80,7 @@
         android:layout_alignTop="@+id/shenpi_create_time"
         android:layout_marginLeft="50dp"
         android:layout_toRightOf="@+id/shenpi_create_time"
-        android:text="审批人："
+        android:text=""
         android:textColor="@color/content"
         android:textColorHint="@color/black"
         android:textSize="11dip" />

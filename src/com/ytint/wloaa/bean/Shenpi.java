@@ -25,5 +25,13 @@ public class Shenpi implements java.io.Serializable{
 	public String second_verify_user_name;//二级批准审核人
 	public String second_verify_comment;// 二级批准审核说明
 	public String second_verify_time;// 二级批准审核时间
+	
+	public String name;
+	public String create_user_name;
+	public String receive_user_name;
+	public String contact;
+	public String attachment;
+	public String media;
+	public String company_name;
 
 }

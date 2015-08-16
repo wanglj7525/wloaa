@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,8 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -317,9 +320,10 @@ public class ZhiliangListActivity extends AbActivity{
         	Shenpi news = shenpiList.get(position);
         	
         	TextView frompeo = null;
-        	TextView abstr = null;
+//        	TextView abstr = null;
         	TextView timeView = null;
         	TextView topeo = null;
+        	GridView gridView_image_list=null;
 //			//列表中有图片
 //			if (news.pic!=null&&news.pic!=""&&news.pic.split(",").length > 0) {
 //	            convertView = mInflater.inflate(R.layout.listitem_shenpilist, null);//根据布局文件实例化view  
@@ -369,14 +373,28 @@ public class ZhiliangListActivity extends AbActivity{
             		.findViewById(R.id.apply_user_name);
             topeo = (TextView) convertView
             		.findViewById(R.id.first_verify_user_name);
-            abstr = (TextView) convertView
-            		.findViewById(R.id.shenpi_contnet);
+            gridView_image_list=(GridView)convertView
+            		.findViewById(R.id.gridView_image_list);
+            if (news.attachment==""&&news.media=="") {
+            	gridView_image_list.setVisibility(View.GONE);
+			}
+//            abstr = (TextView) convertView
+//            		.findViewById(R.id.shenpi_contnet);
             timeView = (TextView) convertView
             		.findViewById(R.id.shenpi_create_time);
 //			}
-            frompeo.setText("申请人："+news.apply_user_name);
-            topeo.setText(news.first_verify_user_name);
-            abstr.setText(news.content);
+            String html="【";
+            if (from==1) {
+				html+="质量检查】  &nbsp;&nbsp;";
+			}else if (from==2) {
+				html+="安全检查】 &nbsp;&nbsp; ";
+			}else{
+				html+="执法管理】  &nbsp;&nbsp;";
+			}
+             html+="<font color='#A00000'>&nbsp;"+news.create_user_name+"&nbsp;&nbsp;&nbsp;</font>"+news.name+"&nbsp;&nbsp;&nbsp;<font color='#505050'>"+news.company_name+"</font>"; 
+            frompeo.setText(Html.fromHtml(html));  
+            topeo.setText("接收人："+news.receive_user_name);
+//            abstr.setText(news.content);
             timeView.setText("申请时间："+news.create_time.toString());
             return convertView;  
         }

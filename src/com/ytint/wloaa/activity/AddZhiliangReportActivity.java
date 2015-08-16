@@ -531,6 +531,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 		params.put("taskInfo.task_type", "1");
 		params.put("taskInfo.create_user_id", loginKey);
 		params.put("taskInfo.department_id", from+"");
+		params.put("taskInfo.status", "0");
 		System.out.println(params.toString());
 		Log.e(TAG, String.format("%s?", URLs.ADDSHENPI,
 				params));
