@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:descendantFocusability="blocksDescendants"
+    android:id="@+id/framelayout"
+    android:layout_width="120dp"
+    android:layout_height="120dp" >
+
+    <com.ytint.wloaa.activity.MyImageView
+        android:id="@+id/sechild_image"
+        android:layout_width="120dp"
+        android:layout_height="120dip"
+        android:background="@drawable/friends_sends_pictures_no"
+        android:scaleType="fitXY" />
+
+
+</FrameLayout>

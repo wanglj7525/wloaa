@@ -42,7 +42,7 @@
                  android:inputType="text"
                  android:paddingBottom="10dp"
                  android:singleLine="true"
-                 android:text="15215412301"
+                 android:text="user_1"
                  android:textSize="@dimen/register_hint_textsize" />
 
              </LinearLayout>

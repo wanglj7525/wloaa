@@ -10,6 +10,7 @@ import java.util.UUID;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -30,20 +31,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ab.activity.AbActivity;
+import com.ab.bitmap.AbImageDownloader;
 import com.ab.http.AbHttpUtil;
 import com.ab.http.AbRequestParams;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
 import com.ytint.wloaa.R;
+import com.ytint.wloaa.activity.ShenpiDetailActivity.ViewHolder;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
+import com.ytint.wloaa.bean.ImageLoader;
+import com.ytint.wloaa.bean.ImageLoader.OnCallBackListener;
 import com.ytint.wloaa.bean.People;
 import com.ytint.wloaa.bean.PeopleList;
 import com.ytint.wloaa.bean.ShenpiInfo;
@@ -64,6 +70,8 @@ public class AddZhiliangReportActivity extends AbActivity {
 	EditText task_people;
 	@AbIocView(id = R.id.addshenpi_full)
 	LinearLayout addxiapai_full;
+	@AbIocView(id=R.id.gridView_image_report)
+	GridView gridView_image_report;
 //	@AbIocView(id = R.id.select_shenpi_people)
 //	Spinner peopleSpinner;
 	/**提交上报**/
@@ -79,6 +87,9 @@ public class AddZhiliangReportActivity extends AbActivity {
 	/**显示当前位置*/
 	@AbIocView(id = R.id.showlocal)
 	TextView showlocal;
+	/**拍照，选择本地图片上传*/
+	@AbIocView(id = R.id.add_photo)
+	Button add_photo;
 	/**添加录音*/
 	@AbIocView(id = R.id.addVoicereport)
 	Button addVoicereport;
@@ -87,6 +98,8 @@ public class AddZhiliangReportActivity extends AbActivity {
 	GridView addvoicegridviewreport;
 	@AbIocView(id=R.id.horizontalScrollView_addvoicereport)
 	HorizontalScrollView horizontalScrollView_addvoicereport;
+	@AbIocView(id=R.id.horizontalScrollView_report)
+	HorizontalScrollView horizontalScrollView_report;
 	/** 语音列表适配器 */
 	private MyGridAdapter mAdapter;
 	/** 语音列表 */
@@ -108,6 +121,8 @@ public class AddZhiliangReportActivity extends AbActivity {
 	/**水平间距*/
 	private int hSpacing = 10;
 
+	private ArrayList<String> imagelist=new ArrayList<String>();
+	private AbImageDownloader mAbImageDownloader = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -122,13 +137,9 @@ public class AddZhiliangReportActivity extends AbActivity {
 			mAbTitleBar.setTitleText("执法管理-上报执法任务");
 		}
 		mAbTitleBar.setLogo(R.drawable.button_selector_back); 
-//		 设置文字边距，常用来控制高度：
 		 mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
-//		 设置标题栏背景：
 		 mAbTitleBar.setTitleBarBackground(R.drawable.abg_top); 
-//		 左边图片右边的线：
 		 mAbTitleBar.setLogoLine(R.drawable.aline);
-//		  左边图片的点击事件：
 		 mAbTitleBar.getLogoView().setOnClickListener(new View.OnClickListener() {
 		     @Override
 		     public void onClick(View v) {
@@ -262,7 +273,17 @@ public class AddZhiliangReportActivity extends AbActivity {
 
 	private void initUi() {
 		horizontalScrollView_addvoicereport.setHorizontalScrollBarEnabled(true);
+		horizontalScrollView_report.setHorizontalScrollBarEnabled(true);
 		initGridView();
+		setImageGrideValue();
+		//拍照
+    	add_photo.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(AddZhiliangReportActivity.this, AddSelectPhotoActivity.class);  
+		        startActivityForResult(intent, 11);
+			}
+		});
 		//确定当前位置
 		findlocal.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -322,7 +343,23 @@ public class AddZhiliangReportActivity extends AbActivity {
 		addxiapai_full.setClickable(true);
 		addxiapai_full.setOnClickListener(keyboard_hide);
 	}
-	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
+		if(resultCode==200){	
+			switch(requestCode) {
+            case 11:
+				ArrayList<String> strs=(ArrayList<String>) data.getExtras().get("data");
+				System.out.println(strs.toString());
+				imagelist=strs;
+				setImageGrideValue();
+			    break;
+            default:
+                break;
+				}
+			}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
 	/**
 	 * 提交申请
 	 * @author wlj
@@ -458,4 +495,101 @@ public class AddZhiliangReportActivity extends AbActivity {
 		}
 
 	}
+    private void setImageGrideValue() {
+    	setImageListener();
+        MAImagedapter mAdapter = new MAImagedapter(context);
+        gridView_image_report.setAdapter(mAdapter);
+        LayoutParams params = new LayoutParams(mAdapter.getCount() * (200 + 10),
+                LayoutParams.WRAP_CONTENT);
+        gridView_image_report.setLayoutParams(params);
+        gridView_image_report.setColumnWidth(200);
+        gridView_image_report.setHorizontalSpacing(10);
+        gridView_image_report.setStretchMode(GridView.NO_STRETCH);
+        gridView_image_report.setNumColumns(mAdapter.getCount());
+        
+    }
+
+    private void setImageListener() {
+    	gridView_image_report.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                    int position, long id) {
+                // TODO Auto-generated method stub
+                Log.e(TAG, "position = " + position);
+                String url=imagelist.get(position);
+//                Intent intent = new Intent(AddZhiliangReportActivity.this, PicturePreviewActivity.class);  
+//        		intent.putExtra("url", url);
+//        		startActivity(intent);
+            }
+        });
+    }
+
+    class MAImagedapter extends BaseAdapter {
+    	 Context mContext;
+         LayoutInflater mInflater;
+
+         public MAImagedapter(Context c) {
+             mContext = c;
+             mInflater = LayoutInflater.from(mContext);
+//    		// 图片下载器
+//    		mAbImageDownloader = new AbImageDownloader(mContext);
+//    		mAbImageDownloader.setWidth(120);
+//    		mAbImageDownloader.setHeight(100);
+//    		mAbImageDownloader.setType(AbConstant.SCALEIMG);
+//    		mAbImageDownloader.setLoadingImage(R.drawable.image_loading);
+//    		mAbImageDownloader.setErrorImage(R.drawable.image_error);
+//    		mAbImageDownloader.setNoImage(R.drawable.image_no);
+        }
+
+
+		@Override
+        public int getCount() {
+            // TODO Auto-generated method stub
+            return imagelist.size();
+        }
+
+        @Override
+        public Object getItem(int arg0) {
+            // TODO Auto-generated method stub
+            return arg0;
+        }
+
+        @Override
+        public long getItemId(int arg0) {
+            // TODO Auto-generated method stub
+            return arg0;
+        }
+
+        @Override
+        public View getView(int position, View contentView, ViewGroup arg2) {
+        	String image=imagelist.get(position);
+            ViewHolder holder;
+            if (contentView == null) {
+                holder = new ViewHolder();
+                contentView = mInflater.inflate(R.layout.gridview_item, null);
+                holder.mImg = (ImageView) contentView.findViewById(R.id.mImage);
+                Bitmap bitmap=ImageLoader.getInstance().loadImage(image, 200, 100, new OnCallBackListener() {
+    				@Override
+    				public void setOnCallBackListener(Bitmap bitmap, String url) {
+    					ImageView image=(ImageView) gridView_image_report.findViewWithTag(url);
+    					if(image!=null&&bitmap!=null){
+    						image.setImageBitmap(bitmap);
+    					}
+    				}
+    			});
+    			if(bitmap!=null){
+    				holder.mImg.setImageBitmap(bitmap);
+    			}else{				
+    				holder.mImg.setImageResource(R.drawable.friends_sends_pictures_no);
+    			}
+//                mAbImageDownloader.display(holder.mImg,image);
+            } else {
+                holder = (ViewHolder) contentView.getTag();
+            }
+            contentView.setTag(holder);
+            return contentView;
+        }
+
+    }
 }

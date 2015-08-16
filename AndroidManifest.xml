@@ -193,7 +193,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
-        <!-- 文章详情 -->
         <activity
             android:name="com.ytint.wloaa.activity.ShenpiDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -206,6 +205,21 @@
         </activity>
         <activity
             android:name="com.ytint.wloaa.activity.PicturePreviewActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.ytint.wloaa.activity.PhotoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.ytint.wloaa.activity.AddSelectPhotoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.ytint.wloaa.activity.SkanActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>

@@ -12,9 +12,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -30,11 +32,14 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -43,6 +48,8 @@ import com.ab.activity.AbActivity;
 import com.ab.view.ioc.AbIocView;
 import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.MyApplication;
+import com.ytint.wloaa.bean.ImageLoader;
+import com.ytint.wloaa.bean.ImageLoader.OnCallBackListener;
 import com.ytint.wloaa.bean.URLs;
 
 /**
@@ -54,7 +61,8 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
 	private MyApplication application;
 	String TAG = "PhotoActivity";
     private ImageView img;
-    private EditText img_content;
+//    private EditText img_content;
+//	private GridView showImage;
     private Button nati;
     private Button pai;
     private Button submit;
@@ -66,6 +74,10 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
     private static final int TIME_OUT = 10*1000;   //超时时间
     private static final String CHARSET = "utf-8"; //设置编码
     private String loginKey;
+//    private MyAdapter adapter;
+    private List<String> imageList = new ArrayList<String>();
+    private LayoutInflater inflate;
+	private int viewWidth=0,viewHeight=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,14 +88,18 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
     }
 
     private void initView() {
+//    	inflate=LayoutInflater.from(PhotoActivity.this);
+//    	showImage=(GridView)findViewById(R.id.show_image);
         img = (ImageView) findViewById(R.id.img);
         nati = (Button) findViewById(R.id.natives);
         pai = (Button) findViewById(R.id.pai);
         submit = (Button) findViewById(R.id.submit);
-        img_content=(EditText)findViewById(R.id.img_content);
+//        img_content=(EditText)findViewById(R.id.img_content);
         nati.setOnClickListener(this);
         pai.setOnClickListener(this);
         submit.setOnClickListener(this);
+//        adapter=new MyAdapter();
+//        showImage.setAdapter(adapter);
         
     	OnClickListener keyboard_hide = new OnClickListener() {
 
@@ -103,9 +119,10 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.natives:
-                Intent local = new Intent();
-                local.setType("image/*");
-                local.setAction(Intent.ACTION_GET_CONTENT);
+            	Intent local = new Intent(PhotoActivity.this, AddSelectPhotoActivity.class);  
+//                Intent local = new Intent();
+//                local.setType("image/*");
+//                local.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(local, 2);
                 break;
             case R.id.pai:
@@ -149,6 +166,7 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
                             b.compress(Bitmap.CompressFormat.JPEG, 80, bos);
                             bos.flush();
                             bos.close();
+                            imageList.add(srcPath);
                         }else{
 
                             Toast toast= Toast.makeText(PhotoActivity.this, "保存失败，SD卡无效", Toast.LENGTH_SHORT);
@@ -163,12 +181,13 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
                     break;
                 case 2:
                     Uri uri = data.getData();
-                    img.setImageURI(uri);
+//                    img.setImageURI(uri);
                     ContentResolver cr = this.getContentResolver();
                     Cursor c = cr.query(uri, null, null, null, null);
                     c.moveToFirst();
                     //这是获取的图片保存在sdcard中的位置
                     srcPath = c.getString(c.getColumnIndex("_data"));
+                    imageList.add(srcPath);
                     System.out.println(srcPath+"----------保存路径2");
                     break;
                 default:
@@ -191,7 +210,7 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
 		final Map<String, String> params = new HashMap<String, String>();  
         params.put("user_id", loginKey);  
         params.put("file_type", "1");  
-        params.put("content", img_content.getText().toString());  
+//        params.put("content", img_content.getText().toString());  
         showProgressDialog();
     	new Thread(new Runnable() { //开启线程上传文件
     		@Override
@@ -305,5 +324,54 @@ public class PhotoActivity  extends AbActivity implements OnClickListener{
         return result;
     }
 
-
+//    static class ViewHolder {
+//        ImageView mImg;
+//    }
+//    private class MyAdapter extends BaseAdapter{
+//		@Override
+//		public int getCount() {
+//			return imageList.size();
+//		}
+//		@Override
+//		public Object getItem(int position) {
+//			return imageList.get(position);
+//		}
+//
+//		@Override
+//		public long getItemId(int position) {
+//			return position;
+//		}
+//		@Override
+//		public View getView(int position, View convertView, ViewGroup parent) {
+//			String path=imageList.get(position);
+//			ViewHolder viewHolder=null;
+//			if(convertView==null){
+//				viewHolder=new ViewHolder();
+//				convertView=inflate.inflate(R.layout.grid_selectedchild_item, null);
+//				viewHolder.mImg=(MyImageView) convertView.findViewById(R.id.sechild_image);
+//				convertView.setTag(viewHolder);
+//				
+//			}else{
+//				viewHolder=(ViewHolder) convertView.getTag();
+//				viewHolder.mImg.setImageResource(R.drawable.friends_sends_pictures_no);
+//			}
+//			viewHolder.mImg.setTag(path);
+//			Bitmap bitmap=ImageLoader.getInstance().loadImage(path, viewWidth, viewHeight, new OnCallBackListener() {
+//				@Override
+//				public void setOnCallBackListener(Bitmap bitmap, String url) {
+//					ImageView image=(ImageView) showImage.findViewWithTag(url);
+//					if(image!=null&&bitmap!=null){
+//						image.setImageBitmap(bitmap);
+//					}
+//				}
+//			});
+//			if(bitmap!=null){
+//				viewHolder.mImg.setImageBitmap(bitmap);
+//			}else{				
+//				viewHolder.mImg.setImageResource(R.drawable.friends_sends_pictures_no);
+//			}
+//			return convertView;
+//			
+//		}		
+//	}
 }

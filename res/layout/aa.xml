@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="350dp"
         android:layout_weight="0.6" />
-
+<!-- 
     <EditText
         android:id="@+id/img_content"
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
         android:inputType="textMultiLine"
         android:lines="3" >
     </EditText>
-    
+ -->
     <Button
         android:id="@+id/natives"
         android:layout_width="fill_parent"
