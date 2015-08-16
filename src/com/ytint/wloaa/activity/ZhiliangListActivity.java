@@ -127,9 +127,14 @@ public class ZhiliangListActivity extends AbActivity{
 			UIHelper.ToastMessage(context, "请检查网络连接");
 			return;
 		}
-//		api/task/get_task_list? user_id =?& department_id =?& task_type =?& status=? & p=?&ps=?
-		Log.d(TAG, String.format("%s?user_id=%s&p=1&ps=100&department_id=%d&task_type=%d&status=%d", URLs.TASKLIST,loginKey,from,select_show,whichOne-1));
-		mAbHttpUtil.get(String.format("%s?user_id=%s&p=1&ps=100&department_id=%d&task_type=%d&status=%d", URLs.TASKLIST,loginKey,from,select_show,whichOne-1),
+		String url;
+		if (whichOne!=3) {
+			url=String.format("%s?user_id=%s&p=1&ps=100&department_id=%d&task_type=%d&status=%d", URLs.TASKLIST,loginKey,from,select_show,whichOne);
+		}else{
+			url=String.format("%s?user_id=%s&p=1&ps=100&department_id=%d&task_type=%d", URLs.TASKLIST,loginKey,from,select_show);
+		}
+		Log.d(TAG, url);
+		mAbHttpUtil.get(url,
 				new AbStringHttpResponseListener() {
 					@Override
 					public void onSuccess(int statusCode, String content) {
