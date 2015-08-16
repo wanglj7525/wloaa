@@ -63,7 +63,11 @@ public class ShenpiDetailActivity extends AbActivity {
 	
 	@AbIocView(id = R.id.taskForwardInfo)
 	TextView taskForwardInfo;
+	@AbIocView(id = R.id.showImageText)
+	TextView showImageText;
 	
+	@AbIocView(id = R.id.showmodeLiner)
+	LinearLayout showmodeLiner;
 	@AbIocView(id = R.id.shenpi_detail_full)
 	LinearLayout shenpi_detail_full;
 	
@@ -160,6 +164,12 @@ public class ShenpiDetailActivity extends AbActivity {
 								}
 								setValue();
 								setListener();
+								
+								if (shenpi.task_type==2) {
+									detail_handle_mode.setVisibility(View.GONE);
+									showImageText.setVisibility(View.GONE);
+									showmodeLiner.setVisibility(View.GONE);
+								}
 							} else {
 								UIHelper.ToastMessage(context, gList.msg);
 							}

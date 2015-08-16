@@ -48,6 +48,8 @@ import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.activity.ShenpiDetailActivity.MAdapter;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
+import com.ytint.wloaa.bean.Company;
+import com.ytint.wloaa.bean.CompanyList;
 import com.ytint.wloaa.bean.People;
 import com.ytint.wloaa.bean.PeopleList;
 import com.ytint.wloaa.bean.QunfaInfo;
@@ -60,12 +62,17 @@ public class AddZhiliangSendActivity extends AbActivity {
 	private String loginKey;
 	private ArrayAdapter<String> adapter;
 	String[] people_names = new String[0];
+	String[] company_names = new String[0];
 	private long people = 0;
+	private long company = 0;
 	private List<People> peoples;
+	private List<Company> companys;
 	private int from;
 	boolean isLongClick = false;
 	@AbIocView(id = R.id.select_people)
 	Spinner peopleSpinner;
+	@AbIocView(id = R.id.select_company_send)
+	Spinner companySpinner;
 	@AbIocView(id = R.id.addTask)
 	Button add;
 	@AbIocView(id = R.id.task_info)
@@ -111,6 +118,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 	 */
 	private int hSpacing = 10;
 	private String peopleId;
+	private String companyId;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -148,17 +156,8 @@ public class AddZhiliangSendActivity extends AbActivity {
 		initData();
 		initUi();
 		// 加载联系人下拉框
-		if (null == peoples || peoples.size() <= 0) {
-			loadPeoples();
-		} else {
-			people_names = new String[peoples.size()];
-			int i = 0;
-			for (People cn : peoples) {
-				people_names[i] = cn.name;
-				i++;
-			}
-			initSpinner();
-		}
+		loadPeoples();
+		loadComapny();
 
 	}
 
@@ -256,7 +255,96 @@ public class AddZhiliangSendActivity extends AbActivity {
 		addxiapai_full.setClickable(true);
 		addxiapai_full.setOnClickListener(keyboard_hide);
 	}
+	private void initCompany() {
+		// 将可选内容与ArrayAdapter连接起来
+		adapter = new ArrayAdapter<String>(AddZhiliangSendActivity.this,
+				R.layout.spinner_item, company_names);
+		// 设置下拉列表的风格
+		adapter.setDropDownViewResource(R.layout.drop_down_item);
+		// 将adapter 添加到spinner中
+		companySpinner.setAdapter(adapter);
+		// 设置默认选中
+		companySpinner.setSelection(0);
+		// 设置默认值
+		// channelSpinner.setVisibility(View.VISIBLE);
+		companySpinner
+		.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View view,
+					int arg2, long arg3) {
+				company = companys.get(arg2).id;
+				companyId=companys.get(arg2).id+"";
+						TextView tv = (TextView) view;
+						tv.setTextColor(getResources().getColor(R.color.white)); // 设置颜色
+						tv.setGravity(android.view.Gravity.CENTER); // 设置居中
 
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> arg0) {
+						arg0.setVisibility(View.VISIBLE);
+					}
+
+				});
+
+	}
+	@SuppressLint("NewApi")
+	private void loadComapny() {
+		
+		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+		if (!application.isNetworkConnected()) {
+			showToast("请检查网络连接");
+			return;
+		}
+		mAbHttpUtil.get(URLs.COMPANYLIST+"?p=1&ps=2" ,
+				new AbStringHttpResponseListener() {
+			// 获取数据成功会调用这里
+			@Override
+			public void onSuccess(int statusCode, String content) {
+				try {
+					CompanyList cList = CompanyList.parseJson(content);
+					if (cList.code == 200) {
+						companys = cList.getInfo();
+						application.saveObject((Serializable) companys,"companys");
+						company_names = new String[companys.size()];
+						int i = 0;
+						for (Company cn : companys) {
+							company_names[i] = cn.name;
+							i++;
+						}
+						
+						initCompany();
+					} else {
+						showToast(cList.msg);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					showToast("数据解析失败");
+				}
+			};
+			
+			// 开始执行前
+			@Override
+			public void onStart() {
+				// 显示进度框
+				showProgressDialog();
+			}
+			
+			@Override
+			public void onFailure(int statusCode, String content,
+					Throwable error) {
+				showToast("网络连接失败！");
+			}
+			
+			// 完成后调用，失败，成功
+			@Override
+			public void onFinish() {
+				// 移除进度框
+				removeProgressDialog();
+			};
+			
+		});
+	}
 	private void initSpinner() {
 		// 将可选内容与ArrayAdapter连接起来
 		adapter = new ArrayAdapter<String>(AddZhiliangSendActivity.this,
@@ -318,6 +406,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 		params.put("taskInfo.create_user_id", loginKey);
 		params.put("taskInfo.department_id", from+"");
 		params.put("taskInfo.status", "0");
+		params.put("taskInfo.company_id", companyId);
 		Log.d(TAG, String.format("%s?", URLs.ADDSHENPI,
 				params));
 		mAbHttpUtil.post(URLs.ADDRS ,params,
