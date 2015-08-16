@@ -17,11 +17,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -29,12 +31,9 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.LinearLayout.LayoutParams;
 
 import com.ab.activity.AbActivity;
 import com.ab.http.AbHttpUtil;
@@ -43,7 +42,6 @@ import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
 import com.ytint.wloaa.R;
-import com.ytint.wloaa.activity.AddZhiliangSendActivity.MyGridAdapter;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.People;
@@ -68,22 +66,27 @@ public class AddZhiliangReportActivity extends AbActivity {
 	LinearLayout addxiapai_full;
 //	@AbIocView(id = R.id.select_shenpi_people)
 //	Spinner peopleSpinner;
+	/**提交上报**/
 	@AbIocView(id = R.id.commitShenpi)
 	Button add;
 	@AbIocView(id = R.id.task_name)
 	EditText task_name;
 	@AbIocView(id = R.id.task_tell)
 	EditText task_tell;
-//	@AbIocView(id = R.id.shenpi_close)
-//	TextView shenpi_close;
+	/**	确定位置*/
+	@AbIocView(id = R.id.findlocal)
+	Button findlocal;
+	/**显示当前位置*/
+	@AbIocView(id = R.id.showlocal)
+	TextView showlocal;
+	/**添加录音*/
 	@AbIocView(id = R.id.addVoicereport)
 	Button addVoicereport;
+	/**显示录音*/
 	@AbIocView(id = R.id.addvoicegridviewreport)
 	GridView addvoicegridviewreport;
 	@AbIocView(id=R.id.horizontalScrollView_addvoicereport)
 	HorizontalScrollView horizontalScrollView_addvoicereport;
-	/*@AbIocView(id = R.id.addvoicegridview)
-	GridView addvoicegridview;VoidListView;
 	/** 语音列表适配器 */
 	private MyGridAdapter mAdapter;
 	/** 语音列表 */
@@ -100,13 +103,9 @@ public class AddZhiliangReportActivity extends AbActivity {
 	private String mFileName = null;
 	/** 语音文件显示名称 */
 	private String mFileNameShow = null;
-	/**
-	 * 列宽
-	 */
+	/**列宽*/
 	private int cWidth = 500;
-	/**
-	 * 水平间距
-	 */
+	/**水平间距*/
 	private int hSpacing = 10;
 
 	@Override
@@ -264,8 +263,14 @@ public class AddZhiliangReportActivity extends AbActivity {
 	private void initUi() {
 		horizontalScrollView_addvoicereport.setHorizontalScrollBarEnabled(true);
 		initGridView();
-		
-		//添加
+		//确定当前位置
+		findlocal.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				
+			}
+		});
+		//添加上报
 		add.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -277,6 +282,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 				submitShenpi();
 			}
 		});
+		//添加录音
 		addVoicereport.setOnTouchListener(new OnTouchListener() {
 
 			@Override

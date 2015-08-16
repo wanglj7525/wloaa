@@ -145,7 +145,7 @@
    		    android:layout_width="wrap_content"
    		    android:layout_height="wrap_content"
    		    android:text="图片、视频列表（新拍图片、选择本地图片、长按可删除）"
-        	android:textSize="17sp"  />
+   		    android:textSize="15sp" />
 
    		<LinearLayout
    		    android:layout_width="match_parent"
@@ -170,7 +170,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="可发送音频消息（按住录音，长按删除）"
-            android:textSize="17sp" />
+            android:textSize="15sp" />
 
  		<LinearLayout
 	            android:layout_width="match_parent"
@@ -206,6 +206,29 @@
 			        </HorizontalScrollView>
 		        </LinearLayout>
         </LinearLayout>
+
+ 		<LinearLayout
+ 		    android:layout_width="match_parent"
+ 		    android:layout_height="wrap_content"
+ 		    android:orientation="horizontal" >
+
+				<Button
+		 		    android:id="@+id/findlocal"
+		 		    android:layout_width="wrap_content"
+		 		    android:layout_height="wrap_content"
+		 		    android:text="当前位置" />
+
+				<TextView
+				    android:id="@+id/showlocal"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_gravity="center"
+				    android:text="" />
+				
+        </LinearLayout>
+
+ 		
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
