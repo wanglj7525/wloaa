@@ -16,9 +16,12 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -71,29 +74,18 @@ public class ZhiliangListActivity extends AbActivity{
 	
 	@AbIocView(id = R.id.addShenpi)
 	RelativeLayout addShenpi;
+	@AbIocView(id = R.id.report_list)
+	RadioButton report_list;
+	@AbIocView(id = R.id.send_list)
+	RadioButton send_list;
+//	@AbIocView(id = R.id.radiogroup1)
+//	RadioGroup selectList;
+	
+	private int select_show=1;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_zhilianglist);
-		
-//		AbTitleBar mAbTitleBar = this.getTitleBar();
-//		mAbTitleBar.setTitleText("质量检查-上报质检任务");
-//		mAbTitleBar.setLogo(R.drawable.button_selector_back); 
-////		 设置文字边距，常用来控制高度：
-//		 mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
-////		 设置标题栏背景：
-//		 mAbTitleBar.setTitleBarBackground(R.drawable.abg_top); 
-////		 左边图片右边的线：
-//		 mAbTitleBar.setLogoLine(R.drawable.aline);
-////		  左边图片的点击事件：
-//		 mAbTitleBar.getLogoView().setOnClickListener(new View.OnClickListener() {
-//		     @Override
-//		     public void onClick(View v) {
-//		        finish();
-//		     }
-//
-//		 }); 
-		
 		context = ZhiliangListActivity.this;
 		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
@@ -126,8 +118,9 @@ public class ZhiliangListActivity extends AbActivity{
 			UIHelper.ToastMessage(context, "请检查网络连接");
 			return;
 		}
-		Log.d(TAG, String.format("%s?verify_step=3&user_id=0&p=1&ps=20", URLs.SHENPILIST));
-		mAbHttpUtil.get(String.format("%s?verify_step=3&user_id=0&p=1&ps=20", URLs.SHENPILIST),
+//		api/task/get_task_list? user_id =?& department_id =?& task_type =?& status=? & p=?&ps=?
+		Log.d(TAG, String.format("%s?user_id=%s&p=1&ps=100&department_id=%d&task_type=%d&status=%d", URLs.TASKLIST,loginKey,from,select_show,whichOne-1));
+		mAbHttpUtil.get(String.format("%s?user_id=%s&p=1&ps=100&department_id=%d&task_type=%d&status=%d", URLs.TASKLIST,loginKey,from,select_show,whichOne-1),
 				new AbStringHttpResponseListener() {
 					@Override
 					public void onSuccess(int statusCode, String content) {
@@ -214,6 +207,29 @@ public class ZhiliangListActivity extends AbActivity{
 				finish();
 			}
 		});
+		report_list.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				select_show=1;
+				getGroupData();
+			}
+		});
+		send_list.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				select_show=2;
+				getGroupData();
+			}
+		});
+//		selectList.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//			@Override
+//			public void onCheckedChanged(RadioGroup group, int checkedId) {
+//				select_show=checkedId;
+//				getGroupData();
+//			}
+//		});
 
 	}
 	// 初始化绑定数据

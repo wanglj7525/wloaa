@@ -26,6 +26,8 @@ public class URLs implements Serializable {
 
 	//获取用户列表
 	public final static String USERLIST=URL_API_HOST+"api/user/get_user_list";
+	//获取用户列表
+	public final static String COMPANYLIST=URL_API_HOST+"api/company/get_company_list";
 	
 	//添加jpush推送标记
 	public final static String ADDREGIS=URL_API_HOST+"api/user/update_user_registration";
@@ -44,8 +46,13 @@ public class URLs implements Serializable {
 	//发送消息或任务
 	public final static String ADDSHENPI=URL_API_HOST+"api/verify/add_apply_info";
 	
+	//上报下派
+	public final static String ADDRS=URL_API_HOST+"api/task/add_task_info";
+	
 	//获取审批列表
 	public final static String SHENPILIST=URL_API_HOST+"api/verify/get_apply_list";
+	//获取任务列表
+	public final static String TASKLIST=URL_API_HOST+"api/task/get_task_list";
 	
 	//获取审批详情
 	public final static String SHENPIDETAIL=URL_API_HOST+"api/verify/get_apply_info";

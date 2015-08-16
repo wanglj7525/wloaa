@@ -70,8 +70,12 @@ public class AddZhiliangSendActivity extends AbActivity {
 	Button add;
 	@AbIocView(id = R.id.task_info)
 	EditText task_info;
-	@AbIocView(id = R.id.task_tell)
+	@AbIocView(id = R.id.task_tell_send)
 	EditText task_tell;
+	@AbIocView(id = R.id.task_remark)
+	EditText task_remark;
+	@AbIocView(id = R.id.task_name_send)
+	EditText task_name_send;
 	// @AbIocView(id = R.id.search_close)
 	// TextView search_close;
 	@AbIocView(id = R.id.addxiapai_full)
@@ -106,7 +110,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 	 * 水平间距
 	 */
 	private int hSpacing = 10;
-
+	private String peopleId;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -271,6 +275,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 					public void onItemSelected(AdapterView<?> arg0, View view,
 							int arg2, long arg3) {
 						people = peoples.get(arg2).id;
+						peopleId=people+"";
 						TextView tv = (TextView) view;
 						tv.setTextColor(getResources().getColor(R.color.white)); // 设置颜色
 						tv.setGravity(android.view.Gravity.CENTER); // 设置居中
@@ -302,13 +307,19 @@ public class AddZhiliangSendActivity extends AbActivity {
 		}
 
 		AbRequestParams params = new AbRequestParams();
-		params.put("androidNoticeInfo.title", task_tell.getText().toString());
-		params.put("androidNoticeInfo.content", task_info.getText().toString());
-		params.put("androidNoticeInfo.push_user_id", loginKey);
-		params.put("androidNoticeInfo.notice_type", "1");
-		params.put("androidNoticeInfo.receive_user_ids", people + "");
-		Log.d(TAG, String.format("%s?", URLs.ADDMSG, params));
-		mAbHttpUtil.post(URLs.ADDMSG, params,
+		params.put("taskInfo.name", task_name_send.getText().toString());
+		System.out.println(peopleSpinner.getSelectedItem().toString());
+		params.put("taskInfo.receive_user_id",peopleId);
+		params.put("taskInfo.contact", task_tell.getText().toString());
+		params.put("taskInfo.remark", task_remark.getText().toString());
+		String media=application.getProperty("addVoiceReport");
+		params.put("taskInfo.media", media);
+		params.put("taskInfo.task_type", "2");
+		params.put("taskInfo.create_user_id", loginKey);
+		params.put("taskInfo.department_id", from+"");
+		Log.d(TAG, String.format("%s?", URLs.ADDSHENPI,
+				params));
+		mAbHttpUtil.post(URLs.ADDRS ,params,
 				new AbStringHttpResponseListener() {
 					@Override
 					public void onSuccess(int statusCode, String content) {
@@ -354,7 +365,8 @@ public class AddZhiliangSendActivity extends AbActivity {
 			showToast("请检查网络连接");
 			return;
 		}
-		mAbHttpUtil.get(URLs.USERLIST, new AbStringHttpResponseListener() {
+		mAbHttpUtil.get(URLs.USERLIST+"?user_id="+loginKey+"&department_id="+from+"&type=2" ,
+			 new AbStringHttpResponseListener() {
 			// 获取数据成功会调用这里
 			@Override
 			public void onSuccess(int statusCode, String content) {
@@ -362,7 +374,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 					PeopleList cList = PeopleList.parseJson(content);
 					if (cList.code == 200) {
 						peoples = cList.getInfo();
-						peoples.remove(Integer.parseInt(loginKey) - 1);
+//						peoples.remove(Integer.parseInt(loginKey) - 1);
 						application.saveObject((Serializable) peoples,
 								"peoples");
 						people_names = new String[peoples.size()];

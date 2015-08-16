@@ -22,7 +22,7 @@
                 android:textSize="16dp"/>
 
             <EditText
-                android:id="@+id/task_name"
+                android:id="@+id/task_name_send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -70,7 +70,7 @@
                 android:textSize="16dp"/>
 
             <EditText
-                android:id="@+id/task_tell"
+                android:id="@+id/task_tell_send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -93,7 +93,7 @@
                 android:textSize="16dp" />
 
             <EditText
-                android:id="@+id/task_info"
+                android:id="@+id/task_remark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

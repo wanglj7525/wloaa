@@ -530,9 +530,11 @@ public class AddZhiliangReportActivity extends AbActivity {
 		params.put("taskInfo.media", media);
 		params.put("taskInfo.task_type", "1");
 		params.put("taskInfo.create_user_id", loginKey);
-		Log.d(TAG, String.format("%s?", URLs.ADDSHENPI,
+		params.put("taskInfo.department_id", from+"");
+		System.out.println(params.toString());
+		Log.e(TAG, String.format("%s?", URLs.ADDSHENPI,
 				params));
-		mAbHttpUtil.post(URLs.ADDSHENPI ,params,
+		mAbHttpUtil.post(URLs.ADDRS ,params,
 				new AbStringHttpResponseListener() {
 					@Override
 					public void onSuccess(int statusCode, String content) {
