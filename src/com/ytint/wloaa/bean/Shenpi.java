@@ -33,5 +33,7 @@ public class Shenpi implements java.io.Serializable{
 	public String attachment;
 	public String media;
 	public String company_name;
+	public String handle_mode;
+	public String taskForwardInfo;
 
 }

@@ -52,7 +52,7 @@ public class QiyeListActivity extends AbActivity{
 	private ProgressDialog mProgressDialog;
 	private String loginKey;
 	
-	@AbIocView(id = R.id.shenpi_list)
+	@AbIocView(id = R.id.shenpi_list1)
 	ListView shenpiListView;
 	
 	@AbIocView(id = R.id.showtitle)

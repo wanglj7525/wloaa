@@ -28,7 +28,6 @@ import com.ab.http.AbHttpUtil;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
-import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.Shenpi;
@@ -53,12 +52,17 @@ public class ShenpiDetailActivity extends AbActivity {
      * 水平间距
      */
     private int hSpacing = 10;
-	@AbIocView(id = R.id.shenpi_detail)
-	TextView shenpi_detail;
-	@AbIocView(id = R.id.shenpi_title)
-	TextView shenpi_title;
-	@AbIocView(id = R.id.from_shenpi)
-	TextView from_shenpi;
+	@AbIocView(id = R.id.task_tell_detail)
+	TextView task_tell_detail;
+	@AbIocView(id = R.id.task_create)
+	TextView task_create;
+	@AbIocView(id = R.id.task_name_detail)
+	TextView task_name_detail;
+	@AbIocView(id = R.id.detail_handle_mode)
+	TextView detail_handle_mode;
+	
+	@AbIocView(id = R.id.taskForwardInfo)
+	TextView taskForwardInfo;
 	
 	@AbIocView(id = R.id.shenpi_detail_full)
 	LinearLayout shenpi_detail_full;
@@ -66,9 +70,6 @@ public class ShenpiDetailActivity extends AbActivity {
 	
 	@AbIocView(id = R.id.first_verify_user_name)
 	TextView first_verify_user_name;
-	@AbIocView(id = R.id.first_verify_comment)
-	TextView first_verify_comment;
-	
 	@AbIocView(id = R.id.scrollView_image)
 	HorizontalScrollView scrollView_image;
 	@AbIocView(id = R.id.gridView_image)
@@ -139,10 +140,11 @@ public class ShenpiDetailActivity extends AbActivity {
 									.parseJson(content);
 							if (gList.code == 200) {
 								shenpi = gList.getInfo();
-								from_shenpi.setText(shenpi.apply_user_name);
-								shenpi_title.setText(shenpi.title);
-								shenpi_detail.setText(shenpi.content);
-								
+								task_name_detail.setText(shenpi.name);
+								task_create.setText(shenpi.create_user_name);
+								task_tell_detail.setText(shenpi.contact);
+								detail_handle_mode.setText(shenpi.handle_mode);
+								taskForwardInfo.setText(shenpi.taskForwardInfo);
 //								int status = Integer.parseInt(application.getProperty("status").toString());
 //								
 //								if (shenpi.first_verify_status==0) {
@@ -151,14 +153,11 @@ public class ShenpiDetailActivity extends AbActivity {
 //									first_verify_user_name.setText(shenpi.first_verify_user_name);
 //									first_verify_comment.setText(shenpi.first_verify_comment);
 //								}
-								
-								imageList.add("http://hi.csdn.net/attachment/201108/9/0_1312862481agG1.gif");
-								imageList.add("https://github.com/nostra13/Android-Universal-Image-Loader/raw/master/wiki/UIL_Flow.png");
-								imageList.add("https://github.com/square/picasso/raw/master/website/static/sample.png");
-								imageList.add("http://hi.csdn.net/attachment/201108/9/0_1312862481agG1.gif");
-								imageList.add("https://github.com/nostra13/Android-Universal-Image-Loader/raw/master/wiki/UIL_Flow.png");
-								imageList.add("https://github.com/square/picasso/raw/master/website/static/sample.png");
-								imageList.add("http://hi.csdn.net/attachment/201108/9/0_1312862481agG1.gif");
+								if (shenpi.attachment!="") {
+									for (int i = 0; i < shenpi.attachment.split(",").length; i++) {
+										imageList.add(URLs.URL_API_HOST+shenpi.attachment.split(",")[i]);
+									}
+								}
 								setValue();
 								setListener();
 							} else {
@@ -216,16 +215,6 @@ public class ShenpiDetailActivity extends AbActivity {
 	                Intent intent = new Intent(ShenpiDetailActivity.this, PicturePreviewActivity.class);  
 	        		intent.putExtra("url", url);
 	        		startActivity(intent);
-//	                DialogImage dialog=new DialogImage(context, url);
-//	                DialogImage dialog = new DialogImage(this,url,new DialogImage.OnCustomDialogListener() {
-//                        
-////                        @Override
-////                        public void back(String url) {
-////                                resultText.setText("Enter name is "+name);
-////                               
-////                        }
-//                });
-//                dialog.show();
 	            }
 	        });
 	    }

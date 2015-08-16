@@ -30,8 +30,10 @@ public class FileHelper extends Activity{
 	private static final int TIME_OUT = 10 * 1000; // 超时时间
 	private static final String CHARSET = "utf-8"; // 设置编码
 	String result;
+	public static String addImageReport;
+	public static String addVoiceReport;
 	private MyApplication application = (MyApplication) this.getApplication();
-	public void submitUploadFile(ArrayList<String> srcPath, String loginKey,String type) {
+	public void submitUploadFile(ArrayList<String> srcPath, String loginKey,final String type) {
 		final ArrayList<File> files=new ArrayList<File>();
 		for (String path : srcPath) {
 			File file = new File(path);
@@ -54,7 +56,7 @@ public class FileHelper extends Activity{
 		new Thread(new Runnable() { // 开启线程上传文件
 					@Override
 					public void run() {
-						result= uploadFile(files, RequestURL, params);
+						result= uploadFile(files, RequestURL, params,type);
 					}
 				}).start();
 	}
@@ -69,7 +71,7 @@ public class FileHelper extends Activity{
 	 * @return 返回响应的内容
 	 */
 	private String uploadFile(ArrayList<File> files, String RequestURL,
-			Map<String, String> param) {
+			Map<String, String> param,String type) {
 		String result = null;
 		String BOUNDARY = UUID.randomUUID().toString(); // 边界标识 随机生成
 		String PREFIX = "--", LINE_END = "\r\n";
@@ -128,9 +130,14 @@ public class FileHelper extends Activity{
 					sb.append(LINE_END);
 					sb.append("Content-Disposition: form-data; name=\"upfile["+flag+"]\";filename=\""
 							+ file.getName() + "\"" + LINE_END);
-//					sb.append("Content-Disposition: form-data; name=\"upfile["+flag+"]\"" + LINE_END);
-					sb.append("Content-Type: image/pjpeg; charset=" + CHARSET
-							+ LINE_END);
+					if (type.equals("3")) {
+						sb.append("Content-Type: audio/mpeg; charset=" + CHARSET
+								+ LINE_END);
+					}else{
+						sb.append("Content-Type: image/pjpeg; charset=" + CHARSET
+								+ LINE_END);
+					}
+					
 					sb.append(LINE_END);
 					dos.write(sb.toString().getBytes());
 					Log.i(TAG,  "files=" + sb.toString() + "##");
@@ -164,18 +171,23 @@ public class FileHelper extends Activity{
 					result = sb1.toString();
 					System.out.println("result=========" + result);
 					
-//					JSONObject jsonObject = null;
-//					try {
-//						jsonObject = new JSONObject(result);
-//						int code = Integer.parseInt(jsonObject.getString(
-//								"code").toString());
-//						if (code == Constants.SUCCESS) {
-//							String ids=jsonObject.getString("info");
-//							application.setProperty("addImageReport",ids);
-//						}
-//					} catch (Exception e) {
-//						e.printStackTrace();
-//					}
+					JSONObject jsonObject = null;
+					try {
+						jsonObject = new JSONObject(result);
+						int code = Integer.parseInt(jsonObject.getString(
+								"code").toString());
+						if (code == Constants.SUCCESS) {
+							String ids=jsonObject.getString("info");
+							System.out.println(ids+"====="+type);
+							if (type.equals("1")) {
+								addImageReport=ids;
+							}else if (type.equals("3")) {
+								addVoiceReport=ids;
+							}
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 					
 				} else {
 				}

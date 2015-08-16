@@ -21,12 +21,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout.LayoutParams;
 
 import com.ab.activity.AbActivity;
 import com.ab.bitmap.AbImageDownloader;
@@ -37,6 +40,8 @@ import com.ab.util.AbStrUtil;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
 import com.ytint.wloaa.activity.R;
+import com.ytint.wloaa.activity.ShenpiDetailActivity.MAdapter;
+import com.ytint.wloaa.activity.ShenpiDetailActivity.ViewHolder;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
@@ -85,6 +90,7 @@ public class ZhiliangListActivity extends AbActivity{
 //	RadioGroup selectList;
 	
 	private int select_show=1;
+	private ArrayList<String> imageList=new ArrayList<String>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -226,13 +232,6 @@ public class ZhiliangListActivity extends AbActivity{
 				getGroupData();
 			}
 		});
-//		selectList.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//			@Override
-//			public void onCheckedChanged(RadioGroup group, int checkedId) {
-//				select_show=checkedId;
-//				getGroupData();
-//			}
-//		});
 
 	}
 	// 初始化绑定数据
@@ -289,14 +288,14 @@ public class ZhiliangListActivity extends AbActivity{
   
         public ShenpiListAdapter(Context context) {  
             this.mInflater = LayoutInflater.from(context);  
-    		// 图片下载器
-    		mAbImageDownloader = new AbImageDownloader(context);
-    		mAbImageDownloader.setWidth(80);
-    		mAbImageDownloader.setHeight(60);
-    		mAbImageDownloader.setType(AbConstant.SCALEIMG);
-    		mAbImageDownloader.setLoadingImage(R.drawable.image_loading);
-    		mAbImageDownloader.setErrorImage(R.drawable.image_error);
-    		mAbImageDownloader.setNoImage(R.drawable.image_no);
+//    		// 图片下载器
+//    		mAbImageDownloader = new AbImageDownloader(context);
+//    		mAbImageDownloader.setWidth(80);
+//    		mAbImageDownloader.setHeight(60);
+//    		mAbImageDownloader.setType(AbConstant.SCALEIMG);
+//    		mAbImageDownloader.setLoadingImage(R.drawable.image_loading);
+//    		mAbImageDownloader.setErrorImage(R.drawable.image_error);
+//    		mAbImageDownloader.setNoImage(R.drawable.image_no);
         }  
   
         // 决定ListView有几行可见  
@@ -324,6 +323,7 @@ public class ZhiliangListActivity extends AbActivity{
         	TextView timeView = null;
         	TextView topeo = null;
         	GridView gridView_image_list=null;
+        	
 //			//列表中有图片
 //			if (news.pic!=null&&news.pic!=""&&news.pic.split(",").length > 0) {
 //	            convertView = mInflater.inflate(R.layout.listitem_shenpilist, null);//根据布局文件实例化view  
@@ -396,9 +396,79 @@ public class ZhiliangListActivity extends AbActivity{
             topeo.setText("接收人："+news.receive_user_name);
 //            abstr.setText(news.content);
             timeView.setText("申请时间："+news.create_time.toString());
+            imageList=new ArrayList<String>();
+            if (news.attachment!="") {
+				for (int i = 0; i < news.attachment.split(",").length; i++) {
+					imageList.add(URLs.URL_API_HOST+news.attachment.split(",")[i]);
+				}
+			}
+            MAdapter mAdapter = new MAdapter(context);
+            gridView_image_list.setAdapter(mAdapter);
+            LayoutParams params = new LayoutParams(mAdapter.getCount() * (120 + 10),
+                    LayoutParams.WRAP_CONTENT);
+            gridView_image_list.setLayoutParams(params);
+            gridView_image_list.setColumnWidth(120);
+            gridView_image_list.setHorizontalSpacing(10);
+            gridView_image_list.setStretchMode(GridView.NO_STRETCH);
+            gridView_image_list.setNumColumns(mAdapter.getCount());
             return convertView;  
         }
 
     }  
 
+
+
+    class MAdapter extends BaseAdapter {
+    	 Context mContext;
+         LayoutInflater mInflater;
+
+         public MAdapter(Context c) {
+             mContext = c;
+             mInflater = LayoutInflater.from(mContext);
+    		// 图片下载器
+    		mAbImageDownloader = new AbImageDownloader(mContext);
+    		mAbImageDownloader.setWidth(120);
+    		mAbImageDownloader.setHeight(100);
+    		mAbImageDownloader.setType(AbConstant.SCALEIMG);
+    		mAbImageDownloader.setLoadingImage(R.drawable.image_loading);
+    		mAbImageDownloader.setErrorImage(R.drawable.image_error);
+    		mAbImageDownloader.setNoImage(R.drawable.image_no);
+        }
+
+
+		@Override
+        public int getCount() {
+            // TODO Auto-generated method stub
+            return imageList.size();
+        }
+
+        @Override
+        public Object getItem(int arg0) {
+            // TODO Auto-generated method stub
+            return arg0;
+        }
+
+        @Override
+        public long getItemId(int arg0) {
+            // TODO Auto-generated method stub
+            return arg0;
+        }
+
+        @Override
+        public View getView(int position, View contentView, ViewGroup arg2) {
+        	String image=imageList.get(position);
+            ViewHolder holder;
+            if (contentView == null) {
+                holder = new ViewHolder();
+                contentView = mInflater.inflate(R.layout.gridview_item, null);
+                holder.mImg = (ImageView) contentView.findViewById(R.id.mImage);
+                mAbImageDownloader.display(holder.mImg,image);
+            } else {
+                holder = (ViewHolder) contentView.getTag();
+            }
+            contentView.setTag(holder);
+            return contentView;
+        }
+
+    }
 }

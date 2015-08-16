@@ -524,16 +524,16 @@ public class AddZhiliangReportActivity extends AbActivity {
 		}
 		params.put("taskInfo.is_reply",reply);
 		params.put("taskInfo.is_review",review);
-		String attachment=application.getProperty("addImageReport");
+		String attachment=FileHelper.addImageReport;
 		params.put("taskInfo.attachment", attachment);
-		String media=application.getProperty("addVoiceReport");
+		String media=FileHelper.addVoiceReport;
 		params.put("taskInfo.media", media);
 		params.put("taskInfo.task_type", "1");
 		params.put("taskInfo.create_user_id", loginKey);
 		params.put("taskInfo.department_id", from+"");
 		params.put("taskInfo.status", "0");
 		System.out.println(params.toString());
-		Log.e(TAG, String.format("%s?", URLs.ADDSHENPI,
+		Log.e(TAG, String.format("%s?%s", URLs.ADDSHENPI,
 				params));
 		mAbHttpUtil.post(URLs.ADDRS ,params,
 				new AbStringHttpResponseListener() {
