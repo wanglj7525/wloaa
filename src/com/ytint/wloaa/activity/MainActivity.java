@@ -39,7 +39,7 @@ Context context = null;
 		context=MainActivity.this;
 		mAbHttpUtil.setDebug(true);
 		//TODO 以后可以改成该手机电话号 或者 用户ID 等唯一标识
-		application.setProperty("loginKey", "1");
+//		application.setProperty("loginKey", "1");
 		
 //		setTitle(R.string.sliding_title);
         setContentView(R.layout.frame_content);

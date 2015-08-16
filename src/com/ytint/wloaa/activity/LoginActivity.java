@@ -162,9 +162,12 @@ public class LoginActivity extends AbActivity {
 							if (code == Constants.SUCCESS) {
 								JSONObject info=jsonObject.getJSONObject("info");
 								String id=info.getString("id");
+								String name=info.getString("name");
 								application.setProperty("loginKey",id);
 								application.setProperty(Constants.USER_NAME,
 										username);
+								application.setProperty("userName",
+										name);
 								// 跳转到首页
 								
 								 Intent intent = new Intent(LoginActivity.this,

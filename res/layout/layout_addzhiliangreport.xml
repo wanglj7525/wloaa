@@ -171,14 +171,14 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/is_review"
+                android:id="@+id/is_reviewss"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="是否复查"
                 android:textColor="@color/content"/>
 
 			<CheckBox
-	            android:id="@+id/checkBox2"
+	            android:id="@+id/is_review"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:text="" />
