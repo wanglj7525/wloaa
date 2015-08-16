@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ytint.wloaa.R;
+import com.ytint.wloaa.activity.R;
 
 public class PagesFragment extends Fragment {
 	

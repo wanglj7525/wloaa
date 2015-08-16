@@ -17,20 +17,20 @@ import android.os.Environment;
 import android.os.Looper;
 import android.widget.Toast;
 
-import com.ytint.wloaa.R;
+import com.ytint.wloaa.activity.R;
 
 
 /**
- * Ó¦ÓÃ³ÌÐòÒì³£Àà£ºÓÃÓÚ²¶»ñÒì³£ºÍÌáÊ¾´íÎóÐÅÏ¢
+ * Ó¦ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½à£ºï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
  */
 public class AppException extends Exception implements UncaughtExceptionHandler{
 
-	private final static boolean Debug = false;//ÊÇ·ñ±£´æ´íÎóÈÕÖ¾
+	private final static boolean Debug = false;//ï¿½Ç·ñ±£´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 	
-	/** ¶¨ÒåÒì³£ÀàÐÍ */
+	/** ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ */
 	public final static byte TYPE_NETWORK 	= 0x01;
 	public final static byte TYPE_SOCKET	= 0x02;
 	public final static byte TYPE_HTTP_CODE	= 0x03;
@@ -42,7 +42,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler{
 	private byte type;
 	private int code;
 	
-	/** ÏµÍ³Ä¬ÈÏµÄUncaughtException´¦ÀíÀà */
+	/** ÏµÍ³Ä¬ï¿½Ïµï¿½UncaughtExceptionï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private Thread.UncaughtExceptionHandler mDefaultHandler;
 	
 	private AppException(){
@@ -65,7 +65,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler{
 	}
 	
 	/**
-	 * ÌáÊ¾ÓÑºÃµÄ´íÎóÐÅÏ¢
+	 * ï¿½ï¿½Ê¾ï¿½ÑºÃµÄ´ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * @param ctx
 	 */
 	public void makeToast(Context ctx){
@@ -96,7 +96,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler{
 	}
 	
 	/**
-	 * ±£´æÒì³£ÈÕÖ¾
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ö¾
 	 * @param excp
 	 */
 	public void saveErrorLog(Exception excp) {
@@ -106,7 +106,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler{
 		FileWriter fw = null;
 		PrintWriter pw = null;
 		try {
-			//ÅÐ¶ÏÊÇ·ñ¹ÒÔØÁËSD¿¨
+			//ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SDï¿½ï¿½
 			String storageState = Environment.getExternalStorageState();		
 			if(storageState.equals(Environment.MEDIA_MOUNTED)){
 				savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/OSChina/Log/";
@@ -116,7 +116,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler{
 				}
 				logFilePath = savePath + errorlog;
 			}
-			//Ã»ÓÐ¹ÒÔØSD¿¨£¬ÎÞ·¨Ð´ÎÄ¼þ
+			//Ã»ï¿½Ð¹ï¿½ï¿½ï¿½SDï¿½ï¿½ï¿½ï¿½ï¿½Þ·ï¿½Ð´ï¿½Ä¼ï¿½
 			if(logFilePath == ""){
 				return;
 			}
@@ -183,7 +183,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler{
 	}
 
 	/**
-	 * »ñÈ¡APPÒì³£±ÀÀ£´¦Àí¶ÔÏó
+	 * ï¿½ï¿½È¡APPï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param context
 	 * @return
 	 */
@@ -200,9 +200,9 @@ public class AppException extends Exception implements UncaughtExceptionHandler{
 
 	}
 	/**
-	 * ×Ô¶¨ÒåÒì³£´¦Àí:ÊÕ¼¯´íÎóÐÅÏ¢&·¢ËÍ´íÎó±¨¸æ
+	 * ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½:ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢&ï¿½ï¿½ï¿½Í´ï¿½ï¿½ó±¨¸ï¿½
 	 * @param ex
-	 * @return true:´¦ÀíÁË¸ÃÒì³£ÐÅÏ¢;·ñÔò·µ»Øfalse
+	 * @return true:ï¿½ï¿½ï¿½ï¿½ï¿½Ë¸ï¿½ï¿½ì³£ï¿½ï¿½Ï¢;ï¿½ï¿½ï¿½ò·µ»ï¿½false
 	 */
 	private boolean handleException(Throwable ex) {
 		if(ex == null) {
@@ -216,7 +216,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler{
 		}
 		
 		final String crashReport = getCrashReport(context, ex);
-		//ÏÔÊ¾Òì³£ÐÅÏ¢&·¢ËÍ±¨¸æ
+		//ï¿½ï¿½Ê¾ï¿½ì³£ï¿½ï¿½Ï¢&ï¿½ï¿½ï¿½Í±ï¿½ï¿½ï¿½
 		new Thread() {
 			public void run() {
 				Looper.prepare();
@@ -228,7 +228,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler{
 		return true;
 	}
 	/**
-	 * »ñÈ¡APP±ÀÀ£Òì³£±¨¸æ
+	 * ï¿½ï¿½È¡APPï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½
 	 * @param ex
 	 * @return
 	 */

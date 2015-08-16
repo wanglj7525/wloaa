@@ -28,7 +28,8 @@ import com.ab.http.AbRequestParams;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
-import com.ytint.wloaa.R;
+import com.baidu.mapapi.SDKInitializer;
+import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
@@ -54,6 +55,11 @@ public class LoginActivity extends AbActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		// 添加百度地图SDK
+		SDKInitializer.initialize(getApplicationContext());  
+        // setContentView(R.layout.activity_main); 
+        
 		setContentView(R.layout.layout_login);
 		application = (MyApplication) this.getApplication();
 		context=LoginActivity.this;
@@ -156,12 +162,9 @@ public class LoginActivity extends AbActivity {
 							if (code == Constants.SUCCESS) {
 								JSONObject info=jsonObject.getJSONObject("info");
 								String id=info.getString("id");
-								String name=info.getString("name");
 								application.setProperty("loginKey",id);
 								application.setProperty(Constants.USER_NAME,
 										username);
-								application.setProperty("userName",
-										name);
 								// 跳转到首页
 								
 								 Intent intent = new Intent(LoginActivity.this,

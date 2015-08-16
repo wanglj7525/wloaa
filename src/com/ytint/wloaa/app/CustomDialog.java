@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ytint.wloaa.R;
+import com.ytint.wloaa.activity.R;
 
  
 /**

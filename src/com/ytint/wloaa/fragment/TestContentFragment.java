@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.ytint.wloaa.R;
+import com.ytint.wloaa.activity.R;
 
 public class TestContentFragment extends Fragment {
 	private static final String TAG = TestContentFragment.class.getSimpleName();

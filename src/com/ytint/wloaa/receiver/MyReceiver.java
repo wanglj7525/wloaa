@@ -1,4 +1,4 @@
-//package com.ytint.wloaa.receiver;
+//package com.ytint.wloaa.activity.Receiver;
 //
 //import com.ytint.wloaa.activity.PushResultActivity;
 //

@@ -41,7 +41,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ab.activity.AbActivity;
-import com.ytint.wloaa.R;
+import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.activity.MyImageView.OnMeasureListener;
 import com.ytint.wloaa.app.FileHelper;
 import com.ytint.wloaa.app.MyApplication;

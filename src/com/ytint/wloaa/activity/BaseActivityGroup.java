@@ -4,7 +4,7 @@
 //import android.content.DialogInterface;
 //import android.view.KeyEvent;
 //
-//import com.ytint.wloaa.R;
+//import com.ytint.wloaa.activity.R;
 //import com.ytint.wloaa.app.CustomDialog;
 //
 //

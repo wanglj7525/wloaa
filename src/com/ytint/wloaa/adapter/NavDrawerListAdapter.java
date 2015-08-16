@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ytint.wloaa.R;
+import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.utils.NavDrawerItem;
 
 public class NavDrawerListAdapter extends BaseAdapter {

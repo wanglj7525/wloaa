@@ -28,7 +28,7 @@
 //import com.ab.http.AbHttpUtil;
 //import com.ab.http.AbStringHttpResponseListener;
 //import com.ab.view.titlebar.AbTitleBar;
-//import com.ytint.wloaa.R;
+//import com.ytint.wloaa.activity.R;
 //import com.ytint.wloaa.adapter.DocListViewAdapter;
 //import com.ytint.wloaa.app.Constants;
 //import com.ytint.wloaa.app.MyApplication;

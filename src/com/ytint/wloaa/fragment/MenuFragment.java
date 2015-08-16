@@ -13,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.ytint.wloaa.R;
+import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.adapter.NavDrawerListAdapter;
 import com.ytint.wloaa.utils.NavDrawerItem;
 

@@ -46,7 +46,7 @@ import android.widget.Toast;
 
 import com.ab.activity.AbActivity;
 import com.ab.view.ioc.AbIocView;
-import com.ytint.wloaa.R;
+import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.bean.ImageLoader;
 import com.ytint.wloaa.bean.ImageLoader.OnCallBackListener;

@@ -35,7 +35,7 @@
 //import android.widget.TabWidget;
 //import android.widget.TextView;
 //
-//import com.ytint.wloaa.R;
+//import com.ytint.wloaa.activity.R;
 //
 //public class ChatActivity extends TabActivity{
 //

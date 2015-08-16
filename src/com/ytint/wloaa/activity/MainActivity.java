@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import com.ab.http.AbHttpUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-import com.ytint.wloaa.R;
+import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.fragment.AnquanFragment;
 import com.ytint.wloaa.fragment.HomeFragment;

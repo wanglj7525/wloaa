@@ -26,7 +26,7 @@
 //import android.widget.Toast;
 //
 //import com.yixuan.ProgressDialogHandle;
-//import com.ytint.wloaa.R;
+//import com.ytint.wloaa.activity.R;
 //
 //public class DialogImage extends Dialog {
 //	// 定义回调事件，用于dialog的点击事件

@@ -15,7 +15,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.ImageView;
 
-import com.ytint.wloaa.R;
+import com.ytint.wloaa.activity.R;
 /**
  * 
  * 在使用时需要注意，如果是需要在ProgressBar后面放背景图的，先要调用方法setBackground

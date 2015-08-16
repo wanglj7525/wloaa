@@ -13,21 +13,21 @@ import android.widget.TextView;
 
 import com.ab.bitmap.AbImageDownloader;
 import com.ab.global.AbConstant;
-import com.ytint.wloaa.R;
+import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.bean.DocInfo;
 
 public class DocListViewAdapter extends BaseAdapter {
 	private List<DocInfo> mArrayList;
 	private LayoutInflater mLayoutInflater;
 	private Context mContext;
-	// Í¼Æ¬ÏÂÔØÆ÷
+	// Í¼Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private AbImageDownloader mAbImageDownloader = null;
 
 	public DocListViewAdapter(Context context, List<DocInfo> data) {
 		this.mArrayList = data;
 		this.mContext = context;
 		mLayoutInflater = LayoutInflater.from(mContext);
-		// Í¼Æ¬ÏÂÔØÆ÷
+		// Í¼Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		mAbImageDownloader = new AbImageDownloader(context);
 		mAbImageDownloader.setWidth(80);
 		mAbImageDownloader.setHeight(60);
@@ -61,7 +61,7 @@ public class DocListViewAdapter extends BaseAdapter {
 		WeiboViewHolder weiboViewHolder = null;
 		ViewHolder viewHolder = null;
 		DocInfo doc = mArrayList.get(position);
-		// ÆÕÍ¨ÎÄÕÂµÄÇé¿ö
+		// ï¿½ï¿½Í¨ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½
 			itemView = convertView;
 			if (itemView == null) {
 				itemView = mLayoutInflater.inflate(R.layout.layout_doclistitem,

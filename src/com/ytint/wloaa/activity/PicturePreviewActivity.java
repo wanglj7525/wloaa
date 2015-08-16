@@ -29,7 +29,7 @@ import android.widget.Toast;
 
 import com.ab.activity.AbActivity;
 import com.ab.view.ioc.AbIocView;
-import com.ytint.wloaa.R;
+import com.ytint.wloaa.activity.R;
 
 /**
  * 大图预览 功能描述：一般我们浏览一个应用，别人发布的状态或新闻都会有很多配图， 我们点击图片时可以浏览大图，这张大图一般可以放大，放大到超过屏幕后

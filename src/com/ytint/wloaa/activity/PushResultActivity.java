@@ -19,7 +19,7 @@
 //import com.ab.activity.AbActivity;
 //import com.ab.http.AbHttpUtil;
 //import com.ab.http.AbStringHttpResponseListener;
-//import com.ytint.wloaa.R;
+//import com.ytint.wloaa.activity.R;
 //import com.ytint.wloaa.app.Constants;
 //import com.ytint.wloaa.app.MyApplication;
 //

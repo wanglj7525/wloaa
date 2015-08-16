@@ -1,4 +1,4 @@
-package com.ytint.wloaa.activity;
+﻿package com.ytint.wloaa.activity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ab.activity.AbActivity;
 import com.ab.http.AbHttpUtil;
@@ -25,7 +27,27 @@ import com.ab.http.AbRequestParams;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
-import com.ytint.wloaa.R;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.DotOptions;
+import com.baidu.mapapi.map.MapPoi;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.BaiduMap.OnMapClickListener;
+import com.baidu.mapapi.map.BaiduMap.OnMapDoubleClickListener;
+import com.baidu.mapapi.map.BaiduMap.OnMapLongClickListener;
+import com.baidu.mapapi.map.BaiduMap.OnMapStatusChangeListener;
+import com.baidu.mapapi.map.BaiduMap.OnMapTouchListener;
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.People;
@@ -43,6 +65,22 @@ public class AddQiyeActivity extends AbActivity {
 	private long people = 0;
 	private List<People> peoples;
 	private int from;
+	
+	private static final LatLng GEO_ZOUPING = new LatLng(36.869669, 117.749697);
+	private static final Integer ZOOM_ZOUPING = 16;
+	
+	/**
+	 * MapView 是地图主控件
+	 */
+	private MapView mMapView;
+	private BaiduMap mBaiduMap;
+	private GeoCoder mSearch = null; // 搜索模块，也可去掉地图模块独立使用
+	
+	/**
+	 * 当前地点击点
+	 */
+	private LatLng currentPt;
+	private String touchType;
 	
 	@AbIocView(id = R.id.select_people)
 	Spinner peopleSpinner;
@@ -82,6 +120,10 @@ public class AddQiyeActivity extends AbActivity {
 		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
 		
+		// 添加百度地图 　- 开始
+		addBaiduMap();
+		//　添加百度地图　－　结束
+		
 		initUi();
 		//加载联系人下拉框
 		if(null==peoples||peoples.size()<=0){
@@ -96,6 +138,129 @@ public class AddQiyeActivity extends AbActivity {
 			initSpinner();
 		}
 		
+	}
+
+	private void addBaiduMap() {
+		mMapView = (MapView) findViewById(R.id.bmapView);
+		mBaiduMap = mMapView.getMap();
+		// mStateBar = (TextView) findViewById(R.id.state);
+		// 初始化搜索模块，注册事件监听
+		mSearch = GeoCoder.newInstance();
+		
+		MapStatusUpdate u1 = MapStatusUpdateFactory.newLatLng(GEO_ZOUPING);
+		mBaiduMap.setMapStatus(u1);
+		
+		MapStatusUpdate u2 = MapStatusUpdateFactory.zoomTo(ZOOM_ZOUPING);
+		mBaiduMap.animateMapStatus(u2);
+		
+		mBaiduMap.setOnMapTouchListener(new OnMapTouchListener() {
+			
+			@Override
+			public void onTouch(MotionEvent event) {
+				
+			}
+		});
+		
+		mBaiduMap.setOnMapClickListener(new OnMapClickListener() {
+			public void onMapClick(LatLng point) {
+				touchType = "单击";
+				currentPt = point;
+				updateMapState();
+				// add by quhy start
+				mSearch.reverseGeoCode(new ReverseGeoCodeOption()
+						.location(currentPt));
+				// add by quhy end
+			}
+
+			public boolean onMapPoiClick(MapPoi poi) {
+				return false;
+			}
+		});
+		mBaiduMap.setOnMapLongClickListener(new OnMapLongClickListener() {
+			public void onMapLongClick(LatLng point) {
+				touchType = "长按";
+				currentPt = point;
+				updateMapState();
+			}
+		});
+		mBaiduMap.setOnMapDoubleClickListener(new OnMapDoubleClickListener() {
+			public void onMapDoubleClick(LatLng point) {
+				touchType = "双击";
+				currentPt = point;
+				updateMapState();
+			}
+		});
+		mBaiduMap.setOnMapStatusChangeListener(new OnMapStatusChangeListener() {
+			public void onMapStatusChangeStart(MapStatus status) {
+				updateMapState();
+			}
+
+			public void onMapStatusChangeFinish(MapStatus status) {
+				updateMapState();
+			}
+
+			public void onMapStatusChange(MapStatus status) {
+				updateMapState();
+			}
+		});
+		
+		mSearch.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener(){
+			@Override
+			public void onGetGeoCodeResult(GeoCodeResult result) {
+			}
+
+			@Override
+			public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+				if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+					Toast.makeText(AddQiyeActivity.this, "抱歉，未能找到结果", Toast.LENGTH_LONG)
+							.show();
+					return;
+				}
+				Toast.makeText(AddQiyeActivity.this, result.getAddress(),
+						Toast.LENGTH_LONG).show();
+				
+				// 添加圆
+				mBaiduMap.clear();
+//				LatLng llCircle = result.getLocation(); // new LatLng(39.90923, 116.447428);
+//				OverlayOptions ooCircle = new CircleOptions().fillColor(0xFFFF0000)
+//						.center(llCircle).stroke(new Stroke(3, 0xFFFF0000))
+//						.radius(10);
+//				mBaiduMap.addOverlay(ooCircle);
+
+				LatLng llDot = result.getLocation(); // new LatLng(39.98923, 116.397428);
+				OverlayOptions ooDot = new DotOptions().center(llDot).radius(10)
+						.color(0xFFFF0000);
+				mBaiduMap.addOverlay(ooDot);
+			}
+		});
+	}
+	
+	/**
+	 * 更新地图状态显示面板
+	 */
+	private void updateMapState() {
+//		if (mStateBar == null) {
+//			return;
+//		}
+		String state = "";
+		if (currentPt == null) {
+			state = "点击、长按、双击地图以获取经纬度和地图状态";
+		} else {
+			state = String.format(touchType + ",当前经度： %f 当前纬度：%f",
+					currentPt.longitude, currentPt.latitude);
+		}
+		state += "\n";
+		MapStatus ms = mBaiduMap.getMapStatus();
+		state += String.format(
+				"zoom=%.1f rotate=%d overlook=%d",
+				ms.zoom, (int) ms.rotate, (int) ms.overlook);
+		// add by quhy ----------------------------------------
+		state += "\nHHHHHHHHHH";
+		
+		
+		// 初始化搜索模块，注册事件监听
+		// end ------------------------------------------------
+//		mStateBar.setText(state);
 	}
 
 	private void initUi() {

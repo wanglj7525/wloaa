@@ -1,4 +1,4 @@
-package com.ytint.wloaa.app;
+﻿package com.ytint.wloaa.app;
 
 import java.lang.reflect.Field;
 
@@ -11,7 +11,7 @@ import android.net.Uri;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ytint.wloaa.R;
+import com.ytint.wloaa.activity.R;
 
 /**
  * 应用程序UI工具包：封装UI相关的一些操作
