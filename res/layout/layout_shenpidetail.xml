@@ -241,13 +241,29 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="录音（点击播放）" />
-
-        <GridView
-            android:id="@+id/gridView_voice"
-            android:layout_width="match_parent"
-            android:layout_height="100dp" >
-
-        </GridView>
+			<LinearLayout
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content" >
+			        <HorizontalScrollView
+			            android:id="@+id/horizontalScrollView_voicelist_detail"
+			            android:orientation="horizontal"
+						android:layout_width="fill_parent" 
+						android:layout_height="wrap_content"
+						android:background="#FFFFFF">
+						<LinearLayout 
+						    android:layout_width="fill_parent"
+							android:layout_height="wrap_content"
+							 android:orientation="horizontal">
+		
+			                 <GridView
+			                     android:id="@+id/gridView_voice"
+			                     android:layout_width="match_parent"
+			                     android:layout_height="70dp" >
+		
+					        </GridView>
+			            </LinearLayout>
+			        </HorizontalScrollView>
+		        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -263,7 +279,7 @@
                 android:id="@+id/local_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="醴泉五路与鹤伴三路交汇处" />
+                android:text="" />
 
         </LinearLayout>
 

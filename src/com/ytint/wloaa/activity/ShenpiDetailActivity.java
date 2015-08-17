@@ -1,11 +1,14 @@
 package com.ytint.wloaa.activity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
@@ -28,6 +32,7 @@ import com.ab.http.AbHttpUtil;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
+import com.ytint.wloaa.activity.AddZhiliangSendActivity.MyGridAdapter;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.Shenpi;
@@ -44,14 +49,34 @@ public class ShenpiDetailActivity extends AbActivity {
 	        ImageView mImg;
 	    }
 
-    /**
-     * 列宽
-     */
-    private int cWidth = 120;
-    /**
-     * 水平间距
-     */
-    private int hSpacing = 10;
+	 	@AbIocView(id = R.id.gridView_voice)
+		GridView gridView_voice;
+		@AbIocView(id=R.id.horizontalScrollView_voicelist_detail)
+		HorizontalScrollView horizontalScrollView_voicelist_detail;
+		/** 语音列表适配器 */
+		private MyGridAdapter mAdapter;
+		/** 语音列表 */
+		private List<String> mVoicesList=new ArrayList<String>();
+		/** 语音名称列表 */
+		private List<String> mVoicesListname=new ArrayList<String>();
+		/** 录音存储路径 */
+		private static final String PATH = "/sdcard/MyVoiceForder/Record/";
+		/** 用于语音播放 */
+		private MediaPlayer mPlayer = null;
+		/** 用于完成录音 */
+		private MediaRecorder mRecorder = null;
+		/** 语音文件保存路径 */
+		private String mFileName = null;
+		/** 语音文件显示名称 */
+		private String mFileNameShow = null;
+		/**
+		 * 列宽
+		 */
+		private int cWidth = 500;
+		/**
+		 * 水平间距
+		 */
+		private int hSpacing = 10;
 	@AbIocView(id = R.id.task_tell_detail)
 	TextView task_tell_detail;
 	@AbIocView(id = R.id.task_create)
@@ -78,8 +103,6 @@ public class ShenpiDetailActivity extends AbActivity {
 	HorizontalScrollView scrollView_image;
 	@AbIocView(id = R.id.gridView_image)
 	GridView gridView_image;
-	@AbIocView(id = R.id.gridView_voice)
-	GridView gridView_voice;
 	
 	private int from;
 	Integer shenpi_id;
@@ -170,6 +193,15 @@ public class ShenpiDetailActivity extends AbActivity {
 									showImageText.setVisibility(View.GONE);
 									showmodeLiner.setVisibility(View.GONE);
 								}
+								mPlayer = new MediaPlayer();
+								if (shenpi.media!="") {
+									for (int i = 0; i < shenpi.media.split(",").length; i++) {
+										String voice=shenpi.media.split(",")[i];
+										mVoicesList.add(URLs.URL_API_HOST+voice);
+									}
+								}
+								horizontalScrollView_voicelist_detail.setHorizontalScrollBarEnabled(true);
+								initGridVoiceView();
 							} else {
 								UIHelper.ToastMessage(context, gList.msg);
 							}
@@ -201,13 +233,39 @@ public class ShenpiDetailActivity extends AbActivity {
 
 				});
 	}
+	private void initGridVoiceView(){
+		MyGridAdapter mAdapter = new MyGridAdapter(context);
+		gridView_voice.setAdapter(mAdapter);
+		LayoutParams params = new LayoutParams(mAdapter.getCount()
+				* (cWidth + hSpacing), LayoutParams.WRAP_CONTENT);
+		gridView_voice.setLayoutParams(params);
+		gridView_voice.setColumnWidth(cWidth);
+		gridView_voice.setHorizontalSpacing(hSpacing);
+		gridView_voice.setStretchMode(GridView.NO_STRETCH);
+		gridView_voice.setNumColumns(mAdapter.getCount());
+
+		gridView_voice.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				try {
+					mPlayer.reset();
+					mPlayer.setDataSource(mVoicesList.get(position));
+					mPlayer.prepare();
+					mPlayer.start();
+				} catch (IOException e) {
+					Log.e(TAG, "播放失败");
+				}
+			}
+		});
+	}
 	    private void setValue() {
 	        MAdapter mAdapter = new MAdapter(context);
 	        gridView_image.setAdapter(mAdapter);
 	        LayoutParams params = new LayoutParams(mAdapter.getCount() * (120 + 10),
 	                LayoutParams.WRAP_CONTENT);
 	        gridView_image.setLayoutParams(params);
-	        gridView_image.setColumnWidth(cWidth);
+	        gridView_image.setColumnWidth(120);
 	        gridView_image.setHorizontalSpacing(hSpacing);
 	        gridView_image.setStretchMode(GridView.NO_STRETCH);
 	        gridView_image.setNumColumns(mAdapter.getCount());
@@ -282,4 +340,40 @@ public class ShenpiDetailActivity extends AbActivity {
 	        }
 
 	    }
+		class MyGridAdapter extends BaseAdapter {
+			Context mContext;
+			LayoutInflater mInflater;
+
+			public MyGridAdapter(Context c) {
+				mContext = c;
+				mInflater = LayoutInflater.from(mContext);
+			}
+
+			@Override
+			public int getCount() {
+				// TODO Auto-generated method stub
+				return mVoicesList.size();
+			}
+
+			@Override
+			public Object getItem(int arg0) {
+				// TODO Auto-generated method stub
+				return arg0;
+			}
+
+			@Override
+			public long getItemId(int arg0) {
+				// TODO Auto-generated method stub
+				return arg0;
+			}
+
+			@Override
+			public View getView(int position, View contentView, ViewGroup arg2) {
+				contentView = mInflater.inflate(R.layout.item_voicelist, null);
+				TextView tv = (TextView) contentView.findViewById(R.id.tv_armName);
+				tv.setText(mVoicesList.get(position));
+				return contentView;
+			}
+
+		}
 }
