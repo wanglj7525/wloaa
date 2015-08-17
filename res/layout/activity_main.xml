@@ -12,8 +12,9 @@
 
            <RelativeLayout
                android:layout_width="120dp"
-               android:layout_height="wrap_content"
-               android:layout_weight="0.1" >
+               android:layout_height="40dp"
+               android:layout_weight="0.1"
+               android:background="@drawable/leftbutton_selector_bg" >
 
                <TextView
                    android:id="@+id/main_show_user"
@@ -30,6 +31,7 @@
                android:layout_width="120dp"
                android:layout_height="wrap_content"
                android:layout_marginBottom="5dp"
+               android:layout_marginTop="5dp"
                android:layout_weight="0.24"
                android:background="@drawable/bg_leftbutton_selected" >
 

@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ab.http.AbHttpUtil;
 import com.ab.view.ioc.AbIocView;
@@ -25,6 +26,7 @@ public class MainActivity extends FragmentActivity {
 
 	private MyApplication application;
 	private String loginKey;
+	private String userName;
 	final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 	Context context = null;
 	private FragmentManager fm;
@@ -38,6 +40,7 @@ public class MainActivity extends FragmentActivity {
 	ImageButton main_show_gonggao;
 	ImageButton main_show_xiaoxi;
 	ImageButton main_show_shezhi;
+	TextView main_show_user;
 	
 	@SuppressLint("NewApi")
 	@Override
@@ -46,16 +49,10 @@ public class MainActivity extends FragmentActivity {
 		application = (MyApplication) this.getApplication();
 		context = MainActivity.this;
 		mAbHttpUtil.setDebug(true);
+		loginKey = application.getProperty("loginKey");
+		userName = application.getProperty("userName");
 		setContentView(R.layout.activity_main);
 		
-		main_show_keshi_rela=(RelativeLayout)findViewById(R.id.main_show_keshi_rela);
-		main_show_gonggao_rela=(RelativeLayout)findViewById(R.id.main_show_gonggao_rela);
-		main_show_xiaoxi_rela=(RelativeLayout)findViewById(R.id.main_show_xiaoxi_rela);
-		main_show_shezhi_rela=(RelativeLayout)findViewById(R.id.main_show_shezhi_rela);
-		main_show_keshi=(ImageButton)findViewById(R.id.main_show_keshi);
-		main_show_gonggao=(ImageButton)findViewById(R.id.main_show_gonggao);
-		main_show_xiaoxi=(ImageButton)findViewById(R.id.main_show_xiaoxi);
-		main_show_shezhi=(ImageButton)findViewById(R.id.main_show_shezhi);
 		//TODO 判断角色 确定第一个按钮显示
 		
 		fm = getSupportFragmentManager();
@@ -71,6 +68,16 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	private void initUi(){
+		main_show_keshi_rela=(RelativeLayout)findViewById(R.id.main_show_keshi_rela);
+		main_show_gonggao_rela=(RelativeLayout)findViewById(R.id.main_show_gonggao_rela);
+		main_show_xiaoxi_rela=(RelativeLayout)findViewById(R.id.main_show_xiaoxi_rela);
+		main_show_shezhi_rela=(RelativeLayout)findViewById(R.id.main_show_shezhi_rela);
+		main_show_keshi=(ImageButton)findViewById(R.id.main_show_keshi);
+		main_show_gonggao=(ImageButton)findViewById(R.id.main_show_gonggao);
+		main_show_xiaoxi=(ImageButton)findViewById(R.id.main_show_xiaoxi);
+		main_show_shezhi=(ImageButton)findViewById(R.id.main_show_shezhi);
+		main_show_user=(TextView)findViewById(R.id.main_show_user);
+		main_show_user.setText(userName);
 		OnClickListener relaClick = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
