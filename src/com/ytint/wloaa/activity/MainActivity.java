@@ -2,6 +2,7 @@ package com.ytint.wloaa.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -27,6 +28,7 @@ public class MainActivity extends FragmentActivity {
 	private MyApplication application;
 	private String loginKey;
 	private String userName;
+	private String isLogin;
 	final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 	Context context = null;
 	private FragmentManager fm;
@@ -49,9 +51,21 @@ public class MainActivity extends FragmentActivity {
 		application = (MyApplication) this.getApplication();
 		context = MainActivity.this;
 		mAbHttpUtil.setDebug(true);
+		setContentView(R.layout.activity_main);
 		loginKey = application.getProperty("loginKey");
 		userName = application.getProperty("userName");
-		setContentView(R.layout.activity_main);
+		isLogin = application.getProperty("is_login");
+		
+		if (isLogin==null) {
+			//未登录
+			Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+			startActivity(intent);
+		}else if(!isLogin.equals("1")){
+			//未登录
+			Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+			startActivity(intent);
+		}
+		
 		
 		//TODO 判断角色 确定第一个按钮显示
 		

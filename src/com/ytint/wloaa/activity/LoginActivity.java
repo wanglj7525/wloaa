@@ -115,7 +115,7 @@ public class LoginActivity extends AbActivity {
 
 	private void login() {
 		final String username = inputUsername.getText().toString();
-		String password = inputPassword.getText().toString();
+		final String password = inputPassword.getText().toString();
 		if (username == null || password == null || username.equals("")
 				|| password.equals("")) {
 			Toast.makeText(LoginActivity.this, "用户名、密码不能为空！",
@@ -160,14 +160,23 @@ public class LoginActivity extends AbActivity {
 							int code = Integer.parseInt(jsonObject.getString(
 									"code").toString());
 							if (code == Constants.SUCCESS) {
+								
+								application.setProperty("is_login","1");
+								
 								JSONObject info=jsonObject.getJSONObject("info");
 								String id=info.getString("id");
 								String name=info.getString("name");
+								String user_type=info.getString("user_type");
+								String department_id=info.getString("department_id");
 								application.setProperty("loginKey",id);
 								application.setProperty(Constants.USER_NAME,
 										username);
 								application.setProperty("userName",
 										name);
+								application.setProperty("userType",
+										user_type);
+								application.setProperty("departmentId",
+										department_id);
 								// 跳转到首页
 								
 								 Intent intent = new Intent(LoginActivity.this,
