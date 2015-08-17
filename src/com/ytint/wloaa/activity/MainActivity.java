@@ -28,6 +28,8 @@ public class MainActivity extends FragmentActivity {
 	private MyApplication application;
 	private String loginKey;
 	private String userName;
+	private String userType;
+	private String departmentId;
 	private String isLogin;
 	final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 	Context context = null;
@@ -39,6 +41,7 @@ public class MainActivity extends FragmentActivity {
 	RelativeLayout main_show_xiaoxi_rela;
 	RelativeLayout main_show_shezhi_rela;
 	ImageButton main_show_keshi;
+	TextView main_show_keshiname;
 	ImageButton main_show_gonggao;
 	ImageButton main_show_xiaoxi;
 	ImageButton main_show_shezhi;
@@ -55,6 +58,8 @@ public class MainActivity extends FragmentActivity {
 		loginKey = application.getProperty("loginKey");
 		userName = application.getProperty("userName");
 		isLogin = application.getProperty("is_login");
+		userType = application.getProperty("userType");
+		departmentId = application.getProperty("departmentId");
 		
 		if (isLogin==null) {
 			//未登录
@@ -82,16 +87,45 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	private void initUi(){
+		
 		main_show_keshi_rela=(RelativeLayout)findViewById(R.id.main_show_keshi_rela);
 		main_show_gonggao_rela=(RelativeLayout)findViewById(R.id.main_show_gonggao_rela);
 		main_show_xiaoxi_rela=(RelativeLayout)findViewById(R.id.main_show_xiaoxi_rela);
 		main_show_shezhi_rela=(RelativeLayout)findViewById(R.id.main_show_shezhi_rela);
 		main_show_keshi=(ImageButton)findViewById(R.id.main_show_keshi);
+		main_show_keshiname=(TextView)findViewById(R.id.main_show_keshiname);
 		main_show_gonggao=(ImageButton)findViewById(R.id.main_show_gonggao);
 		main_show_xiaoxi=(ImageButton)findViewById(R.id.main_show_xiaoxi);
 		main_show_shezhi=(ImageButton)findViewById(R.id.main_show_shezhi);
 		main_show_user=(TextView)findViewById(R.id.main_show_user);
 		main_show_user.setText(userName);
+		
+		String keshiname="质量检查";
+		int keshiimage=R.drawable.azhiliang;
+		if (userType.equals("1")||userType.equals("2")) {
+			//局长、副局长
+			keshiname="任务列表";
+			keshiimage=R.drawable.azhiliang;
+		}else{
+			//科长，科员
+			if (departmentId.equals("1")) {
+				//质量
+				keshiname="质量检查";
+				keshiimage=R.drawable.azhiliang;
+			}else if (departmentId.equals("2")) {
+				//安全
+				keshiname="安全检查";
+				keshiimage=R.drawable.aanquan;
+			}else{
+				//执法
+				keshiname="执法管理";
+				keshiimage=R.drawable.azhifa;
+			}
+			
+		}
+		main_show_keshi.setImageResource(keshiimage);
+		main_show_keshiname.setText(keshiname);
+		
 		OnClickListener relaClick = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
