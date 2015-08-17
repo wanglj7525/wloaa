@@ -1,20 +1,35 @@
 ﻿package com.ytint.wloaa.activity;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -145,6 +160,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 	
 	private String peopleId;
 	private String companyId;
+	private static String srcPath;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -412,8 +428,12 @@ public class AddZhiliangReportActivity extends AbActivity {
     	add_photo.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(AddZhiliangReportActivity.this, AddSelectPhotoActivity.class);  
-		        startActivityForResult(intent, 11);
+				Intent local = new Intent();
+                local.setType("image/*");
+                local.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(local, 11);
+//				Intent intent = new Intent(AddZhiliangReportActivity.this, AddSelectPhotoActivity.class);  
+//		        startActivityForResult(intent, 11);
 			}
 		});
 		//确定当前位置
@@ -475,15 +495,89 @@ public class AddZhiliangReportActivity extends AbActivity {
 		
 		task_people.setText(userName);
 	}
+	 private void alert() {
+	        Dialog dialog = new AlertDialog.Builder(this).setTitle("提示")
+	                .setMessage("您选择的不是有效的图片")
+	                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+	                    public void onClick(DialogInterface dialog, int which) {
+	                    	srcPath = null;
+	                    }
+	                }).create();
+	        dialog.show();
+	    }
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		
-		if(resultCode==200){	
+		if(resultCode== Activity.RESULT_OK){	
 			switch(requestCode) {
             case 11:
-				ArrayList<String> strs=(ArrayList<String>) data.getExtras().get("data");
-				imagelist=strs;
-				setImageGrideValue();
+            	Uri uri = data.getData();
+                Log.e(TAG, "uri = " + uri);
+                try {
+                    String[] pojo = { MediaStore.Images.Media.DATA };
+     
+                    Cursor cursor = managedQuery(uri, pojo, null, null, null);
+                    if (cursor != null) {
+                        ContentResolver cr = this.getContentResolver();
+                        int colunm_index = cursor
+                                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                        cursor.moveToFirst();
+                        String path = cursor.getString(colunm_index);
+                        /***
+                         * 这里加这样一个判断主要是为了第三方的软件选择，比如：使用第三方的文件管理器的话，你选择的文件就不一定是图片了，
+                         * 这样的话，我们判断文件的后缀名 如果是图片格式的话，那么才可以
+                         */
+                        if (path.endsWith("jpg") || path.endsWith("png")) {
+                        srcPath=path;
+                          //上传图片
+                          ArrayList<String> strPhoto=new ArrayList<String>();
+                          strPhoto.add(srcPath);
+                          new FileHelper().submitUploadFile(strPhoto, loginKey,"1");
+                          imagelist.add(srcPath);
+                          setImageGrideValue();
+                        } else {
+                            alert();
+                        }
+                    } else {
+                        alert();
+                    }
+     
+                } catch (Exception e) {
+                	e.printStackTrace();
+                }
+//            	 Bundle extras = data.getExtras();
+//                 Bitmap b = (Bitmap) extras.get("data");
+//                 String name = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+//                 String fileNmae = Environment.getExternalStorageDirectory().toString()+File.separator+"dong/image/"+name+".jpg";
+//                 srcPath = fileNmae;
+//                 System.out.println(srcPath+"----------保存路径1");
+//                 File myCaptureFile =new File(fileNmae);
+//                 try {
+//                     if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+//                         if(!myCaptureFile.getParentFile().exists()){
+//                             myCaptureFile.getParentFile().mkdirs();
+//                         }
+//                         BufferedOutputStream bos;
+//                         bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+//                         b.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+//                         bos.flush();
+//                         bos.close();
+//                         //上传图片
+//                         ArrayList<String> strPhoto=new ArrayList<String>();
+//                         strPhoto.add(srcPath);
+//                         new FileHelper().submitUploadFile(strPhoto, loginKey,"1");
+//                         imagelist.add(srcPath);
+//                         setImageGrideValue();
+//                     }else{
+//                         Toast toast= Toast.makeText(AddZhiliangReportActivity.this, "保存失败，SD卡无效", Toast.LENGTH_SHORT);
+//                         toast.setGravity(Gravity.CENTER, 0, 0);
+//                         toast.show();
+//                     }
+//                 } catch (FileNotFoundException e) {
+//                     e.printStackTrace();
+//                 } catch (IOException e) {
+//                     e.printStackTrace();
+//                 }
 			    break;
             default:
                 break;
