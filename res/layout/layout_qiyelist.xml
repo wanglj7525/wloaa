@@ -48,6 +48,15 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.35"
         android:orientation="vertical" >
+     <TextView
+                android:id="@+id/notsuppppport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="测试版本，暂不支持"
+                android:textColor="@color/black"
+                android:textSize="@dimen/title_size" />
+
      <ListView
          android:id="@+id/shenpi_list1"
          android:layout_width="match_parent"

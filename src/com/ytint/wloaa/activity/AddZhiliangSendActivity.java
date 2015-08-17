@@ -1,4 +1,4 @@
-package com.ytint.wloaa.activity;
+﻿package com.ytint.wloaa.activity;
 
 import java.io.File;
 import java.io.IOException;
@@ -75,8 +75,8 @@ public class AddZhiliangSendActivity extends AbActivity {
 	Spinner companySpinner;
 	@AbIocView(id = R.id.addTask)
 	Button add;
-	@AbIocView(id = R.id.task_info)
-	EditText task_info;
+//	@AbIocView(id = R.id.task_info)
+//	EditText task_info;
 	@AbIocView(id = R.id.task_tell_send)
 	EditText task_tell;
 	@AbIocView(id = R.id.task_remark)

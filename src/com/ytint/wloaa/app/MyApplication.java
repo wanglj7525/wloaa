@@ -1,4 +1,4 @@
-package com.ytint.wloaa.app;
+ï»¿package com.ytint.wloaa.app;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +26,7 @@ import com.ytint.wloaa.utils.MethodsCompat;
 import com.ytint.wloaa.utils.StringUtils;
 
 /**
- * È«¾ÖÓ¦ÓÃ³ÌÐòÀà£ºÓÃÓÚ±£´æºÍµ÷ÓÃÈ«¾ÖÓ¦ÓÃÅäÖÃ¼°·ÃÎÊÍøÂçÊý¾Ý
+ * È«ï¿½ï¿½Ó¦ï¿½Ã³ï¿½ï¿½ï¿½ï¿½à£ºï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½È«ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * 
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
@@ -46,13 +46,13 @@ public class MyApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		JPushInterface.setDebugMode(true);
+		JPushInterface.setDebugMode(false);
 	    JPushInterface.init(this);
 	    
 	}
 
 	/**
-	 * ¼ì²âÍøÂçÊÇ·ñ¿ÉÓÃ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @return
 	 */
@@ -63,9 +63,9 @@ public class MyApplication extends Application {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°ÍøÂçÀàÐÍ
+	 * ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
-	 * @return 0£ºÃ»ÓÐÍøÂç 1£ºWIFIÍøÂç 2£ºWAPÍøÂç 3£ºNETÍøÂç
+	 * @return 0ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½WIFIï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½WAPï¿½ï¿½ï¿½ï¿½ 3ï¿½ï¿½NETï¿½ï¿½ï¿½ï¿½
 	 */
 	public int getNetworkType() {
 		int netType = 0;
@@ -91,7 +91,7 @@ public class MyApplication extends Application {
 	}
 
 	/**
-	 * ÅÐ¶Ïµ±Ç°°æ±¾ÊÇ·ñ¼æÈÝÄ¿±ê°æ±¾µÄ·½·¨
+	 * ï¿½Ð¶Ïµï¿½Ç°ï¿½æ±¾ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½æ±¾ï¿½Ä·ï¿½ï¿½ï¿½
 	 * 
 	 * @param VersionCode
 	 * @return
@@ -102,7 +102,7 @@ public class MyApplication extends Application {
 	}
 
 	/**
-	 * ÅÐ¶Ï»º´æÊý¾ÝÊÇ·ñ¿É¶Á
+	 * ï¿½Ð¶Ï»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½É¶ï¿½
 	 * 
 	 * @param cachefile
 	 * @return
@@ -112,7 +112,7 @@ public class MyApplication extends Application {
 	}
 
 	/**
-	 * ÅÐ¶Ï»º´æÊÇ·ñ´æÔÚ
+	 * ï¿½Ð¶Ï»ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param cachefile
 	 * @return
@@ -126,7 +126,7 @@ public class MyApplication extends Application {
 	}
 
 	/**
-	 * ÅÐ¶Ï»º´æÊÇ·ñÊ§Ð§
+	 * ï¿½Ð¶Ï»ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ê§Ð§
 	 * 
 	 * @param cachefile
 	 * @return
@@ -143,13 +143,13 @@ public class MyApplication extends Application {
 	}
 
 	/**
-	 * Çå³ýapp»º´æ
+	 * ï¿½ï¿½ï¿½appï¿½ï¿½ï¿½ï¿½
 	 */
 	public void clearAppCache() {
-		// Çå³ýÊý¾Ý»º´æ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
 		clearCacheFolder(getFilesDir(), System.currentTimeMillis());
 		clearCacheFolder(getCacheDir(), System.currentTimeMillis());
-		// 2.2°æ±¾²ÅÓÐ½«Ó¦ÓÃ»º´æ×ªÒÆµ½sd¿¨µÄ¹¦ÄÜ
+		// 2.2ï¿½æ±¾ï¿½ï¿½ï¿½Ð½ï¿½Ó¦ï¿½Ã»ï¿½ï¿½ï¿½×ªï¿½Æµï¿½sdï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½
 		if (isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
 			clearCacheFolder(MethodsCompat.getExternalCacheDir(this),
 					System.currentTimeMillis());
@@ -157,12 +157,12 @@ public class MyApplication extends Application {
 	}
 
 	/**
-	 * Çå³ý»º´æÄ¿Â¼
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Â¼
 	 * 
 	 * @param dir
 	 *            Ä¿Â¼
 	 * @param numDays
-	 *            µ±Ç°ÏµÍ³Ê±¼ä
+	 *            ï¿½ï¿½Ç°ÏµÍ³Ê±ï¿½ï¿½
 	 * @return
 	 */
 	private int clearCacheFolder(File dir, long curTime) {
@@ -187,7 +187,7 @@ public class MyApplication extends Application {
 	}
 
 	/**
-	 * ½«¶ÔÏó±£´æµ½ÄÚ´æ»º´æÖÐ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æµ½ï¿½Ú´æ»ºï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param key
 	 * @param value
@@ -197,7 +197,7 @@ public class MyApplication extends Application {
 	}
 
 	/**
-	 * ´ÓÄÚ´æ»º´æÖÐ»ñÈ¡¶ÔÏó
+	 * ï¿½ï¿½ï¿½Ú´æ»ºï¿½ï¿½ï¿½Ð»ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param key
 	 * @return
@@ -207,7 +207,7 @@ public class MyApplication extends Application {
 	}
 
 	/**
-	 * ±£´æ´ÅÅÌ»º´æ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½
 	 * 
 	 * @param key
 	 * @param value
@@ -228,7 +228,7 @@ public class MyApplication extends Application {
 	}
 
 	/**
-	 * »ñÈ¡´ÅÅÌ»º´æÊý¾Ý
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param key
 	 * @return
@@ -250,7 +250,7 @@ public class MyApplication extends Application {
 	}
 
 	/**
-	 * ±£´æ¶ÔÏó
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param ser
 	 * @param file
@@ -281,7 +281,7 @@ public class MyApplication extends Application {
 	}
 
 	/**
-	 * ¶ÁÈ¡¶ÔÏó
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param file
 	 * @return
@@ -299,7 +299,7 @@ public class MyApplication extends Application {
 		} catch (FileNotFoundException e) {
 		} catch (Exception e) {
 			e.printStackTrace();
-			// ·´ÐòÁÐ»¯Ê§°Ü - É¾³ý»º´æÎÄ¼þ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½Ê§ï¿½ï¿½ - É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 			if (e instanceof InvalidClassException) {
 				File data = getFileStreamPath(file);
 				data.delete();
@@ -332,7 +332,7 @@ public class MyApplication extends Application {
 		FileInputStream fis = null;
 		Properties props = new Properties();
 		try {
-			// ¶ÁÈ¡app_configÄ¿Â¼ÏÂµÄconfig
+			// ï¿½ï¿½È¡app_configÄ¿Â¼ï¿½Âµï¿½config
 			File dirConf = this.getDir(Constants.APP_CONFIG,
 					Context.MODE_PRIVATE);
 			fis = new FileInputStream(dirConf.getPath() + File.separator
@@ -369,7 +369,7 @@ public class MyApplication extends Application {
 	private void setProps(Properties p) {
 		FileOutputStream fos = null;
 		try {
-			// °Ñconfig½¨ÔÚ(×Ô¶¨Òå)app_configµÄÄ¿Â¼ÏÂ
+			// ï¿½ï¿½configï¿½ï¿½ï¿½ï¿½(ï¿½Ô¶ï¿½ï¿½ï¿½)app_configï¿½ï¿½Ä¿Â¼ï¿½ï¿½
 			File dirConf = this.getDir(Constants.APP_CONFIG,
 					Context.MODE_PRIVATE);
 			File conf = new File(dirConf, Constants.APP_CONFIG);
@@ -389,7 +389,7 @@ public class MyApplication extends Application {
 /*	public HospitalList getHospitals(int page, boolean isRefresh) {
 		HospitalList ul = null;
 		String key = "doctors_" + page;
-		// ÍøÂç¿ÉÁ¬ ÇÒ »º´æ²»¿É¶Á»òË¢ÐÂ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½æ²»ï¿½É¶ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½
 		if (isNetworkConnected() && (!isReadDataCache(key) || isRefresh)) {
 			try {
 				ul = ApiClient.getHospitals(this, page, Constants.PAGE_SIZE);

@@ -12,10 +12,10 @@
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_people</item>
-        <item>@drawable/ic_photos</item>
-        <item>@drawable/ic_communities</item>
-        <item>@drawable/ic_pages</item>
+        <item>@drawable/zhiliang_menu</item>
+        <item>@drawable/anquan_menu</item>
+        <item>@drawable/zhifa_menu</item>
+        <item>@drawable/qiye_menu</item>
+        <item>@drawable/xiaoxi_menu</item>
     </array>
 </resources>
