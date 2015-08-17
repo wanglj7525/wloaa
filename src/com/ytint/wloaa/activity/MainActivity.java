@@ -4,150 +4,138 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import com.ab.http.AbHttpUtil;
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-import com.ytint.wloaa.activity.R;
+import com.ab.view.ioc.AbIocView;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.fragment.AnquanFragment;
-import com.ytint.wloaa.fragment.HomeFragment;
-import com.ytint.wloaa.fragment.MenuFragment;
-import com.ytint.wloaa.fragment.MenuFragment.SLMenuListOnItemClickListener;
 import com.ytint.wloaa.fragment.PagesFragment;
-import com.ytint.wloaa.fragment.QiyeFragment;
 import com.ytint.wloaa.fragment.ZhifaFragment;
 
-public class MainActivity extends SlidingFragmentActivity implements SLMenuListOnItemClickListener{
+public class MainActivity extends FragmentActivity {
 
-private SlidingMenu mSlidingMenu;
-private MyApplication application;
-private String loginKey;
-final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
-Context context = null;
+	private MyApplication application;
+	private String loginKey;
+	final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+	Context context = null;
+	private FragmentManager fm;
+	Fragment fragment1,fragment2,fragment3,fragment4 ;
+	
+	RelativeLayout main_show_keshi_rela;
+	RelativeLayout main_show_gonggao_rela;
+	RelativeLayout main_show_xiaoxi_rela;
+	RelativeLayout main_show_shezhi_rela;
+	ImageButton main_show_keshi;
+	ImageButton main_show_gonggao;
+	ImageButton main_show_xiaoxi;
+	ImageButton main_show_shezhi;
+	
 	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		application = (MyApplication) this.getApplication();
-		context=MainActivity.this;
+		context = MainActivity.this;
 		mAbHttpUtil.setDebug(true);
-		//TODO 以后可以改成该手机电话号 或者 用户ID 等唯一标识
-//		application.setProperty("loginKey", "1");
+		setContentView(R.layout.activity_main);
 		
-//		setTitle(R.string.sliding_title);
-        setContentView(R.layout.frame_content);
+		main_show_keshi_rela=(RelativeLayout)findViewById(R.id.main_show_keshi_rela);
+		main_show_gonggao_rela=(RelativeLayout)findViewById(R.id.main_show_gonggao_rela);
+		main_show_xiaoxi_rela=(RelativeLayout)findViewById(R.id.main_show_xiaoxi_rela);
+		main_show_shezhi_rela=(RelativeLayout)findViewById(R.id.main_show_shezhi_rela);
+		main_show_keshi=(ImageButton)findViewById(R.id.main_show_keshi);
+		main_show_gonggao=(ImageButton)findViewById(R.id.main_show_gonggao);
+		main_show_xiaoxi=(ImageButton)findViewById(R.id.main_show_xiaoxi);
+		main_show_shezhi=(ImageButton)findViewById(R.id.main_show_shezhi);
+		//TODO 判断角色 确定第一个按钮显示
+		
+		fm = getSupportFragmentManager();
+		fragment1 = new AnquanFragment();
+		fragment2 = new PagesFragment();
+		fragment3 = new ZhifaFragment();
+		fragment4 = new PagesFragment();
+		//初始化的时候需要显示一个fragment，假设我们显示第二个fragment
+				//向容器中添加或者替换fragment时必须  开启事务  操作完成后   提交事务
+		FragmentTransaction ft = fm.beginTransaction();
+		ft.add(R.id.showContentFrame, fragment1).commit();
+		initUi();
+	}
+	
+	private void initUi(){
+		OnClickListener relaClick = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				main_show_keshi_rela.setBackgroundResource(R.drawable.bg_leftbutton);
+				main_show_gonggao_rela.setBackgroundResource(R.drawable.bg_leftbutton);
+				main_show_xiaoxi_rela.setBackgroundResource(R.drawable.bg_leftbutton);
+				main_show_shezhi_rela.setBackgroundResource(R.drawable.bg_leftbutton);
+				FragmentTransaction ft = fm.beginTransaction();
+				switch (v.getId()) {
+				case R.id.main_show_keshi_rela:
+					main_show_keshi_rela.setBackgroundResource(R.drawable.bg_leftbutton_selected);
+					ft.replace(R.id.showContentFrame,fragment1 );
+					ft.commit();
+					break;
+				case R.id.main_show_gonggao_rela:
+					main_show_gonggao_rela.setBackgroundResource(R.drawable.bg_leftbutton_selected);
+					ft.replace(R.id.showContentFrame,fragment2 );
+					ft.commit();		
+					break;
+				case R.id.main_show_xiaoxi_rela:
+					main_show_xiaoxi_rela.setBackgroundResource(R.drawable.bg_leftbutton_selected);
+					ft.replace(R.id.showContentFrame,fragment3 );
+					ft.commit();
+					break;
+				case R.id.main_show_shezhi_rela:
+					main_show_shezhi_rela.setBackgroundResource(R.drawable.bg_leftbutton_selected);
+					ft.replace(R.id.showContentFrame,fragment4 );
+					ft.commit();		
+					break;
+				case R.id.main_show_keshi:
+					main_show_keshi_rela.setBackgroundResource(R.drawable.bg_leftbutton_selected);
+					ft.replace(R.id.showContentFrame,fragment1 );
+					ft.commit();
+					break;
+				case R.id.main_show_gonggao:
+					main_show_gonggao_rela.setBackgroundResource(R.drawable.bg_leftbutton_selected);
+					ft.replace(R.id.showContentFrame,fragment2 );
+					ft.commit();		
+					break;
+				case R.id.main_show_xiaoxi:
+					main_show_xiaoxi_rela.setBackgroundResource(R.drawable.bg_leftbutton_selected);
+					ft.replace(R.id.showContentFrame,fragment3 );
+					ft.commit();
+					break;
+				case R.id.main_show_shezhi:
+					main_show_shezhi_rela.setBackgroundResource(R.drawable.bg_leftbutton_selected);
+					ft.replace(R.id.showContentFrame,fragment4 );
+					ft.commit();		
+					break;
+				default:
+					break;
+				}
+			}
 
-        //set the Behind View
-        setBehindContentView(R.layout.frame_left_menu);
-        
-        // customize the SlidingMenu
-        mSlidingMenu = getSlidingMenu();
-        mSlidingMenu.setMode(SlidingMenu.LEFT);//设置左右都可以划出SlidingMenu菜单
-        mSlidingMenu.setSecondaryShadowDrawable(R.drawable.drawer_shadow);
-        
-//      mSlidingMenu.setShadowWidth(5);
-//      mSlidingMenu.setBehindOffset(100);
-        mSlidingMenu.setShadowDrawable(R.drawable.drawer_shadow);//设置阴影图片
-        mSlidingMenu.setShadowWidthRes(R.dimen.shadow_width); //设置阴影图片的宽度
-        mSlidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset); //SlidingMenu划出时主页面显示的剩余宽度
-        mSlidingMenu.setFadeDegree(0.35f);
-        //设置SlidingMenu 的手势模式
-        //TOUCHMODE_FULLSCREEN 全屏模式，在整个content页面中，滑动，可以打开SlidingMenu
-        //TOUCHMODE_MARGIN 边缘模式，在content页面中，如果想打开SlidingMenu,你需要在屏幕边缘滑动才可以打开SlidingMenu
-        //TOUCHMODE_NONE 不能通过手势打开SlidingMenu
-        mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
-        
-        //设置 SlidingMenu 内容
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.left_menu, new MenuFragment());
-        fragmentTransaction.replace(R.id.content, new HomeFragment());
-        
-        fragmentTransaction.commit();
-        
-        //使用左上方icon可点，这样在onOptionsItemSelected里面才可以监听到R.id.home
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-//        getActionBar().setLogo(R.drawable.ic_logo);
-        
-        
+		};
+		
+		
+		main_show_keshi_rela.setOnClickListener(relaClick);
+		main_show_gonggao_rela.setOnClickListener(relaClick);
+		main_show_xiaoxi_rela.setOnClickListener(relaClick);
+		main_show_shezhi_rela.setOnClickListener(relaClick);
+		main_show_keshi.setOnClickListener(relaClick);
+		main_show_gonggao.setOnClickListener(relaClick);
+		main_show_xiaoxi.setOnClickListener(relaClick);
+		main_show_shezhi.setOnClickListener(relaClick);
 	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case android.R.id.home:
-            
-            toggle(); //动态判断自动关闭或开启SlidingMenu
-//          getSlidingMenu().showMenu();//显示SlidingMenu
-//          getSlidingMenu().showContent();//显示内容
-            return true;
-//        case R.id.action_refresh:
-//            
-//        	Toast.makeText(getApplicationContext(), R.string.refresh, Toast.LENGTH_SHORT).show();
-//            
-//            return true;
-//        case R.id.action_person:
-//            
-//        	if(mSlidingMenu.isSecondaryMenuShowing()){
-//        		mSlidingMenu.showContent();
-//        	}else{
-//        		mSlidingMenu.showSecondaryMenu();
-//        	}
-//            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-        }
-        
-    }
-
-	@SuppressLint("NewApi")
-	@Override
-	public void selectItem(int position, String title) {
-		// update the main content by replacing fragments  
-	    Fragment fragment = null;  
-	    switch (position) {  
-	    case 0:  
-	        fragment = new HomeFragment();  
-	        break;  
-	    case 1:  
-	        fragment = new AnquanFragment();  
-	        break;  
-	    case 2:  
-	        fragment = new ZhifaFragment();  
-	        break;  
-	    case 3:  
-	        fragment = new QiyeFragment();  
-	        break;  
-	    case 4:  
-	        fragment = new PagesFragment();  
-	        break;  
-	    default:  
-	        break;  
-	    }  
-	  
-	    if (fragment != null) {  
-	        FragmentManager fragmentManager = getSupportFragmentManager();
-	        fragmentManager.beginTransaction()  
-	                .replace(R.id.content, fragment).commit();  
-	        // update selected item and title, then close the drawer  
-	        setTitle(title);
-	        mSlidingMenu.showContent();
-	    } else {  
-	        // error in creating fragment  
-	        Log.e("MainActivity", "Error in creating fragment");  
-	    }  
-	}
 }

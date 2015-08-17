@@ -77,7 +77,9 @@
     <string name="title_modify_hint">建议</string>
     <string name="groupnum_over_maxnum_hint">您已关注的分组超过上限，请取消关注后再添加</string>
    
-    <string name="xiaoxi">消息公告</string>
+    <string name="xiaoxi">消息</string>
+    <string name="shezhi">设置</string>
+    <string name="gonggao">公告</string>
     <string name="qiye">企业信息</string>
     <string name="zhifa">执法管理</string>
     <string name="anquan">安全检查</string>

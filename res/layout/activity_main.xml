@@ -3,102 +3,138 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/white"
-    android:orientation="vertical" >
+    android:orientation="horizontal" >
+
+       <LinearLayout
+           android:layout_width="120dp"
+           android:layout_height="fill_parent"
+           android:orientation="vertical" >
+
+           <RelativeLayout
+               android:layout_width="120dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="0.1" >
+
+               <TextView
+                   android:id="@+id/main_show_user"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   android:layout_centerVertical="true"
+                   android:text="@string/zhiliang" />
+
+           </RelativeLayout>
+
+           <RelativeLayout
+               android:id="@+id/main_show_keshi_rela"
+               android:layout_width="120dp"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="5dp"
+               android:layout_weight="0.24"
+               android:background="@drawable/bg_leftbutton_selected" >
+
+               <TextView
+                   android:id="@+id/main_show_keshiname"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@+id/main_show_keshi"
+                   android:layout_centerHorizontal="true"
+                   android:text="@string/zhiliang" />
+
+               <ImageButton
+                   android:id="@+id/main_show_keshi"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   android:layout_centerVertical="true"
+                   android:src="@drawable/azhiliang" />
 
 
-    <TabHost
-        android:id="@android:id/tabhost"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-         >
+           </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical" >
+           <RelativeLayout
+               android:id="@+id/main_show_gonggao_rela"
+               android:layout_width="120dp"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="5dp"
+               android:layout_weight="0.24"
+               android:background="@drawable/bg_leftbutton" >
 
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="fill_parent"
-                android:layout_height="0.0dip"
-                android:layout_weight="1.0" >
-            </FrameLayout>
+               <TextView
+                   android:id="@+id/main_show_gonggaoname"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@+id/main_show_gonggao"
+                   android:layout_centerHorizontal="true"
+                   android:text="@string/gonggao" />
 
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
+               <ImageButton
+                   android:id="@+id/main_show_gonggao"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   android:layout_centerVertical="true"
+                   android:src="@drawable/agonggao" />
+           </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/layout_bottom"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
-                <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:background="#bbb" />
-                
-<!--                     android:divider="@color/global_gray" -->
-                <RadioGroup
-                    android:id="@+id/radiogroup"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="0.1dip"
-                    android:showDividers="middle"
-                    >
+           <RelativeLayout
+               android:id="@+id/main_show_xiaoxi_rela"
+               android:layout_width="120dp"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="5dp"
+               android:layout_weight="0.24"
+               android:background="@drawable/bg_leftbutton" >
 
-                    <RadioButton
-                        android:id="@+id/radio_home"
-                        style="@style/main_tab_bottom"
-                        android:textColor="@drawable/tab_selector_text_color"
-                        android:checked="true"
-                        android:drawableTop="@drawable/tab_selector_home"
-                        android:paddingTop="4dp"
-                        android:text="@string/tab_home" />
+               <TextView
+                   android:id="@+id/main_show_xiaoxiname"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@+id/main_show_xiaoxi"
+                   android:layout_centerHorizontal="true"
+                   android:text="@string/xiaoxi" />
 
+               <ImageButton
+                   android:id="@+id/main_show_xiaoxi"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   android:layout_centerVertical="true"
+                   android:src="@drawable/axiaoxi" />
 
-                    <RadioButton
-                        android:id="@+id/radio_chat"
-                        style="@style/main_tab_bottom"
-                        android:textColor="@drawable/tab_selector_text_color"
-                        android:checked="false"
-                        android:drawableTop="@drawable/tab_selector_source"
-                        android:paddingTop="4dp"
-                        android:text="@string/tab_source" />
+           </RelativeLayout>
 
-                    <RadioButton
-                        android:id="@+id/radio_shenpi"
-                        style="@style/main_tab_bottom"
-                        android:textColor="@drawable/tab_selector_text_color"
-                        android:button="@null"
-                        android:drawableTop="@drawable/tab_selector_topic"
-                        android:paddingTop="4dp"
-                        android:text="@string/tab_topic" />
+           <RelativeLayout
+               android:id="@+id/main_show_shezhi_rela"
+               android:layout_width="120dp"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="5dp"
+               android:layout_weight="0.24"
+               android:background="@drawable/bg_leftbutton" >
 
-                    <RadioButton
-                        android:id="@+id/radio_xiapai"
-                        style="@style/main_tab_bottom"
-                        android:textColor="@drawable/tab_selector_text_color"
-                        android:drawableTop="@drawable/tab_selector_category"
-                        android:paddingTop="4dp"
-                        android:text="@string/tab_category" />
-<!-- 
-                    <RadioButton
-                        android:id="@+id/radio_my"
-                        android:textColor="@drawable/tab_selector_text_color"
-                        style="@style/main_tab_bottom"
-                        android:drawableTop="@drawable/tab_selector_my"
-                        android:paddingTop="4dp"
-                        android:text="@string/tab_my" />
+               <TextView
+                   android:id="@+id/main_show_shezhiname"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@+id/main_show_shezhi"
+                   android:layout_centerHorizontal="true"
+                   android:text="@string/shezhi" />
 
- -->
-                </RadioGroup>
-            </RelativeLayout>
-        </LinearLayout>
-    </TabHost>
+               <ImageButton
+                   android:id="@+id/main_show_shezhi"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   android:layout_centerVertical="true"
+                   android:src="@drawable/ashezhi" />
+
+           </RelativeLayout>
+       </LinearLayout>
+
+       <FrameLayout
+           android:id="@+id/showContentFrame"
+           android:layout_width="wrap_content"
+           android:layout_height="match_parent" 
+           android:layout_weight="0.4">
+       </FrameLayout>
 
 </LinearLayout>
