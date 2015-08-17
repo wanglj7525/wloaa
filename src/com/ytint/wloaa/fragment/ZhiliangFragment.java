@@ -13,21 +13,19 @@ import com.ytint.wloaa.activity.AddZhiliangReportActivity;
 import com.ytint.wloaa.activity.AddZhiliangSendActivity;
 import com.ytint.wloaa.activity.ZhiliangListActivity;
 
-public class HomeFragment extends Fragment {
+public class ZhiliangFragment extends Fragment {
 	
 	private Button button1;
 	private Button button2;
 	private Button button3;
-	private Button button4;
-	private Button button5;
 	
-	public HomeFragment(){}
+	public ZhiliangFragment(){}
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_zhiliang, container, false);
         
         findView(rootView);
         
@@ -65,29 +63,6 @@ public class HomeFragment extends Fragment {
 			public void onClick(View arg0) {
 				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
 				intent.putExtra("from", 1);
-				intent.putExtra("whichOne", 1);
-				startActivity(intent);
-			}
-		});
-		button4=(Button)rootView.findViewById(R.id.zhiliang4);
-		button4.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
-				intent.putExtra("from", 1);
-				intent.putExtra("whichOne", 2);
-				startActivity(intent);
-			}
-		});
-		button5=(Button)rootView.findViewById(R.id.zhiliang5);
-		button5.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
-				intent.putExtra("from", 1);
-				intent.putExtra("whichOne", 3);
 				startActivity(intent);
 			}
 		});

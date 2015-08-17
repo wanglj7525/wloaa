@@ -17,8 +17,6 @@ public class AnquanFragment extends Fragment {
 	private Button button1;
 	private Button button2;
 	private Button button3;
-	private Button button4;
-	private Button button5;
 	public AnquanFragment(){}
 	
 	@Override
@@ -60,29 +58,6 @@ public class AnquanFragment extends Fragment {
 			public void onClick(View arg0) {
 				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
 				intent.putExtra("from", 2);
-				intent.putExtra("whichOne", 1);
-				startActivity(intent);
-			}
-		});
-		button4=(Button)rootView.findViewById(R.id.anquan4);
-		button4.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
-				intent.putExtra("from", 2);
-				intent.putExtra("whichOne", 2);
-				startActivity(intent);
-			}
-		});
-		button5=(Button)rootView.findViewById(R.id.anquan5);
-		button5.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
-				intent.putExtra("from", 2);
-				intent.putExtra("whichOne", 3);
 				startActivity(intent);
 			}
 		});

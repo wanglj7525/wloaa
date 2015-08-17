@@ -20,8 +20,11 @@ import com.ab.http.AbHttpUtil;
 import com.ab.view.ioc.AbIocView;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.fragment.AnquanFragment;
-import com.ytint.wloaa.fragment.PagesFragment;
+import com.ytint.wloaa.fragment.GonggaoFragment;
+import com.ytint.wloaa.fragment.XiaoxiFragment;
+import com.ytint.wloaa.fragment.AllListFragment;
 import com.ytint.wloaa.fragment.ZhifaFragment;
+import com.ytint.wloaa.fragment.ZhiliangFragment;
 
 public class MainActivity extends FragmentActivity {
 
@@ -71,23 +74,6 @@ public class MainActivity extends FragmentActivity {
 			startActivity(intent);
 		}
 		
-		
-		//TODO 判断角色 确定第一个按钮显示
-		
-		fm = getSupportFragmentManager();
-		fragment1 = new AnquanFragment();
-		fragment2 = new PagesFragment();
-		fragment3 = new ZhifaFragment();
-		fragment4 = new PagesFragment();
-		//初始化的时候需要显示一个fragment，假设我们显示第二个fragment
-				//向容器中添加或者替换fragment时必须  开启事务  操作完成后   提交事务
-		FragmentTransaction ft = fm.beginTransaction();
-		ft.add(R.id.showContentFrame, fragment1).commit();
-		initUi();
-	}
-	
-	private void initUi(){
-		
 		main_show_keshi_rela=(RelativeLayout)findViewById(R.id.main_show_keshi_rela);
 		main_show_gonggao_rela=(RelativeLayout)findViewById(R.id.main_show_gonggao_rela);
 		main_show_xiaoxi_rela=(RelativeLayout)findViewById(R.id.main_show_xiaoxi_rela);
@@ -102,29 +88,47 @@ public class MainActivity extends FragmentActivity {
 		
 		String keshiname="质量检查";
 		int keshiimage=R.drawable.azhiliang;
+		fm = getSupportFragmentManager();
+		fragment1 = new ZhiliangFragment();
+		fragment2 = new GonggaoFragment();
+		fragment3 = new XiaoxiFragment();
+		fragment4 = new AllListFragment();
 		if (userType.equals("1")||userType.equals("2")) {
 			//局长、副局长
 			keshiname="任务列表";
 			keshiimage=R.drawable.azhiliang;
+			fragment1 = new AllListFragment();
 		}else{
 			//科长，科员
 			if (departmentId.equals("1")) {
 				//质量
 				keshiname="质量检查";
 				keshiimage=R.drawable.azhiliang;
+				fragment1 = new ZhiliangFragment();
 			}else if (departmentId.equals("2")) {
 				//安全
 				keshiname="安全检查";
 				keshiimage=R.drawable.aanquan;
+				fragment1 = new AnquanFragment();
 			}else{
 				//执法
 				keshiname="执法管理";
 				keshiimage=R.drawable.azhifa;
+				fragment1 = new ZhifaFragment();
 			}
 			
 		}
 		main_show_keshi.setImageResource(keshiimage);
 		main_show_keshiname.setText(keshiname);
+		
+		//初始化的时候需要显示一个fragment，假设我们显示第二个fragment
+				//向容器中添加或者替换fragment时必须  开启事务  操作完成后   提交事务
+		FragmentTransaction ft = fm.beginTransaction();
+		ft.add(R.id.showContentFrame, fragment1).commit();
+		initUi();
+	}
+	
+	private void initUi(){
 		
 		OnClickListener relaClick = new OnClickListener() {
 			@Override

@@ -65,7 +65,7 @@ public class ZhiliangListActivity extends AbActivity{
 	private AbImageDownloader mAbImageDownloader = null;
 	private ShenpiListAdapter listItemAdapter;
 	private int from;
-	private int whichOne;
+	private int whichOne=1;
 	
 	String TAG = "ShenpiActivity";
 	private ProgressDialog mProgressDialog;
@@ -179,7 +179,7 @@ public class ZhiliangListActivity extends AbActivity{
 	 */
 	private void initUI() {
 		Intent intent = getIntent();
-		whichOne = Integer.parseInt(intent.getExtras().get("whichOne").toString());
+//		whichOne = Integer.parseInt(intent.getExtras().get("whichOne").toString());
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
 		if (from==1) {
 			if (whichOne==1) {

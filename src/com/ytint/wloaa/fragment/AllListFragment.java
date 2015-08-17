@@ -16,11 +16,11 @@ import com.ytint.wloaa.activity.DeleteQiyeActivity;
 import com.ytint.wloaa.activity.QiyeListActivity;
 import com.ytint.wloaa.activity.ZhiliangListActivity;
 
-public class QiyeFragment extends Fragment {
+public class AllListFragment extends Fragment {
 	private Button button1;
 	private Button button2;
 	private Button button3;
-	public QiyeFragment(){}
+	public AllListFragment(){}
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

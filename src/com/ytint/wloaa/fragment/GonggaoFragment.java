@@ -11,7 +11,7 @@ import android.widget.Button;
 import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.activity.XiaoxiShowActivity;
 
-public class PagesFragment extends Fragment {
+public class GonggaoFragment extends Fragment {
 	
 	private Button button1;
 	private Button button2;
@@ -19,7 +19,7 @@ public class PagesFragment extends Fragment {
 	private Button button4;
 	private Button button5;
 	
-	public PagesFragment(){}
+	public GonggaoFragment(){}
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
