@@ -12,11 +12,14 @@ import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.activity.AddZhiliangReportActivity;
 import com.ytint.wloaa.activity.AddZhiliangSendActivity;
 import com.ytint.wloaa.activity.ZhiliangListActivity;
+import com.ytint.wloaa.app.MyApplication;
 
 public class AnquanFragment extends Fragment {
 	private Button button1;
 	private Button button2;
 	private Button button3;
+	private MyApplication application;
+	private String userType;
 	public AnquanFragment(){}
 	
 	@Override
@@ -24,6 +27,8 @@ public class AnquanFragment extends Fragment {
             Bundle savedInstanceState) {
  
         View rootView = inflater.inflate(R.layout.fragment_anquan, container, false);
+        application = (MyApplication) getActivity().getApplication();
+        userType = application.getProperty("userType");
         findView(rootView);
         return rootView;
     }
@@ -51,6 +56,11 @@ public class AnquanFragment extends Fragment {
 				startActivity(intent);
 			}
 		});
+		if (userType.equals("3")) {
+			button1.setEnabled(true);
+		}else if (userType.equals("4")) {
+			button2.setEnabled(true);
+		}
 		button3=(Button)rootView.findViewById(R.id.anquan3);
 		button3.setOnClickListener(new View.OnClickListener() {
 			

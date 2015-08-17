@@ -8,23 +8,25 @@
      <Button
          android:id="@+id/zhiliang1"
          android:layout_width="match_parent"
-         android:layout_marginLeft="40dp"
-         android:layout_marginRight="40dp"
          android:layout_height="65dp"
          android:layout_gravity="center"
+         android:layout_marginLeft="40dp"
+         android:layout_marginRight="40dp"
          android:layout_marginTop="10dp"
          android:drawableLeft="@drawable/zhiliang_xiapai"
+         android:enabled="false"
          android:text="下派质检任务" />
 
      <Button
          android:id="@+id/zhiliang2"
          android:layout_width="match_parent"
-         android:layout_marginLeft="40dp"
-         android:layout_marginRight="40dp"
          android:layout_height="65dp"
          android:layout_gravity="center"
+         android:layout_marginLeft="40dp"
+         android:layout_marginRight="40dp"
          android:layout_marginTop="20dp"
          android:drawableLeft="@drawable/zhiliang_shangbao"
+         android:enabled="false"
          android:text="上报质检任务" />
 
      <Button

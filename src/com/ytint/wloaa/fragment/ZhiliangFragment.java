@@ -12,21 +12,23 @@ import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.activity.AddZhiliangReportActivity;
 import com.ytint.wloaa.activity.AddZhiliangSendActivity;
 import com.ytint.wloaa.activity.ZhiliangListActivity;
+import com.ytint.wloaa.app.MyApplication;
 
 public class ZhiliangFragment extends Fragment {
 	
 	private Button button1;
 	private Button button2;
 	private Button button3;
-	
+	private MyApplication application;
+	private String userType;
 	public ZhiliangFragment(){}
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
- 
         View rootView = inflater.inflate(R.layout.fragment_zhiliang, container, false);
-        
+        application = (MyApplication) getActivity().getApplication();
+        userType = application.getProperty("userType");
         findView(rootView);
         
         return rootView;
@@ -56,6 +58,13 @@ public class ZhiliangFragment extends Fragment {
 				startActivity(intent);
 			}
 		});
+		
+		if (userType.equals("3")) {
+			button1.setEnabled(true);
+		}else if (userType.equals("4")) {
+			button2.setEnabled(true);
+		}
+		
 		button3=(Button)rootView.findViewById(R.id.zhiliang3);
 		button3.setOnClickListener(new View.OnClickListener() {
 			

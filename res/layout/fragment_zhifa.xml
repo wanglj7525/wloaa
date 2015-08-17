@@ -7,24 +7,26 @@
 
      <Button
          android:id="@+id/zhifa1"
-          android:layout_width="match_parent"
-         android:layout_marginLeft="40dp"
-         android:layout_marginRight="40dp"
+         android:layout_width="match_parent"
          android:layout_height="65dp"
          android:layout_gravity="center"
+         android:layout_marginLeft="40dp"
+         android:layout_marginRight="40dp"
          android:layout_marginTop="10dp"
          android:drawableLeft="@drawable/zhifa_xiapai"
+         android:enabled="false"
          android:text="下派执法任务" />
 
      <Button
          android:id="@+id/zhifa2"
          android:layout_width="match_parent"
-         android:layout_marginLeft="40dp"
-         android:layout_marginRight="40dp"
          android:layout_height="65dp"
          android:layout_gravity="center"
+         android:layout_marginLeft="40dp"
+         android:layout_marginRight="40dp"
          android:layout_marginTop="20dp"
          android:drawableLeft="@drawable/zhifa_shangbao"
+         android:enabled="false"
          android:text="上报执法任务" />
 
      <Button
