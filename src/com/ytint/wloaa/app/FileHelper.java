@@ -21,8 +21,10 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.ytint.wloaa.activity.AddZhiliangReportActivity;
 import com.ytint.wloaa.activity.LoginActivity;
 import com.ytint.wloaa.activity.MainActivity;
+import com.ytint.wloaa.activity.ZhiliangListActivity;
 import com.ytint.wloaa.bean.URLs;
 
 public class FileHelper extends Activity{
@@ -181,7 +183,9 @@ public class FileHelper extends Activity{
 							System.out.println(ids+"====="+type);
 							if (type.equals("1")) {
 								addImageReport=ids;
+								AddZhiliangReportActivity.attachment.add(ids);
 							}else if (type.equals("3")) {
+								AddZhiliangReportActivity.media.add(ids);
 								addVoiceReport=ids;
 							}
 						}

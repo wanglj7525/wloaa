@@ -156,6 +156,8 @@ public class AddZhiliangReportActivity extends AbActivity {
 	private int hSpacing = 10;
 
 	private ArrayList<String> imagelist=new ArrayList<String>();
+	public static ArrayList<String> attachment=new ArrayList<String>();
+	public static ArrayList<String> media=new ArrayList<String>();
 	private AbImageDownloader mAbImageDownloader = null;
 	
 	private String peopleId;
@@ -545,39 +547,6 @@ public class AddZhiliangReportActivity extends AbActivity {
                 } catch (Exception e) {
                 	e.printStackTrace();
                 }
-//            	 Bundle extras = data.getExtras();
-//                 Bitmap b = (Bitmap) extras.get("data");
-//                 String name = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
-//                 String fileNmae = Environment.getExternalStorageDirectory().toString()+File.separator+"dong/image/"+name+".jpg";
-//                 srcPath = fileNmae;
-//                 System.out.println(srcPath+"----------保存路径1");
-//                 File myCaptureFile =new File(fileNmae);
-//                 try {
-//                     if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
-//                         if(!myCaptureFile.getParentFile().exists()){
-//                             myCaptureFile.getParentFile().mkdirs();
-//                         }
-//                         BufferedOutputStream bos;
-//                         bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
-//                         b.compress(Bitmap.CompressFormat.JPEG, 80, bos);
-//                         bos.flush();
-//                         bos.close();
-//                         //上传图片
-//                         ArrayList<String> strPhoto=new ArrayList<String>();
-//                         strPhoto.add(srcPath);
-//                         new FileHelper().submitUploadFile(strPhoto, loginKey,"1");
-//                         imagelist.add(srcPath);
-//                         setImageGrideValue();
-//                     }else{
-//                         Toast toast= Toast.makeText(AddZhiliangReportActivity.this, "保存失败，SD卡无效", Toast.LENGTH_SHORT);
-//                         toast.setGravity(Gravity.CENTER, 0, 0);
-//                         toast.show();
-//                     }
-//                 } catch (FileNotFoundException e) {
-//                     e.printStackTrace();
-//                 } catch (IOException e) {
-//                     e.printStackTrace();
-//                 }
 			    break;
             default:
                 break;
@@ -618,10 +587,25 @@ public class AddZhiliangReportActivity extends AbActivity {
 		}
 		params.put("taskInfo.is_reply",reply);
 		params.put("taskInfo.is_review",review);
-		String attachment=FileHelper.addImageReport;
-		params.put("taskInfo.attachment", attachment);
-		String media=FileHelper.addVoiceReport;
-		params.put("taskInfo.media", media);
+		String attachments = "";
+		for (int i = 0; i < attachment.size(); i++) {
+			if (i==attachment.size()-1) {
+				attachments+=attachment.get(i);
+			}else{
+				attachments+=attachment.get(i)+",";
+			}
+		}
+		params.put("taskInfo.attachment",attachments);
+		String medias = "";
+		for (int i = 0; i < media.size(); i++) {
+			if (i==media.size()-1) {
+				medias+=media.get(i);
+			}else{
+				medias+=media.get(i)+",";
+			}
+			
+		}
+		params.put("taskInfo.media", medias);
 		params.put("taskInfo.task_type", "1");
 		params.put("taskInfo.create_user_id", loginKey);
 		params.put("taskInfo.department_id", from+"");

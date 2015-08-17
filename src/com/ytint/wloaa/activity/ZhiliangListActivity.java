@@ -128,11 +128,11 @@ public class ZhiliangListActivity extends AbActivity{
 			return;
 		}
 		String url;
-		if (whichOne!=3) {
-			url=String.format("%s?user_id=%s&p=1&ps=100&department_id=%d&task_type=%d&status=%d", URLs.TASKLIST,loginKey,from,select_show,whichOne);
-		}else{
+//		if (whichOne!=3) {
+//			url=String.format("%s?user_id=%s&p=1&ps=100&department_id=%d&task_type=%d&status=%d", URLs.TASKLIST,loginKey,from,select_show,whichOne);
+//		}else{
 			url=String.format("%s?user_id=%s&p=1&ps=100&department_id=%d&task_type=%d", URLs.TASKLIST,loginKey,from,select_show);
-		}
+//		}
 		Log.d(TAG, url);
 		mAbHttpUtil.get(url,
 				new AbStringHttpResponseListener() {
