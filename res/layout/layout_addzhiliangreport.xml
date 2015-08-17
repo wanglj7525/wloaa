@@ -189,7 +189,7 @@
    		    android:id="@+id/textView6"
    		    android:layout_width="wrap_content"
    		    android:layout_height="wrap_content"
-   		    android:text="图片、视频列表（新拍图片、选择本地图片、长按可删除）"
+   		    android:text="图片、视频列表（新拍图片、选择本地图片）"
    		    android:textSize="15sp" />
 
    		<LinearLayout
@@ -200,7 +200,8 @@
    			    android:id="@+id/button2"
    			    android:layout_width="wrap_content"
    			    android:layout_height="wrap_content"
-   			    android:background="@drawable/apaizhao" />
+   			    android:background="@drawable/apaizhao" 
+   			    android:visibility="gone"/>
 
    			<Button
    			    android:id="@+id/add_photo"
