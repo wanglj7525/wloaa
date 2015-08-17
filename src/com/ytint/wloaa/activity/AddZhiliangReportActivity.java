@@ -530,7 +530,7 @@ public class AddZhiliangReportActivity extends AbActivity {
                          * 这样的话，我们判断文件的后缀名 如果是图片格式的话，那么才可以
                          */
                         if (path.endsWith("jpg") || path.endsWith("png")) {
-                        srcPath=path;
+                        	srcPath=path;
                           //上传图片
                           ArrayList<String> strPhoto=new ArrayList<String>();
                           strPhoto.add(srcPath);
@@ -798,6 +798,7 @@ public class AddZhiliangReportActivity extends AbActivity {
         @Override
         public View getView(int position, View contentView, ViewGroup arg2) {
         	String image=imagelist.get(position);
+        	Log.e(TAG, image);
             ViewHolder holder;
             if (contentView == null) {
                 holder = new ViewHolder();
