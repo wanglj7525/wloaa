@@ -179,32 +179,13 @@ public class ZhiliangListActivity extends AbActivity{
 	 */
 	private void initUI() {
 		Intent intent = getIntent();
-//		whichOne = Integer.parseInt(intent.getExtras().get("whichOne").toString());
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
 		if (from==1) {
-			if (whichOne==1) {
-				titlebar.setText("质量检查-已完成任务");
-			}else if(whichOne==2){
-				titlebar.setText("质量检查-未完成任务");
-			}else{
-				titlebar.setText("质量检查-所有任务列表");
-			}
+			titlebar.setText("质量检查任务列表");
 		}else if(from==2){
-			if (whichOne==1) {
-				titlebar.setText("安全检查-已完成任务");
-			}else if(whichOne==2){
-				titlebar.setText("安全检查-未完成任务");
-			}else{
-				titlebar.setText("安全检查-所有任务列表");
-			}
+			titlebar.setText("安全检查任务列表");
 		}else{
-			if (whichOne==1) {
-				titlebar.setText("执法管理-已完成任务");
-			}else if(whichOne==2){
-				titlebar.setText("执法管理-未完成任务");
-			}else{
-				titlebar.setText("执法管理-所有任务列表");
-			}
+			titlebar.setText("执法管理任务列表");
 		}
 		
 		Rect frame = new Rect();  

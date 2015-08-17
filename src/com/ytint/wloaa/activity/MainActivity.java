@@ -21,6 +21,7 @@ import com.ab.view.ioc.AbIocView;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.fragment.AnquanFragment;
 import com.ytint.wloaa.fragment.GonggaoFragment;
+import com.ytint.wloaa.fragment.ShezhiFragment;
 import com.ytint.wloaa.fragment.XiaoxiFragment;
 import com.ytint.wloaa.fragment.AllListFragment;
 import com.ytint.wloaa.fragment.ZhifaFragment;
@@ -92,7 +93,7 @@ public class MainActivity extends FragmentActivity {
 		fragment1 = new ZhiliangFragment();
 		fragment2 = new GonggaoFragment();
 		fragment3 = new XiaoxiFragment();
-		fragment4 = new AllListFragment();
+		fragment4 = new ShezhiFragment();
 		if (userType.equals("1")||userType.equals("2")) {
 			//局长、副局长
 			keshiname="任务列表";

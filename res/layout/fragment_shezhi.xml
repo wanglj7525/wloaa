@@ -6,31 +6,23 @@
     android:orientation="vertical" >
 
      <Button
-         android:id="@+id/zhilianglist"
+         android:id="@+id/updatepas"
          android:layout_width="220dp"
          android:layout_height="80dp"
          android:layout_gravity="center"
          android:layout_marginTop="10dp"
-         android:drawableLeft="@drawable/zhiliang_liebiao"
-         android:text="质量检查列表" />
+         android:drawableLeft="@drawable/ashezhi"
+         android:text="修改密码" />
 
      <Button
-         android:id="@+id/anquanlist"
+         android:id="@+id/changeuser"
          android:layout_width="220dp"
          android:layout_height="80dp"
          android:layout_gravity="center"
          android:layout_marginTop="30dp"
-         android:drawableLeft="@drawable/anquan_liebiao"
-         android:text="安全检查列表" />
+         android:drawableLeft="@drawable/ashezhi"
+         android:text="切换账号" />
 
-     <Button
-         android:id="@+id/zhifalist"
-         android:layout_width="220dp"
-         android:layout_height="80dp"
-         android:layout_gravity="center"
-         android:layout_marginTop="30dp"
-         android:drawableLeft="@drawable/zhifa_liebiao"
-         android:text="执法管理列表" />
 
 
 </LinearLayout>

@@ -58,14 +58,14 @@ public class LoginActivity extends AbActivity {
 		
 		// 添加百度地图SDK
 		SDKInitializer.initialize(getApplicationContext());  
-        // setContentView(R.layout.activity_main); 
-        
 		setContentView(R.layout.layout_login);
 		application = (MyApplication) this.getApplication();
 		context=LoginActivity.this;
 		AbTitleBar mAbTitleBar = this.getTitleBar();
 		mAbTitleBar.setVisibility(View.GONE);
-
+		
+		application.setProperty("is_login","0");
+		
 		String username = application.getProperty(Constants.USER_NAME);
 		if (null != username && username.length() > 0) {
 			inputUsername.setText(username);

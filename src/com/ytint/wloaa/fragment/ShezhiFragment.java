@@ -10,54 +10,41 @@ import android.widget.Button;
 
 import com.ytint.wloaa.activity.AddQiyeActivity;
 import com.ytint.wloaa.activity.DeleteQiyeActivity;
+import com.ytint.wloaa.activity.LoginActivity;
 import com.ytint.wloaa.activity.QiyeListActivity;
 import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.activity.ZhiliangListActivity;
 
-public class AllListFragment extends Fragment {
+public class ShezhiFragment extends Fragment {
 	private Button button1;
 	private Button button2;
 	private Button button3;
-	public AllListFragment(){}
+	public ShezhiFragment(){}
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
-        View rootView = inflater.inflate(R.layout.fragment_community, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_shezhi, container, false);
         findView(rootView);
         return rootView;
     }
 	
 	private void findView(View rootView) {
-		button1=(Button)rootView.findViewById(R.id.zhilianglist);
+		button1=(Button)rootView.findViewById(R.id.updatepas);
 		button1.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
-				intent.putExtra("from", 1);
-				startActivity(intent);
 			}
 		});
 		
-		button2=(Button)rootView.findViewById(R.id.anquanlist);
+		button2=(Button)rootView.findViewById(R.id.changeuser);
 		button2.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
-				intent.putExtra("from", 2);
-				startActivity(intent);
-			}
-		});
-		button3=(Button)rootView.findViewById(R.id.zhifalist);
-		button3.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
-				intent.putExtra("from", 3);
+				Intent intent = new Intent(getActivity(),LoginActivity.class);
 				startActivity(intent);
 			}
 		});
