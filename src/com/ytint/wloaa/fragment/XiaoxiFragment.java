@@ -30,8 +30,8 @@ public class XiaoxiFragment extends Fragment {
         return rootView;
     }
 	private void findView(View rootView) {
-		//下派质检任务
-		button1=(Button)rootView.findViewById(R.id.xiaoxi1);
+		// 发送消息
+		button1=(Button)rootView.findViewById(R.id.xiaoxisend);
 		button1.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -42,43 +42,13 @@ public class XiaoxiFragment extends Fragment {
 			}
 		});
 		
-		button2=(Button)rootView.findViewById(R.id.xiaoxi2);
+		button2=(Button)rootView.findViewById(R.id.xiaoxilist);
 		button2.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(getActivity(),XiaoxiShowActivity.class);
 				intent.putExtra("from", 2);
-				startActivity(intent);
-			}
-		});
-		button3=(Button)rootView.findViewById(R.id.xiaoxi3);
-		button3.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),XiaoxiShowActivity.class);
-				intent.putExtra("from", 3);
-				startActivity(intent);
-			}
-		});
-		button4=(Button)rootView.findViewById(R.id.xiaoxi4);
-		button4.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),XiaoxiShowActivity.class);
-				intent.putExtra("from", 4);
-				startActivity(intent);
-			}
-		});
-		button5=(Button)rootView.findViewById(R.id.xiaoxi5);
-		button5.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),XiaoxiShowActivity.class);
-				intent.putExtra("from", 5);
 				startActivity(intent);
 			}
 		});

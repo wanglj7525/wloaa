@@ -10,5 +10,6 @@
 	    android:layout_alignParentLeft="true"
 	    android:layout_alignParentTop="true"
 	    android:src="@drawable/contact_0" >
-	</ImageView>
+
+</ImageView>
 </RelativeLayout>

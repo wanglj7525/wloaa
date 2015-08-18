@@ -12,7 +12,7 @@
 
            <RelativeLayout
                android:layout_width="120dp"
-               android:layout_height="40dp"
+               android:layout_height="26dp"
                android:layout_weight="0.1"
                android:background="@drawable/leftbutton_selector_bg" >
 
@@ -30,8 +30,8 @@
                android:id="@+id/main_show_keshi_rela"
                android:layout_width="120dp"
                android:layout_height="wrap_content"
-               android:layout_marginBottom="5dp"
-               android:layout_marginTop="5dp"
+               android:layout_marginBottom="2dp"
+               android:layout_marginTop="2dp"
                android:layout_weight="0.24"
                android:background="@drawable/bg_leftbutton_selected" >
 
@@ -58,7 +58,7 @@
                android:id="@+id/main_show_gonggao_rela"
                android:layout_width="120dp"
                android:layout_height="wrap_content"
-               android:layout_marginBottom="5dp"
+               android:layout_marginBottom="2dp"
                android:layout_weight="0.24"
                android:background="@drawable/bg_leftbutton" >
 
@@ -76,14 +76,14 @@
                    android:layout_height="wrap_content"
                    android:layout_centerHorizontal="true"
                    android:layout_centerVertical="true"
-                   android:src="@drawable/agonggao" />
+                   android:src="@drawable/menu_gonggao" />
            </RelativeLayout>
 
            <RelativeLayout
                android:id="@+id/main_show_xiaoxi_rela"
                android:layout_width="120dp"
                android:layout_height="wrap_content"
-               android:layout_marginBottom="5dp"
+               android:layout_marginBottom="2dp"
                android:layout_weight="0.24"
                android:background="@drawable/bg_leftbutton" >
 
@@ -101,7 +101,7 @@
                    android:layout_height="wrap_content"
                    android:layout_centerHorizontal="true"
                    android:layout_centerVertical="true"
-                   android:src="@drawable/axiaoxi" />
+                   android:src="@drawable/menu_xiaoxi" />
 
            </RelativeLayout>
 
@@ -109,7 +109,7 @@
                android:id="@+id/main_show_shezhi_rela"
                android:layout_width="120dp"
                android:layout_height="wrap_content"
-               android:layout_marginBottom="5dp"
+               android:layout_marginBottom="2dp"
                android:layout_weight="0.24"
                android:background="@drawable/bg_leftbutton" >
 
@@ -127,7 +127,7 @@
                    android:layout_height="wrap_content"
                    android:layout_centerHorizontal="true"
                    android:layout_centerVertical="true"
-                   android:src="@drawable/ashezhi" />
+                   android:src="@drawable/menu_shezhi" />
 
            </RelativeLayout>
        </LinearLayout>

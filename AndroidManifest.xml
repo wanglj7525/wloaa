@@ -268,7 +268,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
-        <activity
+    <activity
             android:name="com.ytint.wloaa.activity.RecordActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
