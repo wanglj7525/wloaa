@@ -8,16 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.ytint.wloaa.activity.AddXiaoxiSendActivity;
 import com.ytint.wloaa.activity.R;
+import com.ytint.wloaa.activity.XiaoxiListActivity;
 import com.ytint.wloaa.activity.XiaoxiShowActivity;
 
 public class XiaoxiFragment extends Fragment {
 	
 	private Button button1;
 	private Button button2;
-	private Button button3;
-	private Button button4;
-	private Button button5;
 	
 	public XiaoxiFragment(){}
 	
@@ -36,7 +35,7 @@ public class XiaoxiFragment extends Fragment {
 			
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),XiaoxiShowActivity.class);
+				Intent intent = new Intent(getActivity(),AddXiaoxiSendActivity.class);
 				intent.putExtra("from", 1);
 				startActivity(intent);
 			}
@@ -47,8 +46,8 @@ public class XiaoxiFragment extends Fragment {
 			
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),XiaoxiShowActivity.class);
-				intent.putExtra("from", 2);
+				Intent intent = new Intent(getActivity(),XiaoxiListActivity.class);
+				intent.putExtra("from", 1);
 				startActivity(intent);
 			}
 		});

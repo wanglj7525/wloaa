@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical" >
-
     <Button
          android:id="@+id/xiaoxisend"
          android:layout_width="220dp"
