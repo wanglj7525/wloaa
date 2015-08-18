@@ -67,7 +67,7 @@ public class ZhiliangListActivity extends AbActivity{
 	private int from;
 	private int whichOne=1;
 	
-	String TAG = "ShenpiActivity";
+	String TAG = "ZhiliangListActivity";
 	private ProgressDialog mProgressDialog;
 	private String loginKey;
 	

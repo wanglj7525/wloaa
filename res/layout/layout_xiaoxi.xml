@@ -4,37 +4,38 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
-
-    <LinearLayout
+<LinearLayout
+            android:id="@+id/showtitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/listitem_white" >
+        android:layout_height="40dp"
+        android:background="@drawable/abg_top" >
 
-        <LinearLayout
+		<RelativeLayout
+            android:id="@+id/addShenpi"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5" >
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_selector_back" >
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="消息列表"
-                android:textColor="@color/black"
-                android:textSize="@dimen/title_size" />
-
-        </LinearLayout>
-
+        </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/addQunfa"
+            android:id="@+id/r"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:background="@drawable/add" >
+            android:background="@drawable/aline" >
 
         </RelativeLayout>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/titlebarxs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="质量检查-所有任务列表"
+                android:textColor="@color/white"
+                android:textSize="@dimen/title_size" />
 
+        
+    </LinearLayout>
      <ListView
          android:id="@+id/qunfa_list"
          android:layout_width="match_parent"

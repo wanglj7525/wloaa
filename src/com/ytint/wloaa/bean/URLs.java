@@ -38,10 +38,10 @@ public class URLs implements Serializable {
 	public final static String PHOTOLIST=URL_API_HOST+"api/upload/get_file_list";
 	
 	//获取群发消息列表 任务列表
-	public final static String QUNFALIST=URL_API_HOST+"api/notice/get_user_notice_list";
+	public final static String QUNFALIST=URL_API_HOST+"api/notice/get_notice_list";
 	
 	//发送消息或任务
-	public final static String ADDMSG=URL_API_HOST+"api/notice/add_notice_doc";
+	public final static String ADDMSG=URL_API_HOST+"api/notice/add_notice_info";
 	
 	//发送消息或任务
 	public final static String ADDSHENPI=URL_API_HOST+"api/verify/add_apply_info";

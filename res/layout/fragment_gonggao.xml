@@ -6,25 +6,25 @@
     android:orientation="vertical" >
 
      <Button
-         android:id="@+id/xiaoxi3"
+         android:id="@+id/gonggao1"
          android:layout_width="match_parent"
          android:layout_marginLeft="40dp"
          android:layout_marginRight="40dp"
          android:layout_height="65dp"
          android:layout_gravity="center"
-         android:layout_marginTop="20dp"
-         android:drawableLeft="@drawable/xiaoxi_qunfaxiaoxi"
-         android:text="群发消息" />
+         android:layout_marginTop="10dp"
+         android:drawableLeft="@drawable/xiaoxi_fabugonggao"
+         android:text="发布公告" />
 
      <Button
-         android:id="@+id/xiaoxi4"
+         android:id="@+id/gonggao2"
          android:layout_width="match_parent"
          android:layout_marginLeft="40dp"
          android:layout_marginRight="40dp"
          android:layout_height="65dp"
          android:layout_gravity="center"
          android:layout_marginTop="20dp"
-         android:drawableLeft="@drawable/xiaoxi_xiaoxiliebiao"
-         android:text="消息列表" />
+         android:drawableLeft="@drawable/xiaoxi_gonggaoliebiao"
+         android:text="公告列表" />
 
 </LinearLayout>
