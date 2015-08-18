@@ -8,7 +8,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
@@ -32,7 +30,6 @@ import com.ab.http.AbHttpUtil;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
-import com.ytint.wloaa.activity.AddZhiliangSendActivity.MyGridAdapter;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.Shenpi;
@@ -53,22 +50,10 @@ public class ShenpiDetailActivity extends AbActivity {
 		GridView gridView_voice;
 		@AbIocView(id=R.id.horizontalScrollView_voicelist_detail)
 		HorizontalScrollView horizontalScrollView_voicelist_detail;
-		/** 语音列表适配器 */
-		private MyGridAdapter mAdapter;
 		/** 语音列表 */
 		private List<String> mVoicesList=new ArrayList<String>();
-		/** 语音名称列表 */
-		private List<String> mVoicesListname=new ArrayList<String>();
-		/** 录音存储路径 */
-		private static final String PATH = "/sdcard/MyVoiceForder/Record/";
 		/** 用于语音播放 */
 		private MediaPlayer mPlayer = null;
-		/** 用于完成录音 */
-		private MediaRecorder mRecorder = null;
-		/** 语音文件保存路径 */
-		private String mFileName = null;
-		/** 语音文件显示名称 */
-		private String mFileNameShow = null;
 		/**
 		 * 列宽
 		 */

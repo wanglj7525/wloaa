@@ -310,13 +310,30 @@ public class ZhiliangListActivity extends AbActivity{
             		.findViewById(R.id.shenpi_create_time);
             String html="【";
             if (from==1) {
-				html+="质量检查】  &nbsp;&nbsp;";
+				html+="质量检查】 ";
 			}else if (from==2) {
-				html+="安全检查】 &nbsp;&nbsp; ";
+				html+="安全检查】";
 			}else{
-				html+="执法管理】  &nbsp;&nbsp;";
+				html+="执法管理】";
 			}
-             html+="<font color='#A00000'>&nbsp;"+news.create_user_name+"&nbsp;&nbsp;&nbsp;</font>"+news.name+"&nbsp;&nbsp;&nbsp;<font color='#505050'>"+news.company_name+"</font>"; 
+             html+="<font color='#A00000'>"+news.create_user_name+"&nbsp;</font>"+news.name+"&nbsp;<font color='#505050'>"+news.company_name+"</font>&nbsp;&nbsp;"; 
+             int flag1=0;
+             int flag2=0;
+             int flag3=0;
+             if (news.attachment.length()>0) {
+            	 flag1=news.attachment.split(",").length;
+				if (news.attachment.contains("3gp")) {
+					flag2=1;
+					flag1-=1;
+				}
+			}
+             if (news.task_type==1) {
+            	 html+="<font color='#6495ED'>"+flag1+"</font>图片，<font color='#6495ED'>"+flag2+"</font>视频，";
+			}
+             if (news.media.length()>0) {
+				flag3=news.media.split(",").length;
+			}
+             html+="<font color='#6495ED'>"+flag3+"</font>录音";
             frompeo.setText(Html.fromHtml(html));  
             topeo.setText("接收人："+news.receive_user_name);
 //            abstr.setText(news.content);
