@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+    xmlns:tools="http://schemas.android.com/tools"  
+    android:layout_width="match_parent"  
+    android:layout_height="match_parent"   
+    android:orientation="vertical">  
+  
+    <SurfaceView   
+         android:id="@+id/surfaceview"   
+         android:layout_weight="1"  
+         android:layout_width="fill_parent"   
+         android:layout_height="0dip" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/btnStartStop"
+            android:layout_width="wrap_content"
+            android:layout_height="55dip"
+            android:layout_weight="0.1"
+            android:text="开始"
+            tools:context=".RecordActivity" />
+
+        <Button
+            android:id="@+id/saveVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="55dip"
+            android:layout_weight="0.1"
+            android:text="保存" />
+
+        <Button
+            android:id="@+id/cancelVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="55dip"
+            android:layout_weight="0.1"
+            android:text="取消" />
+
+    </LinearLayout>  
+  
+</LinearLayout> 

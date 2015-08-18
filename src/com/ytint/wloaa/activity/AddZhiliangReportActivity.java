@@ -124,6 +124,9 @@ public class AddZhiliangReportActivity extends AbActivity {
 	/**拍照，选择本地图片上传*/
 	@AbIocView(id = R.id.add_photo)
 	Button add_photo;
+	/**录像*/
+	@AbIocView(id = R.id.add_video)
+	Button add_video;
 	/**添加录音*/
 	@AbIocView(id = R.id.addVoicereport)
 	Button addVoicereport;
@@ -141,7 +144,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 	/** 语音名称列表 */
 	private List<String> mVoicesListname;
 	/** 录音存储路径 */
-	private static final String PATH = "/sdcard/MyVoiceForder/Record/";
+	private static final String PATH = "/sdcard/wloaa/Record/";
 	/** 用于语音播放 */
 	private MediaPlayer mPlayer = null;
 	/** 用于完成录音 */
@@ -158,6 +161,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 	private ArrayList<String> imagelist=new ArrayList<String>();
 	public static ArrayList<String> attachment=new ArrayList<String>();
 	public static ArrayList<String> media=new ArrayList<String>();
+	public static ArrayList<String> video=new ArrayList<String>();
 	private AbImageDownloader mAbImageDownloader = null;
 	
 	private String peopleId;
@@ -438,6 +442,14 @@ public class AddZhiliangReportActivity extends AbActivity {
 //		        startActivityForResult(intent, 11);
 			}
 		});
+    	//录像
+    	add_video.setOnClickListener(new View.OnClickListener() {
+    		@Override
+    		public void onClick(View v) {
+				Intent intent = new Intent(AddZhiliangReportActivity.this, RecordActivity.class);  
+		        startActivityForResult(intent, 10);
+    		}
+    	});
 		//确定当前位置
 		findlocal.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -512,6 +524,10 @@ public class AddZhiliangReportActivity extends AbActivity {
 		
 		if(resultCode== Activity.RESULT_OK){	
 			switch(requestCode) {
+			case 10:
+				Uri uris = data.getData();
+                Log.e(TAG, "视频====uris = " + uris);
+				break;
             case 11:
             	Uri uri = data.getData();
                 Log.e(TAG, "uri = " + uri);
@@ -594,6 +610,9 @@ public class AddZhiliangReportActivity extends AbActivity {
 			}else{
 				attachments+=attachment.get(i)+",";
 			}
+		}
+		if (video.size()>0) {
+			attachments+=","+video.get(0);
 		}
 		params.put("taskInfo.attachment",attachments);
 		String medias = "";

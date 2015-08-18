@@ -32,8 +32,6 @@ public class FileHelper extends Activity{
 	private static final int TIME_OUT = 10 * 1000; // 超时时间
 	private static final String CHARSET = "utf-8"; // 设置编码
 	String result;
-	public static String addImageReport;
-	public static String addVoiceReport;
 	private MyApplication application = (MyApplication) this.getApplication();
 	public void submitUploadFile(ArrayList<String> srcPath, String loginKey,final String type) {
 		final ArrayList<File> files=new ArrayList<File>();
@@ -135,6 +133,9 @@ public class FileHelper extends Activity{
 					if (type.equals("3")) {
 						sb.append("Content-Type: audio/mpeg; charset=" + CHARSET
 								+ LINE_END);
+					}else if (type.equals("2")) {
+						sb.append("Content-Type: video/3gpp; charset=" + CHARSET
+								+ LINE_END);
 					}else{
 						sb.append("Content-Type: image/pjpeg; charset=" + CHARSET
 								+ LINE_END);
@@ -182,11 +183,11 @@ public class FileHelper extends Activity{
 							String ids=jsonObject.getString("info");
 							System.out.println(ids+"====="+type);
 							if (type.equals("1")) {
-								addImageReport=ids;
 								AddZhiliangReportActivity.attachment.add(ids);
+							}else if (type.equals("2")) {
+								AddZhiliangReportActivity.video.add(ids);
 							}else if (type.equals("3")) {
 								AddZhiliangReportActivity.media.add(ids);
-								addVoiceReport=ids;
 							}
 						}
 					} catch (Exception e) {

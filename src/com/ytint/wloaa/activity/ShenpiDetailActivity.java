@@ -277,12 +277,17 @@ public class ShenpiDetailActivity extends AbActivity {
 	            @Override
 	            public void onItemClick(AdapterView<?> parent, View view,
 	                    int position, long id) {
-	                // TODO Auto-generated method stub
 	                Log.e(TAG, "position = " + position);
 	                String url=imageList.get(position);
-	                Intent intent = new Intent(ShenpiDetailActivity.this, PicturePreviewActivity.class);  
-	        		intent.putExtra("url", url);
-	        		startActivity(intent);
+	                if (url.contains("3gp")) {
+	                	Intent intent = new Intent(ShenpiDetailActivity.this, MediaPlayerDemo_Video.class);  
+	    				intent.putExtra("url", url);
+	    				startActivity(intent);
+	    			}else{
+	    				Intent intent = new Intent(ShenpiDetailActivity.this, PicturePreviewActivity.class);  
+	    				intent.putExtra("url", url);
+	    				startActivity(intent);
+	    			}
 	            }
 	        });
 	    }
@@ -326,6 +331,9 @@ public class ShenpiDetailActivity extends AbActivity {
 	        @Override
 	        public View getView(int position, View contentView, ViewGroup arg2) {
 	        	String image=imageList.get(position);
+	        	if (image.contains("3gp")) {
+					image=URLs.URL_API_HOST+"public/images/video_play_btn.png";
+				}
 	            ViewHolder holder;
 	            if (contentView == null) {
 	                holder = new ViewHolder();
