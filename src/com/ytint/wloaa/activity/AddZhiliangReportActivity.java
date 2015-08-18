@@ -167,6 +167,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 	private String peopleId;
 	private String companyId;
 	private static String srcPath;
+	private static String videoPath;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -446,8 +447,11 @@ public class AddZhiliangReportActivity extends AbActivity {
     	add_video.setOnClickListener(new View.OnClickListener() {
     		@Override
     		public void onClick(View v) {
-				Intent intent = new Intent(AddZhiliangReportActivity.this, RecordActivity.class);  
-		        startActivityForResult(intent, 10);
+    			Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);    
+                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);    
+                startActivityForResult(intent, 10); 
+//				Intent intent = new Intent(AddZhiliangReportActivity.this, RecordActivity.class);  
+//		        startActivityForResult(intent, 10);
     		}
     	});
 		//确定当前位置
@@ -525,8 +529,19 @@ public class AddZhiliangReportActivity extends AbActivity {
 		if(resultCode== Activity.RESULT_OK){	
 			switch(requestCode) {
 			case 10:
-				Uri uris = data.getData();
-                Log.e(TAG, "视频====uris = " + uris);
+                Uri uriVideo = data.getData();    
+                Cursor cursors=this.getContentResolver().query(uriVideo, null, null, null, null);    
+                if (cursors.moveToNext()) {    
+                        /* _data：文件的绝对路径 ，_display_name：文件名 */    
+                	videoPath = cursors.getString(cursors.getColumnIndex("_data"));    
+                        Toast.makeText(this, videoPath, Toast.LENGTH_SHORT).show(); 
+                      //上传图片
+                        ArrayList<String> strVideo=new ArrayList<String>();
+                        strVideo.add(videoPath);
+                        new FileHelper().submitUploadFile(strVideo, loginKey,"2");
+                        imagelist.add(videoPath);
+                        setImageGrideValue();   
+                }    
 				break;
             case 11:
             	Uri uri = data.getData();
@@ -612,7 +627,11 @@ public class AddZhiliangReportActivity extends AbActivity {
 			}
 		}
 		if (video.size()>0) {
-			attachments+=","+video.get(0);
+			if (attachments.length()==0) {
+				attachments+=video.get(0);
+			}else{
+				attachments+=","+video.get(0);
+			}
 		}
 		params.put("taskInfo.attachment",attachments);
 		String medias = "";
@@ -817,6 +836,9 @@ public class AddZhiliangReportActivity extends AbActivity {
         @Override
         public View getView(int position, View contentView, ViewGroup arg2) {
         	String image=imagelist.get(position);
+        	if (image.contains("3gp")) {
+				image=URLs.URL_API_HOST+"public/images/video_play_btn.png";
+			}
         	Log.e(TAG, image);
             ViewHolder holder;
             if (contentView == null) {

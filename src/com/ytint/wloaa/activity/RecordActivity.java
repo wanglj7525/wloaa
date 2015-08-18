@@ -3,9 +3,14 @@ package com.ytint.wloaa.activity;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import android.content.pm.ActivityInfo;
 import android.graphics.PixelFormat;
+import android.hardware.Camera;
+import android.hardware.Camera.Parameters;
+import android.hardware.Camera.Size;
+import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
@@ -35,9 +40,13 @@ public class RecordActivity extends AbActivity implements SurfaceHolder.Callback
 	private String videoPath; 
 	private String loginKey;
 	private MyApplication application;
+	private Camera camera;
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        application = (MyApplication) this.getApplication();
+        loginKey = application.getProperty("loginKey");
         
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);// 去掉标题栏 
         setContentView(R.layout.layout_video_record1);
@@ -50,10 +59,10 @@ public class RecordActivity extends AbActivity implements SurfaceHolder.Callback
 //        // 选择支持半透明模式,在有surfaceview的activity中使用。 
         getWindow().setFormat(PixelFormat.TRANSLUCENT); 
 
-        application = (MyApplication) this.getApplication();
-		loginKey = application.getProperty("loginKey");
         mSurfaceview  = (SurfaceView)findViewById(R.id.surfaceview);
         mBtnStartStop = (Button)findViewById(R.id.btnStartStop);
+        
+        camera = Camera.open();
         saveVideo = (Button)findViewById(R.id.saveVideo);
         cancelVideo = (Button)findViewById(R.id.cancelVideo);
         cancelVideo.setOnClickListener(new OnClickListener() {
@@ -86,21 +95,21 @@ public class RecordActivity extends AbActivity implements SurfaceHolder.Callback
 					}
 					try {
 
-						// Set audio and video source and encoder
-						// 这两项需要放在setOutputFormat之前
-						mRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
-						mRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
-						
-						// Set output file format
-						mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-						
-						// 这两项需要放在setOutputFormat之后
-				        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-				        mRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H263);
-				        
-				        mRecorder.setVideoSize(480, 320);
-				        mRecorder.setVideoFrameRate(20);
-				        mRecorder.setPreviewDisplay(mSurfaceHolder.getSurface()); 
+						mRecorder.reset();
+						mRecorder.setPreviewDisplay(mSurfaceHolder
+	                            .getSurface());
+						mRecorder
+	                            .setVideoSource(MediaRecorder.VideoSource.CAMERA);
+						mRecorder
+	                            .setAudioSource(MediaRecorder.AudioSource.MIC);
+						mRecorder
+	                            .setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+						mRecorder
+	                            .setVideoEncoder(MediaRecorder.VideoEncoder.H264);
+						mRecorder
+	                            .setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+//						mRecorder.setVideoSize(320, 240);
+//						mRecorder.setVideoFrameRate(15);
 				        
 				        // Set output file path 
 				        String path = getSDPath();
@@ -112,12 +121,8 @@ public class RecordActivity extends AbActivity implements SurfaceHolder.Callback
 						    }
 						    videoPath = dir + "/" + getDate() + ".3gp";
 					        mRecorder.setOutputFile(videoPath);
-					        Log.d(TAG, "bf mRecorder.prepare()");
 					        mRecorder.prepare();
-					        Log.d(TAG, "af mRecorder.prepare()");
-					        Log.d(TAG, "bf mRecorder.start()");
 					        mRecorder.start();   // Recording is now started
-					        Log.d(TAG, "af mRecorder.start()");
 					        mStartedFlg = true;
 					        mBtnStartStop.setText("停止");
 					        Log.d(TAG, "Start recording ...");
@@ -154,7 +159,25 @@ public class RecordActivity extends AbActivity implements SurfaceHolder.Callback
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS); 
 
     }
-	
+	private Camera.Size getBestPreviewSize(int width, int height, Camera.Parameters parameters) {
+	    Camera.Size result=null;
+
+	    for (Camera.Size size : parameters.getSupportedPreviewSizes()) {
+	        if (size.width<=width && size.height<=height) {
+	            if (result==null) {
+	                result=size;
+	            } else {
+	                int resultArea=result.width*result.height;
+	                int newArea=size.width*size.height;
+
+	                if (newArea>resultArea) {
+	                    result=size;
+	                }
+	            }
+	        }
+	    }
+	    return(result);
+	}  
 	/**  
      * 获取系统时间  
      * @return  

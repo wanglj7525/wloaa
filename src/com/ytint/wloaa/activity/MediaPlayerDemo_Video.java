@@ -38,6 +38,7 @@ public class MediaPlayerDemo_Video extends AbActivity implements
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.layout_mediaplayer);
+        path = getIntent().getStringExtra("url");
         mPreview = (SurfaceView) findViewById(R.id.surface);
         holder = mPreview.getHolder();
         holder.addCallback(this);
@@ -54,8 +55,8 @@ public class MediaPlayerDemo_Video extends AbActivity implements
              * the movie atom has to precede all the media data atoms. 2. The
              * clip has to be reasonably interleaved.
              */
-            path = "http://www.androidbook.com/akc/filestorage/android/documentfiles/3389/movie.mp4";
-            path = "http://forum.ea3w.com/coll_ea3w/attach/2008_10/12237832415.3gp";
+//            path = "http://www.androidbook.com/akc/filestorage/android/documentfiles/3389/movie.mp4";
+//            path = "http://forum.ea3w.com/coll_ea3w/attach/2008_10/12237832415.3gp";
 
             // Create a new media player and set the listeners
             mMediaPlayer = new MediaPlayer();
