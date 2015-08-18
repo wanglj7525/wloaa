@@ -36,7 +36,7 @@ public class GonggaoFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(getActivity(),AddXiaoxiSendActivity.class);
-				intent.putExtra("from", 1);
+				intent.putExtra("from", 2);
 				startActivity(intent);
 			}
 		});

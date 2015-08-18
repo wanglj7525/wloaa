@@ -105,6 +105,8 @@ public class AddZhiliangReportActivity extends AbActivity {
 	/**提交上报**/
 	@AbIocView(id = R.id.commitShenpi)
 	Button add;
+	@AbIocView(id = R.id.reportcancel)
+	Button reportcancel;
 	@AbIocView(id = R.id.task_name_report)
 	EditText task_name;
 	@AbIocView(id = R.id.task_tell)
@@ -471,6 +473,12 @@ public class AddZhiliangReportActivity extends AbActivity {
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 				
 				submitShenpi();
+			}
+		});
+		reportcancel.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
 			}
 		});
 		//添加录音

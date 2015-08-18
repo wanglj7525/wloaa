@@ -75,6 +75,8 @@ public class AddZhiliangSendActivity extends AbActivity {
 	Spinner companySpinner;
 	@AbIocView(id = R.id.addTask)
 	Button add;
+	@AbIocView(id = R.id.sendcancel)
+	Button sendcancel;
 //	@AbIocView(id = R.id.task_info)
 //	EditText task_info;
 	@AbIocView(id = R.id.task_tell_send)
@@ -215,6 +217,12 @@ public class AddZhiliangSendActivity extends AbActivity {
 						.getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 				submitXiaoxi();
+			}
+		});
+		sendcancel.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
 			}
 		});
 		addVoice.setOnTouchListener(new OnTouchListener() {
