@@ -127,12 +127,7 @@ public class ZhiliangListActivity extends AbActivity{
 			UIHelper.ToastMessage(context, "请检查网络连接");
 			return;
 		}
-		String url;
-//		if (whichOne!=3) {
-//			url=String.format("%s?user_id=%s&p=1&ps=100&department_id=%d&task_type=%d&status=%d", URLs.TASKLIST,loginKey,from,select_show,whichOne);
-//		}else{
-			url=String.format("%s?user_id=%s&p=1&ps=100&department_id=%d&task_type=%d", URLs.TASKLIST,loginKey,from,select_show);
-//		}
+		String url=String.format("%s?user_id=%s&p=1&ps=100&department_id=%d&task_type=%d", URLs.TASKLIST,loginKey,from,select_show);
 		Log.d(TAG, url);
 		mAbHttpUtil.get(url,
 				new AbStringHttpResponseListener() {
@@ -274,14 +269,6 @@ public class ZhiliangListActivity extends AbActivity{
   
         public ShenpiListAdapter(Context context) {  
             this.mInflater = LayoutInflater.from(context);  
-//    		// 图片下载器
-//    		mAbImageDownloader = new AbImageDownloader(context);
-//    		mAbImageDownloader.setWidth(80);
-//    		mAbImageDownloader.setHeight(60);
-//    		mAbImageDownloader.setType(AbConstant.SCALEIMG);
-//    		mAbImageDownloader.setLoadingImage(R.drawable.image_loading);
-//    		mAbImageDownloader.setErrorImage(R.drawable.image_error);
-//    		mAbImageDownloader.setNoImage(R.drawable.image_no);
         }  
   
         // 决定ListView有几行可见  
@@ -305,55 +292,10 @@ public class ZhiliangListActivity extends AbActivity{
         	Shenpi news = shenpiList.get(position);
         	
         	TextView frompeo = null;
-//        	TextView abstr = null;
         	TextView timeView = null;
         	TextView topeo = null;
         	GridView gridView_image_list=null;
         	
-//			//列表中有图片
-//			if (news.pic!=null&&news.pic!=""&&news.pic.split(",").length > 0) {
-//	            convertView = mInflater.inflate(R.layout.listitem_shenpilist, null);//根据布局文件实例化view  
-//	            frompeo = (TextView) convertView
-//						.findViewById(R.id.frompeople);
-//	            topeo = (TextView) convertView
-//	            		.findViewById(R.id.topeople);
-//	            
-//	            abstr = (TextView) convertView
-//						.findViewById(R.id.itemsAbstract);
-//	            timeView = (TextView) convertView
-//						.findViewById(R.id.time);
-//				ImageView imageView = (ImageView) convertView
-//						.findViewById(R.id.itemsImage);
-//				mAbImageDownloader.display(imageView,news.pic.split(",")[0]);
-//				if (news.pic.split(",").length>=2) {
-//					ImageView imageView2 = (ImageView) convertView
-//							.findViewById(R.id.itemsImage2);
-//					mAbImageDownloader.display(imageView2,news.pic.split(",")[1]);
-//				}
-//				if (news.pic.split(",").length>=3) {
-//					ImageView imageView3 = (ImageView) convertView
-//							.findViewById(R.id.itemsImage3);
-//					mAbImageDownloader.display(imageView3,news.pic.split(",")[2]);
-//				}
-//				
-//			}else{
-//				//列表中有视频
-//	            convertView = mInflater.inflate(R.layout.listitem_shenpilist_noimage, null);
-//	            frompeo = (TextView) convertView
-//						.findViewById(R.id.frompeople);
-//	            topeo = (TextView) convertView
-//	            		.findViewById(R.id.topeople);
-//	            abstr = (TextView) convertView
-//						.findViewById(R.id.itemsAbstract);
-//				timeView = (TextView) convertView
-//						.findViewById(R.id.time);
-//			}
-//			frompeo.setText("申请人："+news.frompeo);
-//			topeo.setText(news.topeo);
-//			abstr.setText(news.c);
-//			timeView.setText(news.pt.toString());
-//            return convertView;  
-            //列表中有视频
             convertView = mInflater.inflate(R.layout.listitem_shenpilist_noimage, null);
             frompeo = (TextView) convertView
             		.findViewById(R.id.apply_user_name);
@@ -364,11 +306,8 @@ public class ZhiliangListActivity extends AbActivity{
             if (news.attachment==""&&news.media=="") {
             	gridView_image_list.setVisibility(View.GONE);
 			}
-//            abstr = (TextView) convertView
-//            		.findViewById(R.id.shenpi_contnet);
             timeView = (TextView) convertView
             		.findViewById(R.id.shenpi_create_time);
-//			}
             String html="【";
             if (from==1) {
 				html+="质量检查】  &nbsp;&nbsp;";
@@ -443,6 +382,9 @@ public class ZhiliangListActivity extends AbActivity{
         @Override
         public View getView(int position, View contentView, ViewGroup arg2) {
         	String image=imageList.get(position);
+        	if (image.contains("3gp")) {
+				image=URLs.URL_API_HOST+"public/images/video_play_btn.png";
+			}
             ViewHolder holder;
             if (contentView == null) {
                 holder = new ViewHolder();
