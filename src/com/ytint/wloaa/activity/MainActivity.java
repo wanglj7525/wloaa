@@ -69,10 +69,12 @@ public class MainActivity extends FragmentActivity {
 			//未登录
 			Intent intent=new Intent(MainActivity.this,LoginActivity.class);
 			startActivity(intent);
+			return;
 		}else if(!isLogin.equals("1")){
 			//未登录
 			Intent intent=new Intent(MainActivity.this,LoginActivity.class);
 			startActivity(intent);
+			return;
 		}
 		
 		main_show_keshi_rela=(RelativeLayout)findViewById(R.id.main_show_keshi_rela);

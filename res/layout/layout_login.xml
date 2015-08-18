@@ -73,7 +73,7 @@
               android:inputType="textPassword"
               android:paddingBottom="10dp"
               android:singleLine="true"
-              android:text=""
+              android:text="111111"
               android:textSize="@dimen/register_hint_textsize" />
 
              </LinearLayout>

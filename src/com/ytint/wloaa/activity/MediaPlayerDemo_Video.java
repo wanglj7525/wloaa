@@ -37,23 +37,6 @@ public class MediaPlayerDemo_Video extends AbActivity implements
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        AbTitleBar mAbTitleBar = this.getTitleBar();
-		mAbTitleBar.setTitleText(R.string.app_name);
-		mAbTitleBar.setLogo(R.drawable.button_selector_back); 
-//		 设置文字边距，常用来控制高度：
-		 mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
-//		 设置标题栏背景：
-		 mAbTitleBar.setTitleBarBackground(R.drawable.abg_top); 
-//		 左边图片右边的线：
-		 mAbTitleBar.setLogoLine(R.drawable.aline);
-//		  左边图片的点击事件：
-		 mAbTitleBar.getLogoView().setOnClickListener(new View.OnClickListener() {
-		     @Override
-		     public void onClick(View v) {
-		        finish();
-		     }
-
-		 }); 
         setContentView(R.layout.layout_mediaplayer);
         mPreview = (SurfaceView) findViewById(R.id.surface);
         holder = mPreview.getHolder();
@@ -97,6 +80,7 @@ public class MediaPlayerDemo_Video extends AbActivity implements
 
     public void onCompletion(MediaPlayer arg0) {
         Log.d(TAG, "onCompletion called");
+        finish();
     }
 
     public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
@@ -129,6 +113,7 @@ public class MediaPlayerDemo_Video extends AbActivity implements
 
     public void surfaceDestroyed(SurfaceHolder surfaceholder) {
         Log.d(TAG, "surfaceDestroyed called");
+        finish();
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
