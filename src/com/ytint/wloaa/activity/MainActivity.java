@@ -90,7 +90,7 @@ public class MainActivity extends FragmentActivity {
 		main_show_user.setText(userName);
 		
 		String keshiname="质量检查";
-		int keshiimage=R.drawable.azhiliang;
+		int keshiimage=R.drawable.menu_zhiliang;
 		fm = getSupportFragmentManager();
 		fragment1 = new ZhiliangFragment();
 		fragment2 = new GonggaoFragment();
@@ -99,24 +99,24 @@ public class MainActivity extends FragmentActivity {
 		if (userType.equals("1")||userType.equals("2")) {
 			//局长、副局长
 			keshiname="任务列表";
-			keshiimage=R.drawable.azhiliang;
+			keshiimage=R.drawable.menu_liebiao;
 			fragment1 = new AllListFragment();
 		}else{
 			//科长，科员
 			if (departmentId.equals("1")) {
 				//质量
 				keshiname="质量检查";
-				keshiimage=R.drawable.azhiliang;
+				keshiimage=R.drawable.menu_zhiliang;
 				fragment1 = new ZhiliangFragment();
 			}else if (departmentId.equals("2")) {
 				//安全
 				keshiname="安全检查";
-				keshiimage=R.drawable.aanquan;
+				keshiimage=R.drawable.menu_anquan;
 				fragment1 = new AnquanFragment();
 			}else{
 				//执法
 				keshiname="执法管理";
-				keshiimage=R.drawable.azhifa;
+				keshiimage=R.drawable.menu_zhifa;
 				fragment1 = new ZhifaFragment();
 			}
 			
@@ -125,7 +125,7 @@ public class MainActivity extends FragmentActivity {
 		main_show_keshiname.setText(keshiname);
 		
 		//初始化的时候需要显示一个fragment，假设我们显示第二个fragment
-				//向容器中添加或者替换fragment时必须  开启事务  操作完成后   提交事务
+		//向容器中添加或者替换fragment时必须  开启事务  操作完成后   提交事务
 		FragmentTransaction ft = fm.beginTransaction();
 		ft.add(R.id.showContentFrame, fragment1).commit();
 		initUi();

@@ -15,8 +15,8 @@ import com.ytint.wloaa.activity.XiaoxiShowActivity;
 
 public class XiaoxiFragment extends Fragment {
 	
-	private Button button3;
-	private Button button4;
+	private Button button1;
+	private Button button2;
 	
 	public XiaoxiFragment(){}
 	
@@ -29,8 +29,9 @@ public class XiaoxiFragment extends Fragment {
         return rootView;
     }
 	private void findView(View rootView) {
-		button3=(Button)rootView.findViewById(R.id.xiaoxi3);
-		button3.setOnClickListener(new View.OnClickListener() {
+		// 发送消息
+		button1=(Button)rootView.findViewById(R.id.xiaoxisend);
+		button1.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
@@ -39,8 +40,9 @@ public class XiaoxiFragment extends Fragment {
 				startActivity(intent);
 			}
 		});
-		button4=(Button)rootView.findViewById(R.id.xiaoxi4);
-		button4.setOnClickListener(new View.OnClickListener() {
+		
+		button2=(Button)rootView.findViewById(R.id.xiaoxilist);
+		button2.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {

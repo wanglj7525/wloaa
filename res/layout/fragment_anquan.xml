@@ -7,38 +7,31 @@
 
      <Button
          android:id="@+id/anquan1"
-         android:layout_width="match_parent"
-         android:layout_height="65dp"
+         android:layout_width="220dp"
+         android:layout_height="120dp"
          android:layout_gravity="center"
-         android:layout_marginLeft="40dp"
-         android:layout_marginRight="40dp"
          android:layout_marginTop="10dp"
-         android:drawableLeft="@drawable/anquan_xiapai"
+         android:drawableLeft="@drawable/menu_anquan_xiapai"
          android:enabled="false"
          android:text="下派安检任务" />
 
      <Button
          android:id="@+id/anquan2"
-         android:layout_width="match_parent"
-         android:layout_height="65dp"
+         android:layout_width="220dp"
+         android:layout_height="120dp"
          android:layout_gravity="center"
-         android:layout_marginLeft="40dp"
-         android:layout_marginRight="40dp"
-         android:layout_marginTop="20dp"
-         android:drawableLeft="@drawable/anquan_shangbao"
+         android:layout_marginTop="30dp"
+         android:drawableLeft="@drawable/menu_anquan_shangbao"
          android:enabled="false"
          android:text="上报安全隐患" />
 
      <Button
          android:id="@+id/anquan3"
-         android:layout_width="match_parent"
-         android:layout_marginLeft="40dp"
-         android:layout_marginRight="40dp"
-         android:layout_height="65dp"
+         android:layout_width="220dp"
+         android:layout_height="120dp"
          android:layout_gravity="center"
-         android:layout_marginTop="20dp"
-         android:drawableLeft="@drawable/anquan_liebiao"
-         android:text="任务列表" />
-
+         android:layout_marginTop="30dp"
+         android:drawableLeft="@drawable/menu_anquan_liebiao"
+         android:text="安检任务列表" />
 
 </LinearLayout>

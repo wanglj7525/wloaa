@@ -29,19 +29,19 @@ public class GonggaoFragment extends Fragment {
         return rootView;
     }
 	private void findView(View rootView) {
-		//下派质检任务
-		button1=(Button)rootView.findViewById(R.id.gonggao1);
+		// 发布公告
+		button1=(Button)rootView.findViewById(R.id.gonggaosend);
 		button1.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(getActivity(),AddXiaoxiSendActivity.class);
-				intent.putExtra("from", 2);
+				intent.putExtra("from", 1);
 				startActivity(intent);
 			}
 		});
 		
-		button2=(Button)rootView.findViewById(R.id.gonggao2);
+		button2=(Button)rootView.findViewById(R.id.gonggaolist);
 		button2.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -51,6 +51,7 @@ public class GonggaoFragment extends Fragment {
 				startActivity(intent);
 			}
 		});
+		
 	}
 	
 }

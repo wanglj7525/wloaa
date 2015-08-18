@@ -4,27 +4,22 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical" >
-
-     <Button
-         android:id="@+id/xiaoxi3"
-         android:layout_width="match_parent"
-         android:layout_marginLeft="40dp"
-         android:layout_marginRight="40dp"
-         android:layout_height="65dp"
+    <Button
+         android:id="@+id/xiaoxisend"
+         android:layout_width="220dp"
+         android:layout_height="120dp"
          android:layout_gravity="center"
-         android:layout_marginTop="20dp"
-         android:drawableLeft="@drawable/xiaoxi_qunfaxiaoxi"
-         android:text="群发消息" />
-
-     <Button
-         android:id="@+id/xiaoxi4"
-         android:layout_width="match_parent"
-         android:layout_marginLeft="40dp"
-         android:layout_marginRight="40dp"
-         android:layout_height="65dp"
+         android:layout_marginTop="10dp"
+         android:drawableLeft="@drawable/menu_xiaoxi_fasong"
+         android:text="发送消息" />
+    
+    <Button
+         android:id="@+id/xiaoxilist"
+         android:layout_width="220dp"
+         android:layout_height="120dp"
          android:layout_gravity="center"
-         android:layout_marginTop="20dp"
-         android:drawableLeft="@drawable/xiaoxi_xiaoxiliebiao"
-         android:text="消息列表" />
+         android:layout_marginTop="30dp"
+         android:drawableLeft="@drawable/menu_xiaoxi_liebiao"
+         android:text="查看消息列表" />
 
 </LinearLayout>
