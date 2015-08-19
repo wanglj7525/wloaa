@@ -50,6 +50,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -100,7 +101,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 	@AbIocView(id = R.id.select_company_report)
 	Spinner companySpinner;
 	@AbIocView(id = R.id.addshenpi_full)
-	ScrollView addxiapai_full;
+	LinearLayout addxiapai_full;
 	@AbIocView(id=R.id.gridView_image_report)
 	GridView gridView_image_report;
 //	@AbIocView(id = R.id.select_shenpi_people)

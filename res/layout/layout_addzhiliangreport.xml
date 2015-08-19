@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/addshenpi_full"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
     <LinearLayout
+        android:id="@+id/addshenpi_full"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.35"
@@ -240,7 +240,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="图片、视频列表（新拍图片、选择本地图片）"
+            android:text="图片、视频列表（新拍图片、选择本地图片，长按删除）"
             android:textSize="18sp" />
 
         <LinearLayout
