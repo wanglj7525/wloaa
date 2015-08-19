@@ -157,14 +157,6 @@ public class ShenpiDetailActivity extends AbActivity {
 								task_tell_detail.setText(shenpi.contact);
 								detail_handle_mode.setText(shenpi.handle_mode);
 								taskForwardInfo.setText(shenpi.taskForwardInfo);
-//								int status = Integer.parseInt(application.getProperty("status").toString());
-//								
-//								if (shenpi.first_verify_status==0) {
-//									first_verify_user_name.setText("未审批");
-//								}else{
-//									first_verify_user_name.setText(shenpi.first_verify_user_name);
-//									first_verify_comment.setText(shenpi.first_verify_comment);
-//								}
 								if (shenpi.attachment!="") {
 									for (int i = 0; i < shenpi.attachment.split(",").length; i++) {
 										imageList.add(URLs.URL_API_HOST+shenpi.attachment.split(",")[i]);
@@ -247,10 +239,10 @@ public class ShenpiDetailActivity extends AbActivity {
 	    private void setValue() {
 	        MAdapter mAdapter = new MAdapter(context);
 	        gridView_image.setAdapter(mAdapter);
-	        LayoutParams params = new LayoutParams(mAdapter.getCount() * (120 + 10),
+	        LayoutParams params = new LayoutParams(mAdapter.getCount() * (200 + 10),
 	                LayoutParams.WRAP_CONTENT);
 	        gridView_image.setLayoutParams(params);
-	        gridView_image.setColumnWidth(120);
+	        gridView_image.setColumnWidth(200);
 	        gridView_image.setHorizontalSpacing(hSpacing);
 	        gridView_image.setStretchMode(GridView.NO_STRETCH);
 	        gridView_image.setNumColumns(mAdapter.getCount());
@@ -286,7 +278,7 @@ public class ShenpiDetailActivity extends AbActivity {
 	             mInflater = LayoutInflater.from(mContext);
 	    		// 图片下载器
 	    		mAbImageDownloader = new AbImageDownloader(mContext);
-	    		mAbImageDownloader.setWidth(120);
+	    		mAbImageDownloader.setWidth(200);
 	    		mAbImageDownloader.setHeight(100);
 	    		mAbImageDownloader.setType(AbConstant.SCALEIMG);
 	    		mAbImageDownloader.setLoadingImage(R.drawable.image_loading);

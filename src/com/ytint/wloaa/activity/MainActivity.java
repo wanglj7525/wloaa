@@ -273,9 +273,9 @@ public class MainActivity extends BaseActivity {
 							Version v = vi.getInfo();
 							mLatestVersionCode = v.id;
 							mLatestVersionUpdate = "";
-//							for (String str : v.introduce) {
-//								mLatestVersionUpdate += str + "<br>";
-//							}
+							for (String str : v.introduce) {
+								mLatestVersionUpdate += str + "<br>";
+							}
 							mLatestVersionDownload = v.download_address;
 							checkNewVersion();
 						} else {
