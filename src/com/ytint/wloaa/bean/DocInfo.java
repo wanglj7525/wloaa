@@ -1,39 +1,39 @@
-package com.ytint.wloaa.bean;
-
-/**
- * ÎÄÕÂĞÅÏ¢
- * 
- * @author zhangyg
- * 
- */
-public class DocInfo implements java.io.Serializable {
-	public Long _id;// ÎÄÕÂid
-	public String ct;// ÎÄÕÂÕıÎÄ
-	public String u;// url,²»°üº¬http://µÄÂ·¾¶
-	public int ch;// Í¨µÀÀàĞÍ
-	public String t;// ±êÌâ
-	public String a;// ÕªÒª
-	public String k;// ¹Ø¼ü´Ê
-	public String sa;// ÍøÕ¾µØÓòĞÅÏ¢
-	public String pt;// ·¢²¼Ê±¼ä
-	public String au;// ×÷Õß
-	public int rpc;// ×ªÔØÊı
-	public int cc;// µã»÷Êı
-	public int rc;// ×ª·¢Êı
-	public int mc;// »Ø¸´¡¢ÆÀÂÛÊı
-	public String bn;// °å¿éÃû³Æ
-	public String sn;// ÍøÕ¾Ãû³Æ
-	public int si;// ÍøÕ¾id
-
-	public String[] pic;// Í¼Æ¬ÁĞ±í
-	public String[] bigPic;// ´óÍ¼Æ¬ÁĞ±í
-	public String[] video;// ÊÓÆµÁĞ±í
-	public String ui;//Î¢²©ÈËÎïid
-	public String iu;//Î¢²©ÈÎÎñÍ·ÏñÁ´½Ó
-	public Integer fn;//Ìû×ÓÂ¥²ã
-	
-	public String kv;// ÃüÖĞ¹Ø¼ü´Ê
-	public String pl;// ÈËÃûÁĞ±í
-	public String rl;// µØÃûÁĞ±í
-	public String ol;// »ú¹¹ÃûÁĞ±í
-}
+//package com.ytint.wloaa.bean;
+//
+///**
+// * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+// * 
+// * @author zhangyg
+// * 
+// */
+//public class DocInfo implements java.io.Serializable {
+//	public Long _id;// ï¿½ï¿½ï¿½ï¿½id
+//	public String ct;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//	public String u;// url,ï¿½ï¿½ï¿½ï¿½http://ï¿½ï¿½Â·ï¿½ï¿½
+//	public int ch;// Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//	public String t;// ï¿½ï¿½ï¿½ï¿½
+//	public String a;// ÕªÒª
+//	public String k;// ï¿½Ø¼ï¿½ï¿½
+//	public String sa;// ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+//	public String pt;// ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+//	public String au;// ï¿½ï¿½ï¿½ï¿½
+//	public int rpc;// ×ªï¿½ï¿½ï¿½ï¿½
+//	public int cc;// ï¿½ï¿½ï¿½ï¿½ï¿½
+//	public int rc;// ×ªï¿½ï¿½ï¿½ï¿½
+//	public int mc;// ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//	public String bn;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//	public String sn;// ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½
+//	public int si;// ï¿½ï¿½Õ¾id
+//
+//	public String[] pic;// Í¼Æ¬ï¿½Ğ±ï¿½
+//	public String[] bigPic;// ï¿½ï¿½Í¼Æ¬ï¿½Ğ±ï¿½
+//	public String[] video;// ï¿½ï¿½Æµï¿½Ğ±ï¿½
+//	public String ui;//Î¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
+//	public String iu;//Î¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//	public Integer fn;//ï¿½ï¿½ï¿½ï¿½Â¥ï¿½ï¿½
+//	
+//	public String kv;// ï¿½ï¿½ï¿½Ğ¹Ø¼ï¿½ï¿½
+//	public String pl;// ï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½
+//	public String rl;// ï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½
+//	public String ol;// ï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½
+//}

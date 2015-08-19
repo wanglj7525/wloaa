@@ -9,8 +9,6 @@ import android.graphics.BitmapFactory.Options;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.util.LruCache;
-import android.widget.ImageView;
-import android.graphics.BitmapFactory;
 
 public class ImageLoader {
 	private LruCache<String, Bitmap> mMermoryCachre;

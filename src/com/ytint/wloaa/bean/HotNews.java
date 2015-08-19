@@ -1,21 +1,21 @@
-package com.ytint.wloaa.bean;
-
-import java.util.Date;
-
-/**
- * Í¼Æ¬ ÊÓÆµ
- * @author wlj
- * @date 2015-6-16ÏÂÎç10:29:31
- */
-public class HotNews implements java.io.Serializable{
-	public int  id;// ±àºÅ
-	public String content;//ÄÚÈÝ
-	public String file_name;// ÐÂÎÄ¼þÃû
-	public String original_file_name;//Ô­Ê¼ÎÄ¼þÃû
-	public int type;// ÎÄ¼þÀàÐÍ£¬1£ºÍ¼Æ¬£»2£ºÊÓÆµ
-	public String url;// ÎÄ¼þ´æ·ÅÂ·¾¶
-	public String create_time;// ´´½¨Ê±¼ä£»
-	public Long user_id;
-	public String user_name;
-	
-}
+//package com.ytint.wloaa.bean;
+//
+//import java.util.Date;
+//
+///**
+// * Í¼Æ¬ ï¿½ï¿½Æµ
+// * @author wlj
+// * @date 2015-6-16ï¿½ï¿½ï¿½ï¿½10:29:31
+// */
+//public class HotNews implements java.io.Serializable{
+//	public int  id;// ï¿½ï¿½ï¿½
+//	public String content;//ï¿½ï¿½ï¿½ï¿½
+//	public String file_name;// ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+//	public String original_file_name;//Ô­Ê¼ï¿½Ä¼ï¿½ï¿½ï¿½
+//	public int type;// ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Í£ï¿½1ï¿½ï¿½Í¼Æ¬ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½Æµ
+//	public String url;// ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
+//	public String create_time;// ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£»
+//	public Long user_id;
+//	public String user_name;
+//	
+//}

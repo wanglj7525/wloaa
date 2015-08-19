@@ -16,6 +16,8 @@ public class VersionInfo extends Entity {
 			throws JsonParseException, JsonMappingException, IOException {
 		VersionInfo vi = null;
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.getDeserializationConfig().set(                  
+				org.codehaus.jackson.map.DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		vi = mapper.readValue(strResult, VersionInfo.class);
 		return vi;
 	}
