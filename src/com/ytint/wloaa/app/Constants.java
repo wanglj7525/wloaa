@@ -34,7 +34,7 @@ public class Constants {
 	
 	public static final String HOTTOPNEWS = "HotTopNews";
 	public static final String HOTTOPWORDS = "HotTopWords";
-	
+	public static String DOWNLOADPATH = "/wloaa/download"; // app下载目录
 	
 	//数据的类型
 	public static final String DATA_TYPE_FLAG = "data_type_flag";
@@ -68,5 +68,10 @@ public class Constants {
     // 本机imei
  	public static String USER_IMEI_ID = "";
  	public static String USER_NAME = "user_name";
+ 	
+ 	public static String VERSION_NAME = "version_name";
+	public static String VERSION_CODE = "version_code";
+	public static final long DIFFTIME = 1000 * 60 * 60 * 24;// 一天
+
 
 }

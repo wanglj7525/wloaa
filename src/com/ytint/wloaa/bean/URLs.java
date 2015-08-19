@@ -84,7 +84,8 @@ public class URLs implements Serializable {
 	// 取分类配置信息接口：/category/categoryConfig
 	public final static String CATEGORYCONFIG = URL_API_HOST
 			+ "category/categoryConfig";
-
+	public final static String GETVERSION = URL_API_HOST
+			+ "cdpt/api/getversion";
 	/**
 	 * 对URL进行格式处理
 	 * 
