@@ -5,138 +5,138 @@
     android:background="@color/white"
     android:orientation="horizontal" >
 
-       <LinearLayout
-           android:layout_width="120dp"
-           android:layout_height="fill_parent"
-           android:orientation="vertical" >
+    <LinearLayout
+        android:layout_width="120dp"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
-           <RelativeLayout
-               android:layout_width="120dp"
-               android:layout_height="26dp"
-               android:layout_weight="0.1"
-               android:background="@drawable/leftbutton_selector_bg" >
+        <RelativeLayout
+            android:layout_width="120dp"
+            android:layout_height="26dp"
+            android:layout_weight="0.1"
+            android:background="@drawable/leftbutton_selector_bg" >
 
-               <TextView
-                   android:id="@+id/main_show_user"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_centerHorizontal="true"
-                   android:layout_centerVertical="true"
-                   android:text="@string/zhiliang" />
+            <TextView
+                android:id="@+id/main_show_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/zhiliang"
+                android:textSize="18dp" />
+        </RelativeLayout>
 
-           </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/main_show_keshi_rela"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="0.24"
+            android:background="@drawable/bg_leftbutton_selected" >
 
-           <RelativeLayout
-               android:id="@+id/main_show_keshi_rela"
-               android:layout_width="120dp"
-               android:layout_height="wrap_content"
-               android:layout_marginBottom="2dp"
-               android:layout_marginTop="2dp"
-               android:layout_weight="0.24"
-               android:background="@drawable/bg_leftbutton_selected" >
+            <TextView
+                android:id="@+id/main_show_keshiname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/main_show_keshi"
+                android:layout_centerHorizontal="true"
+                android:text="@string/zhiliang"
+                android:textSize="18dp" />
 
-               <TextView
-                   android:id="@+id/main_show_keshiname"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_below="@+id/main_show_keshi"
-                   android:layout_centerHorizontal="true"
-                   android:text="@string/zhiliang" />
+            <ImageButton
+                android:id="@+id/main_show_keshi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/azhiliang" />
+        </RelativeLayout>
 
-               <ImageButton
-                   android:id="@+id/main_show_keshi"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_centerHorizontal="true"
-                   android:layout_centerVertical="true"
-                   android:src="@drawable/azhiliang" />
+        <RelativeLayout
+            android:id="@+id/main_show_gonggao_rela"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="0.24"
+            android:background="@drawable/bg_leftbutton" >
 
+            <TextView
+                android:id="@+id/main_show_gonggaoname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/main_show_gonggao"
+                android:layout_centerHorizontal="true"
+                android:text="@string/gonggao"
+                android:textSize="18dp" />
 
-           </RelativeLayout>
+            <ImageButton
+                android:id="@+id/main_show_gonggao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/menu_gonggao" />
+        </RelativeLayout>
 
-           <RelativeLayout
-               android:id="@+id/main_show_gonggao_rela"
-               android:layout_width="120dp"
-               android:layout_height="wrap_content"
-               android:layout_marginBottom="2dp"
-               android:layout_weight="0.24"
-               android:background="@drawable/bg_leftbutton" >
+        <RelativeLayout
+            android:id="@+id/main_show_xiaoxi_rela"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="0.24"
+            android:background="@drawable/bg_leftbutton" >
 
-               <TextView
-                   android:id="@+id/main_show_gonggaoname"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_below="@+id/main_show_gonggao"
-                   android:layout_centerHorizontal="true"
-                   android:text="@string/gonggao" />
+            <TextView
+                android:id="@+id/main_show_xiaoxiname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/main_show_xiaoxi"
+                android:layout_centerHorizontal="true"
+                android:text="@string/xiaoxi"
+                android:textSize="18dp" />
 
-               <ImageButton
-                   android:id="@+id/main_show_gonggao"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_centerHorizontal="true"
-                   android:layout_centerVertical="true"
-                   android:src="@drawable/menu_gonggao" />
-           </RelativeLayout>
+            <ImageButton
+                android:id="@+id/main_show_xiaoxi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/menu_xiaoxi" />
+        </RelativeLayout>
 
-           <RelativeLayout
-               android:id="@+id/main_show_xiaoxi_rela"
-               android:layout_width="120dp"
-               android:layout_height="wrap_content"
-               android:layout_marginBottom="2dp"
-               android:layout_weight="0.24"
-               android:background="@drawable/bg_leftbutton" >
+        <RelativeLayout
+            android:id="@+id/main_show_shezhi_rela"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="0.24"
+            android:background="@drawable/bg_leftbutton" >
 
-               <TextView
-                   android:id="@+id/main_show_xiaoxiname"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_below="@+id/main_show_xiaoxi"
-                   android:layout_centerHorizontal="true"
-                   android:text="@string/xiaoxi" />
+            <TextView
+                android:id="@+id/main_show_shezhiname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/main_show_shezhi"
+                android:layout_centerHorizontal="true"
+                android:text="@string/shezhi"
+                android:textSize="18dp" />
 
-               <ImageButton
-                   android:id="@+id/main_show_xiaoxi"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_centerHorizontal="true"
-                   android:layout_centerVertical="true"
-                   android:src="@drawable/menu_xiaoxi" />
+            <ImageButton
+                android:id="@+id/main_show_shezhi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/menu_shezhi" />
+        </RelativeLayout>
+    </LinearLayout>
 
-           </RelativeLayout>
-
-           <RelativeLayout
-               android:id="@+id/main_show_shezhi_rela"
-               android:layout_width="120dp"
-               android:layout_height="wrap_content"
-               android:layout_marginBottom="2dp"
-               android:layout_weight="0.24"
-               android:background="@drawable/bg_leftbutton" >
-
-               <TextView
-                   android:id="@+id/main_show_shezhiname"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_below="@+id/main_show_shezhi"
-                   android:layout_centerHorizontal="true"
-                   android:text="@string/shezhi" />
-
-               <ImageButton
-                   android:id="@+id/main_show_shezhi"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_centerHorizontal="true"
-                   android:layout_centerVertical="true"
-                   android:src="@drawable/menu_shezhi" />
-
-           </RelativeLayout>
-       </LinearLayout>
-
-       <FrameLayout
-           android:id="@+id/showContentFrame"
-           android:layout_width="wrap_content"
-           android:layout_height="match_parent" 
-           android:layout_weight="0.4">
-       </FrameLayout>
+    <FrameLayout
+        android:id="@+id/showContentFrame"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4" >
+    </FrameLayout>
 
 </LinearLayout>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/shenpi_detail_full"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,150 +14,163 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/textViewShenpiDetailName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="工程名称"
                 android:textColor="@color/content"
-                android:textSize="16dp" />
+                android:textSize="18dp" />
 
             <EditText
                 android:id="@+id/task_name_detail"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
+                android:layout_height="26dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
                 android:layout_weight="1"
+                android:background="@drawable/editor_bg_style"
                 android:ems="10"
                 android:enabled="false"
+                android:inputType="textMultiLine"
                 android:text="邹平物流公司"
-                android:textSize="16sp" >
-
+                android:textColor="@color/black"
+                android:textSize="18sp" >
             </EditText>
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textViewShenpiDetailShangbaoren"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="安全员" 
+                android:text="上报人员"
                 android:textColor="@color/content"
-                android:textSize="16dp"/>
+                android:textSize="18dp" />
 
             <EditText
                 android:id="@+id/task_create"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="20dp"
+                android:layout_height="26dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
                 android:layout_weight="1"
+                android:background="@drawable/editor_bg_style"
                 android:ems="10"
                 android:enabled="false"
+                android:inputType="textMultiLine"
                 android:text="张三"
-                android:textSize="16sp" >
-
+                android:textColor="@color/black"
+                android:textSize="18sp" >
             </EditText>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textViewShenpiDetailTel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="联系方式"
                 android:textColor="@color/content"
-                android:textSize="16dp" />
+                android:textSize="18dp" />
 
-			<EditText
-			    android:id="@+id/task_tell_detail"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_marginLeft="10dp"
-			    android:layout_marginRight="20dp"
-			    android:layout_weight="1"
-			    android:ems="10"
-			    android:enabled="false"
-			    android:text="18660019060"
-			    android:textSize="16sp" >
-
+            <EditText
+                android:id="@+id/task_tell_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/editor_bg_style"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textMultiLine"
+                android:text="18660019060"
+                android:textColor="@color/black"
+                android:textSize="18sp" >
             </EditText>
-
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/showmodeLiner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textViewShenpiDetailZhenggai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="整改方式" 
+                android:text="整改方式"
                 android:textColor="@color/content"
-                android:textSize="16dp"/>
+                android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/first_verify_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/content"
-                android:textSize="16dp" />
-			<EditText
-			    android:id="@+id/detail_handle_mode"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_marginLeft="10dp"
-			    android:layout_marginRight="20dp"
-			    android:layout_weight="1"
-			    android:ems="10"
-			    android:enabled="false"
-			    android:text="现场整改"
-			    android:textSize="16sp" >
+                android:textSize="18dp" />
 
+            <EditText
+                android:id="@+id/detail_handle_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/editor_bg_style"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textMultiLine"
+                android:text="现场整改"
+                android:textColor="@color/black"
+                android:textSize="18sp" >
             </EditText>
         </LinearLayout>
-         <LinearLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/textViewShenpiDetailBeizhu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="任务发展"
+                android:text="任务备注"
                 android:textColor="@color/content"
-                android:textSize="16dp" />
+                android:textSize="18dp" />
 
-			<EditText
-			    android:id="@+id/taskForwardInfo"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_marginLeft="10dp"
-			    android:layout_marginRight="20dp"
-			    android:layout_weight="1"
-			    android:ems="10"
-			    android:enabled="false"
-			    android:text="18660019060"
-			    android:textSize="16sp" >
-
+            <EditText
+                android:id="@+id/taskForwardInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/editor_bg_style"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textMultiLine"
+                android:text="18660019060"
+                android:textColor="@color/black"
+                android:textSize="18sp" >
             </EditText>
-
         </LinearLayout>
-<!-- 
-
+        <!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -200,89 +213,107 @@
                 android:layout_weight="0.43"
                 android:text="不同意" />
         </LinearLayout>
-
- -->
+        -->
 
         <TextView
             android:id="@+id/showImageText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="图片、视频列表（点击放大、观看）" />
-		<LinearLayout
+            android:text="图片、视频列表（点击放大、观看）"
+            android:textSize="18sp" />
+
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-	        <HorizontalScrollView
-	            android:id="@+id/scrollView_image"
-	            android:orientation="horizontal"
-				android:layout_width="fill_parent" 
-				android:layout_height="wrap_content"
-				android:background="#FFFFFF">
-				<LinearLayout 
-				    android:layout_width="fill_parent"
-					android:layout_height="wrap_content"
-					 android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
 
-	                 <GridView
-	                     android:id="@+id/gridView_image"
-	                     android:layout_width="match_parent"
-	                     android:layout_height="100dp" >
+            <HorizontalScrollView
+                android:id="@+id/scrollView_image"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:orientation="horizontal" >
 
-			        </GridView>
-	            </LinearLayout>
-	        </HorizontalScrollView>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <GridView
+                        android:id="@+id/gridView_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp" >
+                    </GridView>
+                </LinearLayout>
+            </HorizontalScrollView>
         </LinearLayout>
 
-       
-
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/textViewShenpiDetailVoicePlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="录音（点击播放）" />
-			<LinearLayout
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content" >
-			        <HorizontalScrollView
-			            android:id="@+id/horizontalScrollView_voicelist_detail"
-			            android:orientation="horizontal"
-						android:layout_width="fill_parent" 
-						android:layout_height="wrap_content"
-						android:background="#FFFFFF">
-						<LinearLayout 
-						    android:layout_width="fill_parent"
-							android:layout_height="wrap_content"
-							 android:orientation="horizontal">
-		
-			                 <GridView
-			                     android:id="@+id/gridView_voice"
-			                     android:layout_width="match_parent"
-			                     android:layout_height="70dp" >
-		
-					        </GridView>
-			            </LinearLayout>
-			        </HorizontalScrollView>
-		        </LinearLayout>
+            android:text="录音（点击播放）"
+            android:textColor="@color/content"
+            android:textSize="18dp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <HorizontalScrollView
+                android:id="@+id/horizontalScrollView_voicelist_detail"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <GridView
+                        android:id="@+id/gridView_voice"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp" >
+                    </GridView>
+                </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="gone" >
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/textViewShenpiDetailLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="位置信息：" />
+                android:text="位置信息"
+                android:textColor="@color/content"
+                android:textSize="18dp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/local_place"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="" />
-
+                android:layout_height="26dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/editor_bg_style"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textMultiLine"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp" >
+            </EditText>
         </LinearLayout>
-
     </LinearLayout>
 
-</ScrollView >
+</ScrollView>

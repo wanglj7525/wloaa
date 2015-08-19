@@ -14,79 +14,95 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/textViewAddXiaoxiTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="消息标题" 
+                android:text="消息标题"
                 android:textColor="@color/content"
-                android:textSize="16dp"/>
+                android:textSize="18dp" />
 
             <EditText
                 android:id="@+id/xiaoxi_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="26dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
                 android:layout_weight="1"
+                android:background="@drawable/editor_bg_style"
                 android:ems="10"
-                android:inputType="textMultiLine" >
+                android:inputType="textMultiLine"
+                android:textColor="@color/black"
+                android:textSize="18sp" >
 
                 <requestFocus />
             </EditText>
-
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/showSelectPeople"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/textViewAddXiaoxiTarget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="发送目标"
                 android:textColor="@color/content"
-                android:textSize="16dp" />
+                android:textSize="18sp" />
 
             <Spinner
                 android:id="@+id/select_people_xiaoxi"
                 android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_marginLeft="15dp"
+                android:layout_height="26dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
                 android:layout_weight="1"
-                android:background="@drawable/search_xiala"
+                android:background="@drawable/spinner_bg"
                 android:divider="@color/full_transparent"
                 android:gravity="center"
-                android:popupBackground="@drawable/spinner_shape" />
-
+                android:popupBackground="@drawable/spinner_pop_style"
+                android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textViewAddXiaoxiDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="消息详情"
                 android:textColor="@color/content"
-                android:textSize="16dp" />
+                android:textSize="18dp" />
 
             <EditText
                 android:id="@+id/xiaoxi_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
                 android:layout_weight="1"
+                android:background="@drawable/editor_bg_style"
                 android:ems="10"
-                android:lines="5"
-                android:inputType="textMultiLine" />
-
+                android:inputType="textMultiLine"
+                android:lines="6"
+                android:textColor="@color/black"
+                android:textSize="18sp" >
+            </EditText>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
 
             <Button
                 android:id="@+id/commitXiaoxi"
@@ -95,6 +111,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_weight="0.43"
                 android:text="发送" />
+
             <Button
                 android:id="@+id/xiaoxicancel"
                 android:layout_width="wrap_content"
@@ -102,9 +119,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_weight="0.43"
                 android:text="取消" />
-
         </LinearLayout>
-
     </LinearLayout>
 
 </LinearLayout>

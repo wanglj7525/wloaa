@@ -18,7 +18,7 @@
             android:layout_marginTop="10dp" >
 
             <TextView
-                android:id="@+id/textViewName"
+                android:id="@+id/textViewAddZhiliangSendName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="工程名称"
@@ -48,7 +48,7 @@
             android:layout_marginTop="10dp" >
 
             <TextView
-                android:id="@+id/textViewPeople"
+                android:id="@+id/textViewAddZhiliangSendPeople"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="指派人员"
@@ -75,7 +75,7 @@
             android:layout_marginTop="10dp" >
 
             <TextView
-                android:id="@+id/textViewTel"
+                android:id="@+id/textViewAddZhiliangSendTel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="联系方式"
@@ -104,7 +104,7 @@
             android:visibility="gone" >
 
             <TextView
-                android:id="@+id/textViewCompony"
+                android:id="@+id/textViewAddZhiliangSendCompony"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="相关企业"
@@ -131,7 +131,7 @@
             android:layout_marginTop="10dp" >
 
             <TextView
-                android:id="@+id/textViewRemark"
+                android:id="@+id/textViewAddZhiliangSendRemark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="备注信息"
@@ -155,7 +155,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textViewVoice"
+            android:id="@+id/textViewAddZhiliangSendVoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
