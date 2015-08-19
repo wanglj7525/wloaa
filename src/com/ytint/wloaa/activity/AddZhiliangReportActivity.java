@@ -841,7 +841,18 @@ public class AddZhiliangReportActivity extends AbActivity {
 //        		intent.putExtra("url", url);
 //        		startActivity(intent);
             }
+            
         });
+    	
+    	gridView_image_report.setOnItemLongClickListener(new OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				imagelist.remove(arg2);
+				setImageGrideValue();
+				return false;
+			}
+		});
     }
 
     class MAImagedapter extends BaseAdapter {
