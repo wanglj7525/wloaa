@@ -1,13 +1,25 @@
 package com.ytint.wloaa.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.ab.activity.AbActivity;
+import com.ab.http.AbHttpUtil;
+import com.ab.http.AbStringHttpResponseListener;
+import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
 import com.ytint.wloaa.app.MyApplication;
+import com.ytint.wloaa.app.UIHelper;
+import com.ytint.wloaa.bean.Qunfa;
+import com.ytint.wloaa.bean.QunfaInfo;
+import com.ytint.wloaa.bean.URLs;
 
 public class XiaoxiShowActivity extends AbActivity {
 	String TAG = "XiaoxiShowActivity";
@@ -15,23 +27,20 @@ public class XiaoxiShowActivity extends AbActivity {
 	Context context = null;
 	private String loginKey;
 	private int from;
+	Integer shenpi_id;
+	private Qunfa shenpi = new Qunfa();
+	@AbIocView(id = R.id.msg_content)
+	TextView msg_content;
+	@AbIocView(id = R.id.msg_title)
+	TextView msg_title;
+	@AbIocView(id = R.id.to_msg)
+	Button to_msg;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
 		AbTitleBar mAbTitleBar = this.getTitleBar();
-		if (from == 1) {
-			mAbTitleBar.setTitleText("消息公告-发布公告");
-		} else if (from == 2) {
-			mAbTitleBar.setTitleText("消息公告-公告列表");
-		} else if (from == 3){
-			mAbTitleBar.setTitleText("消息公告-群发消息");
-		}else if (from == 4){
-			mAbTitleBar.setTitleText("消息公告-消息列表");
-		}else{
-			mAbTitleBar.setTitleText("消息公告-公告消息列表");
-		}
 		mAbTitleBar.setLogo(R.drawable.button_selector_back);
 		// 设置文字边距，常用来控制高度：
 		mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
@@ -50,10 +59,73 @@ public class XiaoxiShowActivity extends AbActivity {
 				});
 
 		setAbContentView(R.layout.layout_showmessage);
+		if (from == 0) {
+			mAbTitleBar.setTitleText("公告详情");
+			to_msg.setVisibility(View.GONE);
+		} else {
+			mAbTitleBar.setTitleText("消息详情");
+		}
 		context = XiaoxiShowActivity.this;
 		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
 
+		shenpi_id=intent.getIntExtra("shenpi_id",0);
+		loadDatas();
+	}
+	
+	@SuppressLint("NewApi")
+	private void loadDatas() {
+		
+		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+		String loginKey = application.getProperty("loginKey");
+		if (!application.isNetworkConnected()) {
+			showToast("请检查网络连接");
+			return;
+		}
+		mAbHttpUtil.get(URLs.MSGDETAIL + "?id=" + shenpi_id,
+				new AbStringHttpResponseListener() {
+					// 获取数据成功会调用这里
+					@Override
+					public void onSuccess(int statusCode, String content) {
+						Log.d(TAG, content);
+						try {
+							
+							QunfaInfo gList = QunfaInfo
+									.parseJson(content);
+							if (gList.code == 200) {
+								shenpi = gList.getInfo();
+								msg_content.setText(shenpi.content);
+								msg_title.setText(shenpi.title);
+							} else {
+								UIHelper.ToastMessage(context, gList.msg);
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							showToast("数据解析失败");
+						}
+					};
+
+					// 开始执行前
+					@Override
+					public void onStart() {
+						// 显示进度框
+						showProgressDialog();
+					}
+
+					@Override
+					public void onFailure(int statusCode, String content,
+							Throwable error) {
+						showToast("网络连接失败！");
+					}
+
+					// 完成后调用，失败，成功
+					@Override
+					public void onFinish() {
+						// 移除进度框
+						removeProgressDialog();
+					};
+
+				});
 	}
 
 }

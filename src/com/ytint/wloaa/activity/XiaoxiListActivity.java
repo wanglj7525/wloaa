@@ -173,18 +173,11 @@ public class XiaoxiListActivity extends AbActivity{
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int index,
 					long arg3) {
-				//点击进入 审批事项 详情页
-				//TODO
-//				   String content =  qunfaList.get(index).c;
-//				   String pic =  qunfaList.get(index).pic;
-//				   Long shenpi_id = shenpiList.get(index)._id;
-//				   String frompeo = shenpiList.get(index).frompeo;
-//		           Intent intent = new Intent(QunfaActivity.this, ShenpiDetailActivity.class);  
-//		           intent.putExtra("content", content);
-//		           intent.putExtra("pic", pic);
-//		           intent.putExtra("shenpi_id", shenpi_id);
-//		           intent.putExtra("frompeo", frompeo);
-//		           startActivity(intent);
+					Integer shenpi_id = qunfaList.get(index).id;
+		           Intent intent = new Intent(XiaoxiListActivity.this, XiaoxiShowActivity.class);  
+		           intent.putExtra("shenpi_id", shenpi_id);
+		           intent.putExtra("from", from);
+		           startActivity(intent);
 
 	        }
         });
@@ -255,34 +248,6 @@ public class XiaoxiListActivity extends AbActivity{
         	TextView abstr = null;
         	TextView timeView = null;
         	TextView topeo = null;
-//			//列表中有图片
-//			if (news.pic!=null&&news.pic!=""&&news.pic.split(",").length > 0) {
-//	            convertView = mInflater.inflate(R.layout.listitem_qunfalist, null);//根据布局文件实例化view  
-//	            frompeo = (TextView) convertView
-//						.findViewById(R.id.frompeople);
-//	            topeo = (TextView) convertView
-//	            		.findViewById(R.id.topeople);
-//	            
-//	            abstr = (TextView) convertView
-//						.findViewById(R.id.itemsAbstract);
-//	            timeView = (TextView) convertView
-//						.findViewById(R.id.time);
-//				ImageView imageView = (ImageView) convertView
-//						.findViewById(R.id.itemsImage);
-//				mAbImageDownloader.display(imageView,news.pic.split(",")[0]);
-//				if (news.pic.split(",").length>=2) {
-//					ImageView imageView2 = (ImageView) convertView
-//							.findViewById(R.id.itemsImage2);
-//					mAbImageDownloader.display(imageView2,news.pic.split(",")[1]);
-//				}
-//				if (news.pic.split(",").length>=3) {
-//					ImageView imageView3 = (ImageView) convertView
-//							.findViewById(R.id.itemsImage3);
-//					mAbImageDownloader.display(imageView3,news.pic.split(",")[2]);
-//				}
-//				
-//			}else{
-				//列表中有视频
 	            convertView = mInflater.inflate(R.layout.listitem_qunfalist_noimage, null);
 	            frompeo = (TextView) convertView
 						.findViewById(R.id.push_user_id);
@@ -292,9 +257,6 @@ public class XiaoxiListActivity extends AbActivity{
 						.findViewById(R.id.content);
 				timeView = (TextView) convertView
 						.findViewById(R.id.create_time);
-//			}
-//			frompeo.setText("发布人："+news.push_user_name);
-//			topeo.setText(news.receive_user_ids);
 			frompeo.setText(news.title);
 			topeo.setText(" "+news.push_user_name);
 			abstr.setText(news.content);
