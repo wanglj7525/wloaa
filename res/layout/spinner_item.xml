@@ -6,4 +6,5 @@
     android:layout_height="match_parent"
     android:ellipsize="marquee"
     android:singleLine="true"
-    android:textSize="14sp" />
+    android:textColor="@color/black"
+    android:textSize="18sp" />

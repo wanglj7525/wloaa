@@ -77,8 +77,8 @@ public class AddZhiliangSendActivity extends AbActivity {
 	Button add;
 	@AbIocView(id = R.id.sendcancel)
 	Button sendcancel;
-//	@AbIocView(id = R.id.task_info)
-//	EditText task_info;
+	// @AbIocView(id = R.id.task_info)
+	// EditText task_info;
 	@AbIocView(id = R.id.task_tell_send)
 	EditText task_tell;
 	@AbIocView(id = R.id.task_remark)
@@ -93,7 +93,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 	Button addVoice;
 	@AbIocView(id = R.id.addvoicegridview)
 	GridView addvoicegridview;
-	@AbIocView(id=R.id.horizontalScrollView_addvoice)
+	@AbIocView(id = R.id.horizontalScrollView_addvoice)
 	HorizontalScrollView horizontalScrollView_addvoice;
 	/** 语音列表适配器 */
 	private MyGridAdapter mAdapter;
@@ -121,6 +121,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 	private int hSpacing = 10;
 	private String peopleId;
 	private String companyId;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -169,7 +170,8 @@ public class AddZhiliangSendActivity extends AbActivity {
 		mVoicesListname = new ArrayList<String>();
 		mPlayer = new MediaPlayer();
 	}
-	private void initGridView(){
+
+	private void initGridView() {
 		MyGridAdapter mAdapter = new MyGridAdapter(context);
 		addvoicegridview.setAdapter(mAdapter);
 		LayoutParams params = new LayoutParams(mAdapter.getCount()
@@ -194,17 +196,19 @@ public class AddZhiliangSendActivity extends AbActivity {
 				}
 			}
 		});
-		addvoicegridview.setOnItemLongClickListener(new OnItemLongClickListener() {
-			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				mVoicesList.remove(arg2);
-				mVoicesListname.remove(arg2);
-				initGridView();
-				return false;
-			}
-		});
+		addvoicegridview
+				.setOnItemLongClickListener(new OnItemLongClickListener() {
+					@Override
+					public boolean onItemLongClick(AdapterView<?> arg0,
+							View arg1, int arg2, long arg3) {
+						mVoicesList.remove(arg2);
+						mVoicesListname.remove(arg2);
+						initGridView();
+						return false;
+					}
+				});
 	}
+
 	private void initUi() {
 		horizontalScrollView_addvoice.setHorizontalScrollBarEnabled(true);
 		initGridView();
@@ -231,15 +235,16 @@ public class AddZhiliangSendActivity extends AbActivity {
 			public boolean onTouch(View v, MotionEvent event) {
 				switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:
-					if (mVoicesList.size()>=1) {
-						Toast.makeText(getApplicationContext(), "只能上传一个录音", 0).show();
-					}else{
+					if (mVoicesList.size() >= 1) {
+						Toast.makeText(getApplicationContext(), "只能上传一个录音", 0)
+								.show();
+					} else {
 						startVoice();
 					}
 					break;
 				case MotionEvent.ACTION_UP:
-					if (mVoicesList.size()>=1) {
-					}else{
+					if (mVoicesList.size() >= 1) {
+					} else {
 						stopVoice();
 					}
 					break;
@@ -263,6 +268,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 		addxiapai_full.setClickable(true);
 		addxiapai_full.setOnClickListener(keyboard_hide);
 	}
+
 	private void initCompany() {
 		// 将可选内容与ArrayAdapter连接起来
 		adapter = new ArrayAdapter<String>(AddZhiliangSendActivity.this,
@@ -276,14 +282,14 @@ public class AddZhiliangSendActivity extends AbActivity {
 		// 设置默认值
 		// channelSpinner.setVisibility(View.VISIBLE);
 		companySpinner
-		.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View view,
-					int arg2, long arg3) {
-				company = companys.get(arg2).id;
-				companyId=companys.get(arg2).id+"";
+				.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> arg0, View view,
+							int arg2, long arg3) {
+						company = companys.get(arg2).id;
+						companyId = companys.get(arg2).id + "";
 						TextView tv = (TextView) view;
-						tv.setTextColor(getResources().getColor(R.color.white)); // 设置颜色
+						tv.setTextColor(getResources().getColor(R.color.black)); // 设置颜色
 						tv.setGravity(android.view.Gravity.CENTER); // 设置居中
 
 					}
@@ -296,63 +302,66 @@ public class AddZhiliangSendActivity extends AbActivity {
 				});
 
 	}
+
 	@SuppressLint("NewApi")
 	private void loadComapny() {
-		
+
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		if (!application.isNetworkConnected()) {
 			showToast("请检查网络连接");
 			return;
 		}
-		mAbHttpUtil.get(URLs.COMPANYLIST+"?p=1&ps=2" ,
+		mAbHttpUtil.get(URLs.COMPANYLIST + "?p=1&ps=2",
 				new AbStringHttpResponseListener() {
-			// 获取数据成功会调用这里
-			@Override
-			public void onSuccess(int statusCode, String content) {
-				try {
-					CompanyList cList = CompanyList.parseJson(content);
-					if (cList.code == 200) {
-						companys = cList.getInfo();
-						application.saveObject((Serializable) companys,"companys");
-						company_names = new String[companys.size()];
-						int i = 0;
-						for (Company cn : companys) {
-							company_names[i] = cn.name;
-							i++;
+					// 获取数据成功会调用这里
+					@Override
+					public void onSuccess(int statusCode, String content) {
+						try {
+							CompanyList cList = CompanyList.parseJson(content);
+							if (cList.code == 200) {
+								companys = cList.getInfo();
+								application.saveObject((Serializable) companys,
+										"companys");
+								company_names = new String[companys.size()];
+								int i = 0;
+								for (Company cn : companys) {
+									company_names[i] = cn.name;
+									i++;
+								}
+
+								initCompany();
+							} else {
+								showToast(cList.msg);
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							showToast("数据解析失败");
 						}
-						
-						initCompany();
-					} else {
-						showToast(cList.msg);
+					};
+
+					// 开始执行前
+					@Override
+					public void onStart() {
+						// 显示进度框
+						showProgressDialog();
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
-					showToast("数据解析失败");
-				}
-			};
-			
-			// 开始执行前
-			@Override
-			public void onStart() {
-				// 显示进度框
-				showProgressDialog();
-			}
-			
-			@Override
-			public void onFailure(int statusCode, String content,
-					Throwable error) {
-				showToast("网络连接失败！");
-			}
-			
-			// 完成后调用，失败，成功
-			@Override
-			public void onFinish() {
-				// 移除进度框
-				removeProgressDialog();
-			};
-			
-		});
+
+					@Override
+					public void onFailure(int statusCode, String content,
+							Throwable error) {
+						showToast("网络连接失败！");
+					}
+
+					// 完成后调用，失败，成功
+					@Override
+					public void onFinish() {
+						// 移除进度框
+						removeProgressDialog();
+					};
+
+				});
 	}
+
 	private void initSpinner() {
 		// 将可选内容与ArrayAdapter连接起来
 		adapter = new ArrayAdapter<String>(AddZhiliangSendActivity.this,
@@ -371,9 +380,9 @@ public class AddZhiliangSendActivity extends AbActivity {
 					public void onItemSelected(AdapterView<?> arg0, View view,
 							int arg2, long arg3) {
 						people = peoples.get(arg2).id;
-						peopleId=people+"";
+						peopleId = people + "";
 						TextView tv = (TextView) view;
-						tv.setTextColor(getResources().getColor(R.color.white)); // 设置颜色
+						tv.setTextColor(getResources().getColor(R.color.black)); // 设置颜色
 						tv.setGravity(android.view.Gravity.CENTER); // 设置居中
 
 					}
@@ -405,19 +414,18 @@ public class AddZhiliangSendActivity extends AbActivity {
 		AbRequestParams params = new AbRequestParams();
 		params.put("taskInfo.name", task_name_send.getText().toString());
 		System.out.println(peopleSpinner.getSelectedItem().toString());
-		params.put("taskInfo.receive_user_id",peopleId);
+		params.put("taskInfo.receive_user_id", peopleId);
 		params.put("taskInfo.contact", task_tell.getText().toString());
 		params.put("taskInfo.remark", task_remark.getText().toString());
-		String media=application.getProperty("addVoiceReport");
+		String media = application.getProperty("addVoiceReport");
 		params.put("taskInfo.media", media);
 		params.put("taskInfo.task_type", "2");
 		params.put("taskInfo.create_user_id", loginKey);
-		params.put("taskInfo.department_id", from+"");
+		params.put("taskInfo.department_id", from + "");
 		params.put("taskInfo.status", "0");
 		params.put("taskInfo.company_id", companyId);
-		Log.d(TAG, String.format("%s?", URLs.ADDSHENPI,
-				params));
-		mAbHttpUtil.post(URLs.ADDRS ,params,
+		Log.d(TAG, String.format("%s?", URLs.ADDSHENPI, params));
+		mAbHttpUtil.post(URLs.ADDRS, params,
 				new AbStringHttpResponseListener() {
 					@Override
 					public void onSuccess(int statusCode, String content) {
@@ -463,62 +471,64 @@ public class AddZhiliangSendActivity extends AbActivity {
 			showToast("请检查网络连接");
 			return;
 		}
-		mAbHttpUtil.get(URLs.USERLIST+"?user_id="+loginKey+"&department_id="+from+"&type=2" ,
-			 new AbStringHttpResponseListener() {
-			// 获取数据成功会调用这里
-			@Override
-			public void onSuccess(int statusCode, String content) {
-				try {
-					PeopleList cList = PeopleList.parseJson(content);
-					if (cList.code == 200) {
-						peoples = cList.getInfo();
-//						peoples.remove(Integer.parseInt(loginKey) - 1);
-						application.saveObject((Serializable) peoples,
-								"peoples");
-						people_names = new String[peoples.size()];
-						int i = 0;
-						for (People cn : peoples) {
-							people_names[i] = cn.name;
-							i++;
+		mAbHttpUtil.get(URLs.USERLIST + "?user_id=" + loginKey
+				+ "&department_id=" + from + "&type=2",
+				new AbStringHttpResponseListener() {
+					// 获取数据成功会调用这里
+					@Override
+					public void onSuccess(int statusCode, String content) {
+						try {
+							PeopleList cList = PeopleList.parseJson(content);
+							if (cList.code == 200) {
+								peoples = cList.getInfo();
+								// peoples.remove(Integer.parseInt(loginKey) -
+								// 1);
+								application.saveObject((Serializable) peoples,
+										"peoples");
+								people_names = new String[peoples.size()];
+								int i = 0;
+								for (People cn : peoples) {
+									people_names[i] = cn.name;
+									i++;
+								}
+								initSpinner();
+							} else {
+								showToast(cList.msg);
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							showToast("数据解析失败");
 						}
-						initSpinner();
-					} else {
-						showToast(cList.msg);
+					};
+
+					// 开始执行前
+					@Override
+					public void onStart() {
+						// 显示进度框
+						showProgressDialog();
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
-					showToast("数据解析失败");
-				}
-			};
 
-			// 开始执行前
-			@Override
-			public void onStart() {
-				// 显示进度框
-				showProgressDialog();
-			}
+					@Override
+					public void onFailure(int statusCode, String content,
+							Throwable error) {
+						showToast("网络连接失败！");
+					}
 
-			@Override
-			public void onFailure(int statusCode, String content,
-					Throwable error) {
-				showToast("网络连接失败！");
-			}
+					// 完成后调用，失败，成功
+					@Override
+					public void onFinish() {
+						// 移除进度框
+						removeProgressDialog();
+					};
 
-			// 完成后调用，失败，成功
-			@Override
-			public void onFinish() {
-				// 移除进度框
-				removeProgressDialog();
-			};
-
-		});
+				});
 	}
 
 	/** 开始录音 */
 	private void startVoice() {
 		// 设置录音保存路径
-		mFileNameShow=UUID.randomUUID().toString();
-		mFileName = PATH +mFileNameShow + ".amr";
+		mFileNameShow = UUID.randomUUID().toString();
+		mFileName = PATH + mFileNameShow + ".amr";
 		String state = android.os.Environment.getExternalStorageState();
 		if (!state.equals(android.os.Environment.MEDIA_MOUNTED)) {
 			Log.i(TAG, "SD Card is not mounted,It is  " + state + ".");
@@ -586,7 +596,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 		public View getView(int position, View contentView, ViewGroup arg2) {
 			contentView = mInflater.inflate(R.layout.item_voicelist, null);
 			TextView tv = (TextView) contentView.findViewById(R.id.tv_armName);
-			tv.setText(mVoicesListname.get(position)+ ".amr");
+			tv.setText(mVoicesListname.get(position) + ".amr");
 			return contentView;
 		}
 

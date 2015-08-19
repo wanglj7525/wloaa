@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="12dip"
-    android:textColor="@color/gray"
+    android:textColor="@color/black"
     android:gravity="center"
-    android:textSize="15sp"
+    android:textSize="16sp"
     android:background="@drawable/yunsearch_spinner_tv_selector">
 </TextView>
