@@ -254,7 +254,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.ytint.wloaa.activity.AddSelectPhotoActivity"
+            android:name="com.ytint.wloaa.activity.PassWordUpdateActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
@@ -288,6 +288,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
+                <!-- 版本更新下载service -->
+        <service
+            android:name="com.ytint.wloaa.service.AppUpgradeService"
+            android:process=":message" >
+        </service>
     </application>
 
 </manifest>

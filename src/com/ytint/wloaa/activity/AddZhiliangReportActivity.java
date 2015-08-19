@@ -167,7 +167,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 	private AbImageDownloader mAbImageDownloader = null;
 	
 	private String peopleId;
-	private String companyId;
+	private String companyId="0";
 	private static String srcPath;
 	private static String videoPath;
 	@Override
@@ -204,7 +204,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 		initUi();
 		//加载联系人下拉框
 		loadPeoples();
-		loadComapny();
+//		loadComapny();
 	}
 	private void initSpinner() {
 		// 将可选内容与ArrayAdapter连接起来

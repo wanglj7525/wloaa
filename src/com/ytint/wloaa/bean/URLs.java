@@ -68,6 +68,8 @@ public class URLs implements Serializable {
 			+ "loginservice/verifyToken";
 	// 登录
 	public final static String LOGINURL = URL_API_HOST + "api/user/login";
+	// 修改密码
+	public final static String PASSWORD = URL_API_HOST + "api/user/update_user_password";
 
 	// 公告
 	public final static String LOAD_NOTICE_URL = URL_API_HOST
@@ -82,7 +84,8 @@ public class URLs implements Serializable {
 	// 取分类配置信息接口：/category/categoryConfig
 	public final static String CATEGORYCONFIG = URL_API_HOST
 			+ "category/categoryConfig";
-
+	public final static String GETVERSION = URL_API_HOST
+			+ "cdpt/api/getversion";
 	/**
 	 * 对URL进行格式处理
 	 * 

@@ -22,6 +22,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.ytint.wloaa.activity.AddZhiliangReportActivity;
+import com.ytint.wloaa.activity.AddZhiliangSendActivity;
 import com.ytint.wloaa.activity.LoginActivity;
 import com.ytint.wloaa.activity.MainActivity;
 import com.ytint.wloaa.activity.ZhiliangListActivity;
@@ -130,7 +131,7 @@ public class FileHelper extends Activity{
 					sb.append(LINE_END);
 					sb.append("Content-Disposition: form-data; name=\"upfile["+flag+"]\";filename=\""
 							+ file.getName() + "\"" + LINE_END);
-					if (type.equals("3")) {
+					if (type.equals("3")||type.equals("4")) {
 						sb.append("Content-Type: audio/mpeg; charset=" + CHARSET
 								+ LINE_END);
 					}else if (type.equals("2")) {
@@ -193,6 +194,8 @@ public class FileHelper extends Activity{
 								AddZhiliangReportActivity.video.add(ids);
 							}else if (type.equals("3")) {
 								AddZhiliangReportActivity.media.add(ids);
+							}else{
+								AddZhiliangSendActivity.media.add(ids);
 							}
 						}
 					} catch (Exception e) {
