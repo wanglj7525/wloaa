@@ -425,7 +425,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 						try {
 							QunfaInfo gList = QunfaInfo.parseJson(content);
 							if (gList.code == 200) {
-								showToast("任务下发成功！");
+								showToast("发送成功！");
 								finish();
 							} else {
 								UIHelper.ToastMessage(context, gList.msg);

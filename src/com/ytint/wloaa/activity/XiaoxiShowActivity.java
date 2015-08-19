@@ -28,6 +28,7 @@ public class XiaoxiShowActivity extends AbActivity {
 	private String loginKey;
 	private int from;
 	Integer shenpi_id;
+	Integer push_user_id;
 	private Qunfa shenpi = new Qunfa();
 	@AbIocView(id = R.id.msg_content)
 	TextView msg_content;
@@ -71,13 +72,27 @@ public class XiaoxiShowActivity extends AbActivity {
 
 		shenpi_id=intent.getIntExtra("shenpi_id",0);
 		loadDatas();
+		
+		to_msg.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				
+				Intent intent = new Intent(XiaoxiShowActivity.this,AddXiaoxiSendActivity.class);
+				intent.putExtra("from", 3);
+				intent.putExtra("shenpi_id", shenpi_id);
+				intent.putExtra("push_user_id", push_user_id);
+				startActivity(intent);
+				
+			}
+		});
 	}
 	
 	@SuppressLint("NewApi")
 	private void loadDatas() {
 		
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
-		String loginKey = application.getProperty("loginKey");
+		final String loginKey = application.getProperty("loginKey");
 		if (!application.isNetworkConnected()) {
 			showToast("请检查网络连接");
 			return;
@@ -96,6 +111,10 @@ public class XiaoxiShowActivity extends AbActivity {
 								shenpi = gList.getInfo();
 								msg_content.setText(shenpi.content);
 								msg_title.setText(shenpi.title);
+								push_user_id=shenpi.push_user_id;
+								if (loginKey.equals(shenpi.push_user_id+"")) {
+									to_msg.setVisibility(View.GONE);
+								}
 							} else {
 								UIHelper.ToastMessage(context, gList.msg);
 							}

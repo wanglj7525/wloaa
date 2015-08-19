@@ -61,11 +61,13 @@ public class AddXiaoxiSendActivity extends AbActivity {
 	Context context = null;
 	private String loginKey;
 	private String departmentId;
+	private int push_user_id;
 	private ArrayAdapter<String> adapter;
 	String[] people_names = new String[0];
 	private long people = 0;
 	private List<People> peoples;
 	private int from;
+	private int shenpi_id;
 	@AbIocView(id = R.id.select_people_xiaoxi)
 	Spinner peopleSpinner;
 	@AbIocView(id = R.id.commitXiaoxi)
@@ -89,8 +91,12 @@ public class AddXiaoxiSendActivity extends AbActivity {
 		AbTitleBar mAbTitleBar = this.getTitleBar();
 		if (from == 1) {
 			mAbTitleBar.setTitleText("发送消息");
-		} else {
+		} else if (from == 2){
 			mAbTitleBar.setTitleText("发送公告");
+		}else{
+			mAbTitleBar.setTitleText("回复消息");
+			shenpi_id = Integer.parseInt(intent.getExtras().get("shenpi_id").toString());
+			push_user_id = Integer.parseInt(intent.getExtras().get("push_user_id").toString());
 		}
 		mAbTitleBar.setLogo(R.drawable.button_selector_back);
 		// 设置文字边距，常用来控制高度：
@@ -117,10 +123,10 @@ public class AddXiaoxiSendActivity extends AbActivity {
 		initUi();
 		// 加载联系人下拉框
 		
-		if (from==2) {
-			showSelectPeople.setVisibility(View.GONE);
-		}else{
+		if (from==1) {
 			loadPeoples();
+		}else{
+			showSelectPeople.setVisibility(View.GONE);
 		}
 		
 
@@ -210,16 +216,25 @@ public class AddXiaoxiSendActivity extends AbActivity {
 		AbRequestParams params = new AbRequestParams();
 		params.put("androidNoticeInfo.title", xiaoxi_title.getText().toString());
 		params.put("androidNoticeInfo.content", xiaoxi_info.getText().toString());
+		params.put("androidNoticeInfo.receive_user_type", "3");//接收人类型：1：全部成员；2：本科室成员；3：指定人员
 		if (from==2) {
 			params.put("androidNoticeInfo.notice_type", "0");
 			params.put("androidNoticeInfo.receive_user_ids","1");
 		}else{
-			params.put("androidNoticeInfo.receive_user_ids",peopleId);
+			if (from==3) {
+				params.put("androidNoticeInfo.receive_user_ids",push_user_id+"");
+			}else{
+				params.put("androidNoticeInfo.receive_user_ids",peopleId);
+			}
 			params.put("androidNoticeInfo.notice_type", "1");
 		}
 		params.put("androidNoticeInfo.push_user_id", loginKey);
 		params.put("androidNoticeInfo.department_id", departmentId);
-		params.put("androidNoticeInfo.reply_notice_id", "0");
+		if (from==3) {
+			params.put("androidNoticeInfo.reply_notice_id", shenpi_id+"");
+		}else{
+			params.put("androidNoticeInfo.reply_notice_id", "0");
+		}
 		Log.e(TAG, String.format("%s?%s", URLs.ADDMSG,
 				params.toString()));
 		mAbHttpUtil.post(URLs.ADDMSG ,params,
@@ -230,7 +245,7 @@ public class AddXiaoxiSendActivity extends AbActivity {
 						try {
 							QunfaInfo gList = QunfaInfo.parseJson(content);
 							if (gList.code == 200) {
-								showToast("任务下发成功！");
+								showToast("发送成功！");
 								finish();
 							} else {
 								UIHelper.ToastMessage(context, gList.msg);
@@ -282,6 +297,7 @@ public class AddXiaoxiSendActivity extends AbActivity {
 								peoples.remove(i);
 							}
 						}
+						peopleId=peoples.get(0).id+"";
 						application.saveObject((Serializable) peoples,
 								"peoples");
 						people_names = new String[peoples.size()];
