@@ -18,7 +18,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -32,11 +31,11 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+import cn.jpush.android.api.JPushInterface;
 
 import com.ab.activity.AbActivity;
 import com.ab.http.AbHttpUtil;
@@ -44,8 +43,6 @@ import com.ab.http.AbRequestParams;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
-import com.ytint.wloaa.activity.R;
-import com.ytint.wloaa.activity.ShenpiDetailActivity.MAdapter;
 import com.ytint.wloaa.app.FileHelper;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
@@ -55,7 +52,6 @@ import com.ytint.wloaa.bean.People;
 import com.ytint.wloaa.bean.PeopleList;
 import com.ytint.wloaa.bean.Qunfa;
 import com.ytint.wloaa.bean.QunfaInfo;
-import com.ytint.wloaa.bean.Shenpi;
 import com.ytint.wloaa.bean.URLs;
 
 public class AddZhiliangSendActivity extends AbActivity {
@@ -128,6 +124,18 @@ public class AddZhiliangSendActivity extends AbActivity {
 	private String companyId="0";
 	private String commitId="0";
 	public static ArrayList<String> media=new ArrayList<String>();
+	@Override
+	protected void onResume() {
+		super.onResume();
+		JPushInterface.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		JPushInterface.onPause(this);
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

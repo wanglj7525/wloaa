@@ -23,6 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.ab.activity.AbActivity;
 import com.ab.bitmap.AbImageDownloader;
 import com.ab.global.AbConstant;
@@ -92,6 +94,17 @@ public class ShenpiDetailActivity extends AbActivity {
 	private int from;
 	Integer shenpi_id;
 	private Shenpi shenpi = new Shenpi();
+	@Override
+	protected void onResume() {
+		super.onResume();
+		JPushInterface.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		JPushInterface.onPause(this);
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

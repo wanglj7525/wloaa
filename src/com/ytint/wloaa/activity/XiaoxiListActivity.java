@@ -20,6 +20,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.ab.activity.AbActivity;
 import com.ab.bitmap.AbImageDownloader;
 import com.ab.global.AbConstant;
@@ -70,6 +72,18 @@ public class XiaoxiListActivity extends AbActivity{
 	private int from;
 	private int page = 1;
 	@Override
+	protected void onResume() {
+		super.onResume();
+		JPushInterface.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		JPushInterface.onPause(this);
+	}
+	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();
@@ -103,12 +117,6 @@ public class XiaoxiListActivity extends AbActivity{
 		initListView();
 	}
 
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-//		getGroupData();
-	}
 	public void initListView() {
 		// 绑定刷新和加载更多
 		qunfaListView.setAbOnListViewListener(new AbOnListViewListener() {

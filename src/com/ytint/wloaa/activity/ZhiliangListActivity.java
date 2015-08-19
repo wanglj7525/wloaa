@@ -31,6 +31,8 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout.LayoutParams;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.ab.activity.AbActivity;
 import com.ab.bitmap.AbImageDownloader;
 import com.ab.global.AbConstant;
@@ -92,7 +94,18 @@ public class ZhiliangListActivity extends AbActivity {
 	private int select_show = 1;
 	private int page = 1;
 	private ArrayList<String> imageList = new ArrayList<String>();
+	@Override
+	protected void onResume() {
+		super.onResume();
+		JPushInterface.onResume(this);
+	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		JPushInterface.onPause(this);
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -107,19 +120,6 @@ public class ZhiliangListActivity extends AbActivity {
 		initListView();
 	}
 
-	// private void reCreate() {
-	// setContentView(R.layout.layout_zhilianglist);
-	// initUI();
-	// initData();
-	// getGroupData();
-	// }
-
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		// getGroupData();
-	}
 
 	public void initListView() {
 		// 绑定刷新和加载更多

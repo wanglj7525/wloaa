@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.ab.activity.AbActivity;
 import com.ab.http.AbHttpUtil;
 import com.ab.http.AbStringHttpResponseListener;
@@ -36,6 +38,18 @@ public class XiaoxiShowActivity extends AbActivity {
 	TextView msg_title;
 	@AbIocView(id = R.id.to_msg)
 	Button to_msg;
+	@Override
+	protected void onResume() {
+		super.onResume();
+		JPushInterface.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		JPushInterface.onPause(this);
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

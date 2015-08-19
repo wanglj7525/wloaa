@@ -27,6 +27,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.ab.activity.AbActivity;
 import com.ab.view.ioc.AbIocView;
 import com.ytint.wloaa.activity.R;
@@ -44,6 +46,18 @@ public class PicturePreviewActivity extends AbActivity {
 	private GestureDetector gestureDetector;
 	@AbIocView(id = R.id.closeimage)
 	RelativeLayout addShenpi;
+	@Override
+	protected void onResume() {
+		super.onResume();
+		JPushInterface.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		JPushInterface.onPause(this);
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -139,11 +153,6 @@ public class PicturePreviewActivity extends AbActivity {
 
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		// recycle();
-	}
 
 	public void recycle() {
 		if (zoomView != null && zoomView.getDrawable() != null) {

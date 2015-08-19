@@ -6,10 +6,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import cn.jpush.android.api.JPushInterface;
 
 import com.ab.activity.AbActivity;
 import com.ab.view.titlebar.AbTitleBar;
-import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.bean.People;
 
@@ -22,6 +22,18 @@ public class DeleteQiyeActivity extends AbActivity {
 	String[] people_names = new String[0];
 	private long people = 0;
 	private List<People> peoples;
+	@Override
+	protected void onResume() {
+		super.onResume();
+		JPushInterface.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		JPushInterface.onPause(this);
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

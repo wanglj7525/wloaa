@@ -63,6 +63,7 @@ public class QiyeListActivity extends AbActivity{
 	
 	@AbIocView(id = R.id.addShenpi)
 	RelativeLayout addShenpi;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

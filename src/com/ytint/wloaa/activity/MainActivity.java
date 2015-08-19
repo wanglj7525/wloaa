@@ -24,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import cn.jpush.android.api.JPushInterface;
 
 import com.ab.http.AbHttpUtil;
 import com.ab.http.AbStringHttpResponseListener;
@@ -73,6 +74,18 @@ public class MainActivity extends BaseActivity {
 	private String mLatestVersionDownload = "";
 	private boolean showUpdate = true;
 	private Date lastShowUpdateTime;
+	@Override
+	protected void onResume() {
+		super.onResume();
+		JPushInterface.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		JPushInterface.onPause(this);
+	}
+	
 	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

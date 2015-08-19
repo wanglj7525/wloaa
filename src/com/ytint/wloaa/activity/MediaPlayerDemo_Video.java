@@ -1,6 +1,5 @@
 package com.ytint.wloaa.activity;
 
-import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnBufferingUpdateListener;
@@ -13,10 +12,10 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.RelativeLayout;
+import cn.jpush.android.api.JPushInterface;
 
 import com.ab.activity.AbActivity;
 import com.ab.view.ioc.AbIocView;
-import com.ab.view.titlebar.AbTitleBar;
 
 public class MediaPlayerDemo_Video extends AbActivity implements
         OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
@@ -37,6 +36,12 @@ public class MediaPlayerDemo_Video extends AbActivity implements
      * 
      * Called when the activity is first created.
      */
+    @Override
+	protected void onResume() {
+		super.onResume();
+		JPushInterface.onResume(this);
+	}
+
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -136,6 +141,7 @@ public class MediaPlayerDemo_Video extends AbActivity implements
     protected void onPause() {
         super.onPause();
         releaseMediaPlayer();
+        JPushInterface.onPause(this);
         doCleanUp();
     }
 

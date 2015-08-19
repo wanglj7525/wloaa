@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.ab.activity.AbActivity;
 import com.ab.view.titlebar.AbTitleBar;
 import com.baidu.mapapi.map.BaiduMap;
@@ -220,7 +222,18 @@ public class AddQiyeActivity extends AbActivity {
 //		Toast.makeText(AddQiyeActivity.this, "已添加",
 //				Toast.LENGTH_SHORT).show();
 	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		JPushInterface.onResume(this);
+	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		JPushInterface.onPause(this);
+	}
+	
 	/**
 	 * 更新地图状态显示面板
 	 */
