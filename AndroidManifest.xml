@@ -254,7 +254,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.ytint.wloaa.activity.AddSelectPhotoActivity"
+            android:name="com.ytint.wloaa.activity.PassWordUpdateActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>

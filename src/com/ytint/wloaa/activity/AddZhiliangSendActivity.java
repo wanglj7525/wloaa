@@ -46,6 +46,7 @@ import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
 import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.activity.ShenpiDetailActivity.MAdapter;
+import com.ytint.wloaa.app.FileHelper;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.Company;
@@ -98,7 +99,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 	/** 语音列表适配器 */
 	private MyGridAdapter mAdapter;
 	/** 语音列表 */
-	private List<String> mVoicesList;
+	private ArrayList<String> mVoicesList;
 	/** 语音名称列表 */
 	private List<String> mVoicesListname;
 	/** 录音存储路径 */
@@ -120,8 +121,8 @@ public class AddZhiliangSendActivity extends AbActivity {
 	 */
 	private int hSpacing = 10;
 	private String peopleId;
-	private String companyId;
-
+	private String companyId="0";
+	public static ArrayList<String> media=new ArrayList<String>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -160,7 +161,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 		initUi();
 		// 加载联系人下拉框
 		loadPeoples();
-		loadComapny();
+//		loadComapny();
 
 	}
 
@@ -417,13 +418,21 @@ public class AddZhiliangSendActivity extends AbActivity {
 		params.put("taskInfo.receive_user_id", peopleId);
 		params.put("taskInfo.contact", task_tell.getText().toString());
 		params.put("taskInfo.remark", task_remark.getText().toString());
-		String media = application.getProperty("addVoiceReport");
-		params.put("taskInfo.media", media);
+		String medias = "";
+		for (int i = 0; i < media.size(); i++) {
+			if (i==media.size()-1) {
+				medias+=media.get(i);
+			}else{
+				medias+=media.get(i)+",";
+			}
+			
+		}
+		params.put("taskInfo.media", medias);
 		params.put("taskInfo.task_type", "2");
 		params.put("taskInfo.create_user_id", loginKey);
 		params.put("taskInfo.department_id", from + "");
 		params.put("taskInfo.status", "0");
-		params.put("taskInfo.company_id", companyId);
+		params.put("taskInfo.company_id", "0");
 		Log.d(TAG, String.format("%s?", URLs.ADDSHENPI, params));
 		mAbHttpUtil.post(URLs.ADDRS, params,
 				new AbStringHttpResponseListener() {
@@ -562,6 +571,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 		mAdapter = new MyGridAdapter(AddZhiliangSendActivity.this);
 		addvoicegridview.setAdapter(mAdapter);
 		initGridView();
+		new FileHelper().submitUploadFile(mVoicesList, loginKey,"4");
 		Toast.makeText(getApplicationContext(), "保存录音" + mFileName, 0).show();
 	}
 

@@ -11,6 +11,7 @@ import android.widget.Button;
 import com.ytint.wloaa.activity.AddQiyeActivity;
 import com.ytint.wloaa.activity.DeleteQiyeActivity;
 import com.ytint.wloaa.activity.LoginActivity;
+import com.ytint.wloaa.activity.PassWordUpdateActivity;
 import com.ytint.wloaa.activity.QiyeListActivity;
 import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.activity.ZhiliangListActivity;
@@ -18,7 +19,6 @@ import com.ytint.wloaa.activity.ZhiliangListActivity;
 public class ShezhiFragment extends Fragment {
 	private Button button1;
 	private Button button2;
-	private Button button3;
 	public ShezhiFragment(){}
 	
 	@Override
@@ -36,6 +36,8 @@ public class ShezhiFragment extends Fragment {
 			
 			@Override
 			public void onClick(View arg0) {
+				Intent intent = new Intent(getActivity(),PassWordUpdateActivity.class);
+				startActivity(intent);
 			}
 		});
 		

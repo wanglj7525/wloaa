@@ -219,12 +219,12 @@ public class AddXiaoxiSendActivity extends AbActivity {
 		params.put("androidNoticeInfo.receive_user_type", "3");//接收人类型：1：全部成员；2：本科室成员；3：指定人员
 		if (from==2) {
 			params.put("androidNoticeInfo.notice_type", "0");
-			params.put("androidNoticeInfo.receive_user_ids","1");
+			params.put("receive_user_ids","1");
 		}else{
 			if (from==3) {
-				params.put("androidNoticeInfo.receive_user_ids",push_user_id+"");
+				params.put("receive_user_ids",push_user_id+"");
 			}else{
-				params.put("androidNoticeInfo.receive_user_ids",peopleId);
+				params.put("receive_user_ids",peopleId);
 			}
 			params.put("androidNoticeInfo.notice_type", "1");
 		}
