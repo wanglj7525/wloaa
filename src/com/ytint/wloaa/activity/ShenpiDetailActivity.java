@@ -264,7 +264,7 @@ public class ShenpiDetailActivity extends AbActivity {
 	                    int position, long id) {
 	                Log.e(TAG, "position = " + position);
 	                String url=imageList.get(position);
-	                if (url.contains("3gp")) {
+	                if (url.contains("3gp")||url.contains("mp4")) {
 	                	Intent intent = new Intent(ShenpiDetailActivity.this, MediaPlayerDemo_Video.class);  
 	    				intent.putExtra("url", url);
 	    				startActivity(intent);

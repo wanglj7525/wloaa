@@ -134,8 +134,13 @@ public class FileHelper extends Activity{
 						sb.append("Content-Type: audio/mpeg; charset=" + CHARSET
 								+ LINE_END);
 					}else if (type.equals("2")) {
-						sb.append("Content-Type: video/3gpp; charset=" + CHARSET
-								+ LINE_END);
+						if (file.getName().contains("3gp")) {
+							sb.append("Content-Type: video/3gpp; charset=" + CHARSET
+									+ LINE_END);
+						}else if (file.getName().contains("mp4")) {
+							sb.append("Content-Type: video/mpeg4; charset=" + CHARSET
+									+ LINE_END);
+						}
 					}else{
 						sb.append("Content-Type: image/pjpeg; charset=" + CHARSET
 								+ LINE_END);
