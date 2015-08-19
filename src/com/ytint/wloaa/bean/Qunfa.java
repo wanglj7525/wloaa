@@ -16,7 +16,10 @@ public class Qunfa implements java.io.Serializable{
 	public Integer push_flag;// 是否已推送
 	public String push_range;// 推送范围
 	public Integer notice_type;//0：群发消息；1：下派任务
-	public String receive_user_ids;//接收人编号列表
+	public String receive_user_id;//接收人编号列表
 	public Long push_msg_id = 0L;
-	
+	public Integer receive_user_type;
+	public Integer department_id;
+	public String department_name;
+
 }

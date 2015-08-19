@@ -844,7 +844,7 @@ public class AddZhiliangReportActivity extends AbActivity {
         @Override
         public View getView(int position, View contentView, ViewGroup arg2) {
         	String image=imagelist.get(position);
-        	if (image.contains("3gp")) {
+        	if (image.contains("3gp")||image.contains("mp4")) {
 				image=URLs.URL_API_HOST+"public/images/video_play_btn.png";
 			}
         	Log.e(TAG, image);

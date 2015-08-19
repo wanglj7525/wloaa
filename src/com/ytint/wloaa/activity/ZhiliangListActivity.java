@@ -322,7 +322,7 @@ public class ZhiliangListActivity extends AbActivity{
              int flag3=0;
              if (news.attachment.length()>0) {
             	 flag1=news.attachment.split(",").length;
-				if (news.attachment.contains("3gp")) {
+				if (news.attachment.contains("3gp")||news.attachment.contains("mp4")) {
 					flag2=1;
 					flag1-=1;
 				}
@@ -399,7 +399,7 @@ public class ZhiliangListActivity extends AbActivity{
         @Override
         public View getView(int position, View contentView, ViewGroup arg2) {
         	String image=imageList.get(position);
-        	if (image.contains("3gp")) {
+        	if (image.contains("3gp")||image.contains("mp4")) {
 				image=URLs.URL_API_HOST+"public/images/video_play_btn.png";
 			}
             ViewHolder holder;

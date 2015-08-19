@@ -12,8 +12,10 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.ab.activity.AbActivity;
+import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
 
 public class MediaPlayerDemo_Video extends AbActivity implements
@@ -29,7 +31,8 @@ public class MediaPlayerDemo_Video extends AbActivity implements
     private String path;
     private boolean mIsVideoSizeKnown = false;
     private boolean mIsVideoReadyToBePlayed = false;
-
+    @AbIocView(id = R.id.addShenpi)
+	RelativeLayout addShenpi;
     /**
      * 
      * Called when the activity is first created.
@@ -43,6 +46,12 @@ public class MediaPlayerDemo_Video extends AbActivity implements
         holder = mPreview.getHolder();
         holder.addCallback(this);
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        addShenpi.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
     }
 
     private void playVideo() {

@@ -15,7 +15,7 @@
         android:paddingTop="@dimen/list_item_padding_top"
         android:singleLine="true"
         android:text="发布人"
-        android:textColor="@color/list_item_title"
+        android:textColor="@color/listitem_black"
         android:textSize="17dip" />
 
     <TextView
