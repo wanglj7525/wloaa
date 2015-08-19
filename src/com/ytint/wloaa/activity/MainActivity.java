@@ -27,7 +27,7 @@ import com.ytint.wloaa.fragment.AllListFragment;
 import com.ytint.wloaa.fragment.ZhifaFragment;
 import com.ytint.wloaa.fragment.ZhiliangFragment;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseActivity {
 
 	private MyApplication application;
 	private String loginKey;

@@ -178,6 +178,7 @@ public class PassWordUpdateActivity extends AbActivity {
 					@Override
 					public void onFailure(int statusCode, String content,
 							Throwable error) {
+						Log.e(TAG, content);
 						showToast("连接超时！");
 					}
 
