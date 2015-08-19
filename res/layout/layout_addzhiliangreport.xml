@@ -26,7 +26,7 @@
             <EditText
                 android:id="@+id/task_name_report"
                 android:layout_width="wrap_content"
-                android:layout_height="26dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_weight="1"
@@ -56,7 +56,7 @@
             <Spinner
                 android:id="@+id/select_people_report"
                 android:layout_width="wrap_content"
-                android:layout_height="26dp"
+                android:layout_height="28dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_weight="1"
@@ -83,7 +83,7 @@
             <EditText
                 android:id="@+id/task_people"
                 android:layout_width="wrap_content"
-                android:layout_height="26dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_weight="1"
@@ -113,7 +113,7 @@
             <EditText
                 android:id="@+id/task_tell"
                 android:layout_width="wrap_content"
-                android:layout_height="26dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_weight="1"
@@ -141,7 +141,7 @@
             <EditText
                 android:id="@+id/task_method"
                 android:layout_width="wrap_content"
-                android:layout_height="26dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_weight="1"
@@ -171,7 +171,7 @@
             <Spinner
                 android:id="@+id/select_company_report"
                 android:layout_width="wrap_content"
-                android:layout_height="26dp"
+                android:layout_height="28dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_weight="1"

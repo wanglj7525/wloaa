@@ -15,7 +15,7 @@
     
     <string name="my_password">修改密码</string>
     <string name="my_old_password">原始密码：</string>
-    <string name="my_new_password">新   密   码  ：</string>
+    <string name="my_new_password">更改密码：</string>
     <string name="my_again_password">确认密码：</string>
     <string name="my_password_sure">确定</string>
     <string name="my_password_cancel">关闭</string>
