@@ -5,34 +5,33 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-     <Button
-         android:id="@+id/zhifa1"
-         android:layout_width="220dp"
-         android:layout_height="120dp"
-         android:layout_gravity="center"
-         android:layout_marginTop="10dp"
-         android:drawableLeft="@drawable/menu_zhifa_xiapai"
-         android:enabled="false"
-         android:text="下派执法任务" />
+    <Button
+        android:id="@+id/zhifa1"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/menu_zhifa_xiapai"
+        android:enabled="false"
+        android:text="下派执法任务" />
 
-     <Button
-         android:id="@+id/zhifa2"
-         android:layout_width="220dp"
-         android:layout_height="120dp"
-         android:layout_gravity="center"
-         android:layout_marginTop="30dp"
-         android:drawableLeft="@drawable/menu_zhifa_shangbao"
-         android:enabled="false"
-         android:text="上报执法任务" />
+    <Button
+        android:id="@+id/zhifa2"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/menu_zhifa_shangbao"
+        android:enabled="false"
+        android:text="上报执法任务" />
 
-     <Button
-         android:id="@+id/zhifa3"
-         android:layout_width="220dp"
-         android:layout_height="120dp"
-         android:layout_gravity="center"
-         android:layout_marginTop="30dp"
-         android:drawableLeft="@drawable/menu_zhifa_liebiao"
-         android:text="执法任务列表" />
-
+    <Button
+        android:id="@+id/zhifa3"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/menu_zhifa_liebiao"
+        android:text="执法任务列表" />
 
 </LinearLayout>

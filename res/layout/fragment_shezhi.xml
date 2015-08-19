@@ -6,21 +6,21 @@
     android:orientation="vertical" >
 
     <Button
-         android:id="@+id/updatepas"
-         android:layout_width="220dp"
-         android:layout_height="120dp"
-         android:layout_gravity="center"
-         android:layout_marginTop="10dp"
-         android:drawableLeft="@drawable/menu_shezhi_mima"
-         android:text="修改密码" />
-         
+        android:id="@+id/updatepas"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/menu_shezhi_mima"
+        android:text="修改密码" />
+
     <Button
-         android:id="@+id/changeuser"
-         android:layout_width="220dp"
-         android:layout_height="120dp"
-         android:layout_gravity="center"
-         android:layout_marginTop="30dp"
-         android:drawableLeft="@drawable/menu_shezhi_qiehuan"
-         android:text="切换账号" />
+        android:id="@+id/changeuser"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/menu_shezhi_qiehuan"
+        android:text="切换账号" />
 
 </LinearLayout>
