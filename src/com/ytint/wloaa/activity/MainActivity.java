@@ -70,7 +70,7 @@ public class MainActivity extends BaseActivity {
 	private String mVersionName;
 	private int mLatestVersionCode = 1;
 	private String mLatestVersionUpdate = "mLatestVersionUpdate";
-	private String mLatestVersionDownload = "http://10.6.12.3:8003/public/download/kykx.apk";
+	private String mLatestVersionDownload = "";
 	private boolean showUpdate = true;
 	private Date lastShowUpdateTime;
 	@SuppressLint("NewApi")
@@ -152,11 +152,11 @@ public class MainActivity extends BaseActivity {
 		ft.add(R.id.showContentFrame, fragment1).commit();
 		initUi();
 		
-//		// 检查版本
-//		initLocalVersion();
-//		if (showUpdate) {
-//			getNewVersion();
-//		}
+		// 检查版本
+		initLocalVersion();
+		if (showUpdate) {
+			getNewVersion();
+		}
 	}
 	
 	private void initUi(){
@@ -264,19 +264,18 @@ public class MainActivity extends BaseActivity {
 			UIHelper.ToastMessage(context, "网络连接失败！");
 			return;
 		} else {
-			mAbHttpUtil.get(URLs.GETVERSION + "?access_token=" + loginKey
-					+ "&device_platform=1", new AbStringHttpResponseListener() {
+			mAbHttpUtil.get(URLs.GETVERSION + "?id="+mVersionCode, new AbStringHttpResponseListener() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					try {
 						VersionInfo vi = VersionInfo.parseJson(content);
 						if (vi.code == 200) {
 							Version v = vi.getInfo();
-							mLatestVersionCode = v.version_code;
+							mLatestVersionCode = v.id;
 							mLatestVersionUpdate = "";
-							for (String str : v.introduce) {
-								mLatestVersionUpdate += str + "<br>";
-							}
+//							for (String str : v.introduce) {
+//								mLatestVersionUpdate += str + "<br>";
+//							}
 							mLatestVersionDownload = v.download_address;
 							checkNewVersion();
 						} else {

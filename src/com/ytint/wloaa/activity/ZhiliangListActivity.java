@@ -316,7 +316,7 @@ public class ZhiliangListActivity extends AbActivity {
 					public void onItemClick(AdapterView<?> arg0, View arg1,
 							int index, long arg3) {
 						// 点击进入 审批事项 详情页
-						Integer shenpi_id = shenpiList.get(index).id;
+						Integer shenpi_id = shenpiList.get(index-1).id;
 						Intent intent = new Intent(ZhiliangListActivity.this,
 								ShenpiDetailActivity.class);
 						intent.putExtra("shenpi_id", shenpi_id);

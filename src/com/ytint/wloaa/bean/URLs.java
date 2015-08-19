@@ -85,7 +85,7 @@ public class URLs implements Serializable {
 	public final static String CATEGORYCONFIG = URL_API_HOST
 			+ "category/categoryConfig";
 	public final static String GETVERSION = URL_API_HOST
-			+ "cdpt/api/getversion";
+			+ "api/version/get_version_info";
 	/**
 	 * 对URL进行格式处理
 	 * 

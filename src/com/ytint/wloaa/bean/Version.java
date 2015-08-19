@@ -11,13 +11,13 @@ import java.util.List;
  */
 public class Version {
 
-	public Integer version_code;
+	public Integer id;
 
 	public String version_name;
 
 	public String download_address;
 
-	public Date create_time;
+	public String create_time;
 
 	public String version_qrcode;
 

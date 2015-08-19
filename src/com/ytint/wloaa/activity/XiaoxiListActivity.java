@@ -251,7 +251,7 @@ public class XiaoxiListActivity extends AbActivity{
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int index,
 					long arg3) {
-					Integer shenpi_id = qunfaList.get(index).id;
+					Integer shenpi_id = qunfaList.get(index-1).id;
 		           Intent intent = new Intent(XiaoxiListActivity.this, XiaoxiShowActivity.class);  
 		           intent.putExtra("shenpi_id", shenpi_id);
 		           intent.putExtra("from", from);

@@ -40,7 +40,7 @@ public class ShezhiFragment extends Fragment {
 	private String mVersionName;
 	private int mLatestVersionCode = 1;
 	private String mLatestVersionUpdate = "mLatestVersionUpdate";
-	private String mLatestVersionDownload = "http://10.6.12.3:8003/public/download/kykx.apk";
+	private String mLatestVersionDownload = "";
 	
 	private MyApplication application;
 	public ShezhiFragment(){}
@@ -80,8 +80,8 @@ public class ShezhiFragment extends Fragment {
 			
 			@Override
 			public void onClick(View arg0) {
-//				initLocalVersion();
-//				getNewVersion();
+				initLocalVersion();
+				getNewVersion();
 			}
 		});
 	}
@@ -108,18 +108,19 @@ public class ShezhiFragment extends Fragment {
 			return;
 		}
 
-		mAbHttpUtil.get(URLs.GETVERSION , new AbStringHttpResponseListener() {
+		mAbHttpUtil.get(URLs.GETVERSION + "?id="+mVersionCode , new AbStringHttpResponseListener() {
 			@Override
 			public void onSuccess(int statusCode, String content) {
+				System.out.println(content);
 				try {
 					VersionInfo vi = VersionInfo.parseJson(content);
 					if (vi.code == 200) {
 						Version v = vi.getInfo();
-						mLatestVersionCode = v.version_code;
+						mLatestVersionCode = v.id;
 						mLatestVersionUpdate = "";
-						for (String str : v.introduce) {
-							mLatestVersionUpdate += str + "<br>";
-						}
+//						for (String str : v.introduce) {
+//							mLatestVersionUpdate += str + "<br>";
+//						}
 						mLatestVersionDownload = v.download_address;
 						checkNewVersion();
 					} else {
