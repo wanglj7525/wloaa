@@ -36,7 +36,7 @@
 
         
     </LinearLayout>
-     <ListView
+     <com.ytint.wloaa.widget.AbPullListView
          android:id="@+id/qunfa_list"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
@@ -44,6 +44,6 @@
          android:divider="@color/white"
          android:gravity="center" >
 
-    </ListView>
+    </com.ytint.wloaa.widget.AbPullListView>
 </LinearLayout>
     

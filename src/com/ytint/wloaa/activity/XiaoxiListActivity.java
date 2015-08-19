@@ -27,13 +27,17 @@ import com.ab.http.AbHttpUtil;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.util.AbStrUtil;
 import com.ab.view.ioc.AbIocView;
+import com.ab.view.listener.AbOnListViewListener;
 import com.ab.view.titlebar.AbTitleBar;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.Qunfa;
 import com.ytint.wloaa.bean.QunfaInfoList;
+import com.ytint.wloaa.bean.Shenpi;
+import com.ytint.wloaa.bean.ShenpiInfoList;
 import com.ytint.wloaa.bean.URLs;
+import com.ytint.wloaa.widget.AbPullListView;
 
 /**
  * 审批
@@ -56,7 +60,7 @@ public class XiaoxiListActivity extends AbActivity{
 	private String loginKey;
 	
 	@AbIocView(id = R.id.qunfa_list)
-	ListView qunfaListView;
+	AbPullListView qunfaListView;
 	@AbIocView(id = R.id.titlebarxs)
 	TextView titlebar;
 	@AbIocView(id = R.id.showtitle)
@@ -64,6 +68,7 @@ public class XiaoxiListActivity extends AbActivity{
 	@AbIocView(id = R.id.addShenpi)
 	RelativeLayout addShenpi;
 	private int from;
+	private int page = 1;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -95,22 +100,32 @@ public class XiaoxiListActivity extends AbActivity{
 				finish();
 			}
 		});
+		initListView();
 	}
 
-	private void reCreate() {
-		setContentView(R.layout.layout_xiaoxi);
-		initData();
-		getGroupData();
-	}
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		getGroupData();
+//		getGroupData();
 	}
-	//初始化绑定数据 获取该用户参与的所有审批列表
-	private void getGroupData() {
-		
+	public void initListView() {
+		// 绑定刷新和加载更多
+		qunfaListView.setAbOnListViewListener(new AbOnListViewListener() {
+
+			@Override
+			public void onRefresh() {
+				getGroupData();
+			}
+
+			@Override
+			public void onLoadMore() {
+				loadMore();
+			}
+
+		});
+	}
+	private void loadMore() {
 		// 获取Http工具类
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		mAbHttpUtil.setDebug(true);
@@ -118,10 +133,73 @@ public class XiaoxiListActivity extends AbActivity{
 			UIHelper.ToastMessage(context, "请检查网络连接");
 			return;
 		}
-		Log.d(TAG, String.format("%s?user_id=%s&notice_type=%d&p=1&ps=20", URLs.QUNFALIST,
-				loginKey,from));
-		mAbHttpUtil.get(String.format("%s?user_id=%s&notice_type=%d&p=1&ps=20", URLs.QUNFALIST,
-				loginKey,from),
+		page++;
+		String url=String.format("%s?user_id=%s&notice_type=%d&p=%d&ps=%d", URLs.QUNFALIST,
+				loginKey,from,page, Constants.PAGE_SIZE);
+		Log.e("url", url);
+
+		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
+			@Override
+			public void onSuccess(int statusCode, String content) {
+				try {
+					QunfaInfoList gList = QunfaInfoList
+							.parseJson(content);
+					if (gList.code == 200) {
+						 List<Qunfa> tempList = gList.getInfo();
+						 if (tempList != null && tempList.size() > 0) {
+							 qunfaList.addAll(tempList);
+							 listItemAdapter.notifyDataSetChanged();
+							 tempList.clear();
+						}else{
+							page--;
+						}
+						 if (qunfaList.size() <= 0) {
+								UIHelper.ToastMessage(XiaoxiListActivity.this,
+										"网络连接失败！");
+							}
+					} else {
+						UIHelper.ToastMessage(context, gList.msg);
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+					UIHelper.ToastMessage(XiaoxiListActivity.this, "数据解析失败");
+				}
+			}
+
+			@Override
+			public void onFailure(int statusCode, String content,
+					Throwable error) {
+				UIHelper.ToastMessage(XiaoxiListActivity.this, "网络连接失败！");
+				page--;
+			}
+
+			@Override
+			public void onStart() {
+			}
+
+			// 完成后调用
+			@Override
+			public void onFinish() {
+				qunfaListView.stopLoadMore();
+
+			};
+		});
+	}
+	//初始化绑定数据 获取该用户参与的所有审批列表
+	private void getGroupData() {
+		page=1;
+		// 获取Http工具类
+		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+		mAbHttpUtil.setDebug(true);
+		if (!application.isNetworkConnected()) {
+			UIHelper.ToastMessage(context, "请检查网络连接");
+			return;
+		}
+		String url=String.format("%s?user_id=%s&notice_type=%d&p=%d&ps=%d", URLs.QUNFALIST,
+				loginKey,from,page, Constants.PAGE_SIZE);
+		Log.e(TAG,url);
+		mAbHttpUtil.get(url,
 				new AbStringHttpResponseListener() {
 					@Override
 					public void onSuccess(int statusCode, String content) {

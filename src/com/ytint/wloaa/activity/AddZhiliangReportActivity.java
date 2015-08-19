@@ -217,6 +217,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 		
 		commitId="0";
 	}
+	
 	private void initSpinner() {
 		// 将可选内容与ArrayAdapter连接起来
 		adapter = new ArrayAdapter<String>(AddZhiliangReportActivity.this,
