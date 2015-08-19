@@ -226,7 +226,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 						people = peoples.get(arg2).id;
 						peopleId=peoples.get(arg2).id+"";
 						TextView tv = (TextView) view;
-						tv.setTextColor(getResources().getColor(R.color.white)); // 设置颜色
+						tv.setTextColor(getResources().getColor(R.color.black)); // 设置颜色
 						tv.setGravity(android.view.Gravity.CENTER); // 设置居中
 
 					}
@@ -259,7 +259,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 				company = companys.get(arg2).id;
 				companyId=companys.get(arg2).id+"";
 						TextView tv = (TextView) view;
-						tv.setTextColor(getResources().getColor(R.color.white)); // 设置颜色
+						tv.setTextColor(getResources().getColor(R.color.black)); // 设置颜色
 						tv.setGravity(android.view.Gravity.CENTER); // 设置居中
 
 					}

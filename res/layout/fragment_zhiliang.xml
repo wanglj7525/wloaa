@@ -5,33 +5,33 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-     <Button
-         android:id="@+id/zhiliang1"
-         android:layout_width="220dp"
-         android:layout_height="120dp"
-         android:layout_gravity="center"
-         android:layout_marginTop="10dp"
-         android:drawableLeft="@drawable/menu_zhiliang_xiapai"
-         android:enabled="false"
-         android:text="下派质检任务" />
+    <Button
+        android:id="@+id/zhiliang1"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/menu_zhiliang_xiapai"
+        android:enabled="false"
+        android:text="下派质检任务" />
 
-     <Button
-         android:id="@+id/zhiliang2"
-         android:layout_width="220dp"
-         android:layout_height="120dp"
-         android:layout_gravity="center"
-         android:layout_marginTop="30dp"
-         android:drawableLeft="@drawable/menu_zhiliang_shangbao"
-         android:enabled="false"
-         android:text="上报质检任务" />
+    <Button
+        android:id="@+id/zhiliang2"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/menu_zhiliang_shangbao"
+        android:enabled="false"
+        android:text="上报质检任务" />
 
-     <Button
-         android:id="@+id/zhiliang3"
-         android:layout_width="220dp"
-         android:layout_height="120dp"
-         android:layout_gravity="center"
-         android:layout_marginTop="30dp"
-         android:drawableLeft="@drawable/menu_zhiliang_liebiao"
-         android:text="质检任务列表" />
+    <Button
+        android:id="@+id/zhiliang3"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/menu_zhiliang_liebiao"
+        android:text="质检任务列表" />
 
 </LinearLayout>

@@ -6,31 +6,30 @@
     android:orientation="vertical" >
 
     <Button
-         android:id="@+id/zhilianglist"
-         android:layout_width="220dp"
-         android:layout_height="120dp"
-         android:layout_gravity="center"
-         android:layout_marginTop="10dp"
-         android:drawableLeft="@drawable/menu_zhiliang_liebiao"
-         android:text="质量检查列表" />
+        android:id="@+id/zhilianglist"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/menu_zhiliang_liebiao"
+        android:text="质量检查列表" />
 
-     <Button
-         android:id="@+id/anquanlist"
-         android:layout_width="220dp"
-         android:layout_height="120dp"
-         android:layout_gravity="center"
-         android:layout_marginTop="30dp"
-         android:drawableLeft="@drawable/menu_anquan_liebiao"
-         android:text="安全检查列表" />
+    <Button
+        android:id="@+id/anquanlist"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/menu_anquan_liebiao"
+        android:text="安全检查列表" />
 
-     <Button
-         android:id="@+id/zhifalist"
-         android:layout_width="220dp"
-         android:layout_height="120dp"
-         android:layout_gravity="center"
-         android:layout_marginTop="30dp"
-         android:drawableLeft="@drawable/menu_zhifa_liebiao"
-         android:text="执法管理列表" />
-
+    <Button
+        android:id="@+id/zhifalist"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/menu_zhifa_liebiao"
+        android:text="执法管理列表" />
 
 </LinearLayout>

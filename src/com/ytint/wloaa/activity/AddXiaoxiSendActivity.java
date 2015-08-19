@@ -184,7 +184,7 @@ public class AddXiaoxiSendActivity extends AbActivity {
 						people = peoples.get(arg2).id;
 						peopleId=people+"";
 						TextView tv = (TextView) view;
-						tv.setTextColor(getResources().getColor(R.color.white)); // 设置颜色
+						tv.setTextColor(getResources().getColor(R.color.black)); // 设置颜色
 						tv.setGravity(android.view.Gravity.CENTER); // 设置居中
 
 					}
