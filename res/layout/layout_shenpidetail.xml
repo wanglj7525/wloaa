@@ -36,7 +36,7 @@
                 android:ems="10"
                 android:enabled="false"
                 android:inputType="textMultiLine"
-                android:text="邹平物流公司"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="18sp" >
             </EditText>
@@ -66,7 +66,7 @@
                 android:ems="10"
                 android:enabled="false"
                 android:inputType="textMultiLine"
-                android:text="张三"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="18sp" >
             </EditText>
@@ -96,7 +96,7 @@
                 android:ems="10"
                 android:enabled="false"
                 android:inputType="textMultiLine"
-                android:text="18660019060"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="18sp" >
             </EditText>
@@ -165,7 +165,7 @@
                 android:ems="10"
                 android:enabled="false"
                 android:inputType="textMultiLine"
-                android:text="18660019060"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="18sp" >
             </EditText>

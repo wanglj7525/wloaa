@@ -53,7 +53,9 @@ import com.ytint.wloaa.bean.Company;
 import com.ytint.wloaa.bean.CompanyList;
 import com.ytint.wloaa.bean.People;
 import com.ytint.wloaa.bean.PeopleList;
+import com.ytint.wloaa.bean.Qunfa;
 import com.ytint.wloaa.bean.QunfaInfo;
+import com.ytint.wloaa.bean.Shenpi;
 import com.ytint.wloaa.bean.URLs;
 
 public class AddZhiliangSendActivity extends AbActivity {
@@ -74,8 +76,10 @@ public class AddZhiliangSendActivity extends AbActivity {
 	Spinner peopleSpinner;
 	@AbIocView(id = R.id.select_company_send)
 	Spinner companySpinner;
-	@AbIocView(id = R.id.addTask)
-	Button add;
+	@AbIocView(id = R.id.addTaskFile)
+	Button addTaskFile;
+	@AbIocView(id = R.id.addTaskNoFile)
+	Button addTaskNoFile;
 	@AbIocView(id = R.id.sendcancel)
 	Button sendcancel;
 	// @AbIocView(id = R.id.task_info)
@@ -122,6 +126,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 	private int hSpacing = 10;
 	private String peopleId;
 	private String companyId="0";
+	private String commitId="0";
 	public static ArrayList<String> media=new ArrayList<String>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -214,7 +219,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 		horizontalScrollView_addvoice.setHorizontalScrollBarEnabled(true);
 		initGridView();
 		// 添加
-		add.setOnClickListener(new View.OnClickListener() {
+		addTaskNoFile.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// 关闭键盘
@@ -222,6 +227,19 @@ public class AddZhiliangSendActivity extends AbActivity {
 						.getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 				submitXiaoxi();
+			}
+		});
+		addTaskFile.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (mVoicesList.size()==0) {
+					Toast.makeText(getApplicationContext(), "请添加文件", 0).show();
+				}else{
+					//录音
+					new FileHelper().submitUploadFile(mVoicesList, loginKey,commitId,"2");
+					Toast.makeText(getApplicationContext(), "正在上传文件...", 0).show();
+					finish();
+				}
 			}
 		});
 		sendcancel.setOnClickListener(new View.OnClickListener() {
@@ -234,23 +252,28 @@ public class AddZhiliangSendActivity extends AbActivity {
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				switch (event.getAction()) {
-				case MotionEvent.ACTION_DOWN:
-					if (mVoicesList.size() >= 1) {
-						Toast.makeText(getApplicationContext(), "只能上传一个录音", 0)
-								.show();
-					} else {
-						startVoice();
+				if (commitId.equals("0")) {
+					Toast.makeText(getApplicationContext(), "请先保存上面的信息", 0)
+					.show();
+				}else{
+					switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						if (mVoicesList.size() >= 1) {
+							Toast.makeText(getApplicationContext(), "只能上传一个录音", 0)
+							.show();
+						} else {
+							startVoice();
+						}
+						break;
+					case MotionEvent.ACTION_UP:
+						if (mVoicesList.size() >= 1) {
+						} else {
+							stopVoice();
+						}
+						break;
+					default:
+						break;
 					}
-					break;
-				case MotionEvent.ACTION_UP:
-					if (mVoicesList.size() >= 1) {
-					} else {
-						stopVoice();
-					}
-					break;
-				default:
-					break;
 				}
 				return false;
 			}
@@ -418,16 +441,16 @@ public class AddZhiliangSendActivity extends AbActivity {
 		params.put("taskInfo.receive_user_id", peopleId);
 		params.put("taskInfo.contact", task_tell.getText().toString());
 		params.put("taskInfo.remark", task_remark.getText().toString());
-		String medias = "";
-		for (int i = 0; i < media.size(); i++) {
-			if (i==media.size()-1) {
-				medias+=media.get(i);
-			}else{
-				medias+=media.get(i)+",";
-			}
-			
-		}
-		params.put("taskInfo.media", medias);
+//		String medias = "";
+//		for (int i = 0; i < media.size(); i++) {
+//			if (i==media.size()-1) {
+//				medias+=media.get(i);
+//			}else{
+//				medias+=media.get(i)+",";
+//			}
+//			
+//		}
+//		params.put("taskInfo.media", medias);
 		params.put("taskInfo.task_type", "2");
 		params.put("taskInfo.create_user_id", loginKey);
 		params.put("taskInfo.department_id", from + "");
@@ -443,7 +466,9 @@ public class AddZhiliangSendActivity extends AbActivity {
 							QunfaInfo gList = QunfaInfo.parseJson(content);
 							if (gList.code == 200) {
 								showToast("发送成功！");
-								finish();
+								Qunfa shenpi=gList.getInfo();
+								commitId=shenpi.id.toString();
+//								finish();
 							} else {
 								UIHelper.ToastMessage(context, gList.msg);
 							}
@@ -467,7 +492,8 @@ public class AddZhiliangSendActivity extends AbActivity {
 					// 完成后调用
 					@Override
 					public void onFinish() {
-						finish();
+//						finish();
+						removeProgressDialog();
 					};
 				});
 	}
@@ -571,7 +597,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 		mAdapter = new MyGridAdapter(AddZhiliangSendActivity.this);
 		addvoicegridview.setAdapter(mAdapter);
 		initGridView();
-		new FileHelper().submitUploadFile(mVoicesList, loginKey,"4");
+//		new FileHelper().submitUploadFile(mVoicesList, loginKey,commitId,"2");
 		Toast.makeText(getApplicationContext(), "保存录音" + mFileName, 0).show();
 	}
 

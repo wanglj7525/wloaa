@@ -34,7 +34,7 @@ public class FileHelper extends Activity{
 	private static final String CHARSET = "utf-8"; // 设置编码
 	String result;
 	private MyApplication application = (MyApplication) this.getApplication();
-	public void submitUploadFile(ArrayList<String> srcPath, String loginKey,final String type) {
+	public void submitUploadFile(ArrayList<String> srcPath, String loginKey,String task_id,final String type) {
 		final ArrayList<File> files=new ArrayList<File>();
 		for (String path : srcPath) {
 			File file = new File(path);
@@ -53,7 +53,8 @@ public class FileHelper extends Activity{
 		Log.i(TAG, "请求的fileName=" + files.get(0).getName());
 		final Map<String, String> params = new HashMap<String, String>();
 		params.put("user_id", loginKey);
-		params.put("file_type", type);
+		params.put("task_id", task_id);
+		params.put("task_file_type", type);
 		new Thread(new Runnable() { // 开启线程上传文件
 					@Override
 					public void run() {
@@ -131,17 +132,15 @@ public class FileHelper extends Activity{
 					sb.append(LINE_END);
 					sb.append("Content-Disposition: form-data; name=\"upfile["+flag+"]\";filename=\""
 							+ file.getName() + "\"" + LINE_END);
-					if (type.equals("3")||type.equals("4")) {
+					if (file.getName().contains("3gp")) {
+						sb.append("Content-Type: video/3gpp; charset=" + CHARSET
+								+ LINE_END);
+					}else if (file.getName().contains("mp4")) {
+						sb.append("Content-Type: video/mpeg4; charset=" + CHARSET
+								+ LINE_END);
+					}else if (file.getName().contains("amr")) {
 						sb.append("Content-Type: audio/mpeg; charset=" + CHARSET
 								+ LINE_END);
-					}else if (type.equals("2")) {
-						if (file.getName().contains("3gp")) {
-							sb.append("Content-Type: video/3gpp; charset=" + CHARSET
-									+ LINE_END);
-						}else if (file.getName().contains("mp4")) {
-							sb.append("Content-Type: video/mpeg4; charset=" + CHARSET
-									+ LINE_END);
-						}
 					}else{
 						sb.append("Content-Type: image/pjpeg; charset=" + CHARSET
 								+ LINE_END);
@@ -188,15 +187,15 @@ public class FileHelper extends Activity{
 						if (code == Constants.SUCCESS) {
 							String ids=jsonObject.getString("info");
 							System.out.println(ids+"====="+type);
-							if (type.equals("1")) {
-								AddZhiliangReportActivity.attachment.add(ids);
-							}else if (type.equals("2")) {
-								AddZhiliangReportActivity.video.add(ids);
-							}else if (type.equals("3")) {
-								AddZhiliangReportActivity.media.add(ids);
-							}else{
-								AddZhiliangSendActivity.media.add(ids);
-							}
+//							if (type.equals("1")) {
+//								AddZhiliangReportActivity.attachment.add(ids);
+//							}else if (type.equals("2")) {
+//								AddZhiliangReportActivity.video.add(ids);
+//							}else if (type.equals("3")) {
+//								AddZhiliangReportActivity.media.add(ids);
+//							}else{
+//								AddZhiliangSendActivity.media.add(ids);
+//							}
 						}
 					} catch (Exception e) {
 						e.printStackTrace();

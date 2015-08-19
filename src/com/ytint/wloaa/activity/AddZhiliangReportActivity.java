@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -72,6 +74,7 @@ import com.ytint.wloaa.bean.ImageLoader;
 import com.ytint.wloaa.bean.ImageLoader.OnCallBackListener;
 import com.ytint.wloaa.bean.People;
 import com.ytint.wloaa.bean.PeopleList;
+import com.ytint.wloaa.bean.Shenpi;
 import com.ytint.wloaa.bean.ShenpiInfo;
 import com.ytint.wloaa.bean.URLs;
 
@@ -102,9 +105,12 @@ public class AddZhiliangReportActivity extends AbActivity {
 	GridView gridView_image_report;
 //	@AbIocView(id = R.id.select_shenpi_people)
 //	Spinner peopleSpinner;
-	/**提交上报**/
+	/**添加文件*/
 	@AbIocView(id = R.id.commitShenpi)
-	Button add;
+	Button commitFile;
+	/**提交上报*/
+	@AbIocView(id = R.id.commitNoFile)
+	Button commitNoFile;
 	@AbIocView(id = R.id.reportcancel)
 	Button reportcancel;
 	@AbIocView(id = R.id.task_name_report)
@@ -170,6 +176,8 @@ public class AddZhiliangReportActivity extends AbActivity {
 	private String companyId="0";
 	private static String srcPath;
 	private static String videoPath;
+	
+	private String commitId;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -205,6 +213,8 @@ public class AddZhiliangReportActivity extends AbActivity {
 		//加载联系人下拉框
 		loadPeoples();
 //		loadComapny();
+		
+		commitId="0";
 	}
 	private void initSpinner() {
 		// 将可选内容与ArrayAdapter连接起来
@@ -437,23 +447,29 @@ public class AddZhiliangReportActivity extends AbActivity {
     	add_photo.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent local = new Intent();
-                local.setType("image/*");
-                local.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(local, 11);
-//				Intent intent = new Intent(AddZhiliangReportActivity.this, AddSelectPhotoActivity.class);  
-//		        startActivityForResult(intent, 11);
+				if (commitId.equals("0")) {
+					Toast.makeText(getApplicationContext(), "请先保存上面的信息", 0).show();
+					return;
+				}else{
+					Intent local = new Intent();
+					local.setType("image/*");
+					local.setAction(Intent.ACTION_GET_CONTENT);
+					startActivityForResult(local, 11);
+				}
 			}
 		});
     	//录像
     	add_video.setOnClickListener(new View.OnClickListener() {
     		@Override
     		public void onClick(View v) {
-    			Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);    
-                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);    
-                startActivityForResult(intent, 10); 
-//				Intent intent = new Intent(AddZhiliangReportActivity.this, RecordActivity.class);  
-//		        startActivityForResult(intent, 10);
+    			if (commitId.equals("0")) {
+					Toast.makeText(getApplicationContext(), "请先保存上面的信息", 0).show();
+					return;
+				}else{
+					Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);    
+					intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);    
+					startActivityForResult(intent, 10); 
+				}
     		}
     	});
 		//确定当前位置
@@ -464,7 +480,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 			}
 		});
 		//添加上报
-		add.setOnClickListener(new View.OnClickListener() {
+		commitNoFile.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// 关闭键盘
@@ -473,6 +489,22 @@ public class AddZhiliangReportActivity extends AbActivity {
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 				
 				submitShenpi();
+			}
+		});
+		//添加文件
+		commitFile.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (mVoicesList.size()==0&&imagelist.size()==0) {
+					Toast.makeText(getApplicationContext(), "请添加文件", 0).show();
+				}else{
+					//录音
+					new FileHelper().submitUploadFile(mVoicesList, loginKey,commitId,"2");
+					//图片 视频
+					new FileHelper().submitUploadFile(imagelist, loginKey,commitId,"1");
+					Toast.makeText(getApplicationContext(), "正在上传文件...", 0).show();
+					finish();
+				}
 			}
 		});
 		reportcancel.setOnClickListener(new View.OnClickListener() {
@@ -485,22 +517,26 @@ public class AddZhiliangReportActivity extends AbActivity {
 		addVoicereport.setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				switch (event.getAction()) {
-				case MotionEvent.ACTION_DOWN:
-					if (mVoicesList.size()>=1) {
-						Toast.makeText(getApplicationContext(), "只能上传一个录音", 0).show();
-					}else{
-						startVoice();
+				if (commitId.equals("0")) {
+					Toast.makeText(getApplicationContext(), "请先保存上面的信息", 0).show();
+				}else{
+					switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						if (mVoicesList.size()>=1) {
+							Toast.makeText(getApplicationContext(), "只能上传一个录音", 0).show();
+						}else{
+							startVoice();
+						}
+						break;
+					case MotionEvent.ACTION_UP:
+						if (mVoicesList.size()>=1) {
+						}else{
+							stopVoice();
+						}
+						break;
+					default:
+						break;
 					}
-					break;
-				case MotionEvent.ACTION_UP:
-					if (mVoicesList.size()>=1) {
-					}else{
-						stopVoice();
-					}
-					break;
-				default:
-					break;
 				}
 				return false;
 			}
@@ -543,10 +579,10 @@ public class AddZhiliangReportActivity extends AbActivity {
                         /* _data：文件的绝对路径 ，_display_name：文件名 */    
                 	videoPath = cursors.getString(cursors.getColumnIndex("_data"));    
                         Toast.makeText(this, videoPath, Toast.LENGTH_SHORT).show(); 
-                      //上传图片
-                        ArrayList<String> strVideo=new ArrayList<String>();
-                        strVideo.add(videoPath);
-                        new FileHelper().submitUploadFile(strVideo, loginKey,"2");
+                      //上传视频
+//                        ArrayList<String> strVideo=new ArrayList<String>();
+//                        strVideo.add(videoPath);
+//                        new FileHelper().submitUploadFile(strVideo, loginKey,"2");
                         imagelist.add(videoPath);
                         setImageGrideValue();   
                 }    
@@ -571,9 +607,9 @@ public class AddZhiliangReportActivity extends AbActivity {
                         if (path.endsWith("jpg") || path.endsWith("png")) {
                         	srcPath=path;
                           //上传图片
-                          ArrayList<String> strPhoto=new ArrayList<String>();
-                          strPhoto.add(srcPath);
-                          new FileHelper().submitUploadFile(strPhoto, loginKey,"1");
+//                          ArrayList<String> strPhoto=new ArrayList<String>();
+//                          strPhoto.add(srcPath);
+//                          new FileHelper().submitUploadFile(strPhoto, loginKey,"1");
                           imagelist.add(srcPath);
                           setImageGrideValue();
                         } else {
@@ -626,32 +662,32 @@ public class AddZhiliangReportActivity extends AbActivity {
 		}
 		params.put("taskInfo.is_reply",reply);
 		params.put("taskInfo.is_review",review);
-		String attachments = "";
-		for (int i = 0; i < attachment.size(); i++) {
-			if (i==attachment.size()-1) {
-				attachments+=attachment.get(i);
-			}else{
-				attachments+=attachment.get(i)+",";
-			}
-		}
-		if (video.size()>0) {
-			if (attachments.length()==0) {
-				attachments+=video.get(0);
-			}else{
-				attachments+=","+video.get(0);
-			}
-		}
-		params.put("taskInfo.attachment",attachments);
-		String medias = "";
-		for (int i = 0; i < media.size(); i++) {
-			if (i==media.size()-1) {
-				medias+=media.get(i);
-			}else{
-				medias+=media.get(i)+",";
-			}
-			
-		}
-		params.put("taskInfo.media", medias);
+//		String attachments = "";
+//		for (int i = 0; i < attachment.size(); i++) {
+//			if (i==attachment.size()-1) {
+//				attachments+=attachment.get(i);
+//			}else{
+//				attachments+=attachment.get(i)+",";
+//			}
+//		}
+//		if (video.size()>0) {
+//			if (attachments.length()==0) {
+//				attachments+=video.get(0);
+//			}else{
+//				attachments+=","+video.get(0);
+//			}
+//		}
+//		params.put("taskInfo.attachment",attachments);
+//		String medias = "";
+//		for (int i = 0; i < media.size(); i++) {
+//			if (i==media.size()-1) {
+//				medias+=media.get(i);
+//			}else{
+//				medias+=media.get(i)+",";
+//			}
+//			
+//		}
+//		params.put("taskInfo.media", medias);
 		params.put("taskInfo.task_type", "1");
 		params.put("taskInfo.create_user_id", loginKey);
 		params.put("taskInfo.department_id", from+"");
@@ -668,8 +704,10 @@ public class AddZhiliangReportActivity extends AbActivity {
 							ShenpiInfo gList = ShenpiInfo
 									.parseJson(content);
 							if (gList.code == 200) {
-								showToast("申请提交成功！");
-								finish();
+								showToast("提交成功！");
+								Shenpi shenpi=gList.getInfo();
+								commitId=shenpi.id.toString();
+//								finish();
 							} else {
 								UIHelper.ToastMessage(context, gList.msg);
 							}
@@ -693,7 +731,8 @@ public class AddZhiliangReportActivity extends AbActivity {
 					// 完成后调用
 					@Override
 					public void onFinish() {
-						finish();
+//						finish();
+						removeProgressDialog();
 					};
 				});
 	}
@@ -735,7 +774,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 		mAdapter = new MyGridAdapter(AddZhiliangReportActivity.this);
 		addvoicegridviewreport.setAdapter(mAdapter);
 		initGridView();
-		new FileHelper().submitUploadFile(mVoicesList, loginKey,"3");
+//		new FileHelper().submitUploadFile(mVoicesList, loginKey,"3");
 		Toast.makeText(getApplicationContext(), "保存录音" + mFileName, 0).show();
 	}
 
