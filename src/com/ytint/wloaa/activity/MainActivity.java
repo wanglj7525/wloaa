@@ -37,6 +37,7 @@ import com.ytint.wloaa.bean.VersionInfo;
 import com.ytint.wloaa.fragment.AllListFragment;
 import com.ytint.wloaa.fragment.AnquanFragment;
 import com.ytint.wloaa.fragment.GonggaoFragment;
+import com.ytint.wloaa.fragment.RichangbangongFragment;
 import com.ytint.wloaa.fragment.ShezhiFragment;
 import com.ytint.wloaa.fragment.XiaoxiFragment;
 import com.ytint.wloaa.fragment.ZhifaFragment;
@@ -136,7 +137,7 @@ public class MainActivity extends BaseActivity {
 			keshiname="任务列表";
 			keshiimage=R.drawable.menu_liebiao;
 			fragment1 = new AllListFragment();
-		}else{
+		}else
 			//科长，科员
 			if (departmentId.equals("1")) {
 				//质量
@@ -148,14 +149,19 @@ public class MainActivity extends BaseActivity {
 				keshiname="安全检查";
 				keshiimage=R.drawable.menu_anquan;
 				fragment1 = new AnquanFragment();
-			}else{
+			}else if (departmentId.equals("3")){
 				//执法
 				keshiname="执法管理";
 				keshiimage=R.drawable.menu_zhifa;
 				fragment1 = new ZhifaFragment();
+			}else{
+				//其他部门
+				keshiname="日常办公";
+				keshiimage=R.drawable.menu_richangbangong;
+				fragment1 = new RichangbangongFragment();
 			}
 			
-		}
+		
 		main_show_keshi.setImageResource(keshiimage);
 		main_show_keshiname.setText(keshiname);
 		
