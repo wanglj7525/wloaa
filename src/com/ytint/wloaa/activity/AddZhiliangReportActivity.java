@@ -646,7 +646,10 @@ public class AddZhiliangReportActivity extends AbActivity {
 			UIHelper.ToastMessage(context, "请检查网络连接");
 			return;
 		}
-		
+		if (task_name.getText().toString().trim()=="") {
+			UIHelper.ToastMessage(context, "请输入内容");
+			return;
+		}
 		AbRequestParams params = new AbRequestParams();
 		params.put("taskInfo.name", task_name.getText().toString());
 		System.out.println(peopleSpinner.getSelectedItem().toString());

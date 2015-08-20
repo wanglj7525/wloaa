@@ -226,7 +226,10 @@ public class AddXiaoxiSendActivity extends AbActivity {
 			UIHelper.ToastMessage(context, "请检查网络连接");
 			return;
 		}
-
+		if (xiaoxi_title.getText().toString().trim()==""||xiaoxi_info.getText().toString().trim()=="") {
+			UIHelper.ToastMessage(context, "请输入内容");
+			return;
+		}
 		AbRequestParams params = new AbRequestParams();
 		params.put("androidNoticeInfo.title", xiaoxi_title.getText().toString());
 		params.put("androidNoticeInfo.content", xiaoxi_info.getText().toString());
