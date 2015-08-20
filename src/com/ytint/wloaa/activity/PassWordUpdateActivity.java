@@ -1,13 +1,10 @@
 package com.ytint.wloaa.activity;
 
-import java.util.Date;
-
 import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -28,9 +25,7 @@ import com.ab.http.AbHttpUtil;
 import com.ab.http.AbRequestParams;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
-import com.ab.view.titlebar.AbTitleBar;
-import com.baidu.mapapi.SDKInitializer;
-import com.ytint.wloaa.activity.R;
+import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;

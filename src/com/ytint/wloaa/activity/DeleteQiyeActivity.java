@@ -10,6 +10,7 @@ import cn.jpush.android.api.JPushInterface;
 
 import com.ab.activity.AbActivity;
 import com.ab.view.titlebar.AbTitleBar;
+import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.bean.People;
 

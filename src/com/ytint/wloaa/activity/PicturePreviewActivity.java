@@ -10,7 +10,6 @@ import java.net.URL;
 
 import org.json.JSONException;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -26,12 +25,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import cn.jpush.android.api.JPushInterface;
 
 import com.ab.activity.AbActivity;
 import com.ab.view.ioc.AbIocView;
-import com.ytint.wloaa.activity.R;
+import com.ytint.wloaa.R;
 
 /**
  * 大图预览 功能描述：一般我们浏览一个应用，别人发布的状态或新闻都会有很多配图， 我们点击图片时可以浏览大图，这张大图一般可以放大，放大到超过屏幕后

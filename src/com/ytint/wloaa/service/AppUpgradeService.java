@@ -18,7 +18,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-import com.ytint.wloaa.activity.R;
+import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.utils.DownloadUtils;
 

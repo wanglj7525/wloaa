@@ -16,6 +16,7 @@ import cn.jpush.android.api.JPushInterface;
 
 import com.ab.activity.AbActivity;
 import com.ab.view.ioc.AbIocView;
+import com.ytint.wloaa.R;
 
 public class MediaPlayerDemo_Video extends AbActivity implements
         OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,

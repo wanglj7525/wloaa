@@ -1,43 +1,23 @@
 package com.ytint.wloaa.activity;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
-import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import cn.jpush.android.api.JPushInterface;
 
 import com.ab.activity.AbActivity;
@@ -46,12 +26,9 @@ import com.ab.http.AbRequestParams;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
-import com.ytint.wloaa.activity.R;
-import com.ytint.wloaa.activity.ShenpiDetailActivity.MAdapter;
+import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
-import com.ytint.wloaa.bean.Company;
-import com.ytint.wloaa.bean.CompanyList;
 import com.ytint.wloaa.bean.People;
 import com.ytint.wloaa.bean.PeopleList;
 import com.ytint.wloaa.bean.QunfaInfo;

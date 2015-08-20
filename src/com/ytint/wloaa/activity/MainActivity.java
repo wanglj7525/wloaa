@@ -28,6 +28,7 @@ import cn.jpush.android.api.JPushInterface;
 
 import com.ab.http.AbHttpUtil;
 import com.ab.http.AbStringHttpResponseListener;
+import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;

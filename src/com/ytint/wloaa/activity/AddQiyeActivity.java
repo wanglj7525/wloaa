@@ -1,13 +1,7 @@
 ﻿package com.ytint.wloaa.activity;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,8 +9,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import cn.jpush.android.api.JPushInterface;
 
 import com.ab.activity.AbActivity;
@@ -27,7 +19,6 @@ import com.baidu.mapapi.map.BaiduMap.OnMapDoubleClickListener;
 import com.baidu.mapapi.map.BaiduMap.OnMapLongClickListener;
 import com.baidu.mapapi.map.BaiduMap.OnMapStatusChangeListener;
 import com.baidu.mapapi.map.BaiduMap.OnMapTouchListener;
-import com.baidu.mapapi.map.BaiduMap.SnapshotReadyCallback;
 import com.baidu.mapapi.map.DotOptions;
 import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatus;
@@ -42,6 +33,7 @@ import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.MyApplication;
 
 public class AddQiyeActivity extends AbActivity {

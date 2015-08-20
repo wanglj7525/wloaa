@@ -8,10 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.ytint.wloaa.activity.AddQiyeActivity;
-import com.ytint.wloaa.activity.DeleteQiyeActivity;
-import com.ytint.wloaa.activity.QiyeListActivity;
-import com.ytint.wloaa.activity.R;
+import com.ytint.wloaa.R;
 import com.ytint.wloaa.activity.ZhiliangListActivity;
 
 public class AllListFragment extends Fragment {

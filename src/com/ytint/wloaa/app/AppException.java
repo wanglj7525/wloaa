@@ -17,7 +17,7 @@ import android.os.Environment;
 import android.os.Looper;
 import android.widget.Toast;
 
-import com.ytint.wloaa.activity.R;
+import com.ytint.wloaa.R;
 
 
 /**

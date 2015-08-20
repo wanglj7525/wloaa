@@ -21,7 +21,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.ytint.wloaa.activity.R;
+import com.ytint.wloaa.R;
 
 /***
  * �Զ�������ListView

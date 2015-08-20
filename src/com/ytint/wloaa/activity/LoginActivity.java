@@ -29,7 +29,7 @@ import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
 import com.baidu.mapapi.SDKInitializer;
-import com.ytint.wloaa.activity.R;
+import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;

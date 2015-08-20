@@ -8,10 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.ytint.wloaa.R;
 import com.ytint.wloaa.activity.AddXiaoxiSendActivity;
-import com.ytint.wloaa.activity.R;
 import com.ytint.wloaa.activity.XiaoxiListActivity;
-import com.ytint.wloaa.activity.XiaoxiShowActivity;
 
 public class GonggaoFragment extends Fragment {
 	

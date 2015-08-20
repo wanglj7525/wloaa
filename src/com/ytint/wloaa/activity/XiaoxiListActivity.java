@@ -19,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import cn.jpush.android.api.JPushInterface;
 
 import com.ab.activity.AbActivity;
@@ -30,14 +29,12 @@ import com.ab.http.AbStringHttpResponseListener;
 import com.ab.util.AbStrUtil;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.listener.AbOnListViewListener;
-import com.ab.view.titlebar.AbTitleBar;
+import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.Qunfa;
 import com.ytint.wloaa.bean.QunfaInfoList;
-import com.ytint.wloaa.bean.Shenpi;
-import com.ytint.wloaa.bean.ShenpiInfoList;
 import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.widget.AbPullListView;
 

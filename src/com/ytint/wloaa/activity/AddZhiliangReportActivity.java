@@ -55,6 +55,7 @@ import com.ab.http.AbRequestParams;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
+import com.ytint.wloaa.R;
 import com.ytint.wloaa.activity.ShenpiDetailActivity.ViewHolder;
 import com.ytint.wloaa.app.FileHelper;
 import com.ytint.wloaa.app.MyApplication;
