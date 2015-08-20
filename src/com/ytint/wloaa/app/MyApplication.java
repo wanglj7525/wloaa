@@ -58,7 +58,7 @@ public class MyApplication extends Application {
 		IMAGE_CACHE.initData(this,"wloaa");
 		IMAGE_CACHE.setOpenWaitingQueue(false);
 		IMAGE_CACHE.setContext(this);
-		IMAGE_CACHE.setCacheFolder(Environment.getExternalStorageDirectory().getPath()+"/wloaa/Image/");
+		IMAGE_CACHE.setCacheFolder(Environment.getExternalStorageDirectory().getPath()+"/wloaa/Image");
 		IMAGE_CACHE.setCompressListener(new CompressListener() {
 			@Override
 			public int getCompressSize(String imagePath) {
