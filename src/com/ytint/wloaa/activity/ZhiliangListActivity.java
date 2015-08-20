@@ -25,6 +25,8 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
+import cn.trinea.android.common.service.impl.ImageCache;
+import cn.trinea.android.common.util.CacheManager;
 
 import com.ab.activity.AbActivity;
 import com.ab.bitmap.AbImageDownloader;
@@ -51,7 +53,6 @@ import com.ytint.wloaa.widget.AbPullListView;
  * @date 2015-6-13上午11:14:05
  */
 public class ZhiliangListActivity extends AbActivity {
-
 	Context context = null;
 	private MyApplication application;
 	private List<Shenpi> shenpiList = new ArrayList<Shenpi>();
@@ -454,13 +455,13 @@ public class ZhiliangListActivity extends AbActivity {
 			mContext = c;
 			mInflater = LayoutInflater.from(mContext);
 			// 图片下载器
-			mAbImageDownloader = new AbImageDownloader(mContext);
-			mAbImageDownloader.setWidth(120);
-			mAbImageDownloader.setHeight(100);
-			mAbImageDownloader.setType(AbConstant.SCALEIMG);
-			mAbImageDownloader.setLoadingImage(R.drawable.image_loading);
-			mAbImageDownloader.setErrorImage(R.drawable.image_error);
-			mAbImageDownloader.setNoImage(R.drawable.image_no);
+//			mAbImageDownloader = new AbImageDownloader(mContext);
+//			mAbImageDownloader.setWidth(120);
+//			mAbImageDownloader.setHeight(100);
+//			mAbImageDownloader.setType(AbConstant.SCALEIMG);
+//			mAbImageDownloader.setLoadingImage(R.drawable.image_loading);
+//			mAbImageDownloader.setErrorImage(R.drawable.image_error);
+//			mAbImageDownloader.setNoImage(R.drawable.image_no);
 		}
 
 		@Override
@@ -492,7 +493,8 @@ public class ZhiliangListActivity extends AbActivity {
 				holder = new ViewHolder();
 				contentView = mInflater.inflate(R.layout.gridview_item, null);
 				holder.mImg = (ImageView) contentView.findViewById(R.id.mImage);
-				mAbImageDownloader.display(holder.mImg, image);
+				application.IMAGE_CACHE.get(image, holder.mImg);
+//				mAbImageDownloader.display(holder.mImg, image);
 			} else {
 				holder = (ViewHolder) contentView.getTag();
 			}

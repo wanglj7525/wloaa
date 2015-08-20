@@ -9,7 +9,7 @@
 	    android:layout_height="100dp"
 	    android:layout_alignParentLeft="true"
 	    android:layout_alignParentTop="true"
-	    android:src="@drawable/contact_0" >
+	    android:src="@drawable/image_loading" >
 
 </ImageView>
 </RelativeLayout>

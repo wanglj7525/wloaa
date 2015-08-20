@@ -20,6 +20,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.util.LruCache;
 import cn.jpush.android.api.JPushInterface;
+import cn.trinea.android.common.service.impl.ImageCache;
+import cn.trinea.android.common.util.CacheManager;
 
 import com.ytint.wloaa.utils.AsynImageLoader;
 import com.ytint.wloaa.utils.MethodsCompat;
@@ -33,6 +35,7 @@ import com.ytint.wloaa.utils.StringUtils;
  * @created 2012-3-21
  */
 public class MyApplication extends Application {
+	public static final ImageCache IMAGE_CACHE = CacheManager.getImageCache();
 	private Hashtable<String, Object> memCacheRegion = new Hashtable<String, Object>();
 	private static LruCache<String, Bitmap> mMemoryCache;
 	private static LruCache<String, Map<String, String>> realNameCache;
@@ -46,6 +49,9 @@ public class MyApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		IMAGE_CACHE.initData(this,"wloaa");
+		IMAGE_CACHE.setOpenWaitingQueue(false);
+		IMAGE_CACHE.setContext(this);
 		JPushInterface.setDebugMode(false);
 	    JPushInterface.init(this);
 	    

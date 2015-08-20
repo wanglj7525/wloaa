@@ -17,6 +17,7 @@ public class BaseActivity extends FragmentActivity {
 	                firstTime = secondTime;//更新firstTime 
 	                return true; 
 	            } else { 
+//	            	saveDataToDb(this, "wloaa");
 	            	ExitActivityManger.getInstance().finish();
 	                System.exit(0);//否则退出程序 
 	            } 

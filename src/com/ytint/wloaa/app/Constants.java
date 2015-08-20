@@ -1,5 +1,8 @@
 package com.ytint.wloaa.app;
 
+import cn.trinea.android.common.service.impl.ImageCache;
+import cn.trinea.android.common.util.CacheManager;
+
 /**
  * 应用程序配置类：用于保存用户相关信息及设置
  * 
@@ -72,6 +75,5 @@ public class Constants {
  	public static String VERSION_NAME = "version_name";
 	public static String VERSION_CODE = "version_code";
 	public static final long DIFFTIME = 1000 * 60 * 60 * 24;// 一天
-
 
 }
