@@ -111,6 +111,8 @@ public class AddZhiliangReportActivity extends AbActivity {
 	EditText task_tell;
 	@AbIocView(id = R.id.task_method)
 	EditText task_method;
+	@AbIocView(id = R.id.task_remark)
+	EditText task_remark;
 	@AbIocView(id=R.id.is_reply)
 	CheckBox is_reply;
 	@AbIocView(id=R.id.is_review)
@@ -658,7 +660,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 		params.put("taskInfo.company_id", companyId);
 		params.put("taskInfo.contact", task_tell.getText().toString());
 		params.put("taskInfo.handle_mode", task_method.getText().toString());
-		params.put("taskInfo.remark", loginKey);
+		params.put("taskInfo.remark", task_remark.getText().toString());
 		System.out.println();
 		String reply="2";
 		if (is_reply.isChecked()) {

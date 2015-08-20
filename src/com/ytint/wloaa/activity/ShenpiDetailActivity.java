@@ -80,6 +80,8 @@ public class ShenpiDetailActivity extends AbActivity {
 	
 	@AbIocView(id = R.id.taskForwardInfo)
 	TextView taskForwardInfo;
+	@AbIocView(id = R.id.taskRemarkInfo)
+	TextView taskRemarkInfo;
 	@AbIocView(id = R.id.showImageText)
 	TextView showImageText;
 	
@@ -150,8 +152,6 @@ public class ShenpiDetailActivity extends AbActivity {
 		shenpi_id=intent.getIntExtra("shenpi_id",0);
 		scrollView_image.setHorizontalScrollBarEnabled(true);
 		loadDatas();
-		
-		
 		task_finish.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -248,6 +248,7 @@ public class ShenpiDetailActivity extends AbActivity {
 						task_tell_detail.setText(shenpi.contact);
 						detail_handle_mode.setText(shenpi.handle_mode);
 						taskForwardInfo.setText(shenpi.taskForwardInfo);
+						taskRemarkInfo.setText(shenpi.remark);
 						if (shenpi.attachment!="") {
 							for (int i = 0; i < shenpi.attachment.split(",").length; i++) {
 								imageList.add(URLs.URL_API_HOST+shenpi.attachment.split(",")[i]);
@@ -257,6 +258,7 @@ public class ShenpiDetailActivity extends AbActivity {
 						setListener();
 						
 						if (shenpi.task_type==2) {
+							taskRemarkInfo.setVisibility(View.GONE);
 							detail_handle_mode.setVisibility(View.GONE);
 							showImageText.setVisibility(View.GONE);
 							showmodeLiner.setVisibility(View.GONE);
@@ -265,9 +267,6 @@ public class ShenpiDetailActivity extends AbActivity {
 							if (userType.equals("3")) {
 								task_finish.setVisibility(View.VISIBLE);
 							}
-						}
-						if (!shenpi.receive_user_id.equals(loginKey)||shenpi.status==1) {
-							task_finish.setVisibility(View.GONE);
 						}
 						mPlayer = new MediaPlayer();
 						if (shenpi.media!="") {

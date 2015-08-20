@@ -36,6 +36,7 @@ public class Shenpi implements java.io.Serializable{
 	public String company_name;
 	public String handle_mode;
 	public String taskForwardInfo;
+	public String remark;
 	public int task_type;
 	public int status;
 
