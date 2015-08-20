@@ -422,6 +422,14 @@ public class ZhiliangListActivity extends AbActivity {
 				flag3 = news.media.split(",").length;
 			}
 			html += "<font color='#6495ED'>" + flag3 + "</font>录音";
+			
+			if (news.task_type==1) {
+				if (news.status==2) {
+					html += "<font color='red'>&nbsp;&nbsp;【未完成】</font>";
+				}else{
+					html += "<font color='green'>&nbsp;&nbsp;【已完成】</font>";
+				}
+			}
 			frompeo.setText(Html.fromHtml(html));
 			topeo.setText("接收人：" + news.receive_user_name);
 			// abstr.setText(news.content);

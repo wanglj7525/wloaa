@@ -28,6 +28,7 @@ public class Shenpi implements java.io.Serializable{
 	
 	public String name;
 	public String create_user_name;
+	public String receive_user_id;
 	public String receive_user_name;
 	public String contact;
 	public String attachment;
@@ -36,5 +37,6 @@ public class Shenpi implements java.io.Serializable{
 	public String handle_mode;
 	public String taskForwardInfo;
 	public int task_type;
+	public int status;
 
 }

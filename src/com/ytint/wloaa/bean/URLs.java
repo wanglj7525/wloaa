@@ -61,7 +61,7 @@ public class URLs implements Serializable {
 	public final static String SHENPIDETAIL=URL_API_HOST+"api/task/get_task_info";
 	
 	//同意 不同意 审批
-	public final static String SHENPI=URL_API_HOST+"api/verify/verify_apply_info";
+	public final static String SHENPI=URL_API_HOST+"api/task/verify_task_info";
 	
 	// begin
 	public final static String VERIFY_TOKEN_URL = URL_API_HOST

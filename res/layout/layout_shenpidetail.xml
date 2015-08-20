@@ -288,6 +288,13 @@
             </HorizontalScrollView>
         </LinearLayout>
 
+        <Button
+            android:id="@+id/task_finish"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:text="完成" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

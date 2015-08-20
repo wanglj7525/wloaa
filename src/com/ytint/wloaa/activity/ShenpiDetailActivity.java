@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -29,6 +30,7 @@ import com.ab.activity.AbActivity;
 import com.ab.bitmap.AbImageDownloader;
 import com.ab.global.AbConstant;
 import com.ab.http.AbHttpUtil;
+import com.ab.http.AbRequestParams;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
@@ -91,6 +93,9 @@ public class ShenpiDetailActivity extends AbActivity {
 	@AbIocView(id = R.id.gridView_image)
 	GridView gridView_image;
 	
+	@AbIocView(id=R.id.task_finish)
+	Button task_finish;
+	private String userType;
 	private int from;
 	Integer shenpi_id;
 	private Shenpi shenpi = new Shenpi();
@@ -138,14 +143,24 @@ public class ShenpiDetailActivity extends AbActivity {
 		setAbContentView(R.layout.layout_shenpidetail);
 		application = (MyApplication) abApplication;
 		context=ShenpiDetailActivity.this;
-		
+		userType = application.getProperty("userType");
 		shenpi_id=intent.getIntExtra("shenpi_id",0);
 		scrollView_image.setHorizontalScrollBarEnabled(true);
 		loadDatas();
+		
+		
+		task_finish.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// 科长点击 上报任务 完成
+				finishTask();
+			}
+		});
 	}
 	
 	@SuppressLint("NewApi")
-	private void loadDatas() {
+	private void finishTask() {
 		
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		String loginKey = application.getProperty("loginKey");
@@ -153,45 +168,26 @@ public class ShenpiDetailActivity extends AbActivity {
 			showToast("请检查网络连接");
 			return;
 		}
-		mAbHttpUtil.get(URLs.SHENPIDETAIL + "?id=" + shenpi_id,
+		// 绑定参数
+		AbRequestParams params = new AbRequestParams();
+		params.put("task_id", shenpi_id.toString());
+		params.put("verify_status", "1");
+		params.put("verify_user_id", loginKey);
+		params.put("verify_commit", "");
+		params.put("verify_type", "1");
+		params.put("receive_user_id",loginKey);
+		mAbHttpUtil.post(URLs.SHENPI ,params,
 				new AbStringHttpResponseListener() {
 					// 获取数据成功会调用这里
 					@Override
 					public void onSuccess(int statusCode, String content) {
 						Log.d(TAG, content);
 						try {
-							
 							ShenpiInfo gList = ShenpiInfo
 									.parseJson(content);
 							if (gList.code == 200) {
-								shenpi = gList.getInfo();
-								task_name_detail.setText(shenpi.name);
-								task_create.setText(shenpi.create_user_name);
-								task_tell_detail.setText(shenpi.contact);
-								detail_handle_mode.setText(shenpi.handle_mode);
-								taskForwardInfo.setText(shenpi.taskForwardInfo);
-								if (shenpi.attachment!="") {
-									for (int i = 0; i < shenpi.attachment.split(",").length; i++) {
-										imageList.add(URLs.URL_API_HOST+shenpi.attachment.split(",")[i]);
-									}
-								}
-								setValue();
-								setListener();
-								
-								if (shenpi.task_type==2) {
-									detail_handle_mode.setVisibility(View.GONE);
-									showImageText.setVisibility(View.GONE);
-									showmodeLiner.setVisibility(View.GONE);
-								}
-								mPlayer = new MediaPlayer();
-								if (shenpi.media!="") {
-									for (int i = 0; i < shenpi.media.split(",").length; i++) {
-										String voice=shenpi.media.split(",")[i];
-										mVoicesList.add(URLs.URL_API_HOST+voice);
-									}
-								}
-								horizontalScrollView_voicelist_detail.setHorizontalScrollBarEnabled(true);
-								initGridVoiceView();
+								UIHelper.ToastMessage(context, "任务已完成");
+								task_finish.setVisibility(View.GONE);
 							} else {
 								UIHelper.ToastMessage(context, gList.msg);
 							}
@@ -222,6 +218,93 @@ public class ShenpiDetailActivity extends AbActivity {
 					};
 
 				});
+	}
+	@SuppressLint("NewApi")
+	private void loadDatas() {
+		
+		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+		final String loginKey = application.getProperty("loginKey");
+		if (!application.isNetworkConnected()) {
+			showToast("请检查网络连接");
+			return;
+		}
+		mAbHttpUtil.get(URLs.SHENPIDETAIL + "?id=" + shenpi_id,
+				new AbStringHttpResponseListener() {
+			// 获取数据成功会调用这里
+			@Override
+			public void onSuccess(int statusCode, String content) {
+				Log.d(TAG, content);
+				try {
+					
+					ShenpiInfo gList = ShenpiInfo
+							.parseJson(content);
+					if (gList.code == 200) {
+						shenpi = gList.getInfo();
+						task_name_detail.setText(shenpi.name);
+						task_create.setText(shenpi.create_user_name);
+						task_tell_detail.setText(shenpi.contact);
+						detail_handle_mode.setText(shenpi.handle_mode);
+						taskForwardInfo.setText(shenpi.taskForwardInfo);
+						if (shenpi.attachment!="") {
+							for (int i = 0; i < shenpi.attachment.split(",").length; i++) {
+								imageList.add(URLs.URL_API_HOST+shenpi.attachment.split(",")[i]);
+							}
+						}
+						setValue();
+						setListener();
+						
+						if (shenpi.task_type==2) {
+							detail_handle_mode.setVisibility(View.GONE);
+							showImageText.setVisibility(View.GONE);
+							showmodeLiner.setVisibility(View.GONE);
+							task_finish.setVisibility(View.GONE);
+						}else{
+							if (userType.equals("3")) {
+								task_finish.setVisibility(View.VISIBLE);
+							}
+						}
+						if (!shenpi.receive_user_id.equals(loginKey)||shenpi.status==1) {
+							task_finish.setVisibility(View.GONE);
+						}
+						mPlayer = new MediaPlayer();
+						if (shenpi.media!="") {
+							for (int i = 0; i < shenpi.media.split(",").length; i++) {
+								String voice=shenpi.media.split(",")[i];
+								mVoicesList.add(URLs.URL_API_HOST+voice);
+							}
+						}
+						horizontalScrollView_voicelist_detail.setHorizontalScrollBarEnabled(true);
+						initGridVoiceView();
+					} else {
+						UIHelper.ToastMessage(context, gList.msg);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					showToast("数据解析失败");
+				}
+			};
+			
+			// 开始执行前
+			@Override
+			public void onStart() {
+				// 显示进度框
+				showProgressDialog();
+			}
+			
+			@Override
+			public void onFailure(int statusCode, String content,
+					Throwable error) {
+				showToast("网络连接失败！");
+			}
+			
+			// 完成后调用，失败，成功
+			@Override
+			public void onFinish() {
+				// 移除进度框
+				removeProgressDialog();
+			};
+			
+		});
 	}
 	private void initGridVoiceView(){
 		MyGridAdapter mAdapter = new MyGridAdapter(context);
