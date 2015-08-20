@@ -23,7 +23,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:text="@string/zhiliang"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -42,7 +42,7 @@
                 android:layout_below="@+id/main_show_keshi"
                 android:layout_centerHorizontal="true"
                 android:text="@string/zhiliang"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
 
             <ImageButton
                 android:id="@+id/main_show_keshi"
@@ -68,7 +68,7 @@
                 android:layout_below="@+id/main_show_gonggao"
                 android:layout_centerHorizontal="true"
                 android:text="@string/gonggao"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
 
             <ImageButton
                 android:id="@+id/main_show_gonggao"
@@ -94,7 +94,7 @@
                 android:layout_below="@+id/main_show_xiaoxi"
                 android:layout_centerHorizontal="true"
                 android:text="@string/xiaoxi"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
 
             <ImageButton
                 android:id="@+id/main_show_xiaoxi"
@@ -120,7 +120,7 @@
                 android:layout_below="@+id/main_show_shezhi"
                 android:layout_centerHorizontal="true"
                 android:text="@string/shezhi"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
 
             <ImageButton
                 android:id="@+id/main_show_shezhi"
