@@ -16,12 +16,18 @@ import java.util.Properties;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Environment;
 import android.support.v4.util.LruCache;
 import cn.jpush.android.api.JPushInterface;
+import cn.trinea.android.common.entity.CacheObject;
 import cn.trinea.android.common.service.impl.ImageCache;
+import cn.trinea.android.common.service.impl.ImageCache.CompressListener;
+import cn.trinea.android.common.service.impl.PreloadDataCache.OnGetDataListener;
 import cn.trinea.android.common.util.CacheManager;
+import cn.trinea.android.common.util.FileUtils;
 
 import com.ytint.wloaa.utils.AsynImageLoader;
 import com.ytint.wloaa.utils.MethodsCompat;
@@ -52,6 +58,22 @@ public class MyApplication extends Application {
 		IMAGE_CACHE.initData(this,"wloaa");
 		IMAGE_CACHE.setOpenWaitingQueue(false);
 		IMAGE_CACHE.setContext(this);
+		IMAGE_CACHE.setCacheFolder(Environment.getExternalStorageDirectory().getPath()+"/wloaa/Image/");
+		IMAGE_CACHE.setCompressListener(new CompressListener() {
+			@Override
+			public int getCompressSize(String imagePath) {
+				if (FileUtils.isFileExist(imagePath)) {
+					long fileSize = FileUtils.getFileSize(imagePath) / 1000;
+					/**
+					 * if image bigger than 100k, compress to 1/(n + 1) width and 1/(n + 1) height, n is fileSize / 100k
+					 **/
+					if (fileSize > 100) {
+						return (int)(fileSize / 100) + 1;
+					}
+				}
+				return 1;
+			}
+		});
 		JPushInterface.setDebugMode(false);
 	    JPushInterface.init(this);
 	    

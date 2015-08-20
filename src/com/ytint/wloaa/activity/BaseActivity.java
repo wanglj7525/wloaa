@@ -4,10 +4,12 @@ import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
+import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.widget.ExitActivityManger;
 
 public class BaseActivity extends FragmentActivity {
 	long firstTime=0L;
+	private MyApplication application = (MyApplication) this.getApplication();
     public boolean onKeyDown(int keyCode, KeyEvent event) {//捕捉返回键
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {   
         	 long secondTime = System.currentTimeMillis(); 
@@ -17,7 +19,7 @@ public class BaseActivity extends FragmentActivity {
 	                firstTime = secondTime;//更新firstTime 
 	                return true; 
 	            } else { 
-//	            	saveDataToDb(this, "wloaa");
+	            	application.IMAGE_CACHE.saveDataToDb(this, "wloaa");
 	            	ExitActivityManger.getInstance().finish();
 	                System.exit(0);//否则退出程序 
 	            } 
