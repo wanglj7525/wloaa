@@ -83,7 +83,7 @@ public class XiaoxiShowActivity extends AbActivity {
 		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
 
-		shenpi_id=intent.getIntExtra("shenpi_id",0);
+		shenpi_id=Integer.parseInt(intent.getExtras().get("shenpi_id").toString());
 		loadDatas();
 		
 		to_msg.setOnClickListener(new View.OnClickListener() {

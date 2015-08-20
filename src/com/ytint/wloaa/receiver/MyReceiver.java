@@ -113,7 +113,7 @@ public class MyReceiver extends BroadcastReceiver {
 			try {
 				obj = new JSONObject(extra);
 				docId = obj.getString("doc_id");
-				docId = obj.getString("from");
+				from = obj.getString("from");
 				// source_type = obj.getString("source_type");
 			} catch (JSONException e) {
 				e.printStackTrace();
