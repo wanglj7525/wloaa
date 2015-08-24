@@ -343,7 +343,7 @@ public class XiaoxiListActivity extends AbActivity{
 			frompeo.setText(news.title);
 			topeo.setText(" "+news.push_user_name);
 			abstr.setText(news.content);
-			timeView.setText(news.create_time.toString());
+			timeView.setText(news.create_time_string);
             return convertView;  
         }
 

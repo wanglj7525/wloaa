@@ -425,7 +425,7 @@ public class ZhiliangListActivity extends AbActivity {
 			frompeo.setText(Html.fromHtml(html));
 			topeo.setText("接收人：" + news.receive_user_name);
 			// abstr.setText(news.content);
-			timeView.setText("申请时间：" + news.create_time.toString());
+			timeView.setText("申请时间：" + news.create_time_string);
 			imageList = new ArrayList<String>();
 			if (news.attachment != "") {
 				for (int i = 0; i < news.attachment.split(",").length; i++) {
