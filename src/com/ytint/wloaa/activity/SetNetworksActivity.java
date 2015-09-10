@@ -52,6 +52,8 @@ public class SetNetworksActivity extends AbActivity {
 	private RelativeLayout networks_closePass; 
 	@AbIocView(id = R.id.networks_port)
 	private EditText networks_port; 
+	@AbIocView(id = R.id.networks_name)
+	private EditText networks_name; 
 	@AbIocView(id = R.id.networks_port_button)
 	private Button networks_port_button; 
 	@Override
@@ -60,6 +62,9 @@ public class SetNetworksActivity extends AbActivity {
 		application= (MyApplication) this.getApplication();
 		context=SetNetworksActivity.this;
 		setContentView(R.layout.layout_networks);
+		networks_name.setText(application.getProperty("IPNAME")==null?"默认":application.getProperty("IPNAME"));
+		networks_ip.setText(application.getProperty("HOST"));
+		networks_port.setText(application.getProperty("PORT"));
 		networks_closePass.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -72,30 +77,35 @@ public class SetNetworksActivity extends AbActivity {
 			public void onClick(View arg0) {
 				String host=networks_ip.getText().toString().trim();
 				String port=networks_port.getText().toString().trim();
-				Pattern pattern = Pattern.compile("^[\\w-\\.]+(?:/|(?:/[\\w\\.\\-]+)*(?:/[\\w\\.\\-]+))?$");
-				Matcher matcher = pattern.matcher(host); 
-				if (!matcher.matches()) {
-					showToast("IP地址不合法");
-					return;
+				String regex = "[1-9](\\d{1,2})?\\.(0|([1-9](\\d{1,2})?))\\.(0|([1-9](\\d{1,2})?))\\.(0|([1-9](\\d{1,2})?))";
+				String regexyu="^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$";
+				if (!Pattern.matches(regex, host)) {
+					if (!Pattern.matches(regexyu, host)) {
+						showToast("地址不合法！");
+						return;
+					}
 				}
 				if (port.length()==0) {
+					showToast("端口不能为空！");
 					return;
 				}
+				application.setProperty("IPNAME",networks_name.getText().toString().trim());
 				application.setProperty("HOST",host);
 				application.setProperty("PORT",port);
+				showToast("设置成功！");
 			}
 		});
-//		OnClickListener keyboard_hide = new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-//			}
-//
-//		};
-//		full_screen_layout.setClickable(true);
-//		full_screen_layout.setOnClickListener(keyboard_hide);
+		OnClickListener keyboard_hide = new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+			}
+
+		};
+		full_screen_layout.setClickable(true);
+		full_screen_layout.setOnClickListener(keyboard_hide);
 
 	}
 
