@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutpas"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/showtitle"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/abg_top" >
+
+        <RelativeLayout
+            android:id="@+id/networks_closePass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_selector_back" >
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/r"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/aline" >
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/titlebar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/my_set_networks_config"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textViewNetworksName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_set_networks_name"
+            android:textColor="@color/content"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/networks_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal|top"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_edittext_selector"
+            android:drawablePadding="10dp"
+            android:gravity="bottom"
+            android:hint="@string/my_set_networks_name_hint"
+            android:inputType="text"
+            android:paddingBottom="10dp"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="@dimen/register_hint_textsize" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textViewPwd1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_set_networks_ip"
+            android:textColor="@color/content"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/networks_ip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal|top"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_edittext_selector"
+            android:drawablePadding="10dp"
+            android:gravity="bottom"
+            android:hint="@string/my_set_networks_ip_hint"
+            android:inputType="text"
+            android:paddingBottom="10dp"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="@dimen/register_hint_textsize" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textViewPwd2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_set_networks_port"
+            android:textColor="@color/content"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/networks_port"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal|top"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_edittext_selector"
+            android:drawablePadding="10dp"
+            android:gravity="bottom"
+            android:hint="@string/my_set_networks_port_hint"
+            android:inputType="text"
+            android:paddingBottom="10dp"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="@dimen/register_hint_textsize" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/networks_port_button"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="fill"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/global_blue"
+        android:text="@string/my_set_networks_port"
+        android:textColor="@color/white"
+        android:textSize="15dp" />
+
+</LinearLayout>

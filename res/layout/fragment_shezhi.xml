@@ -24,6 +24,15 @@
         android:text="切换账号" />
 
     <Button
+        android:id="@+id/setnetworks"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/menu_shezhi_wangluo"
+        android:text="网络配置" />
+
+    <Button
         android:id="@+id/checkNew"
         android:layout_width="220dp"
         android:layout_height="120dp"

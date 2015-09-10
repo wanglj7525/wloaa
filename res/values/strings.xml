@@ -23,6 +23,14 @@
     <string name="my_new_warn">密码由6-20个字符构成，区分大小写！</string>
     <string name="my_newagain_warn">请输入相同的密码！</string>
     
+    <string name="my_set_networks_config">网络配置</string>
+    <string name="my_set_networks_name">名称：</string>
+    <string name="my_set_networks_ip">地址：</string>
+    <string name="my_set_networks_port">端口：</string>
+    <string name="my_set_networks_name_hint">请输入配置名称</string>
+    <string name="my_set_networks_ip_hint">请输入IP或域名</string>
+    <string name="my_set_networks_port_hint">请输入端口</string>
+    
     <string name="xiaoxi">消息</string>
     <string name="shezhi">设置</string>
     <string name="gonggao">公告</string>
@@ -35,7 +43,7 @@
     <string name="login_label_signin">登录</string>
     <string name="download_failed">下载失败</string>
     
-        <string name="app_upgrade_confirm">确定</string>
+    <string name="app_upgrade_confirm">确定</string>
     <string name="app_upgrade_cancel">取消</string>
     <string name="check_new_version">发现新版本,确定更新吗?</string>
     <string name="check_new_version_title">检查新版本</string>

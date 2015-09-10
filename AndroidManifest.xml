@@ -320,6 +320,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
+                <activity
+            android:name="com.ytint.wloaa.activity.SetNetworksActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name="com.ytint.wloaa.activity.SkanActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
