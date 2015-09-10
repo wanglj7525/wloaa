@@ -1,6 +1,5 @@
 package com.ytint.wloaa.bean;
 
-import java.sql.Date;
 
 
 /**

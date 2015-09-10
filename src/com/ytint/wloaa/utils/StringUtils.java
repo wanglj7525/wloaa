@@ -1,5 +1,8 @@
 package com.ytint.wloaa.utils;
 
+import android.annotation.SuppressLint;
+
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -44,7 +47,27 @@ public class StringUtils
 			return null;
 		}
 	}
-	
+	@SuppressLint("SimpleDateFormat")
+	public static String StrToDate(String dateStr) {
+		  
+//		   dateStr = "Aug 20, 2015 7:03:53 PM";
+		    DateFormat readFormat = new SimpleDateFormat( "MMM dd, yyyy h:mm:ss aaa");
+		    DateFormat writeFormat = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
+		    Date date = null;
+		    try {
+		       date = readFormat.parse( dateStr );
+		    } catch ( ParseException e ) {
+		        e.printStackTrace();
+		    }
+
+		    String formattedDate = "";
+		    if( date != null ) {
+		    formattedDate = writeFormat.format( date );
+		    }
+
+		    System.out.println(formattedDate);
+		    return formattedDate;
+		}
 	/**
 	 * 以友好的方式显示时间
 	 * @param sdate
