@@ -62,7 +62,7 @@ public class SetNetworksActivity extends AbActivity {
 		application= (MyApplication) this.getApplication();
 		context=SetNetworksActivity.this;
 		setContentView(R.layout.layout_networks);
-		networks_name.setText(application.getProperty("IPNAME")==null?"默认":application.getProperty("IPNAME"));
+		networks_name.setText(null==application.getProperty("IPNAME")?"默认":application.getProperty("IPNAME"));
 		networks_ip.setText(application.getProperty("HOST"));
 		networks_port.setText(application.getProperty("PORT"));
 		networks_closePass.setOnClickListener(new View.OnClickListener() {

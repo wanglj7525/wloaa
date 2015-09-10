@@ -1,6 +1,7 @@
 package com.ytint.wloaa.activity;
 
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import org.json.JSONObject;
 
@@ -57,7 +58,7 @@ public class LoginActivity extends AbActivity {
 	private TextView network;
 	@AbIocView(id = R.id.layoutpic2)
 	private LinearLayout full_screen_layout;
-	private MyApplication application;
+	private static MyApplication application;
 	Context context = null;
 	// 获取Http工具类
 	final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
@@ -85,7 +86,7 @@ public class LoginActivity extends AbActivity {
 		network.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public void onClick(View arg0) {
+			public void onClick(View v) {
 				final CustomDialog.Builder builder = new LoginActivity.CustomDialog.Builder(
 						LoginActivity.this);
 				builder.setTitle("网络配置")
@@ -94,7 +95,9 @@ public class LoginActivity extends AbActivity {
 									@Override
 									public void onClick(DialogInterface dialog,
 											int which) {
-										InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//										InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//										imm.hideSoftInputFromWindow(v.getWindowToken(),
+//												0);
 										dialog.dismiss();
 									}
 								});
@@ -103,15 +106,27 @@ public class LoginActivity extends AbActivity {
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int which) {
-								InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//								if (!tv.getText()
-//										.toString()
-//										.equalsIgnoreCase(
-//												builder.editText.getText()
-//														.toString())) {
-//									tv.setText(builder.editText.getText()
-//											.toString());
-//								}
+								
+								String host=builder.networks_ipl.getText().toString().trim();
+								String port=builder.networks_portl.getText().toString().trim();
+								String regex = "[1-9](\\d{1,2})?\\.(0|([1-9](\\d{1,2})?))\\.(0|([1-9](\\d{1,2})?))\\.(0|([1-9](\\d{1,2})?))";
+								String regexyu="^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$";
+								if (!Pattern.matches(regex, host)) {
+									if (!Pattern.matches(regexyu, host)) {
+										showToast("地址不合法！");
+										return;
+									}
+								}
+								if (port.length()==0) {
+									showToast("端口不能为空！");
+									return;
+								}
+								application.setProperty("HOST",host);
+								application.setProperty("PORT",port);
+								showToast("设置成功！");
+//								InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//								imm.hideSoftInputFromWindow(v.getWindowToken(),
+//										0);
 								dialog.dismiss();
 
 							}
@@ -165,6 +180,7 @@ public class LoginActivity extends AbActivity {
 	}
 
 	private void login() {
+		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
 		final String username = inputUsername.getText().toString();
 		final String password = inputPassword.getText().toString();
 		if (username == null || password == null || username.equals("")
@@ -321,6 +337,8 @@ public class LoginActivity extends AbActivity {
 			private View contentView;
 			public AutoCompleteTextView editText;
 
+			public EditText networks_ipl;
+			public EditText networks_portl;
 			private DialogInterface.OnClickListener positiveButtonClickListener,
 					negativeButtonClickListener;
 
@@ -474,7 +492,7 @@ public class LoginActivity extends AbActivity {
 				// instantiate the dialog with the custom Theme
 				final CustomDialog dialog = new CustomDialog(context,
 						R.style.Dialog);
-				View layout = inflater.inflate(R.layout.dialog, null);
+				View layout = inflater.inflate(R.layout.networkdialog, null);
 				dialog.addContentView(layout, new LayoutParams(
 						LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 				// set the dialog title
@@ -524,13 +542,10 @@ public class LoginActivity extends AbActivity {
 							View.GONE);
 				}
 				// set the content message
-				if (message != null) {
-
-					editText = ((AutoCompleteTextView) layout
-							.findViewById(R.id.message));
-					editText.setText(message);
-					editText.setSelection(message.length());
-				}
+				networks_portl=(EditText) layout.findViewById(R.id.networks_portl);
+				networks_ipl=(EditText) layout.findViewById(R.id.networks_ipl);
+				networks_ipl.setText(application.getProperty("HOST"));
+				networks_portl.setText(application.getProperty("PORT"));
 				dialog.setContentView(layout);
 				return dialog;
 			}

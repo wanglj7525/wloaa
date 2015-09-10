@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:minWidth="300dip"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="10dip"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/DialogText.Title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/global_blue"
+             />
+        
+
+    </LinearLayout>
+    <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:src="@color/global_blue"/>
+
+    <LinearLayout
+        android:id="@+id/contents"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/textViewPwd1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_set_networks_ip"
+                android:textColor="@color/content"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/networks_ipl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal|top"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edittext_selector"
+                android:drawablePadding="10dp"
+                android:gravity="bottom"
+                android:hint="@string/my_set_networks_ip_hint"
+                android:inputType="text"
+                android:paddingBottom="10dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/register_hint_textsize" >
+
+                <requestFocus />
+            </EditText>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textViewPwd2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_set_networks_port"
+            android:textColor="@color/content"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/networks_portl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal|top"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_edittext_selector"
+            android:drawablePadding="10dp"
+            android:gravity="bottom"
+            android:hint="@string/my_set_networks_port_hint"
+            android:inputType="text"
+            android:paddingBottom="10dp"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="@dimen/register_hint_textsize" />
+    </LinearLayout>
+    </LinearLayout>
+             <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:src="@color/global_gray"/> 
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+
+        android:orientation="horizontal" >
+<!--                  android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp" -->
+        <Button
+            android:id="@+id/negativeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/diag_button_selector"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:layout_weight="50"
+            />
+
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:src="@color/global_gray"
+            android:layout_weight="0.1" />
+        <Button
+            android:id="@+id/positiveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black"
+            android:background="@drawable/diag_button_selector"
+            android:textSize="15dp" 
+            android:layout_weight="50"/>
+
+    </LinearLayout>
+
+</LinearLayout>
