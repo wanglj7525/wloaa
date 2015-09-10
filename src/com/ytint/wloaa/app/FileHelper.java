@@ -34,6 +34,7 @@ public class FileHelper extends Activity{
 	private static final String CHARSET = "utf-8"; // 设置编码
 	String result;
 	private MyApplication application = (MyApplication) this.getApplication();
+	String host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
 	public void submitUploadFile(ArrayList<String> srcPath, String loginKey,String task_id,final String type) {
 		final ArrayList<File> files=new ArrayList<File>();
 		for (String path : srcPath) {
@@ -47,7 +48,7 @@ public class FileHelper extends Activity{
 			return ;
 		}
 //		final File file = new File(srcPath);
-		final String RequestURL = URLs.UPLOADPHOTO;
+		final String RequestURL =host+ URLs.UPLOADPHOTO;
 
 		Log.i(TAG, "请求的URL=" + RequestURL);
 		Log.i(TAG, "请求的fileName=" + files.get(0).getName());

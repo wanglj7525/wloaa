@@ -23,6 +23,7 @@ import com.ab.http.AbStringHttpResponseListener;
 import com.ytint.wloaa.R;
 import com.ytint.wloaa.activity.LoginActivity;
 import com.ytint.wloaa.activity.PassWordUpdateActivity;
+import com.ytint.wloaa.activity.SetNetworksActivity;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
@@ -35,6 +36,7 @@ public class ShezhiFragment extends Fragment {
 	private Button button1;
 	private Button button2;
 	private Button button3;
+	private Button button4;
 	
 	private int mVersionCode;
 	private String mVersionName;
@@ -75,6 +77,7 @@ public class ShezhiFragment extends Fragment {
 				startActivity(intent);
 			}
 		});
+		
 		button3=(Button)rootView.findViewById(R.id.checkNew);
 		button3.setOnClickListener(new View.OnClickListener() {
 			
@@ -82,6 +85,16 @@ public class ShezhiFragment extends Fragment {
 			public void onClick(View arg0) {
 				initLocalVersion();
 				getNewVersion();
+			}
+		});
+		
+		button4=(Button)rootView.findViewById(R.id.setnetworks);
+		button4.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(getActivity(),SetNetworksActivity.class);
+				startActivity(intent);
 			}
 		});
 	}

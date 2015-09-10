@@ -49,6 +49,7 @@ public class ShenpiDetailActivity extends AbActivity {
 	private AbImageDownloader mAbImageDownloader = null;
 	Context context = null;
 	 private List<String> imageList = new ArrayList<String>();
+	 String host;
 	 static class ViewHolder {
 	        ImageView mImg;
 	    }
@@ -119,6 +120,8 @@ public class ShenpiDetailActivity extends AbActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		application= (MyApplication) this.getApplication();
+		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
 		AbTitleBar mAbTitleBar = this.getTitleBar();
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
@@ -146,7 +149,6 @@ public class ShenpiDetailActivity extends AbActivity {
 		 }); 
 		 
 		setAbContentView(R.layout.layout_shenpidetail);
-		application = (MyApplication) abApplication;
 		context=ShenpiDetailActivity.this;
 		userType = application.getProperty("userType");
 		shenpi_id=intent.getIntExtra("shenpi_id",0);
@@ -179,7 +181,7 @@ public class ShenpiDetailActivity extends AbActivity {
 		params.put("verify_commit", "");
 		params.put("verify_type", "1");
 		params.put("receive_user_id",loginKey);
-		mAbHttpUtil.post(URLs.SHENPI ,params,
+		mAbHttpUtil.post(host+URLs.SHENPI ,params,
 				new AbStringHttpResponseListener() {
 					// 获取数据成功会调用这里
 					@Override
@@ -231,7 +233,7 @@ public class ShenpiDetailActivity extends AbActivity {
 			showToast("请检查网络连接");
 			return;
 		}
-		mAbHttpUtil.get(URLs.SHENPIDETAIL + "?id=" + shenpi_id,
+		mAbHttpUtil.get(host+URLs.SHENPIDETAIL + "?id=" + shenpi_id,
 				new AbStringHttpResponseListener() {
 			// 获取数据成功会调用这里
 			@Override

@@ -1,5 +1,6 @@
 package com.ytint.wloaa.activity;
 
+import android.app.Application;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.widget.Toast;

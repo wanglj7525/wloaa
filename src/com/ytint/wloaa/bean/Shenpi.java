@@ -38,5 +38,6 @@ public class Shenpi implements java.io.Serializable{
 	public String remark;
 	public int task_type;
 	public int status;
+	public String create_time_string;
 
 }

@@ -29,6 +29,7 @@ import cn.trinea.android.common.service.impl.PreloadDataCache.OnGetDataListener;
 import cn.trinea.android.common.util.CacheManager;
 import cn.trinea.android.common.util.FileUtils;
 
+import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.utils.AsynImageLoader;
 import com.ytint.wloaa.utils.MethodsCompat;
 import com.ytint.wloaa.utils.StringUtils;
@@ -55,6 +56,15 @@ public class MyApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		
+		if (null==getProperty("HOST")) {
+			setProperty("HOST", "windoer.com");
+			setProperty("PORT", "9000");
+//			URLs.HOST= getProperty("HOST");
+		}else{
+			System.out.println("*****"+getProperty("HOST")+":"+getProperty("PORT"));
+		}
+		
 		IMAGE_CACHE.initData(this,"wloaa");
 		IMAGE_CACHE.setOpenWaitingQueue(false);
 		IMAGE_CACHE.setContext(this);

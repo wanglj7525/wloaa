@@ -172,6 +172,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 	private static String videoPath;
 	
 	private String commitId;
+	String host;
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -187,6 +188,8 @@ public class AddZhiliangReportActivity extends AbActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		application= (MyApplication) this.getApplication();
+		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
 		AbTitleBar mAbTitleBar = this.getTitleBar();
@@ -211,7 +214,6 @@ public class AddZhiliangReportActivity extends AbActivity {
 		 
 		setAbContentView(R.layout.layout_addzhiliangreport);
 		context = AddZhiliangReportActivity.this;
-		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
 		userName = application.getProperty("userName");
 		initData(); 
@@ -339,7 +341,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 			showToast("请检查网络连接");
 			return;
 		}
-		mAbHttpUtil.get(URLs.USERLIST+"?user_id="+loginKey+"&department_id="+from+"&type=1" ,
+		mAbHttpUtil.get(host+URLs.USERLIST+"?user_id="+loginKey+"&department_id="+from+"&type=1" ,
 				new AbStringHttpResponseListener() {
 					// 获取数据成功会调用这里
 					@Override
@@ -395,7 +397,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 			showToast("请检查网络连接");
 			return;
 		}
-		mAbHttpUtil.get(URLs.COMPANYLIST+"?p=1&ps=2" ,
+		mAbHttpUtil.get(host+URLs.COMPANYLIST+"?p=1&ps=2" ,
 				new AbStringHttpResponseListener() {
 			// 获取数据成功会调用这里
 			@Override
@@ -703,9 +705,9 @@ public class AddZhiliangReportActivity extends AbActivity {
 		params.put("taskInfo.department_id", from+"");
 		params.put("taskInfo.status", "0");
 		System.out.println(params.toString());
-		Log.e(TAG, String.format("%s?%s", URLs.ADDSHENPI,
+		Log.e(TAG, String.format("%s?%s", host+URLs.ADDSHENPI,
 				params));
-		mAbHttpUtil.post(URLs.ADDRS ,params,
+		mAbHttpUtil.post(host+URLs.ADDRS ,params,
 				new AbStringHttpResponseListener() {
 					@Override
 					public void onSuccess(int statusCode, String content) {
@@ -905,7 +907,7 @@ public class AddZhiliangReportActivity extends AbActivity {
         public View getView(int position, View contentView, ViewGroup arg2) {
         	String image=imagelist.get(position);
         	if (image.contains("3gp")||image.contains("mp4")) {
-				image=URLs.URL_API_HOST+"public/images/video_play_btn.png";
+				image=host+"/public/images/video_play_btn.png";
 			}
         	Log.e(TAG, image);
             ViewHolder holder;

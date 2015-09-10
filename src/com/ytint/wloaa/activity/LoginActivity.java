@@ -51,15 +51,15 @@ public class LoginActivity extends AbActivity {
 	Context context = null;
 	// 获取Http工具类
 	final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
-
+	String host;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		application= (MyApplication) this.getApplication();
+		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
 		// 添加百度地图SDK
 		SDKInitializer.initialize(getApplicationContext());  
 		setContentView(R.layout.layout_login);
-		application = (MyApplication) this.getApplication();
 		context=LoginActivity.this;
 		AbTitleBar mAbTitleBar = this.getTitleBar();
 		mAbTitleBar.setVisibility(View.GONE);
@@ -143,10 +143,9 @@ public class LoginActivity extends AbActivity {
 			UIHelper.ToastMessage(LoginActivity.this, "请检查网络连接");
 			return;
 		}
-		String a = URLs.LOGINURL;
+		String a = host+URLs.LOGINURL;
 		System.out.println(a);
-
-		mAbHttpUtil.post(URLs.LOGINURL, params,
+		mAbHttpUtil.post(host+URLs.LOGINURL, params,
 				new AbStringHttpResponseListener() {
 
 					// 获取数据成功会调用这里

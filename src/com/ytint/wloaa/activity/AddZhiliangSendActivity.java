@@ -125,6 +125,8 @@ public class AddZhiliangSendActivity extends AbActivity {
 	private String companyId="0";
 	private String commitId="0";
 	public static ArrayList<String> media=new ArrayList<String>();
+	
+	String host;
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -140,6 +142,8 @@ public class AddZhiliangSendActivity extends AbActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		application= (MyApplication) this.getApplication();
+		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
 		AbTitleBar mAbTitleBar = this.getTitleBar();
@@ -169,7 +173,6 @@ public class AddZhiliangSendActivity extends AbActivity {
 
 		setAbContentView(R.layout.layout_addzhiliangsend);
 		context = AddZhiliangSendActivity.this;
-		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
 		initData();
 		initUi();
@@ -344,7 +347,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 			showToast("请检查网络连接");
 			return;
 		}
-		mAbHttpUtil.get(URLs.COMPANYLIST + "?p=1&ps=2",
+		mAbHttpUtil.get(host+URLs.COMPANYLIST + "?p=1&ps=2",
 				new AbStringHttpResponseListener() {
 					// 获取数据成功会调用这里
 					@Override
@@ -468,8 +471,8 @@ public class AddZhiliangSendActivity extends AbActivity {
 		params.put("taskInfo.department_id", from + "");
 		params.put("taskInfo.status", "0");
 		params.put("taskInfo.company_id", "0");
-		Log.d(TAG, String.format("%s?", URLs.ADDSHENPI, params));
-		mAbHttpUtil.post(URLs.ADDRS, params,
+		Log.d(TAG, String.format("%s?", host+URLs.ADDSHENPI, params));
+		mAbHttpUtil.post(host+URLs.ADDRS, params,
 				new AbStringHttpResponseListener() {
 					@Override
 					public void onSuccess(int statusCode, String content) {
@@ -518,7 +521,7 @@ public class AddZhiliangSendActivity extends AbActivity {
 			showToast("请检查网络连接");
 			return;
 		}
-		mAbHttpUtil.get(URLs.USERLIST + "?user_id=" + loginKey
+		mAbHttpUtil.get(host+URLs.USERLIST + "?user_id=" + loginKey
 				+ "&department_id=" + from + "&type=2",
 				new AbStringHttpResponseListener() {
 					// 获取数据成功会调用这里

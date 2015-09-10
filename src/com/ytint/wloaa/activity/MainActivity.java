@@ -76,6 +76,7 @@ public class MainActivity extends BaseActivity {
 	private String mLatestVersionDownload = "";
 	private boolean showUpdate = true;
 	private Date lastShowUpdateTime;
+	String host="";
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -92,7 +93,7 @@ public class MainActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		application = (MyApplication) this.getApplication();
+		application= (MyApplication) this.getApplication();
 		context = MainActivity.this;
 		mAbHttpUtil.setDebug(true);
 		setContentView(R.layout.activity_main);
@@ -101,7 +102,7 @@ public class MainActivity extends BaseActivity {
 		isLogin = application.getProperty("is_login");
 		userType = application.getProperty("userType");
 		departmentId = application.getProperty("departmentId");
-		
+		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
 		if (isLogin==null) {
 			//未登录
 			Intent intent=new Intent(MainActivity.this,LoginActivity.class);
@@ -284,7 +285,7 @@ public class MainActivity extends BaseActivity {
 			UIHelper.ToastMessage(context, "网络连接失败！");
 			return;
 		} else {
-			mAbHttpUtil.get(URLs.GETVERSION + "?id="+mVersionCode, new AbStringHttpResponseListener() {
+			mAbHttpUtil.get(host+URLs.GETVERSION + "?id="+mVersionCode, new AbStringHttpResponseListener() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					try {
