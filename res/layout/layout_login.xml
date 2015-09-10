@@ -89,5 +89,14 @@
                 android:textColor="@color/white"
                 android:textSize="15dp" />
 
+            <TextView
+                android:id="@+id/network"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="right"
+                android:text="网络配置"
+                android:textColor="@color/list_item_abstract" />
+
         </LinearLayout>
     </LinearLayout>

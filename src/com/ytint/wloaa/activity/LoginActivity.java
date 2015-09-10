@@ -4,16 +4,23 @@ import java.util.Date;
 
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -31,6 +38,7 @@ import com.ab.view.titlebar.AbTitleBar;
 import com.baidu.mapapi.SDKInitializer;
 import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.Constants;
+import com.ytint.wloaa.app.CustomDialog;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.URLs;
@@ -45,6 +53,8 @@ public class LoginActivity extends AbActivity {
 	private EditText inputUsername;
 	@AbIocView(id = R.id.password_edit)
 	private EditText inputPassword;
+	@AbIocView(id = R.id.network)
+	private TextView network;
 	@AbIocView(id = R.id.layoutpic2)
 	private LinearLayout full_screen_layout;
 	private MyApplication application;
@@ -71,6 +81,47 @@ public class LoginActivity extends AbActivity {
 			inputUsername.setText(username);
 		}
 
+		
+		network.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				final CustomDialog.Builder builder = new LoginActivity.CustomDialog.Builder(
+						LoginActivity.this);
+				builder.setTitle("网络配置")
+						.setNegativeButton("取消",
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+										dialog.dismiss();
+									}
+								});
+				builder.setPositiveButton("确定",
+						getResources().getColor(R.color.global_blue),
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//								if (!tv.getText()
+//										.toString()
+//										.equalsIgnoreCase(
+//												builder.editText.getText()
+//														.toString())) {
+//									tv.setText(builder.editText.getText()
+//											.toString());
+//								}
+								dialog.dismiss();
+
+							}
+
+						});
+
+				builder.create().show();
+			}
+		});
+		
 		Button button = (Button) findViewById(R.id.login_button);
 
 		button.setOnClickListener(new View.OnClickListener() {
@@ -242,6 +293,251 @@ public class LoginActivity extends AbActivity {
 		}
 
 	}
+	
+	
+	public static class CustomDialog extends Dialog {
+
+		public CustomDialog(Context context, int theme) {
+			super(context, theme);
+		}
+
+		public CustomDialog(Context context) {
+			super(context);
+		}
+
+		/**
+		 * Helper class for creating a custom dialog
+		 */
+		@SuppressLint("NewApi")
+		static public class Builder {
+
+			private Context context;
+			private String title;
+			private String editMessage;
+			private String message;
+			private String positiveButtonText;
+			private int positiveButtonColor;
+			private String negativeButtonText;
+			private View contentView;
+			public AutoCompleteTextView editText;
+
+			private DialogInterface.OnClickListener positiveButtonClickListener,
+					negativeButtonClickListener;
+
+			public Builder(Context context) {
+				this.context = context;
+			}
+
+			/**
+			 * Set the Dialog message from String
+			 * 
+			 * @param title
+			 * @return
+			 */
+			public Builder setMessage(String message) {
+				this.message = message;
+				return this;
+			}
+
+			/**
+			 * Set the Dialog message from resource
+			 * 
+			 * @param title
+			 * @return
+			 */
+			public Builder setMessage(int message) {
+				this.message = (String) context.getText(message);
+				return this;
+			}
+
+			/**
+			 * Set the Dialog title from resource
+			 * 
+			 * @param title
+			 * @return
+			 */
+			public Builder setTitle(int title) {
+				this.title = (String) context.getText(title);
+				return this;
+			}
+
+			/**
+			 * Set the Dialog title from String
+			 * 
+			 * @param title
+			 * @return
+			 */
+			public Builder setTitle(String title) {
+				this.title = title;
+				return this;
+			}
+
+			/**
+			 * Set the Dialog title from resource
+			 * 
+			 * @param title
+			 * @return
+			 */
+			public Builder setEditMessage(int editMessage) {
+				this.editMessage = (String) context.getText(editMessage);
+				return this;
+			}
+
+			/**
+			 * Set the Dialog title from String
+			 * 
+			 * @param title
+			 * @return
+			 */
+			public Builder setEditMessage(String editMessage) {
+				this.editMessage = editMessage;
+				return this;
+			}
+
+			/**
+			 * Set a custom content view for the Dialog. If a message is set,
+			 * the contentView is not added to the Dialog...
+			 * 
+			 * @param v
+			 * @return
+			 */
+			public Builder setContentView(View v) {
+				this.contentView = v;
+				return this;
+			}
+
+			/**
+			 * Set the positive button resource and it's listener
+			 * 
+			 * @param positiveButtonText
+			 * @param listener
+			 * @return
+			 */
+			public Builder setPositiveButton(int positiveButtonText,
+					DialogInterface.OnClickListener listener) {
+				this.positiveButtonText = (String) context
+						.getText(positiveButtonText);
+				this.positiveButtonClickListener = listener;
+				return this;
+			}
+
+			/**
+			 * Set the positive button text and it's listener
+			 * 
+			 * @param positiveButtonText
+			 * @param listener
+			 * @return
+			 */
+			public Builder setPositiveButton(String positiveButtonText,
+					int color, DialogInterface.OnClickListener listener) {
+				this.positiveButtonText = positiveButtonText;
+				// this.positiveButtonColor=R.color.black;
+				this.positiveButtonClickListener = listener;
+				return this;
+			}
+
+			/**
+			 * Set the negative button resource and it's listener
+			 * 
+			 * @param negativeButtonText
+			 * @param listener
+			 * @return
+			 */
+			public Builder setNegativeButton(int negativeButtonText,
+					DialogInterface.OnClickListener listener) {
+				this.negativeButtonText = (String) context
+						.getText(negativeButtonText);
+				this.negativeButtonClickListener = listener;
+				return this;
+			}
+
+			/**
+			 * Set the negative button text and it's listener
+			 * 
+			 * @param negativeButtonText
+			 * @param listener
+			 * @return
+			 */
+			public Builder setNegativeButton(String negativeButtonText,
+					DialogInterface.OnClickListener listener) {
+				this.negativeButtonText = negativeButtonText;
+				this.negativeButtonClickListener = listener;
+				return this;
+			}
+
+			/**
+			 * Create the custom dialog
+			 */
+			public CustomDialog create() {
+				LayoutInflater inflater = (LayoutInflater) context
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				// instantiate the dialog with the custom Theme
+				final CustomDialog dialog = new CustomDialog(context,
+						R.style.Dialog);
+				View layout = inflater.inflate(R.layout.dialog, null);
+				dialog.addContentView(layout, new LayoutParams(
+						LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+				// set the dialog title
+				((TextView) layout.findViewById(R.id.title)).setText(title);
+				// set the confirm button
+				if (positiveButtonText != null) {
+					// ((Button)
+					// layout.findViewById(R.id.positiveButton)).setBackgroundColor(positiveButtonColor);
+					((Button) layout.findViewById(R.id.positiveButton))
+							.setText(positiveButtonText);
+					if (positiveButtonClickListener != null) {
+						((Button) layout.findViewById(R.id.positiveButton))
+								.setOnClickListener(new View.OnClickListener() {
+									@Override
+									public void onClick(View v) {
+										positiveButtonClickListener
+												.onClick(
+														dialog,
+														DialogInterface.BUTTON_POSITIVE);
+									}
+								});
+					}
+				} else {
+					// if no confirm button just set the visibility to GONE
+					layout.findViewById(R.id.positiveButton).setVisibility(
+							View.GONE);
+				}
+				// set the cancel button
+				if (negativeButtonText != null) {
+					((Button) layout.findViewById(R.id.negativeButton))
+							.setText(negativeButtonText);
+					if (negativeButtonClickListener != null) {
+						((Button) layout.findViewById(R.id.negativeButton))
+								.setOnClickListener(new View.OnClickListener() {
+									@Override
+									public void onClick(View v) {
+										negativeButtonClickListener
+												.onClick(
+														dialog,
+														DialogInterface.BUTTON_NEGATIVE);
+									}
+								});
+					}
+				} else {
+					// if no confirm button just set the visibility to GONE
+					layout.findViewById(R.id.negativeButton).setVisibility(
+							View.GONE);
+				}
+				// set the content message
+				if (message != null) {
+
+					editText = ((AutoCompleteTextView) layout
+							.findViewById(R.id.message));
+					editText.setText(message);
+					editText.setSelection(message.length());
+				}
+				dialog.setContentView(layout);
+				return dialog;
+			}
+		}
+	}
+
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
