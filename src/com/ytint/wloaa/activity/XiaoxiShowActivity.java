@@ -37,6 +37,7 @@ public class XiaoxiShowActivity extends AbActivity {
 	TextView msg_title;
 	@AbIocView(id = R.id.to_msg)
 	Button to_msg;
+	String host;
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -52,6 +53,8 @@ public class XiaoxiShowActivity extends AbActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		application= (MyApplication) this.getApplication();
+		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
 		AbTitleBar mAbTitleBar = this.getTitleBar();
@@ -80,7 +83,6 @@ public class XiaoxiShowActivity extends AbActivity {
 			mAbTitleBar.setTitleText("消息详情");
 		}
 		context = XiaoxiShowActivity.this;
-		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
 
 		shenpi_id=Integer.parseInt(intent.getExtras().get("shenpi_id").toString());
@@ -110,7 +112,7 @@ public class XiaoxiShowActivity extends AbActivity {
 			showToast("请检查网络连接");
 			return;
 		}
-		mAbHttpUtil.get(URLs.MSGDETAIL + "?id=" + shenpi_id,
+		mAbHttpUtil.get(host+URLs.MSGDETAIL + "?id=" + shenpi_id,
 				new AbStringHttpResponseListener() {
 					// 获取数据成功会调用这里
 					@Override

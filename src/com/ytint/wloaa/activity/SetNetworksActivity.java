@@ -1,9 +1,14 @@
 package com.ytint.wloaa.activity;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -41,13 +46,45 @@ public class SetNetworksActivity extends AbActivity {
 	private MyApplication application;
 	Context context = null;
 
+	@AbIocView(id = R.id.networks_ip)
+	private EditText networks_ip; 
+	@AbIocView(id = R.id.networks_closePass)
+	private RelativeLayout networks_closePass; 
+	@AbIocView(id = R.id.networks_port)
+	private EditText networks_port; 
+	@AbIocView(id = R.id.networks_port_button)
+	private Button networks_port_button; 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		application = (MyApplication) this.getApplication();
+		application= (MyApplication) this.getApplication();
 		context=SetNetworksActivity.this;
 		setContentView(R.layout.layout_networks);
-
+		networks_closePass.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
+		networks_port_button.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				String host=networks_ip.getText().toString().trim();
+				String port=networks_port.getText().toString().trim();
+				Pattern pattern = Pattern.compile("^[\\w-\\.]+(?:/|(?:/[\\w\\.\\-]+)*(?:/[\\w\\.\\-]+))?$");
+				Matcher matcher = pattern.matcher(host); 
+				if (!matcher.matches()) {
+					showToast("IP地址不合法");
+					return;
+				}
+				if (port.length()==0) {
+					return;
+				}
+				application.setProperty("HOST",host);
+				application.setProperty("PORT",port);
+			}
+		});
 //		OnClickListener keyboard_hide = new OnClickListener() {
 //
 //			@Override
@@ -62,9 +99,6 @@ public class SetNetworksActivity extends AbActivity {
 
 	}
 
-	private void update() {
-
-	}
 	@Override
 	protected void onResume() {
 		super.onResume();

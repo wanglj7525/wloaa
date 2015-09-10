@@ -60,14 +60,15 @@ public class QiyeListActivity extends AbActivity{
 	
 	@AbIocView(id = R.id.addShenpi)
 	RelativeLayout addShenpi;
-	
+	String host;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		application= (MyApplication) this.getApplication();
+		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
 		setContentView(R.layout.layout_qiyelist);
 		
 		context = QiyeListActivity.this;
-		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
 		
 		initUI();
@@ -92,8 +93,8 @@ public class QiyeListActivity extends AbActivity{
 			UIHelper.ToastMessage(context, "请检查网络连接");
 			return;
 		}
-		Log.d(TAG, String.format("%s?verify_step=3&user_id=0&p=1&ps=20", URLs.SHENPILIST));
-		mAbHttpUtil.get(String.format("%s?verify_step=3&user_id=0&p=1&ps=20", URLs.SHENPILIST),
+		Log.d(TAG, String.format("%s?verify_step=3&user_id=0&p=1&ps=20", host+URLs.SHENPILIST));
+		mAbHttpUtil.get(String.format("%s?verify_step=3&user_id=0&p=1&ps=20", host+URLs.SHENPILIST),
 				new AbStringHttpResponseListener() {
 					@Override
 					public void onSuccess(int statusCode, String content) {

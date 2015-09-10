@@ -86,6 +86,7 @@ public class ZhiliangListActivity extends AbActivity {
 	private int select_show = 1;
 	private int page = 1;
 	private ArrayList<String> imageList = new ArrayList<String>();
+	String host;
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -101,9 +102,10 @@ public class ZhiliangListActivity extends AbActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		application= (MyApplication) this.getApplication();
+		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
 		setContentView(R.layout.layout_zhilianglist);
 		context = ZhiliangListActivity.this;
-		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
 
 		initUI();
@@ -141,7 +143,7 @@ public class ZhiliangListActivity extends AbActivity {
 		page++;
 		String url = String.format(
 				"%s?user_id=%s&p=%d&ps=%d&department_id=%d&task_type=%d",
-				URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, from,
+				host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, from,
 				select_show);
 		Log.e("url", url);
 
@@ -205,7 +207,7 @@ public class ZhiliangListActivity extends AbActivity {
 		}
 		String url = String.format(
 				"%s?user_id=%s&p=%d&ps=%d&department_id=%d&task_type=%d",
-				URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, from,
+				host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, from,
 				select_show);
 		Log.d(TAG, url);
 		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {

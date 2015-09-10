@@ -62,6 +62,7 @@ public class AddXiaoxiSendActivity extends AbActivity {
 	@AbIocView(id = R.id.showSelectPeople)
 	LinearLayout showSelectPeople;
 	private String peopleId;
+	String host;
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -77,6 +78,8 @@ public class AddXiaoxiSendActivity extends AbActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		application= (MyApplication) this.getApplication();
+		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
 		AbTitleBar mAbTitleBar = this.getTitleBar();
@@ -108,7 +111,6 @@ public class AddXiaoxiSendActivity extends AbActivity {
 
 		setAbContentView(R.layout.layout_addxiaoxi);
 		context = AddXiaoxiSendActivity.this;
-		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
 		departmentId = application.getProperty("departmentId");
 		initUi();
@@ -229,9 +231,9 @@ public class AddXiaoxiSendActivity extends AbActivity {
 		}else{
 			params.put("androidNoticeInfo.reply_notice_id", "0");
 		}
-		Log.e(TAG, String.format("%s?%s", URLs.ADDMSG,
+		Log.e(TAG, String.format("%s?%s", host+URLs.ADDMSG,
 				params.toString()));
-		mAbHttpUtil.post(URLs.ADDMSG ,params,
+		mAbHttpUtil.post(host+URLs.ADDMSG ,params,
 				new AbStringHttpResponseListener() {
 					@Override
 					public void onSuccess(int statusCode, String content) {
@@ -277,7 +279,8 @@ public class AddXiaoxiSendActivity extends AbActivity {
 			showToast("请检查网络连接");
 			return;
 		}
-		mAbHttpUtil.get(URLs.USERLIST+"?user_id=0" ,
+		String host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
+		mAbHttpUtil.get(host+URLs.USERLIST+"?user_id=0" ,
 			 new AbStringHttpResponseListener() {
 			// 获取数据成功会调用这里
 			@Override

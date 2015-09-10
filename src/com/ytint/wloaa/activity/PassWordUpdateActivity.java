@@ -50,11 +50,12 @@ public class PassWordUpdateActivity extends AbActivity {
 	private String loginKey;
 	// 获取Http工具类
 	final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
-
+	String host;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		application = (MyApplication) this.getApplication();
+		application= (MyApplication) this.getApplication();
+		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
 		context=PassWordUpdateActivity.this;
 		setContentView(R.layout.layout_password);
 		loginKey=application.getProperty("loginKey");
@@ -130,7 +131,7 @@ public class PassWordUpdateActivity extends AbActivity {
 			return;
 		}
 		
-		mAbHttpUtil.post(URLs.PASSWORD, params,
+		mAbHttpUtil.post(host+URLs.PASSWORD, params,
 				new AbStringHttpResponseListener() {
 
 					// 获取数据成功会调用这里

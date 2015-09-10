@@ -79,15 +79,16 @@ public class XiaoxiListActivity extends AbActivity{
 		super.onPause();
 		JPushInterface.onPause(this);
 	}
-	
+	String host;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		application= (MyApplication) this.getApplication();
+		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
 		setContentView(R.layout.layout_xiaoxi);
 		context = XiaoxiListActivity.this;
-		application = (MyApplication) this.getApplication();
 		loginKey = application.getProperty("loginKey");
 		initData();
 		getGroupData();
@@ -139,7 +140,7 @@ public class XiaoxiListActivity extends AbActivity{
 			return;
 		}
 		page++;
-		String url=String.format("%s?user_id=%s&notice_type=%d&p=%d&ps=%d", URLs.QUNFALIST,
+		String url=String.format("%s?user_id=%s&notice_type=%d&p=%d&ps=%d", host+URLs.QUNFALIST,
 				loginKey,from,page, Constants.PAGE_SIZE);
 		Log.e("url", url);
 
@@ -201,7 +202,7 @@ public class XiaoxiListActivity extends AbActivity{
 			UIHelper.ToastMessage(context, "请检查网络连接");
 			return;
 		}
-		String url=String.format("%s?user_id=%s&notice_type=%d&p=%d&ps=%d", URLs.QUNFALIST,
+		String url=String.format("%s?user_id=%s&notice_type=%d&p=%d&ps=%d", host+URLs.QUNFALIST,
 				loginKey,from,page, Constants.PAGE_SIZE);
 		Log.e(TAG,url);
 		mAbHttpUtil.get(url,
