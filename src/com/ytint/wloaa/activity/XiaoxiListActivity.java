@@ -199,7 +199,11 @@ public class XiaoxiListActivity extends AbActivity{
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		mAbHttpUtil.setDebug(true);
 		if (!application.isNetworkConnected()) {
+			if (qunfaList.size() <= 0) {
+				listItemAdapter.notifyDataSetChanged();
+			}
 			UIHelper.ToastMessage(context, "请检查网络连接");
+			qunfaListView.stopRefresh();
 			return;
 		}
 		String url=String.format("%s?user_id=%s&notice_type=%d&p=%d&ps=%d", host+URLs.QUNFALIST,
@@ -240,6 +244,10 @@ public class XiaoxiListActivity extends AbActivity{
 					@Override
 					public void onFinish() {
 						mProgressDialog.dismiss();
+						if (qunfaList.size() <= 0) {
+							listItemAdapter.notifyDataSetChanged();
+						}
+						qunfaListView.stopRefresh();
 					};
 				});
 

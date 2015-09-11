@@ -202,7 +202,11 @@ public class ZhiliangListActivity extends AbActivity {
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		mAbHttpUtil.setDebug(true);
 		if (!application.isNetworkConnected()) {
+			if (shenpiList.size() <= 0) {
+				listItemAdapter.notifyDataSetChanged();
+			}
 			UIHelper.ToastMessage(context, "请检查网络连接");
+			shenpiListView.stopRefresh();
 			return;
 		}
 		String url = String.format(
@@ -243,6 +247,10 @@ public class ZhiliangListActivity extends AbActivity {
 			@Override
 			public void onFinish() {
 				mProgressDialog.dismiss();
+				if (shenpiList.size() <= 0) {
+					listItemAdapter.notifyDataSetChanged();
+				}
+				shenpiListView.stopRefresh();
 			};
 		});
 
