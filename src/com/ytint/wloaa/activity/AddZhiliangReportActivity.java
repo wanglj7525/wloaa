@@ -508,9 +508,9 @@ public class AddZhiliangReportActivity extends AbActivity {
 					Toast.makeText(getApplicationContext(), "请添加文件", 0).show();
 				}else{
 					//录音
-					new FileHelper().submitUploadFile(mVoicesList, loginKey,commitId,"2");
+					new FileHelper().submitUploadFile(mVoicesList, loginKey,commitId,"2",host);
 					//图片 视频
-					new FileHelper().submitUploadFile(imagelist, loginKey,commitId,"1");
+					new FileHelper().submitUploadFile(imagelist, loginKey,commitId,"1",host);
 					Toast.makeText(getApplicationContext(), "正在上传文件...", 0).show();
 					finish();
 				}

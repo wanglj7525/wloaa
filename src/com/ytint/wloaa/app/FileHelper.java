@@ -16,26 +16,18 @@ import java.util.UUID;
 
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.ytint.wloaa.activity.AddZhiliangReportActivity;
-import com.ytint.wloaa.activity.AddZhiliangSendActivity;
-import com.ytint.wloaa.activity.LoginActivity;
-import com.ytint.wloaa.activity.MainActivity;
-import com.ytint.wloaa.activity.ZhiliangListActivity;
+import com.ab.activity.AbActivity;
 import com.ytint.wloaa.bean.URLs;
 
-public class FileHelper extends Activity{
+public class FileHelper {
 	String TAG = "FileHelper";
 	private static final int TIME_OUT = 10 * 1000; // 超时时间
 	private static final String CHARSET = "utf-8"; // 设置编码
 	String result;
-	private MyApplication application = (MyApplication) this.getApplication();
-	String host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
-	public void submitUploadFile(ArrayList<String> srcPath, String loginKey,String task_id,final String type) {
+	public void submitUploadFile(ArrayList<String> srcPath, String loginKey,String task_id,final String type,String host) {
 		final ArrayList<File> files=new ArrayList<File>();
 		for (String path : srcPath) {
 			File file = new File(path);
