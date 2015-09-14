@@ -125,7 +125,7 @@ public class MainActivity extends BaseActivity {
 		main_show_xiaoxi=(ImageButton)findViewById(R.id.main_show_xiaoxi);
 		main_show_shezhi=(ImageButton)findViewById(R.id.main_show_shezhi);
 		main_show_user=(TextView)findViewById(R.id.main_show_user);
-		main_show_user.setText(userName);
+		main_show_user.setText("您好，" + userName);
 		
 		String keshiname="质量检查";
 		int keshiimage=R.drawable.menu_zhiliang;

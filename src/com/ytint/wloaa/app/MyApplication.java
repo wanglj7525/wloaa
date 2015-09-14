@@ -58,8 +58,8 @@ public class MyApplication extends Application {
 		super.onCreate();
 		
 		if (null==getProperty("HOST")) {
-			setProperty("HOST", "windoer.com");
-			setProperty("PORT", "9000");
+			setProperty("HOST", "112.33.6.14");
+			setProperty("PORT", "9002");
 //			URLs.HOST= getProperty("HOST");
 		}else{
 			System.out.println("*****"+getProperty("HOST")+":"+getProperty("PORT"));

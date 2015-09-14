@@ -26,7 +26,7 @@
     <string name="my_set_networks_config">网络配置</string>
     <string name="my_set_networks_name">名称：</string>
     <string name="my_set_networks_ip">地址：</string>
-    <string name="my_set_networks_port">端口：</string>
+    <string name="my_set_networks_port">确定</string>
     <string name="my_set_networks_name_hint">请输入配置名称</string>
     <string name="my_set_networks_ip_hint">IP或域名(如10.0.0.1或windoer.com)</string>
     <string name="my_set_networks_port_hint">请输入端口</string>
