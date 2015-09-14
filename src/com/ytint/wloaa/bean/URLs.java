@@ -17,7 +17,7 @@ public class URLs implements Serializable {
 //	public final static String HOST = "221.0.111.130:14401";
 //    public final static String HOST = "221.0.111.130:9009";
 //    public final static String HOST = "10.200.3.136:8002";
-    public static String HOST = "windoer.com:9000";
+//    public static String HOST = "windoer.com:9000";
 	public  static String HTTP = "http://";
 	public  static String HTTPS = "https://";
 

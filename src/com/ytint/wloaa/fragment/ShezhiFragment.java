@@ -120,8 +120,8 @@ public class ShezhiFragment extends Fragment {
 			UIHelper.ToastMessage(getActivity(), "请检查网络连接");
 			return;
 		}
-
-		mAbHttpUtil.get(URLs.GETVERSION + "?id="+mVersionCode , new AbStringHttpResponseListener() {
+		String host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
+		mAbHttpUtil.get(host+URLs.GETVERSION + "?id="+mVersionCode , new AbStringHttpResponseListener() {
 			@Override
 			public void onSuccess(int statusCode, String content) {
 				System.out.println(content);

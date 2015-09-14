@@ -439,7 +439,7 @@ public class ZhiliangListActivity extends AbActivity {
 			imageList = new ArrayList<String>();
 			if (news.attachment != "") {
 				for (int i = 0; i < news.attachment.split(",").length; i++) {
-					imageList.add(URLs.URL_API_HOST
+					imageList.add(host+URLs.URL_API_HOST
 							+ news.attachment.split(",")[i]);
 				}
 			}
@@ -496,7 +496,7 @@ public class ZhiliangListActivity extends AbActivity {
 		public View getView(int position, View contentView, ViewGroup arg2) {
 			String image = imageList.get(position);
 			if (image.contains("3gp") || image.contains("mp4")) {
-				image = URLs.URL_API_HOST + "public/images/video_play_btn.png";
+				image =host+ URLs.URL_API_HOST + "public/images/video_play_btn.png";
 			}
 			ViewHolder holder;
 			if (contentView == null) {

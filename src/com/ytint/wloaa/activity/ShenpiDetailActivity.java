@@ -253,7 +253,7 @@ public class ShenpiDetailActivity extends AbActivity {
 						taskRemarkInfo.setText(shenpi.remark);
 						if (shenpi.attachment!="") {
 							for (int i = 0; i < shenpi.attachment.split(",").length; i++) {
-								imageList.add(URLs.URL_API_HOST+shenpi.attachment.split(",")[i]);
+								imageList.add(host+URLs.URL_API_HOST+shenpi.attachment.split(",")[i]);
 							}
 						}
 						setValue();
@@ -274,7 +274,7 @@ public class ShenpiDetailActivity extends AbActivity {
 						if (shenpi.media!="") {
 							for (int i = 0; i < shenpi.media.split(",").length; i++) {
 								String voice=shenpi.media.split(",")[i];
-								mVoicesList.add(URLs.URL_API_HOST+voice);
+								mVoicesList.add(host+URLs.URL_API_HOST+voice);
 							}
 						}
 						horizontalScrollView_voicelist_detail.setHorizontalScrollBarEnabled(true);
@@ -409,7 +409,7 @@ public class ShenpiDetailActivity extends AbActivity {
 	        public View getView(int position, View contentView, ViewGroup arg2) {
 	        	String image=imageList.get(position);
 	        	if (image.contains("3gp")) {
-					image=URLs.URL_API_HOST+"public/images/video_play_btn.png";
+					image=host+URLs.URL_API_HOST+"public/images/video_play_btn.png";
 				}
 	            ViewHolder holder;
 	            if (contentView == null) {
