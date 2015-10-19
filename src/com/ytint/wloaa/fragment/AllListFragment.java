@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.ytint.wloaa.R;
-import com.ytint.wloaa.activity.ZhiliangListActivity;
+import com.ytint.wloaa.activity.AllListActivity;
 
 public class AllListFragment extends Fragment {
 	private Button button1;
@@ -32,8 +32,8 @@ public class AllListFragment extends Fragment {
 			
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
-				intent.putExtra("from", 1);
+				Intent intent = new Intent(getActivity(),AllListActivity.class);
+				intent.putExtra("status", 0);
 				startActivity(intent);
 			}
 		});
@@ -43,8 +43,8 @@ public class AllListFragment extends Fragment {
 			
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
-				intent.putExtra("from", 2);
+				Intent intent = new Intent(getActivity(),AllListActivity.class);
+				intent.putExtra("status", 1);
 				startActivity(intent);
 			}
 		});
@@ -53,8 +53,8 @@ public class AllListFragment extends Fragment {
 			
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
-				intent.putExtra("from", 3);
+				Intent intent = new Intent(getActivity(),AllListActivity.class);
+				intent.putExtra("status", 2);
 				startActivity(intent);
 			}
 		});

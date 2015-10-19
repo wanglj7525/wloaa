@@ -12,7 +12,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:drawableLeft="@drawable/menu_zhiliang_liebiao"
-        android:text="质量检查列表" />
+        android:text="所有任务列表" />
 
     <Button
         android:id="@+id/anquanlist"
@@ -21,7 +21,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:drawableLeft="@drawable/menu_anquan_liebiao"
-        android:text="安全检查列表" />
+        android:text="未完成任务列表" />
 
     <Button
         android:id="@+id/zhifalist"
@@ -30,6 +30,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:drawableLeft="@drawable/menu_zhifa_liebiao"
-        android:text="执法管理列表" />
+        android:text="已完成任务列表" />
 
 </LinearLayout>

@@ -20,6 +20,7 @@ public class ZhifaFragment extends Fragment {
 	private Button button3;
 	private MyApplication application;
 	private String userType;
+	private String departmentId;
 	public ZhifaFragment(){}
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,18 +29,20 @@ public class ZhifaFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_zhifa, container, false);
         application = (MyApplication) getActivity().getApplication();
         userType = application.getProperty("userType");
+        departmentId = application.getProperty("departmentId");
         findView(rootView);
         return rootView;
     }
 	
 	private void findView(View rootView) {
+		//TODO
 		button1=(Button)rootView.findViewById(R.id.zhifa1);
 		button1.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(getActivity(),AddZhiliangSendActivity.class);
-				intent.putExtra("from", 3);
+				intent.putExtra("from", departmentId);
 				startActivity(intent);
 			}
 		});
@@ -50,7 +53,7 @@ public class ZhifaFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(getActivity(),AddZhiliangReportActivity.class);
-				intent.putExtra("from", 3);
+				intent.putExtra("from", departmentId);
 				startActivity(intent);
 			}
 		});
@@ -65,7 +68,7 @@ public class ZhifaFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
-				intent.putExtra("from", 3);
+				intent.putExtra("from", departmentId);
 				startActivity(intent);
 			}
 		});

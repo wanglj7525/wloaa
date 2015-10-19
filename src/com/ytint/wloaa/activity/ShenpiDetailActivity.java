@@ -125,13 +125,14 @@ public class ShenpiDetailActivity extends AbActivity {
 		AbTitleBar mAbTitleBar = this.getTitleBar();
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
-		if (from==1) {
-			mAbTitleBar.setTitleText("质量检查-任务详情");
-		}else if(from==2){
-			mAbTitleBar.setTitleText("安全检查-任务详情");
-		}else{
-			mAbTitleBar.setTitleText("执法管理-任务详情");
-		}
+		mAbTitleBar.setTitleText("任务详情");
+//		if (from==1) {
+//			mAbTitleBar.setTitleText("质量检查-任务详情");
+//		}else if(from==2){
+//			mAbTitleBar.setTitleText("安全检查-任务详情");
+//		}else{
+//			mAbTitleBar.setTitleText("执法管理-任务详情");
+//		}
 		mAbTitleBar.setLogo(R.drawable.button_selector_back); 
 //		 设置文字边距，常用来控制高度：
 		 mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);

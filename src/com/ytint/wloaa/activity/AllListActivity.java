@@ -52,16 +52,16 @@ import com.ytint.wloaa.widget.AbPullListView;
  * @author wlj
  * @date 2015-6-13上午11:14:05
  */
-public class ZhiliangListActivity extends AbActivity {
+public class AllListActivity extends AbActivity {
 	Context context = null;
 	private MyApplication application;
 	private List<Shenpi> shenpiList = new ArrayList<Shenpi>();
 	private AbImageDownloader mAbImageDownloader = null;
 	private ShenpiListAdapter listItemAdapter;
-	private int from;
+	private int status;//0所有 1已完成 2未完成
 	private int whichOne = 1;
 
-	String TAG = "ZhiliangListActivity";
+	String TAG = "AllListActivity";
 	private ProgressDialog mProgressDialog;
 	private String loginKey;
 
@@ -105,7 +105,7 @@ public class ZhiliangListActivity extends AbActivity {
 		application= (MyApplication) this.getApplication();
 		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
 		setContentView(R.layout.layout_zhilianglist);
-		context = ZhiliangListActivity.this;
+		context = AllListActivity.this;
 		loginKey = application.getProperty("loginKey");
 
 		initUI();
@@ -143,8 +143,8 @@ public class ZhiliangListActivity extends AbActivity {
 		}
 		page++;
 		String url = String.format(
-				"%s?user_id=%s&p=%d&ps=%d&department_id=%d&task_type=%d",
-				host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, from,
+				"%s?user_id=%s&p=%d&ps=%d&status=%d&task_type=%d",
+				host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, status,
 				select_show);
 		Log.e("url", url);
 
@@ -163,7 +163,7 @@ public class ZhiliangListActivity extends AbActivity {
 							page--;
 						}
 						 if (shenpiList.size() <= 0) {
-								UIHelper.ToastMessage(ZhiliangListActivity.this,
+								UIHelper.ToastMessage(AllListActivity.this,
 										"网络连接失败！");
 							}
 					} else {
@@ -172,14 +172,14 @@ public class ZhiliangListActivity extends AbActivity {
 
 				} catch (Exception e) {
 					e.printStackTrace();
-					UIHelper.ToastMessage(ZhiliangListActivity.this, "数据解析失败");
+					UIHelper.ToastMessage(AllListActivity.this, "数据解析失败");
 				}
 			}
 
 			@Override
 			public void onFailure(int statusCode, String content,
 					Throwable error) {
-				UIHelper.ToastMessage(ZhiliangListActivity.this, "网络连接失败！");
+				UIHelper.ToastMessage(AllListActivity.this, "网络连接失败！");
 				page--;
 			}
 
@@ -211,8 +211,8 @@ public class ZhiliangListActivity extends AbActivity {
 			return;
 		}
 		String url = String.format(
-				"%s?user_id=%s&p=%d&ps=%d&department_id=%d&task_type=%d",
-				host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, from,
+				"%s?user_id=%s&p=%d&ps=%d&status=%d&task_type=%d",
+				host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, status,
 				select_show);
 		Log.d(TAG, url);
 		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
@@ -262,7 +262,7 @@ public class ZhiliangListActivity extends AbActivity {
 	 */
 	private void initUI() {
 		Intent intent = getIntent();
-		from = Integer.parseInt(intent.getExtras().get("from").toString());
+		status = Integer.parseInt(intent.getExtras().get("status").toString());
 		titlebar.setText("任务列表");
 //		if (from == 1) {
 //			titlebar.setText("质量检查任务列表");
@@ -321,10 +321,10 @@ public class ZhiliangListActivity extends AbActivity {
 							int index, long arg3) {
 						// 点击进入 审批事项 详情页
 						Integer shenpi_id = shenpiList.get(index-1).id;
-						Intent intent = new Intent(ZhiliangListActivity.this,
+						Intent intent = new Intent(AllListActivity.this,
 								ShenpiDetailActivity.class);
 						intent.putExtra("shenpi_id", shenpi_id);
-						intent.putExtra("from", from);
+						intent.putExtra("from", status);
 						System.out.println(intent.getIntExtra("shenpi_id", 0));
 						startActivity(intent);
 
@@ -394,14 +394,14 @@ public class ZhiliangListActivity extends AbActivity {
 			}
 			timeView = (TextView) convertView
 					.findViewById(R.id.shenpi_create_time);
-			String html = "【";
-			if (from == 1) {
-				html += "质量检查】 ";
-			} else if (from == 2) {
-				html += "安全检查】";
-			} else {
-				html += "执法管理】";
-			}
+			String html = "";
+//			if (from == 1) {
+//				html += "质量检查】 ";
+//			} else if (from == 2) {
+//				html += "安全检查】";
+//			} else {
+//				html += "执法管理】";
+//			}
 			html += "<font color='#A00000'>" + news.create_user_name
 					+ "&nbsp;</font>" + news.name
 					+ "&nbsp;<font color='#505050'>" + news.company_name

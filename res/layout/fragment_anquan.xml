@@ -13,7 +13,7 @@
         android:layout_marginTop="5dp"
         android:drawableLeft="@drawable/menu_anquan_xiapai"
         android:enabled="false"
-        android:text="下派安检任务" />
+        android:text="下派任务" />
 
     <Button
         android:id="@+id/anquan2"
@@ -23,7 +23,7 @@
         android:layout_marginTop="5dp"
         android:drawableLeft="@drawable/menu_anquan_shangbao"
         android:enabled="false"
-        android:text="上报安全隐患" />
+        android:text="上报任务" />
 
     <Button
         android:id="@+id/anquan3"
@@ -32,6 +32,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:drawableLeft="@drawable/menu_anquan_liebiao"
-        android:text="安检任务列表" />
+        android:text="任务列表" />
 
 </LinearLayout>

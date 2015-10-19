@@ -13,7 +13,7 @@
         android:layout_marginTop="5dp"
         android:drawableLeft="@drawable/menu_zhiliang_xiapai"
         android:enabled="false"
-        android:text="下派质检任务" />
+        android:text="下派任务" />
 
     <Button
         android:id="@+id/zhiliang2"
@@ -23,7 +23,7 @@
         android:layout_marginTop="5dp"
         android:drawableLeft="@drawable/menu_zhiliang_shangbao"
         android:enabled="false"
-        android:text="上报质检任务" />
+        android:text="上报任务" />
 
     <Button
         android:id="@+id/zhiliang3"
@@ -32,6 +32,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:drawableLeft="@drawable/menu_zhiliang_liebiao"
-        android:text="质检任务列表" />
+        android:text="任务列表" />
 
 </LinearLayout>

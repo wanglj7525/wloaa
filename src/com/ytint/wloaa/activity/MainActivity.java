@@ -127,41 +127,45 @@ public class MainActivity extends BaseActivity {
 		main_show_user=(TextView)findViewById(R.id.main_show_user);
 		main_show_user.setText("您好，" + userName);
 		
-		String keshiname="质量检查";
+		String keshiname="任务管理";
 		int keshiimage=R.drawable.menu_zhiliang;
 		fm = getSupportFragmentManager();
 		fragment1 = new ZhiliangFragment();
 		fragment2 = new GonggaoFragment();
 		fragment3 = new XiaoxiFragment();
 		fragment4 = new ShezhiFragment();
-		if (userType.equals("1")||userType.equals("2")) {
-			//局长、副局长
+		if (userType.equals("0")||userType.equals("1")||userType.equals("2")) {
+			//、管理员，局长、副局长
 			keshiname="任务列表";
 			keshiimage=R.drawable.menu_liebiao;
 			fragment1 = new AllListFragment();
-		}else
-			//科长，科员
-			if (departmentId.equals("1")) {
-				//质量
-				keshiname="质量检查";
-				keshiimage=R.drawable.menu_zhiliang;
-				fragment1 = new ZhiliangFragment();
-			}else if (departmentId.equals("2")) {
-				//安全
-				keshiname="安全检查";
-				keshiimage=R.drawable.menu_anquan;
-				fragment1 = new AnquanFragment();
-			}else if (departmentId.equals("3")){
-				//执法
-				keshiname="执法管理";
-				keshiimage=R.drawable.menu_zhifa;
-				fragment1 = new ZhifaFragment();
-			}else{
-				//其他部门
-				keshiname="日常办公";
-				keshiimage=R.drawable.menu_richangbangong;
-				fragment1 = new RichangbangongFragment();
-			}
+		}else{
+			keshiimage=R.drawable.menu_zhifa;
+			fragment1 =new ZhifaFragment();
+			
+//			//科长，科员
+//			if (departmentId.equals("1")) {
+//				//质量
+////				keshiname="质量检查";
+//				keshiimage=R.drawable.menu_zhiliang;
+//				fragment1 = new ZhiliangFragment();
+//			}else if (departmentId.equals("2")) {
+//				//安全
+////				keshiname="安全检查";
+//				keshiimage=R.drawable.menu_anquan;
+//				fragment1 = new AnquanFragment();
+//			}else if (departmentId.equals("3")){
+//				//执法
+////				keshiname="执法管理";
+//				keshiimage=R.drawable.menu_zhifa;
+//				fragment1 = new ZhifaFragment();
+//			}else{
+//				//其他部门
+////				keshiname="日常办公";
+//				keshiimage=R.drawable.menu_richangbangong;
+//				fragment1 = new RichangbangongFragment();
+//			}
+		}
 			
 		
 		main_show_keshi.setImageResource(keshiimage);

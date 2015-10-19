@@ -66,6 +66,8 @@ import com.ytint.wloaa.bean.ImageLoader;
 import com.ytint.wloaa.bean.ImageLoader.OnCallBackListener;
 import com.ytint.wloaa.bean.People;
 import com.ytint.wloaa.bean.PeopleList;
+import com.ytint.wloaa.bean.Project;
+import com.ytint.wloaa.bean.ProjectList;
 import com.ytint.wloaa.bean.Shenpi;
 import com.ytint.wloaa.bean.ShenpiInfo;
 import com.ytint.wloaa.bean.URLs;
@@ -75,11 +77,11 @@ public class AddZhiliangReportActivity extends AbActivity {
 	private MyApplication application;
 	private ArrayAdapter<String> adapter;
 	String[] people_names = new String[0];
-	String[] company_names = new String[0];
+	String[] project_names = new String[0];
 	private long people = 0;
-	private long company = 0;
+	private long project = 0;
 	private List<People> peoples;
-	private List<Company> companys;
+	private List<Project> projects;
 	private int from;
 	
 	Context context = null;
@@ -89,8 +91,10 @@ public class AddZhiliangReportActivity extends AbActivity {
 	EditText task_people;
 	@AbIocView(id = R.id.select_people_report)
 	Spinner peopleSpinner;
-	@AbIocView(id = R.id.select_company_report)
-	Spinner companySpinner;
+	@AbIocView(id = R.id.select_project)
+	Spinner projectSpinner;
+//	@AbIocView(id = R.id.select_company_report)
+//	Spinner companySpinner;
 	@AbIocView(id = R.id.addshenpi_full)
 	LinearLayout addxiapai_full;
 	@AbIocView(id=R.id.gridView_image_report)
@@ -167,6 +171,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 	private AbImageDownloader mAbImageDownloader = null;
 	
 	private String peopleId;
+	private String projectId="0";
 	private String companyId="0";
 	private static String srcPath;
 	private static String videoPath;
@@ -193,13 +198,14 @@ public class AddZhiliangReportActivity extends AbActivity {
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
 		AbTitleBar mAbTitleBar = this.getTitleBar();
-		if (from==1) {
-			mAbTitleBar.setTitleText("质量检查-上报质检任务");
-		}else if(from==2){
-			mAbTitleBar.setTitleText("安全检查-上报安全隐患");
-		}else{
-			mAbTitleBar.setTitleText("执法管理-上报执法任务");
-		}
+//		if (from==1) {
+//			mAbTitleBar.setTitleText("质量检查-上报质检任务");
+//		}else if(from==2){
+//			mAbTitleBar.setTitleText("安全检查-上报安全隐患");
+//		}else{
+//			mAbTitleBar.setTitleText("执法管理-上报执法任务");
+//		}
+		mAbTitleBar.setTitleText("上报任务");
 		mAbTitleBar.setLogo(R.drawable.button_selector_back); 
 		 mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
 		 mAbTitleBar.setTitleBarBackground(R.drawable.abg_top); 
@@ -220,6 +226,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 		initUi();
 		//加载联系人下拉框
 		loadPeoples();
+		loadProject();
 //		loadComapny();
 		
 		commitId="0";
@@ -244,39 +251,6 @@ public class AddZhiliangReportActivity extends AbActivity {
 							int arg2, long arg3) {
 						people = peoples.get(arg2).id;
 						peopleId=peoples.get(arg2).id+"";
-						TextView tv = (TextView) view;
-						tv.setTextColor(getResources().getColor(R.color.black)); // 设置颜色
-						tv.setGravity(android.view.Gravity.CENTER); // 设置居中
-
-					}
-
-					@Override
-					public void onNothingSelected(AdapterView<?> arg0) {
-						arg0.setVisibility(View.VISIBLE);
-					}
-
-				});
-
-	}
-	private void initCompany() {
-		// 将可选内容与ArrayAdapter连接起来
-		adapter = new ArrayAdapter<String>(AddZhiliangReportActivity.this,
-				R.layout.spinner_item, company_names);
-		// 设置下拉列表的风格
-		adapter.setDropDownViewResource(R.layout.drop_down_item);
-		// 将adapter 添加到spinner中
-		companySpinner.setAdapter(adapter);
-		// 设置默认选中
-		companySpinner.setSelection(0);
-		// 设置默认值
-		// channelSpinner.setVisibility(View.VISIBLE);
-		companySpinner
-		.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View view,
-					int arg2, long arg3) {
-				company = companys.get(arg2).id;
-				companyId=companys.get(arg2).id+"";
 						TextView tv = (TextView) view;
 						tv.setTextColor(getResources().getColor(R.color.black)); // 设置颜色
 						tv.setGravity(android.view.Gravity.CENTER); // 设置居中
@@ -389,64 +363,98 @@ public class AddZhiliangReportActivity extends AbActivity {
 
 				});
 	}
+	private void initProject() {
+		// 将可选内容与ArrayAdapter连接起来
+		adapter = new ArrayAdapter<String>(AddZhiliangReportActivity.this,
+				R.layout.spinner_item, project_names);
+		// 设置下拉列表的风格
+		adapter.setDropDownViewResource(R.layout.drop_down_item);
+		// 将adapter 添加到spinner中
+		projectSpinner.setAdapter(adapter);
+		// 设置默认选中
+		projectSpinner.setSelection(0);
+		// 设置默认值
+		// channelSpinner.setVisibility(View.VISIBLE);
+		projectSpinner
+				.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> arg0, View view,
+							int arg2, long arg3) {
+						project = projects.get(arg2).id;
+						projectId = projects.get(arg2).id + "";
+						TextView tv = (TextView) view;
+						tv.setTextColor(getResources().getColor(R.color.black)); // 设置颜色
+						tv.setGravity(android.view.Gravity.CENTER); // 设置居中
+
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> arg0) {
+						arg0.setVisibility(View.VISIBLE);
+					}
+
+				});
+
+	}
+
 	@SuppressLint("NewApi")
-	private void loadComapny() {
-		
+	private void loadProject() {
+
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		if (!application.isNetworkConnected()) {
 			showToast("请检查网络连接");
 			return;
 		}
-		mAbHttpUtil.get(host+URLs.COMPANYLIST+"?p=1&ps=2" ,
+		mAbHttpUtil.get(host+URLs.PROJECTLIST + "?p=1&ps",
 				new AbStringHttpResponseListener() {
-			// 获取数据成功会调用这里
-			@Override
-			public void onSuccess(int statusCode, String content) {
-				try {
-					CompanyList cList = CompanyList.parseJson(content);
-					if (cList.code == 200) {
-						companys = cList.getInfo();
-						application.saveObject((Serializable) companys,"companys");
-						company_names = new String[companys.size()];
-						int i = 0;
-						for (Company cn : companys) {
-							company_names[i] = cn.name;
-							i++;
-						}
-						
-						initCompany();
-					} else {
-						showToast(cList.msg);
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-					showToast("数据解析失败");
-				}
-			};
-			
-			// 开始执行前
-			@Override
-			public void onStart() {
-				// 显示进度框
-				showProgressDialog();
-			}
-			
-			@Override
-			public void onFailure(int statusCode, String content,
-					Throwable error) {
-				showToast("网络连接失败！");
-			}
-			
-			// 完成后调用，失败，成功
-			@Override
-			public void onFinish() {
-				// 移除进度框
-				removeProgressDialog();
-			};
-			
-		});
-	}
+					// 获取数据成功会调用这里
+					@Override
+					public void onSuccess(int statusCode, String content) {
+						try {
+							ProjectList cList = ProjectList.parseJson(content);
+							if (cList.code == 200) {
+								projects = cList.getInfo();
+								application.saveObject((Serializable) projects,
+										"projects");
+								project_names = new String[projects.size()];
+								int i = 0;
+								for (Project cn : projects) {
+									project_names[i] = cn.name;
+									i++;
+								}
 
+								initProject();
+							} else {
+								showToast(cList.msg);
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							showToast("数据解析失败");
+						}
+					};
+
+					// 开始执行前
+					@Override
+					public void onStart() {
+						// 显示进度框
+						showProgressDialog();
+					}
+
+					@Override
+					public void onFailure(int statusCode, String content,
+							Throwable error) {
+						showToast("网络连接失败！");
+					}
+
+					// 完成后调用，失败，成功
+					@Override
+					public void onFinish() {
+						// 移除进度框
+						removeProgressDialog();
+					};
+
+				});
+	}
 	private void initUi() {
 		horizontalScrollView_addvoicereport.setHorizontalScrollBarEnabled(true);
 		horizontalScrollView_report.setHorizontalScrollBarEnabled(true);
@@ -660,6 +668,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 		System.out.println(peopleSpinner.getSelectedItem().toString());
 		params.put("taskInfo.receive_user_id",peopleId);
 		params.put("taskInfo.company_id", companyId);
+		params.put("taskInfo.project_id", projectId);
 		params.put("taskInfo.contact", task_tell.getText().toString());
 		params.put("taskInfo.handle_mode", task_method.getText().toString());
 		params.put("taskInfo.remark", task_remark.getText().toString());
