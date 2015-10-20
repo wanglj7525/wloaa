@@ -74,6 +74,8 @@ public class ShenpiDetailActivity extends AbActivity {
 	TextView task_tell_detail;
 	@AbIocView(id = R.id.task_create)
 	TextView task_create;
+	@AbIocView(id = R.id.task_project)
+	TextView task_project;
 	@AbIocView(id = R.id.task_name_detail)
 	TextView task_name_detail;
 	@AbIocView(id = R.id.detail_handle_mode)
@@ -248,6 +250,7 @@ public class ShenpiDetailActivity extends AbActivity {
 						shenpi = gList.getInfo();
 						task_name_detail.setText(shenpi.name);
 						task_create.setText(shenpi.create_user_name);
+						task_project.setText(shenpi.project_name);
 						task_tell_detail.setText(shenpi.contact);
 						detail_handle_mode.setText(shenpi.handle_mode);
 						taskForwardInfo.setText(shenpi.taskForwardInfo);
@@ -261,7 +264,7 @@ public class ShenpiDetailActivity extends AbActivity {
 						setListener();
 						
 						if (shenpi.task_type==2) {
-							taskRemarkInfo.setVisibility(View.GONE);
+//							taskRemarkInfo.setVisibility(View.GONE);
 							detail_handle_mode.setVisibility(View.GONE);
 							showImageText.setVisibility(View.GONE);
 							showmodeLiner.setVisibility(View.GONE);

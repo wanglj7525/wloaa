@@ -36,13 +36,10 @@ import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.bean.Version;
 import com.ytint.wloaa.bean.VersionInfo;
 import com.ytint.wloaa.fragment.AllListFragment;
-import com.ytint.wloaa.fragment.AnquanFragment;
 import com.ytint.wloaa.fragment.GonggaoFragment;
-import com.ytint.wloaa.fragment.RichangbangongFragment;
 import com.ytint.wloaa.fragment.ShezhiFragment;
 import com.ytint.wloaa.fragment.XiaoxiFragment;
 import com.ytint.wloaa.fragment.ZhifaFragment;
-import com.ytint.wloaa.fragment.ZhiliangFragment;
 import com.ytint.wloaa.service.AppUpgradeService;
 
 public class MainActivity extends BaseActivity {
@@ -130,7 +127,7 @@ public class MainActivity extends BaseActivity {
 		String keshiname="任务管理";
 		int keshiimage=R.drawable.menu_zhiliang;
 		fm = getSupportFragmentManager();
-		fragment1 = new ZhiliangFragment();
+		fragment1 = new ZhifaFragment();
 		fragment2 = new GonggaoFragment();
 		fragment3 = new XiaoxiFragment();
 		fragment4 = new ShezhiFragment();
