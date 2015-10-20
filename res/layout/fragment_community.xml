@@ -20,8 +20,8 @@
         android:layout_height="120dp"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:drawableLeft="@drawable/menu_anquan_liebiao"
-        android:text="未完成任务列表" />
+        android:drawableLeft="@drawable/menu_zhifa_liebiao"
+        android:text="已完成任务列表" />
 
     <Button
         android:id="@+id/zhifalist"
@@ -29,7 +29,7 @@
         android:layout_height="120dp"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:drawableLeft="@drawable/menu_zhifa_liebiao"
-        android:text="已完成任务列表" />
+        android:drawableLeft="@drawable/menu_anquan_liebiao"
+        android:text="未完成任务列表" />
 
 </LinearLayout>
