@@ -60,8 +60,6 @@ import com.ytint.wloaa.activity.ShenpiDetailActivity.ViewHolder;
 import com.ytint.wloaa.app.FileHelper;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
-import com.ytint.wloaa.bean.Company;
-import com.ytint.wloaa.bean.CompanyList;
 import com.ytint.wloaa.bean.ImageLoader;
 import com.ytint.wloaa.bean.ImageLoader.OnCallBackListener;
 import com.ytint.wloaa.bean.People;

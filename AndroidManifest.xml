@@ -255,33 +255,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.ytint.wloaa.activity.AddQiyeActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="com.ytint.wloaa.activity.ZhiliangListActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="com.ytint.wloaa.activity.DeleteQiyeActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name="com.ytint.wloaa.activity.AddZhiliangSendActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="com.ytint.wloaa.activity.QiyeListActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="com.ytint.wloaa.activity.ChatActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
@@ -311,11 +285,6 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.ytint.wloaa.activity.PhotoActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name="com.ytint.wloaa.activity.PassWordUpdateActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
@@ -326,17 +295,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.ytint.wloaa.activity.SkanActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name="com.ytint.wloaa.activity.XiaoxiShowActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" >
-        </activity>
-    <activity
-            android:name="com.ytint.wloaa.activity.RecordActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
@@ -357,6 +316,11 @@
         </activity>
         <activity
             android:name="com.ytint.wloaa.activity.AllListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.ytint.wloaa.activity.ZhiliangListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
