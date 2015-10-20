@@ -20,7 +20,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,10 +35,8 @@ import com.ab.http.AbRequestParams;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
-import com.baidu.mapapi.SDKInitializer;
 import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.Constants;
-import com.ytint.wloaa.app.CustomDialog;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.URLs;
@@ -68,8 +65,8 @@ public class LoginActivity extends AbActivity {
 		super.onCreate(savedInstanceState);
 		application= (MyApplication) this.getApplication();
 		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
-		// 添加百度地图SDK
-		SDKInitializer.initialize(getApplicationContext());  
+//		// 添加百度地图SDK
+//		SDKInitializer.initialize(getApplicationContext());  
 		setContentView(R.layout.layout_login);
 		context=LoginActivity.this;
 		AbTitleBar mAbTitleBar = this.getTitleBar();
