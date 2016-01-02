@@ -37,8 +37,8 @@ public class SetNetworksActivity extends AbActivity {
 	private EditText networks_port; 
 	@AbIocView(id = R.id.networks_name)
 	private EditText networks_name; 
-	@AbIocView(id = R.id.networks_port_button)
-	private Button networks_port_button; 
+	@AbIocView(id = R.id.networks_confirm_button)
+	private Button networks_confirm_button; 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,7 +54,7 @@ public class SetNetworksActivity extends AbActivity {
 				finish();
 			}
 		});
-		networks_port_button.setOnClickListener(new OnClickListener() {
+		networks_confirm_button.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
