@@ -11,4 +11,6 @@
     <dimen name="register_hint_textsize">14dp</dimen>
     <dimen name="shadow_width">3dp</dimen>
     <dimen name="slidingmenu_offset">50dp</dimen>
+    
+    <dimen name="ui_10_dip">10dip</dimen> 
 </resources>
