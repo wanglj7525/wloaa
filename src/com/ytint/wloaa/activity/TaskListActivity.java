@@ -10,12 +10,17 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,6 +29,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
 import cn.trinea.android.common.service.impl.ImageCache;
 import cn.trinea.android.common.util.CacheManager;
@@ -82,7 +88,8 @@ public class TaskListActivity extends AbActivity {
 //	RadioButton send_list;
 	// @AbIocView(id = R.id.radiogroup1)
 	// RadioGroup selectList;
-
+	Button search;
+	EditText edit_text;
 	private int select_show = 1;
 	private int page = 1;
 	private ArrayList<String> imageList = new ArrayList<String>();
@@ -287,6 +294,58 @@ public class TaskListActivity extends AbActivity {
 				finish();
 			}
 		});
+		edit_text = (EditText) findViewById(R.id.EditText);
+		edit_text.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+		edit_text
+				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+					@Override
+					public boolean onEditorAction(TextView v, int actionId,
+							KeyEvent event) {
+						// TODO Auto-generated method stub
+						if (actionId == EditorInfo.IME_ACTION_SEARCH
+								|| (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+							// 关闭键盘
+							InputMethodManager imm = (InputMethodManager) TaskListActivity.this
+									.getSystemService(Context.INPUT_METHOD_SERVICE);
+							imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+//							recommend_search_layout.setVisibility(View.GONE);
+//							change_button.setVisibility(View.GONE);
+//							mAbPullListView.setVisibility(View.VISIBLE);
+//							searchItemLayout.setVisibility(View.VISIBLE);
+//							mAbPullListView.startRefresh();
+							return true;
+						}
+						return false;
+					}
+
+				});
+		search = (Button) findViewById(R.id.search);
+		search.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				String search_text = edit_text.getText().toString();
+				if (search_text == null
+						|| search_text.trim().equalsIgnoreCase("")) {
+					Toast.makeText(TaskListActivity.this, "搜索内容不能为空", Toast.LENGTH_SHORT).show();
+				} else { // 关闭键盘
+					InputMethodManager imm = (InputMethodManager) TaskListActivity.this
+							.getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+//					recommend_search_layout.setVisibility(View.GONE);
+//					change_button.setVisibility(View.GONE);
+//					list.clear();
+//					myListViewAdapter.notifyDataSetChanged();
+//					mAbPullListView.setVisibility(View.VISIBLE);
+//					searchItemLayout.setVisibility(View.VISIBLE);
+//					mAbPullListView.startRefresh();
+				}
+
+			}
+		});
+
 //		report_list.setOnClickListener(new View.OnClickListener() {
 //
 //			@Override
