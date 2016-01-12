@@ -3,7 +3,6 @@ package com.ytint.wloaa.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.ab.activity.AbActivity;
+import com.ab.view.titlebar.AbTitleBar;
 import com.ytint.wloaa.R;
 import com.ytint.wloaa.adapter.AlbumGridViewAdapter;
 import com.ytint.wloaa.utils.AlbumHelper;
@@ -36,7 +37,7 @@ import com.ytint.wloaa.utils.PublicWay;
  * @QQ:595163260
  * @version 2014年10月18日  下午11:47:15
  */
-public class AlbumActivity extends Activity {
+public class AlbumActivity extends AbActivity {
 	//显示手机里的所有图片的列表控件
 	private GridView gridView;
 	//当手机里没有图片时，提示用户没有图片的控件
@@ -62,6 +63,7 @@ public class AlbumActivity extends Activity {
 		setContentView(R.layout.plugin_camera_album);
 		PublicWay.activityList.add(this);
 		mContext = this;
+		AbTitleBar mAbTitleBar = this.getTitleBar();
 		//注册一个广播，这个广播主要是用于在GalleryActivity进行预览时，防止当所有图片都删除完后，再回到该页面时被取消选中的图片仍处于选中状态
 		IntentFilter filter = new IntentFilter("data.broadcast.action");  
 		registerReceiver(broadcastReceiver, filter);  
