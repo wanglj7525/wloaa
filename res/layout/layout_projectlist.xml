@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/addxiapai_full111"
+    android:id="@+id/projectlist"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -14,13 +14,13 @@
         android:orientation="vertical" >
 
     <LinearLayout
-            android:id="@+id/showtitle"
+            android:id="@+id/showsearch"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/abg_top" >
 
 		<RelativeLayout
-            android:id="@+id/addShenpi"
+            android:id="@+id/backproject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_selector_back" >
@@ -34,42 +34,31 @@
             android:background="@drawable/aline" >
 
         </RelativeLayout>
-            <TextView
-                android:id="@+id/titlebar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="质量检查-所有任务列表"
-                android:textColor="@color/white"
-                android:textSize="@dimen/title_size" />
 
+         <EditText
+                android:id="@+id/EditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="  请输入关键字……          "
+                android:imeOptions="actionSearch"
+                android:paddingBottom="5dp"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/title_textsize" />
+
+        <Button
+            android:id="@+id/search"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/search"
+            android:text="" />
         
     </LinearLayout>
-
-		<RadioGroup
-		    android:id="@+id/radiogroup1"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_gravity="center"
-		    android:layout_x="3px"
-		    android:gravity="center"
-		    android:orientation="horizontal" >
-  
-	        <RadioButton
-	            android:id="@+id/report_list"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_weight="0.2"
-	            android:checked="true"
-	            android:text="上报任务列表" />
-	
-	        <RadioButton
-	            android:id="@+id/send_list"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_weight="0.2"
-	            android:text="下派任务列表" />
-	</RadioGroup>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -77,7 +66,7 @@
         android:layout_weight="0.35"
         android:orientation="vertical" >
 	 <com.ytint.wloaa.widget.AbPullListView
-       android:id="@+id/shenpi_list"
+       android:id="@+id/project_list"
          android:layout_width="match_parent"
          android:layout_height="match_parent"
          android:cacheColorHint="#00000000"

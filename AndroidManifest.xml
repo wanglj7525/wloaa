@@ -320,7 +320,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.ytint.wloaa.activity.ZhiliangListActivity"
+            android:name="com.ytint.wloaa.activity.TaskListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.ytint.wloaa.activity.ProjectListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>

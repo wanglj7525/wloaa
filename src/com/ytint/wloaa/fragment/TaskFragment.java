@@ -11,13 +11,15 @@ import android.widget.Button;
 import com.ytint.wloaa.R;
 import com.ytint.wloaa.activity.AddTaskActivity;
 import com.ytint.wloaa.activity.AddZhiliangSendActivity;
-import com.ytint.wloaa.activity.ZhiliangListActivity;
+import com.ytint.wloaa.activity.ProjectListActivity;
+import com.ytint.wloaa.activity.TaskListActivity;
 import com.ytint.wloaa.app.MyApplication;
 
 public class TaskFragment extends Fragment {
 	private Button button1;
 	private Button button2;
 	private Button button3;
+	private Button button4;
 	private MyApplication application;
 	private String userType;
 	private String departmentId;
@@ -63,12 +65,24 @@ public class TaskFragment extends Fragment {
 //		}else if (userType.equals("4")) {
 //			button2.setEnabled(true);
 //		}
+		//任务列表
 		button3=(Button)rootView.findViewById(R.id.zhifa3);
 		button3.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),ZhiliangListActivity.class);
+				Intent intent = new Intent(getActivity(),TaskListActivity.class);
+				intent.putExtra("from", departmentId);
+				startActivity(intent);
+			}
+		});
+		//工程列表
+		button4=(Button)rootView.findViewById(R.id.zhifa4);
+		button4.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(getActivity(),ProjectListActivity.class);
 				intent.putExtra("from", departmentId);
 				startActivity(intent);
 			}

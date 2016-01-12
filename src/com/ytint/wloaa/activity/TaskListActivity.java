@@ -47,12 +47,12 @@ import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.widget.AbPullListView;
 
 /**
- * 审批 列表显示所有的该手机号或用户参与的审批事件 点击可以查看详细 可以操作后续步骤 或者操作过后只能查看 经过自己的审批事项 审批后报给上级
+ * 显示所有的任务列表 要可以查询
  * 
  * @author wlj
  * @date 2015-6-13上午11:14:05
  */
-public class ZhiliangListActivity extends AbActivity {
+public class TaskListActivity extends AbActivity {
 	Context context = null;
 	private MyApplication application;
 	private List<Shenpi> shenpiList = new ArrayList<Shenpi>();
@@ -71,15 +71,15 @@ public class ZhiliangListActivity extends AbActivity {
 	@AbIocView(id = R.id.showtitle)
 	LinearLayout showtitle;
 
-	@AbIocView(id = R.id.titlebar)
-	TextView titlebar;
+//	@AbIocView(id = R.id.titlebar)
+//	TextView titlebar;
 
 	@AbIocView(id = R.id.addShenpi)
 	RelativeLayout addShenpi;
-	@AbIocView(id = R.id.report_list)
-	RadioButton report_list;
-	@AbIocView(id = R.id.send_list)
-	RadioButton send_list;
+//	@AbIocView(id = R.id.report_list)
+//	RadioButton report_list;
+//	@AbIocView(id = R.id.send_list)
+//	RadioButton send_list;
 	// @AbIocView(id = R.id.radiogroup1)
 	// RadioGroup selectList;
 
@@ -104,8 +104,8 @@ public class ZhiliangListActivity extends AbActivity {
 		super.onCreate(savedInstanceState);
 		application= (MyApplication) this.getApplication();
 		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
-		setContentView(R.layout.layout_zhilianglist);
-		context = ZhiliangListActivity.this;
+		setContentView(R.layout.layout_tasklist);
+		context = TaskListActivity.this;
 		loginKey = application.getProperty("loginKey");
 
 		initUI();
@@ -163,7 +163,7 @@ public class ZhiliangListActivity extends AbActivity {
 							page--;
 						}
 						 if (shenpiList.size() <= 0) {
-								UIHelper.ToastMessage(ZhiliangListActivity.this,
+								UIHelper.ToastMessage(TaskListActivity.this,
 										"网络连接失败！");
 							}
 					} else {
@@ -172,14 +172,14 @@ public class ZhiliangListActivity extends AbActivity {
 
 				} catch (Exception e) {
 					e.printStackTrace();
-					UIHelper.ToastMessage(ZhiliangListActivity.this, "数据解析失败");
+					UIHelper.ToastMessage(TaskListActivity.this, "数据解析失败");
 				}
 			}
 
 			@Override
 			public void onFailure(int statusCode, String content,
 					Throwable error) {
-				UIHelper.ToastMessage(ZhiliangListActivity.this, "网络连接失败！");
+				UIHelper.ToastMessage(TaskListActivity.this, "网络连接失败！");
 				page--;
 			}
 
@@ -263,7 +263,7 @@ public class ZhiliangListActivity extends AbActivity {
 	private void initUI() {
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
-		titlebar.setText("任务列表");
+//		titlebar.setText("任务列表");
 //		if (from == 1) {
 //			titlebar.setText("质量检查任务列表");
 //		} else if (from == 2) {
@@ -287,22 +287,22 @@ public class ZhiliangListActivity extends AbActivity {
 				finish();
 			}
 		});
-		report_list.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				select_show = 1;
-				getGroupData();
-			}
-		});
-		send_list.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				select_show = 2;
-				getGroupData();
-			}
-		});
+//		report_list.setOnClickListener(new View.OnClickListener() {
+//
+//			@Override
+//			public void onClick(View arg0) {
+//				select_show = 1;
+//				getGroupData();
+//			}
+//		});
+//		send_list.setOnClickListener(new View.OnClickListener() {
+//
+//			@Override
+//			public void onClick(View arg0) {
+//				select_show = 2;
+//				getGroupData();
+//			}
+//		});
 
 	}
 
@@ -321,7 +321,7 @@ public class ZhiliangListActivity extends AbActivity {
 							int index, long arg3) {
 						// 点击进入 审批事项 详情页
 						Integer shenpi_id = shenpiList.get(index-1).id;
-						Intent intent = new Intent(ZhiliangListActivity.this,
+						Intent intent = new Intent(TaskListActivity.this,
 								ShenpiDetailActivity.class);
 						intent.putExtra("shenpi_id", shenpi_id);
 						intent.putExtra("from", from);

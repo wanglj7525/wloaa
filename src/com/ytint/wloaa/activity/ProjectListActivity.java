@@ -47,41 +47,39 @@ import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.widget.AbPullListView;
 
 /**
- * 审批 列表显示所有的该手机号或用户参与的审批事件 点击可以查看详细 可以操作后续步骤 或者操作过后只能查看 经过自己的审批事项 审批后报给上级
+ * 显示所有的工程列表 要可以查询
  * 
  * @author wlj
- * @date 2015-6-13上午11:14:05
+ *
  */
-public class AllListActivity extends AbActivity {
+public class ProjectListActivity extends AbActivity {
 	Context context = null;
 	private MyApplication application;
 	private List<Shenpi> shenpiList = new ArrayList<Shenpi>();
 	private AbImageDownloader mAbImageDownloader = null;
 	private ShenpiListAdapter listItemAdapter;
-	private int status;//0所有 1已完成 2未完成
+	private int from;
 	private int whichOne = 1;
 
-	String TAG = "AllListActivity";
+	String TAG = "ProjectListActivity";
 	private ProgressDialog mProgressDialog;
 	private String loginKey;
 
-	@AbIocView(id = R.id.shenpi_list)
-	AbPullListView shenpiListView;
+	@AbIocView(id = R.id.project_list)
+	AbPullListView projectListView;
 
-	@AbIocView(id = R.id.showtitle)
-	LinearLayout showtitle;
+	@AbIocView(id = R.id.showsearch)
+	LinearLayout showsearch;
 
-	@AbIocView(id = R.id.titlebar)
-	TextView titlebar;
+//	@AbIocView(id = R.id.titlebar)
+//	TextView titlebar;
 
-	@AbIocView(id = R.id.addShenpi)
-	RelativeLayout addShenpi;
+	@AbIocView(id = R.id.backproject)
+	RelativeLayout backproject;
 //	@AbIocView(id = R.id.report_list)
 //	RadioButton report_list;
 //	@AbIocView(id = R.id.send_list)
 //	RadioButton send_list;
-	// @AbIocView(id = R.id.radiogroup1)
-	// RadioGroup selectList;
 
 	private int select_show = 1;
 	private int page = 1;
@@ -104,8 +102,8 @@ public class AllListActivity extends AbActivity {
 		super.onCreate(savedInstanceState);
 		application= (MyApplication) this.getApplication();
 		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
-		setContentView(R.layout.layout_tasklist);
-		context = AllListActivity.this;
+		setContentView(R.layout.layout_projectlist);
+		context = ProjectListActivity.this;
 		loginKey = application.getProperty("loginKey");
 
 		initUI();
@@ -113,11 +111,49 @@ public class AllListActivity extends AbActivity {
 		getGroupData();
 		initListView();
 	}
+	/**
+	 * 初始化要用到的元素
+	 */
+	private void initUI() {
+		Intent intent = getIntent();
+		from = Integer.parseInt(intent.getExtras().get("from").toString());
+		Rect frame = new Rect();
+		getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+		int statusBarHeight = frame.top;
+		int contentTop = getWindow().findViewById(Window.ID_ANDROID_CONTENT)
+				.getTop();
+		// statusBarHeight是上面所求的状态栏的高度
+		int titleBarHeight = contentTop - statusBarHeight;
+		showsearch.setMinimumHeight(titleBarHeight);
+		backproject.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
+//		report_list.setOnClickListener(new View.OnClickListener() {
+//
+//			@Override
+//			public void onClick(View arg0) {
+//				select_show = 1;
+//				getGroupData();
+//			}
+//		});
+//		send_list.setOnClickListener(new View.OnClickListener() {
+//
+//			@Override
+//			public void onClick(View arg0) {
+//				select_show = 2;
+//				getGroupData();
+//			}
+//		});
+
+	}
 
 
 	public void initListView() {
 		// 绑定刷新和加载更多
-		shenpiListView.setAbOnListViewListener(new AbOnListViewListener() {
+		projectListView.setAbOnListViewListener(new AbOnListViewListener() {
 
 			@Override
 			public void onRefresh() {
@@ -143,8 +179,8 @@ public class AllListActivity extends AbActivity {
 		}
 		page++;
 		String url = String.format(
-				"%s?user_id=%s&p=%d&ps=%d&status=%d&task_type=%d",
-				host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, status,
+				"%s?user_id=%s&p=%d&ps=%d&department_id=%d&task_type=%d",
+				host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, from,
 				select_show);
 		Log.e("url", url);
 
@@ -163,7 +199,7 @@ public class AllListActivity extends AbActivity {
 							page--;
 						}
 						 if (shenpiList.size() <= 0) {
-								UIHelper.ToastMessage(AllListActivity.this,
+								UIHelper.ToastMessage(ProjectListActivity.this,
 										"网络连接失败！");
 							}
 					} else {
@@ -172,14 +208,14 @@ public class AllListActivity extends AbActivity {
 
 				} catch (Exception e) {
 					e.printStackTrace();
-					UIHelper.ToastMessage(AllListActivity.this, "数据解析失败");
+					UIHelper.ToastMessage(ProjectListActivity.this, "数据解析失败");
 				}
 			}
 
 			@Override
 			public void onFailure(int statusCode, String content,
 					Throwable error) {
-				UIHelper.ToastMessage(AllListActivity.this, "网络连接失败！");
+				UIHelper.ToastMessage(ProjectListActivity.this, "网络连接失败！");
 				page--;
 			}
 
@@ -190,7 +226,7 @@ public class AllListActivity extends AbActivity {
 			// 完成后调用
 			@Override
 			public void onFinish() {
-				shenpiListView.stopLoadMore();
+				projectListView.stopLoadMore();
 
 			};
 		});
@@ -207,12 +243,12 @@ public class AllListActivity extends AbActivity {
 				listItemAdapter.notifyDataSetChanged();
 			}
 			UIHelper.ToastMessage(context, "请检查网络连接");
-			shenpiListView.stopRefresh();
+			projectListView.stopRefresh();
 			return;
 		}
 		String url = String.format(
-				"%s?user_id=%s&p=%d&ps=%d&status=%d&task_type=%d",
-				host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, status,
+				"%s?user_id=%s&p=%d&ps=%d&department_id=%d&task_type=%d",
+				host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, from,
 				select_show);
 		Log.d(TAG, url);
 		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
@@ -251,80 +287,32 @@ public class AllListActivity extends AbActivity {
 				if (shenpiList.size() <= 0) {
 					listItemAdapter.notifyDataSetChanged();
 				}
-				shenpiListView.stopRefresh();
+				projectListView.stopRefresh();
 			};
 		});
 
 	}
 
-	/**
-	 * 初始化要用到的元素
-	 */
-	private void initUI() {
-		Intent intent = getIntent();
-		status = Integer.parseInt(intent.getExtras().get("status").toString());
-		titlebar.setText("任务列表");
-//		if (from == 1) {
-//			titlebar.setText("质量检查任务列表");
-//		} else if (from == 2) {
-//			titlebar.setText("安全检查任务列表");
-//		} else {
-//			titlebar.setText("执法管理任务列表");
-//		}
-
-		Rect frame = new Rect();
-		getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
-		int statusBarHeight = frame.top;
-		int contentTop = getWindow().findViewById(Window.ID_ANDROID_CONTENT)
-				.getTop();
-		// statusBarHeight是上面所求的状态栏的高度
-		int titleBarHeight = contentTop - statusBarHeight;
-		showtitle.setMinimumHeight(titleBarHeight);
-
-		addShenpi.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-//		report_list.setOnClickListener(new View.OnClickListener() {
-//
-//			@Override
-//			public void onClick(View arg0) {
-//				select_show = 1;
-//				getGroupData();
-//			}
-//		});
-//		send_list.setOnClickListener(new View.OnClickListener() {
-//
-//			@Override
-//			public void onClick(View arg0) {
-//				select_show = 2;
-//				getGroupData();
-//			}
-//		});
-
-	}
-
+	
 	// 初始化绑定数据
 	private void initData() {
 		application = (MyApplication) this.getApplication();
-		if (shenpiListView == null)
+		if (projectListView == null)
 			return;
 		listItemAdapter = new ShenpiListAdapter(this);
 		// 第三步：给listview设置适配器（view）
-		shenpiListView.setAdapter(listItemAdapter);
-		shenpiListView
+		projectListView.setAdapter(listItemAdapter);
+		projectListView
 				.setOnItemClickListener(new ListView.OnItemClickListener() {
 					@Override
 					public void onItemClick(AdapterView<?> arg0, View arg1,
 							int index, long arg3) {
 						// 点击进入 审批事项 详情页
 						Integer shenpi_id = shenpiList.get(index-1).id;
-						Intent intent = new Intent(AllListActivity.this,
+						Intent intent = new Intent(ProjectListActivity.this,
 								ShenpiDetailActivity.class);
 						intent.putExtra("shenpi_id", shenpi_id);
-						intent.putExtra("from", status);
+						intent.putExtra("from", from);
 						System.out.println(intent.getIntExtra("shenpi_id", 0));
 						startActivity(intent);
 
@@ -394,14 +382,14 @@ public class AllListActivity extends AbActivity {
 			}
 			timeView = (TextView) convertView
 					.findViewById(R.id.shenpi_create_time);
-			String html = "";
-//			if (from == 1) {
-//				html += "质量检查】 ";
-//			} else if (from == 2) {
-//				html += "安全检查】";
-//			} else {
-//				html += "执法管理】";
-//			}
+			String html = "【";
+			if (from == 1) {
+				html += "质量检查】 ";
+			} else if (from == 2) {
+				html += "安全检查】";
+			} else {
+				html += "执法管理】";
+			}
 			html += "<font color='#A00000'>" + news.create_user_name
 					+ "&nbsp;</font>" + news.name
 					+ "&nbsp;<font color='#505050'>" + news.company_name
