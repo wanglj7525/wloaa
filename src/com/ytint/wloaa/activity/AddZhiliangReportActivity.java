@@ -101,6 +101,8 @@ public class AddZhiliangReportActivity extends AbActivity {
 	// Spinner companySpinner;
 	@AbIocView(id = R.id.addshenpi_full)
 	LinearLayout addxiapai_full;
+	@AbIocView(id=R.id.showProgect)
+	LinearLayout showProgect;
 	@AbIocView(id = R.id.gridView_image_report)
 	GridView gridView_image_report;
 	// @AbIocView(id = R.id.select_shenpi_people)
@@ -209,14 +211,12 @@ public class AddZhiliangReportActivity extends AbActivity {
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
 		AbTitleBar mAbTitleBar = this.getTitleBar();
-		// if (from==1) {
-		// mAbTitleBar.setTitleText("质量检查-上报质检任务");
-		// }else if(from==2){
-		// mAbTitleBar.setTitleText("安全检查-上报安全隐患");
-		// }else{
-		// mAbTitleBar.setTitleText("执法管理-上报执法任务");
-		// }
-		mAbTitleBar.setTitleText("上报任务");
+		 if (from==1) {
+			 mAbTitleBar.setTitleText("工程任务");
+		 }else if(from==2){
+			 mAbTitleBar.setTitleText("自定义任务");
+		 }
+//		mAbTitleBar.setTitleText("上报任务");
 		mAbTitleBar.setLogo(R.drawable.button_selector_back);
 		mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
 		mAbTitleBar.setTitleBarBackground(R.drawable.abg_top);
@@ -238,7 +238,9 @@ public class AddZhiliangReportActivity extends AbActivity {
 		initUi();
 		// 加载联系人下拉框
 //		loadPeoples();
-		loadProject();
+		if (from==1) {
+			loadProject();
+		}
 		// loadComapny();
 
 		commitId = "0";
@@ -597,6 +599,10 @@ public class AddZhiliangReportActivity extends AbActivity {
 		addxiapai_full.setOnClickListener(keyboard_hide);
 
 		task_people.setText(userName);
+		if (from==2) {
+			showProgect.setVisibility(View.GONE);
+			projectId="-1";
+		}
 	}
 
 	private void alert() {

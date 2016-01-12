@@ -41,8 +41,9 @@ public class ZhifaFragment extends Fragment {
 			
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),AddZhiliangSendActivity.class);
-				intent.putExtra("from", departmentId);
+//				Intent intent = new Intent(getActivity(),AddZhiliangSendActivity.class);
+				Intent intent = new Intent(getActivity(),AddZhiliangReportActivity.class);
+				intent.putExtra("from", 1);
 				startActivity(intent);
 			}
 		});
@@ -53,7 +54,7 @@ public class ZhifaFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(getActivity(),AddZhiliangReportActivity.class);
-				intent.putExtra("from", departmentId);
+				intent.putExtra("from", 2);
 				startActivity(intent);
 			}
 		});
