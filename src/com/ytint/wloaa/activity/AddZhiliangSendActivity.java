@@ -55,6 +55,11 @@ import com.ytint.wloaa.bean.Qunfa;
 import com.ytint.wloaa.bean.QunfaInfo;
 import com.ytint.wloaa.bean.URLs;
 
+/**
+ * 工程任务
+ * @author wlj
+ * @date 2016-1-12下午2:41:39
+ */
 public class AddZhiliangSendActivity extends AbActivity {
 	String TAG = "AddZhiliangSendActivity";
 	private MyApplication application;

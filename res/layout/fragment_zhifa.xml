@@ -12,8 +12,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:drawableLeft="@drawable/menu_zhifa_xiapai"
-        android:enabled="false"
-        android:text="下派任务" />
+        android:text="工程任务" />
 
     <Button
         android:id="@+id/zhifa2"
@@ -22,8 +21,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:drawableLeft="@drawable/menu_zhifa_shangbao"
-        android:enabled="false"
-        android:text="上报任务" />
+        android:text="自定义任务" />
 
     <Button
         android:id="@+id/zhifa3"

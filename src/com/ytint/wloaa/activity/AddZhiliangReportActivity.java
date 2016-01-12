@@ -71,6 +71,11 @@ import com.ytint.wloaa.bean.Shenpi;
 import com.ytint.wloaa.bean.ShenpiInfo;
 import com.ytint.wloaa.bean.URLs;
 
+/**
+ * 自定义任务
+ * @author wlj
+ * @date 2016-1-12下午2:41:14
+ */
 public class AddZhiliangReportActivity extends AbActivity {
 	String TAG = "AddShenpiActivity";
 	private MyApplication application;
@@ -116,10 +121,10 @@ public class AddZhiliangReportActivity extends AbActivity {
 	// EditText task_method;
 	@AbIocView(id = R.id.task_remark)
 	EditText task_remark;
-	@AbIocView(id = R.id.is_reply)
-	CheckBox is_reply;
-	@AbIocView(id = R.id.is_review)
-	CheckBox is_review;
+//	@AbIocView(id = R.id.is_reply)
+//	CheckBox is_reply;
+//	@AbIocView(id = R.id.is_review)
+//	CheckBox is_review;
 
 	// /** 确定位置*/
 	// @AbIocView(id = R.id.findlocal)
@@ -719,16 +724,16 @@ public class AddZhiliangReportActivity extends AbActivity {
 		// params.put("taskInfo.handle_mode", task_method.getText().toString());
 		params.put("taskInfo.remark", task_remark.getText().toString());
 		System.out.println();
-		String reply = "2";
-		if (is_reply.isChecked()) {
-			reply = "1";
-		}
-		String review = "2";
-		if (is_review.isChecked()) {
-			review = "1";
-		}
-		params.put("taskInfo.is_reply", reply);
-		params.put("taskInfo.is_review", review);
+//		String reply = "2";
+//		if (is_reply.isChecked()) {
+//			reply = "1";
+//		}
+//		String review = "2";
+//		if (is_review.isChecked()) {
+//			review = "1";
+//		}
+//		params.put("taskInfo.is_reply", reply);
+//		params.put("taskInfo.is_review", review);
 		// String attachments = "";
 		// for (int i = 0; i < attachment.size(); i++) {
 		// if (i==attachment.size()-1) {

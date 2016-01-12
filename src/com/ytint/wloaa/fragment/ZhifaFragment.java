@@ -57,11 +57,11 @@ public class ZhifaFragment extends Fragment {
 				startActivity(intent);
 			}
 		});
-		if (userType.equals("3")) {
-			button1.setEnabled(true);
-		}else if (userType.equals("4")) {
-			button2.setEnabled(true);
-		}
+//		if (userType.equals("3")) {
+//			button1.setEnabled(true);
+//		}else if (userType.equals("4")) {
+//			button2.setEnabled(true);
+//		}
 		button3=(Button)rootView.findViewById(R.id.zhifa3);
 		button3.setOnClickListener(new View.OnClickListener() {
 			
