@@ -76,7 +76,7 @@ import com.ytint.wloaa.bean.URLs;
  * @author wlj
  * @date 2016-1-12下午2:41:14
  */
-public class AddZhiliangReportActivity extends AbActivity {
+public class AddTaskActivity extends AbActivity {
 	String TAG = "AddShenpiActivity";
 	private MyApplication application;
 	private ArrayAdapter<String> adapter;
@@ -231,7 +231,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 				});
 
 		setAbContentView(R.layout.layout_addzhiliangreport);
-		context = AddZhiliangReportActivity.this;
+		context = AddTaskActivity.this;
 		loginKey = application.getProperty("loginKey");
 		userName = application.getProperty("userName");
 		initData();
@@ -387,7 +387,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 
 	private void initProject() {
 		// 将可选内容与ArrayAdapter连接起来
-		adapter = new ArrayAdapter<String>(AddZhiliangReportActivity.this,
+		adapter = new ArrayAdapter<String>(AddTaskActivity.this,
 				R.layout.spinner_item, project_names);
 		// 设置下拉列表的风格
 		adapter.setDropDownViewResource(R.layout.drop_down_item);
@@ -486,7 +486,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 		add_photo.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(AddZhiliangReportActivity.this,
+				Intent intent = new Intent(AddTaskActivity.this,
 						AlbumActivity.class);
 				startActivityForResult(intent,20);
 //				overridePendingTransition(R.anim.activity_translate_in, R.anim.activity_translate_out);
@@ -520,7 +520,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 					intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
 					startActivityForResult(intent, 12);
 				} else {
-					Toast.makeText(AddZhiliangReportActivity.this, "sdcard不可用",
+					Toast.makeText(AddTaskActivity.this, "sdcard不可用",
 							Toast.LENGTH_SHORT).show();
 				}
 				// Intent intent = new
@@ -543,7 +543,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 			public void onClick(View v) {
 
 				// 关闭键盘
-				InputMethodManager imm = (InputMethodManager) AddZhiliangReportActivity.this
+				InputMethodManager imm = (InputMethodManager) AddTaskActivity.this
 						.getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 				submitShenpi();
@@ -590,7 +590,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 
 			@Override
 			public void onClick(View v) {
-				InputMethodManager imm = (InputMethodManager) AddZhiliangReportActivity.this
+				InputMethodManager imm = (InputMethodManager) AddTaskActivity.this
 						.getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 			}
@@ -869,7 +869,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 			mRecorder = null;
 			mVoicesList.add(mFileName);
 			mVoicesListname.add(mFileNameShow);
-			mAdapter = new MyGridAdapter(AddZhiliangReportActivity.this);
+			mAdapter = new MyGridAdapter(AddTaskActivity.this);
 			addvoicegridviewreport.setAdapter(mAdapter);
 			initGridView();
 			// new FileHelper().submitUploadFile(mVoicesList, loginKey,"3");

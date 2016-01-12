@@ -275,7 +275,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.ytint.wloaa.activity.AddZhiliangReportActivity"
+            android:name="com.ytint.wloaa.activity.AddTaskActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
