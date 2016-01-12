@@ -14,14 +14,14 @@ import com.ytint.wloaa.activity.AddZhiliangSendActivity;
 import com.ytint.wloaa.activity.ZhiliangListActivity;
 import com.ytint.wloaa.app.MyApplication;
 
-public class ZhifaFragment extends Fragment {
+public class TaskFragment extends Fragment {
 	private Button button1;
 	private Button button2;
 	private Button button3;
 	private MyApplication application;
 	private String userType;
 	private String departmentId;
-	public ZhifaFragment(){}
+	public TaskFragment(){}
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {

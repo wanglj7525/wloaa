@@ -39,7 +39,7 @@ import com.ytint.wloaa.fragment.AllListFragment;
 import com.ytint.wloaa.fragment.GonggaoFragment;
 import com.ytint.wloaa.fragment.ShezhiFragment;
 import com.ytint.wloaa.fragment.XiaoxiFragment;
-import com.ytint.wloaa.fragment.ZhifaFragment;
+import com.ytint.wloaa.fragment.TaskFragment;
 import com.ytint.wloaa.service.AppUpgradeService;
 
 public class MainActivity extends BaseActivity {
@@ -127,7 +127,7 @@ public class MainActivity extends BaseActivity {
 		String keshiname="任务管理";
 		int keshiimage=R.drawable.menu_zhiliang;
 		fm = getSupportFragmentManager();
-		fragment1 = new ZhifaFragment();
+		fragment1 = new TaskFragment();
 		fragment2 = new GonggaoFragment();
 		fragment3 = new XiaoxiFragment();
 		fragment4 = new ShezhiFragment();
@@ -138,7 +138,7 @@ public class MainActivity extends BaseActivity {
 			fragment1 = new AllListFragment();
 		}else{
 			keshiimage=R.drawable.menu_zhifa;
-			fragment1 =new ZhifaFragment();
+			fragment1 =new TaskFragment();
 			
 //			//科长，科员
 //			if (departmentId.equals("1")) {
