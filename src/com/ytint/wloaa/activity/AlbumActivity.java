@@ -45,14 +45,14 @@ public class AlbumActivity extends Activity {
 	private AlbumGridViewAdapter gridImageAdapter;
 	//完成按钮
 	private Button okButton;
-	// 返回按钮
-	private Button back;
+	// 相册按钮
+//	private Button back;
 	// 取消按钮
 	private Button cancel;
 	private Intent intent;
 	// 预览按钮
 //	private Button preview;
-	private Context mContext;
+	public Context mContext;
 	public static ArrayList<ImageItem> dataList= new ArrayList<ImageItem>();;
 	private AlbumHelper helper;
 	public static List<ImageBucket> contentList;
@@ -112,6 +112,7 @@ public class AlbumActivity extends Activity {
             intent.putExtra("result", datas);
             //设置返回数据
             AlbumActivity.this.setResult(RESULT_OK, intent);
+            Bimp.tempSelectBitmap.clear();
             //关闭Activity
             AlbumActivity.this.finish();
 		}
@@ -123,13 +124,14 @@ public class AlbumActivity extends Activity {
 		public void onClick(View v) {
 			intent.setClass(AlbumActivity.this, ImageFile.class);
 			startActivity(intent);
+			finish();
 		}
 	}
 
 	// 取消按钮的监听
 	private class CancelListener implements OnClickListener {
 		public void onClick(View v) {
-			
+			Bimp.tempSelectBitmap.clear();
 //			//数据是使用Intent返回
 //            Intent intent = new Intent();
 //            //把返回数据存入Intent
@@ -158,10 +160,10 @@ public class AlbumActivity extends Activity {
 			dataList.addAll( contentList.get(i).imageList );
 		}
 		
-		back = (Button) findViewById(R.id.back);
+//		back = (Button) findViewById(R.id.back);
 		cancel = (Button) findViewById(R.id.cancel);
 		cancel.setOnClickListener(new CancelListener());
-		back.setOnClickListener(new BackListener());
+//		back.setOnClickListener(new BackListener());
 //		preview = (Button) findViewById(R.id.preview);
 //		preview.setOnClickListener(new PreviewListener());
 		intent = getIntent();
@@ -243,8 +245,10 @@ public class AlbumActivity extends Activity {
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			intent.setClass(AlbumActivity.this, ImageFile.class);
-			startActivity(intent);
+//			intent.setClass(AlbumActivity.this, ImageFile.class);
+//			startActivity(intent);
+			Bimp.tempSelectBitmap.clear();
+			AlbumActivity.this.finish();
 		}
 		return false;
 

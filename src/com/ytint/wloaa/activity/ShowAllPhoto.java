@@ -103,6 +103,7 @@ public class ShowAllPhoto extends Activity {
 		public void onClick(View v) {
 			intent.setClass(ShowAllPhoto.this, ImageFile.class);
 			startActivity(intent);
+			ShowAllPhoto.this.finish();
 		}
 
 	}
@@ -191,8 +192,19 @@ public class ShowAllPhoto extends Activity {
 	            intent.putExtra("result", datas);
 	            //设置返回数据
 	            ShowAllPhoto.this.setResult(RESULT_OK, intent);
+	            
 	            //关闭Activity
 	            ShowAllPhoto.this.finish();
+	            for (int i = 0; i < PublicWay.activityList.size(); i++) {
+					if (i==0) {
+						AlbumActivity activity=(AlbumActivity) PublicWay.activityList.get(i);
+						activity.setResult(RESULT_OK, intent);
+						activity.finish();
+					}else{
+						Activity activity= PublicWay.activityList.get(i);
+						activity.finish();
+					}
+				}
 			}
 		});
 

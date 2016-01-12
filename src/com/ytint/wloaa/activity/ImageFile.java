@@ -46,6 +46,7 @@ public class ImageFile extends Activity {
 
 	private class CancelListener implements OnClickListener {// 取消按钮的监听
 		public void onClick(View v) {
+			Bimp.tempSelectBitmap.clear();
 			ImageFile.this.finish();
 			//清空选择的图片
 //			Bimp.tempSelectBitmap.clear();

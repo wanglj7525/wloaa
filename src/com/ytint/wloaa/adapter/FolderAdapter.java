@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.ytint.wloaa.R;
 import com.ytint.wloaa.activity.AlbumActivity;
+import com.ytint.wloaa.activity.ImageFile;
 import com.ytint.wloaa.activity.ShowAllPhoto;
 import com.ytint.wloaa.utils.BitmapCache;
 import com.ytint.wloaa.utils.BitmapCache.ImageCallback;
@@ -169,6 +170,8 @@ public class FolderAdapter extends BaseAdapter {
 			intent.putExtra("folderName", folderName);
 			intent.setClass(mContext, ShowAllPhoto.class);
 			mContext.startActivity(intent);
+			ImageFile activity = (ImageFile) mContext;
+			activity.finish();
 			choose_back.setVisibility(v.VISIBLE);
 		}
 	}

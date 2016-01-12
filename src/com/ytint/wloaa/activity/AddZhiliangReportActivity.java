@@ -173,7 +173,7 @@ public class AddZhiliangReportActivity extends AbActivity {
 	public static ArrayList<String> video = new ArrayList<String>();
 	private AbImageDownloader mAbImageDownloader = null;
 
-	private String peopleId;
+	private String peopleId= "0";
 	private String projectId = "0";
 	private String companyId = "0";
 	private static String srcPath;
@@ -852,16 +852,21 @@ public class AddZhiliangReportActivity extends AbActivity {
 	/** 停止录音 */
 	@SuppressLint("NewApi")
 	private void stopVoice() {
-		mRecorder.stop();
-		mRecorder.release();
-		mRecorder = null;
-		mVoicesList.add(mFileName);
-		mVoicesListname.add(mFileNameShow);
-		mAdapter = new MyGridAdapter(AddZhiliangReportActivity.this);
-		addvoicegridviewreport.setAdapter(mAdapter);
-		initGridView();
-		// new FileHelper().submitUploadFile(mVoicesList, loginKey,"3");
-		Toast.makeText(getApplicationContext(), "保存录音" + mFileName, 0).show();
+		try {
+			mRecorder.stop();
+			mRecorder.release();
+			mRecorder = null;
+			mVoicesList.add(mFileName);
+			mVoicesListname.add(mFileNameShow);
+			mAdapter = new MyGridAdapter(AddZhiliangReportActivity.this);
+			addvoicegridviewreport.setAdapter(mAdapter);
+			initGridView();
+			// new FileHelper().submitUploadFile(mVoicesList, loginKey,"3");
+			Toast.makeText(getApplicationContext(), "保存录音" + mFileName, 0).show();
+		} catch (Exception e) {
+			Toast.makeText(getApplicationContext(), "请长按录音！" , 0).show();
+			e.printStackTrace();
+		}
 	}
 
 	class MyGridAdapter extends BaseAdapter {
