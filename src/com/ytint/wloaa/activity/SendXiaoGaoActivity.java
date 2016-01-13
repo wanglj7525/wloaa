@@ -46,7 +46,8 @@ public class SendXiaoGaoActivity extends AbActivity {
 	private long people = 0;
 	private List<People> peoples;
 	private int from;
-	private int shenpi_id;
+	private int message_id;
+	private String message;
 	@AbIocView(id = R.id.select_people_xiaoxi)
 	Spinner peopleSpinner;
 	@AbIocView(id = R.id.commitXiaoxi)
@@ -89,7 +90,8 @@ public class SendXiaoGaoActivity extends AbActivity {
 			mAbTitleBar.setTitleText("发送公告");
 		}else{
 			mAbTitleBar.setTitleText("回复消息");
-			shenpi_id = Integer.parseInt(intent.getExtras().get("shenpi_id").toString());
+			message_id = Integer.parseInt(intent.getExtras().get("message_id").toString());
+			message = intent.getExtras().get("message").toString();
 			push_user_id = Integer.parseInt(intent.getExtras().get("push_user_id").toString());
 		}
 		mAbTitleBar.setLogo(R.drawable.button_selector_back);
@@ -126,6 +128,9 @@ public class SendXiaoGaoActivity extends AbActivity {
 	}
 
 	private void initUi() {
+		if (from==3) {
+			xiaoxi_title.setText("回复："+message);
+		}
 		// 添加
 		commitXiaoxi.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -227,7 +232,7 @@ public class SendXiaoGaoActivity extends AbActivity {
 		params.put("androidNoticeInfo.push_user_id", loginKey);
 		params.put("androidNoticeInfo.department_id", departmentId);
 		if (from==3) {
-			params.put("androidNoticeInfo.reply_notice_id", shenpi_id+"");
+			params.put("androidNoticeInfo.reply_notice_id", message_id+"");
 		}else{
 			params.put("androidNoticeInfo.reply_notice_id", "0");
 		}

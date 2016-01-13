@@ -28,7 +28,8 @@ public class XiaoxiShowActivity extends AbActivity {
 	Context context = null;
 	private String loginKey;
 	private int from;
-	Integer shenpi_id;
+	Integer message_id;
+	String message;
 	Integer push_user_id;
 	private Qunfa shenpi = new Qunfa();
 	@AbIocView(id = R.id.msg_content)
@@ -85,7 +86,7 @@ public class XiaoxiShowActivity extends AbActivity {
 		context = XiaoxiShowActivity.this;
 		loginKey = application.getProperty("loginKey");
 
-		shenpi_id=Integer.parseInt(intent.getExtras().get("shenpi_id").toString());
+		message_id=Integer.parseInt(intent.getExtras().get("message_id").toString());
 		loadDatas();
 		
 		to_msg.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +96,8 @@ public class XiaoxiShowActivity extends AbActivity {
 				
 				Intent intent = new Intent(XiaoxiShowActivity.this,SendXiaoGaoActivity.class);
 				intent.putExtra("from", 3);
-				intent.putExtra("shenpi_id", shenpi_id);
+				intent.putExtra("message_id", message_id);
+				intent.putExtra("message", message);
 				intent.putExtra("push_user_id", push_user_id);
 				startActivity(intent);
 				
@@ -112,7 +114,7 @@ public class XiaoxiShowActivity extends AbActivity {
 			showToast("请检查网络连接");
 			return;
 		}
-		mAbHttpUtil.get(host+URLs.MSGDETAIL + "?id=" + shenpi_id,
+		mAbHttpUtil.get(host+URLs.MSGDETAIL + "?id=" + message_id,
 				new AbStringHttpResponseListener() {
 					// 获取数据成功会调用这里
 					@Override
@@ -126,6 +128,7 @@ public class XiaoxiShowActivity extends AbActivity {
 								shenpi = gList.getInfo();
 								msg_content.setText(shenpi.content);
 								msg_title.setText(shenpi.title);
+								message=shenpi.title;
 								push_user_id=shenpi.push_user_id;
 								if (loginKey.equals(shenpi.push_user_id+"")) {
 									to_msg.setVisibility(View.GONE);

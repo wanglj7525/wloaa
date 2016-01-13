@@ -262,9 +262,9 @@ public class XiaoxGaoListActivity extends AbActivity{
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int index,
 					long arg3) {
-					Integer shenpi_id = qunfaList.get(index-1).id;
+					Integer message_id = qunfaList.get(index-1).id;
 		           Intent intent = new Intent(XiaoxGaoListActivity.this, XiaoxiShowActivity.class);  
-		           intent.putExtra("shenpi_id", shenpi_id);
+		           intent.putExtra("message_id", message_id);
 		           intent.putExtra("from", from);
 		           startActivity(intent);
 
