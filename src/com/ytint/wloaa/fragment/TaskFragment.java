@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.ytint.wloaa.R;
-import com.ytint.wloaa.activity.AddTaskActivity;
+import com.ytint.wloaa.activity.SendTaskActivity;
 import com.ytint.wloaa.activity.AddZhiliangSendActivity;
 import com.ytint.wloaa.activity.ProjectListActivity;
 import com.ytint.wloaa.activity.TaskListActivity;
@@ -44,7 +44,7 @@ public class TaskFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 //				Intent intent = new Intent(getActivity(),AddZhiliangSendActivity.class);
-				Intent intent = new Intent(getActivity(),AddTaskActivity.class);
+				Intent intent = new Intent(getActivity(),SendTaskActivity.class);
 				intent.putExtra("from", 1);
 				startActivity(intent);
 			}
@@ -55,7 +55,7 @@ public class TaskFragment extends Fragment {
 			
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),AddTaskActivity.class);
+				Intent intent = new Intent(getActivity(),SendTaskActivity.class);
 				intent.putExtra("from", 2);
 				startActivity(intent);
 			}

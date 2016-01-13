@@ -275,7 +275,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.ytint.wloaa.activity.AddTaskActivity"
+            android:name="com.ytint.wloaa.activity.SendTaskActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
@@ -305,12 +305,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.ytint.wloaa.activity.AddXiaoxiSendActivity"
+            android:name="com.ytint.wloaa.activity.SendXiaoGaoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.ytint.wloaa.activity.XiaoxiListActivity"
+            android:name="com.ytint.wloaa.activity.XiaoxGaoListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>

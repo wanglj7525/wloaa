@@ -93,7 +93,7 @@ public class XiaoxiShowActivity extends AbActivity {
 			@Override
 			public void onClick(View arg0) {
 				
-				Intent intent = new Intent(XiaoxiShowActivity.this,AddXiaoxiSendActivity.class);
+				Intent intent = new Intent(XiaoxiShowActivity.this,SendXiaoGaoActivity.class);
 				intent.putExtra("from", 3);
 				intent.putExtra("shenpi_id", shenpi_id);
 				intent.putExtra("push_user_id", push_user_id);

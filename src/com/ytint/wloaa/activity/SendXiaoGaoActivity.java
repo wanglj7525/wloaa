@@ -34,7 +34,7 @@ import com.ytint.wloaa.bean.PeopleList;
 import com.ytint.wloaa.bean.QunfaInfo;
 import com.ytint.wloaa.bean.URLs;
 
-public class AddXiaoxiSendActivity extends AbActivity {
+public class SendXiaoGaoActivity extends AbActivity {
 	String TAG = "AddXiaoxiSendActivity";
 	private MyApplication application;
 	Context context = null;
@@ -110,7 +110,7 @@ public class AddXiaoxiSendActivity extends AbActivity {
 				});
 
 		setAbContentView(R.layout.layout_addxiaoxi);
-		context = AddXiaoxiSendActivity.this;
+		context = SendXiaoGaoActivity.this;
 		loginKey = application.getProperty("loginKey");
 		departmentId = application.getProperty("departmentId");
 		initUi();
@@ -131,7 +131,7 @@ public class AddXiaoxiSendActivity extends AbActivity {
 			@Override
 			public void onClick(View v) {
 				// 关闭键盘
-				InputMethodManager imm = (InputMethodManager) AddXiaoxiSendActivity.this
+				InputMethodManager imm = (InputMethodManager) SendXiaoGaoActivity.this
 						.getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 				submitXiaoxi();
@@ -148,7 +148,7 @@ public class AddXiaoxiSendActivity extends AbActivity {
 
 			@Override
 			public void onClick(View v) {
-				InputMethodManager imm = (InputMethodManager) AddXiaoxiSendActivity.this
+				InputMethodManager imm = (InputMethodManager) SendXiaoGaoActivity.this
 						.getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 			}
@@ -159,7 +159,7 @@ public class AddXiaoxiSendActivity extends AbActivity {
 	}
 	private void initSpinner() {
 		// 将可选内容与ArrayAdapter连接起来
-		adapter = new ArrayAdapter<String>(AddXiaoxiSendActivity.this,
+		adapter = new ArrayAdapter<String>(SendXiaoGaoActivity.this,
 				R.layout.spinner_item, people_names);
 		// 设置下拉列表的风格
 		adapter.setDropDownViewResource(R.layout.drop_down_item);

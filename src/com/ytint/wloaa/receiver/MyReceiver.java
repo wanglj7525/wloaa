@@ -13,7 +13,7 @@ import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.service.PushService;
 
-import com.ytint.wloaa.activity.XiaoxiListActivity;
+import com.ytint.wloaa.activity.XiaoxGaoListActivity;
 import com.ytint.wloaa.activity.XiaoxiShowActivity;
 import com.ytint.wloaa.app.MyApplication;
 

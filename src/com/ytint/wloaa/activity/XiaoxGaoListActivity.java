@@ -39,14 +39,11 @@ import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.widget.AbPullListView;
 
 /**
- * 审批
- * 列表显示所有的该手机号或用户参与的审批事件
- * 点击可以查看详细 可以操作后续步骤 或者操作过后只能查看
- * 经过自己的审批事项 审批后报给上级
+ *消息列表 公告列表
  * @author wlj
  * @date 2015-6-13上午11:14:05
  */
-public class XiaoxiListActivity extends AbActivity{
+public class XiaoxGaoListActivity extends AbActivity{
 
 	Context context = null;
 	private MyApplication application;
@@ -54,7 +51,7 @@ public class XiaoxiListActivity extends AbActivity{
 	private AbImageDownloader mAbImageDownloader = null;
 	private QunfaListAdapter listItemAdapter;
 	
-	String TAG = "ShenpiActivity";
+	String TAG = "XiaoxGaoListActivity";
 	private ProgressDialog mProgressDialog;
 	private String loginKey;
 	
@@ -88,7 +85,7 @@ public class XiaoxiListActivity extends AbActivity{
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
 		setContentView(R.layout.layout_xiaoxi);
-		context = XiaoxiListActivity.this;
+		context = XiaoxGaoListActivity.this;
 		loginKey = application.getProperty("loginKey");
 		initData();
 		getGroupData();
@@ -160,7 +157,7 @@ public class XiaoxiListActivity extends AbActivity{
 							page--;
 						}
 						 if (qunfaList.size() <= 0) {
-								UIHelper.ToastMessage(XiaoxiListActivity.this,
+								UIHelper.ToastMessage(XiaoxGaoListActivity.this,
 										"网络连接失败！");
 							}
 					} else {
@@ -169,14 +166,14 @@ public class XiaoxiListActivity extends AbActivity{
 
 				} catch (Exception e) {
 					e.printStackTrace();
-					UIHelper.ToastMessage(XiaoxiListActivity.this, "数据解析失败");
+					UIHelper.ToastMessage(XiaoxGaoListActivity.this, "数据解析失败");
 				}
 			}
 
 			@Override
 			public void onFailure(int statusCode, String content,
 					Throwable error) {
-				UIHelper.ToastMessage(XiaoxiListActivity.this, "网络连接失败！");
+				UIHelper.ToastMessage(XiaoxGaoListActivity.this, "网络连接失败！");
 				page--;
 			}
 
@@ -266,7 +263,7 @@ public class XiaoxiListActivity extends AbActivity{
 			public void onItemClick(AdapterView<?> arg0, View arg1, int index,
 					long arg3) {
 					Integer shenpi_id = qunfaList.get(index-1).id;
-		           Intent intent = new Intent(XiaoxiListActivity.this, XiaoxiShowActivity.class);  
+		           Intent intent = new Intent(XiaoxGaoListActivity.this, XiaoxiShowActivity.class);  
 		           intent.putExtra("shenpi_id", shenpi_id);
 		           intent.putExtra("from", from);
 		           startActivity(intent);
@@ -351,7 +348,11 @@ public class XiaoxiListActivity extends AbActivity{
 						.findViewById(R.id.create_time);
 			frompeo.setText(news.title);
 			topeo.setText(" "+news.push_user_name);
-			abstr.setText(news.content);
+			String abstrs=news.content;
+			if (abstrs.length()>=100) {
+				abstrs=abstrs.substring(0, 99)+"...";
+			}
+			abstr.setText(abstrs);
 			timeView.setText(news.create_time_string);
             return convertView;  
         }
