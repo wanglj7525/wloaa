@@ -41,6 +41,8 @@ import com.ytint.wloaa.activity.ShenpiDetailActivity.ViewHolder;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
+import com.ytint.wloaa.bean.Project;
+import com.ytint.wloaa.bean.ProjectList;
 import com.ytint.wloaa.bean.Shenpi;
 import com.ytint.wloaa.bean.ShenpiInfoList;
 import com.ytint.wloaa.bean.URLs;
@@ -55,7 +57,7 @@ import com.ytint.wloaa.widget.AbPullListView;
 public class ProjectListActivity extends AbActivity {
 	Context context = null;
 	private MyApplication application;
-	private List<Shenpi> shenpiList = new ArrayList<Shenpi>();
+	private List<Project> projects=new ArrayList<Project>();
 	private AbImageDownloader mAbImageDownloader = null;
 	private ShenpiListAdapter listItemAdapter;
 	private int from;
@@ -71,15 +73,9 @@ public class ProjectListActivity extends AbActivity {
 	@AbIocView(id = R.id.showsearch)
 	LinearLayout showsearch;
 
-//	@AbIocView(id = R.id.titlebar)
-//	TextView titlebar;
 
 	@AbIocView(id = R.id.backproject)
 	RelativeLayout backproject;
-//	@AbIocView(id = R.id.report_list)
-//	RadioButton report_list;
-//	@AbIocView(id = R.id.send_list)
-//	RadioButton send_list;
 
 	private int select_show = 1;
 	private int page = 1;
@@ -131,22 +127,6 @@ public class ProjectListActivity extends AbActivity {
 				finish();
 			}
 		});
-//		report_list.setOnClickListener(new View.OnClickListener() {
-//
-//			@Override
-//			public void onClick(View arg0) {
-//				select_show = 1;
-//				getGroupData();
-//			}
-//		});
-//		send_list.setOnClickListener(new View.OnClickListener() {
-//
-//			@Override
-//			public void onClick(View arg0) {
-//				select_show = 2;
-//				getGroupData();
-//			}
-//		});
 
 	}
 
@@ -179,31 +159,30 @@ public class ProjectListActivity extends AbActivity {
 		}
 		page++;
 		String url = String.format(
-				"%s?user_id=%s&p=%d&ps=%d&department_id=%d&task_type=%d",
-				host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, from,
-				select_show);
+				"%s?p=%d&ps=%d",
+				host+URLs.PROJECTLIST,  page, Constants.PAGE_SIZE);
 		Log.e("url", url);
 
 		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
 			@Override
 			public void onSuccess(int statusCode, String content) {
 				try {
-					ShenpiInfoList gList = ShenpiInfoList.parseJson(content);
-					if (gList.code == 200) {
-						 List<Shenpi> tempList = gList.getInfo();
+					ProjectList cList = ProjectList.parseJson(content);
+					if (cList.code == 200) {
+						 List<Project> tempList = cList.getInfo();
 						 if (tempList != null && tempList.size() > 0) {
-							 shenpiList.addAll(tempList);
+							 projects.addAll(tempList);
 							 listItemAdapter.notifyDataSetChanged();
 							 tempList.clear();
 						}else{
 							page--;
 						}
-						 if (shenpiList.size() <= 0) {
+						 if (projects.size() <= 0) {
 								UIHelper.ToastMessage(ProjectListActivity.this,
 										"网络连接失败！");
 							}
 					} else {
-						UIHelper.ToastMessage(context, gList.msg);
+						UIHelper.ToastMessage(context, cList.msg);
 					}
 
 				} catch (Exception e) {
@@ -239,7 +218,7 @@ public class ProjectListActivity extends AbActivity {
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		mAbHttpUtil.setDebug(true);
 		if (!application.isNetworkConnected()) {
-			if (shenpiList.size() <= 0) {
+			if (projects.size() <= 0) {
 				listItemAdapter.notifyDataSetChanged();
 			}
 			UIHelper.ToastMessage(context, "请检查网络连接");
@@ -247,21 +226,20 @@ public class ProjectListActivity extends AbActivity {
 			return;
 		}
 		String url = String.format(
-				"%s?user_id=%s&p=%d&ps=%d&department_id=%d&task_type=%d",
-				host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, from,
-				select_show);
+				"%s?p=%d&ps=%d",
+				host+URLs.PROJECTLIST, page, Constants.PAGE_SIZE);
 		Log.d(TAG, url);
 		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
 			@Override
 			public void onSuccess(int statusCode, String content) {
 				Log.d(TAG, content);
 				try {
-					ShenpiInfoList gList = ShenpiInfoList.parseJson(content);
-					if (gList.code == 200) {
-						shenpiList = gList.getInfo();
+					ProjectList cList = ProjectList.parseJson(content);
+					if (cList.code == 200) {
+						projects = cList.getInfo();
 						listItemAdapter.notifyDataSetChanged();
 					} else {
-						UIHelper.ToastMessage(context, gList.msg);
+						UIHelper.ToastMessage(context, cList.msg);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -284,7 +262,7 @@ public class ProjectListActivity extends AbActivity {
 			@Override
 			public void onFinish() {
 				mProgressDialog.dismiss();
-				if (shenpiList.size() <= 0) {
+				if (projects.size() <= 0) {
 					listItemAdapter.notifyDataSetChanged();
 				}
 				projectListView.stopRefresh();
@@ -308,13 +286,13 @@ public class ProjectListActivity extends AbActivity {
 					public void onItemClick(AdapterView<?> arg0, View arg1,
 							int index, long arg3) {
 						// 点击进入 审批事项 详情页
-						Integer shenpi_id = shenpiList.get(index-1).id;
-						Intent intent = new Intent(ProjectListActivity.this,
-								ShenpiDetailActivity.class);
-						intent.putExtra("shenpi_id", shenpi_id);
-						intent.putExtra("from", from);
-						System.out.println(intent.getIntExtra("shenpi_id", 0));
-						startActivity(intent);
+//						Integer shenpi_id = projects.get(index-1).id;
+//						Intent intent = new Intent(ProjectListActivity.this,
+//								ShenpiDetailActivity.class);
+//						intent.putExtra("shenpi_id", shenpi_id);
+//						intent.putExtra("from", from);
+//						System.out.println(intent.getIntExtra("shenpi_id", 0));
+//						startActivity(intent);
 
 					}
 				});
@@ -348,7 +326,7 @@ public class ProjectListActivity extends AbActivity {
 		// 决定ListView有几行可见
 		@Override
 		public int getCount() {
-			return shenpiList.size();// ListView的条目数
+			return projects.size();// ListView的条目数
 		}
 
 		@Override
@@ -363,144 +341,28 @@ public class ProjectListActivity extends AbActivity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			Shenpi news = shenpiList.get(position);
+			Project news = projects.get(position);
 
-			TextView frompeo = null;
-			TextView timeView = null;
-			TextView topeo = null;
-			GridView gridView_image_list = null;
-
-			convertView = mInflater.inflate(
-					R.layout.listitem_shenpilist_noimage, null);
-			frompeo = (TextView) convertView.findViewById(R.id.apply_user_name);
-			topeo = (TextView) convertView
-					.findViewById(R.id.first_verify_user_name);
-			gridView_image_list = (GridView) convertView
-					.findViewById(R.id.gridView_image_list);
-			if (news.attachment == "" && news.media == "") {
-				gridView_image_list.setVisibility(View.GONE);
-			}
-			timeView = (TextView) convertView
-					.findViewById(R.id.shenpi_create_time);
-			String html = "【";
-			if (from == 1) {
-				html += "质量检查】 ";
-			} else if (from == 2) {
-				html += "安全检查】";
-			} else {
-				html += "执法管理】";
-			}
-			html += "<font color='#A00000'>" + news.create_user_name
-					+ "&nbsp;</font>" + news.name
-					+ "&nbsp;<font color='#505050'>" + news.company_name
-					+ "</font>&nbsp;&nbsp;";
-			int flag1 = 0;
-			int flag2 = 0;
-			int flag3 = 0;
-			if (news.attachment.length() > 0) {
-				flag1 = news.attachment.split(",").length;
-				if (news.attachment.contains("3gp")
-						|| news.attachment.contains("mp4")) {
-					flag2 = 1;
-					flag1 -= 1;
-				}
-			}
-			if (news.task_type == 1) {
-				html += "<font color='#6495ED'>" + flag1
-						+ "</font>图片，<font color='#6495ED'>" + flag2
-						+ "</font>视频，";
-			}
-			if (news.media.length() > 0) {
-				flag3 = news.media.split(",").length;
-			}
-			html += "<font color='#6495ED'>" + flag3 + "</font>录音";
-			
-			if (news.task_type==1) {
-				if (news.status==2) {
-					html += "<font color='red'>&nbsp;&nbsp;【未完成】</font>";
-				}else{
-					html += "<font color='green'>&nbsp;&nbsp;【已完成】</font>";
-				}
-			}
-			frompeo.setText(Html.fromHtml(html));
-			topeo.setText("接收人：" + news.receive_user_name);
-			// abstr.setText(news.content);
-			timeView.setText("申请时间：" + news.create_time_string);
-			imageList = new ArrayList<String>();
-			if (news.attachment != "") {
-				for (int i = 0; i < news.attachment.split(",").length; i++) {
-					imageList.add(host+URLs.URL_API_HOST
-							+ news.attachment.split(",")[i]);
-				}
-			}
-			MAdapter mAdapter = new MAdapter(context);
-			gridView_image_list.setAdapter(mAdapter);
-			LayoutParams params = new LayoutParams(mAdapter.getCount()
-					* (120 + 10), LayoutParams.WRAP_CONTENT);
-			gridView_image_list.setLayoutParams(params);
-			gridView_image_list.setColumnWidth(120);
-			gridView_image_list.setHorizontalSpacing(10);
-			gridView_image_list.setStretchMode(GridView.NO_STRETCH);
-			gridView_image_list.setNumColumns(mAdapter.getCount());
+			TextView name = null;
+			TextView address = null;
+			TextView starttime = null;
+			TextView endtime = null;
+            convertView = mInflater.inflate(R.layout.listitem_project, null);
+            name = (TextView) convertView
+					.findViewById(R.id.projectname);
+            address = (TextView) convertView
+            		.findViewById(R.id.address);
+            starttime = (TextView) convertView
+            		.findViewById(R.id.starttime);
+            endtime = (TextView) convertView
+            		.findViewById(R.id.endtime);
+            name.setText("项目名称："+news.name);
+            address.setText("项目地址："+news.address);
+            starttime.setText("开始时间："+news.starttime);
+            endtime.setText("结束时间："+news.endtime);
 			return convertView;
 		}
 
 	}
 
-	class MAdapter extends BaseAdapter {
-		Context mContext;
-		LayoutInflater mInflater;
-
-		public MAdapter(Context c) {
-			mContext = c;
-			mInflater = LayoutInflater.from(mContext);
-			// 图片下载器
-//			mAbImageDownloader = new AbImageDownloader(mContext);
-//			mAbImageDownloader.setWidth(120);
-//			mAbImageDownloader.setHeight(100);
-//			mAbImageDownloader.setType(AbConstant.SCALEIMG);
-//			mAbImageDownloader.setLoadingImage(R.drawable.image_loading);
-//			mAbImageDownloader.setErrorImage(R.drawable.image_error);
-//			mAbImageDownloader.setNoImage(R.drawable.image_no);
-		}
-
-		@Override
-		public int getCount() {
-			// TODO Auto-generated method stub
-			return imageList.size();
-		}
-
-		@Override
-		public Object getItem(int arg0) {
-			// TODO Auto-generated method stub
-			return arg0;
-		}
-
-		@Override
-		public long getItemId(int arg0) {
-			// TODO Auto-generated method stub
-			return arg0;
-		}
-
-		@Override
-		public View getView(int position, View contentView, ViewGroup arg2) {
-			String image = imageList.get(position);
-			if (image.contains("3gp") || image.contains("mp4")) {
-				image =host+ URLs.URL_API_HOST + "public/images/video_play_btn.png";
-			}
-			ViewHolder holder;
-			if (contentView == null) {
-				holder = new ViewHolder();
-				contentView = mInflater.inflate(R.layout.gridview_item, null);
-				holder.mImg = (ImageView) contentView.findViewById(R.id.mImage);
-				application.IMAGE_CACHE.get(image, holder.mImg);
-//				mAbImageDownloader.display(holder.mImg, image);
-			} else {
-				holder = (ViewHolder) contentView.getTag();
-			}
-			contentView.setTag(holder);
-			return contentView;
-		}
-
-	}
 }

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/hottopnews_listview_selector"
+    android:gravity="left" >
+
+    <TextView
+        android:id="@+id/projectname"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:paddingBottom="@dimen/list_item_title_bottom"
+        android:paddingLeft="10dip"
+        android:paddingTop="@dimen/list_item_padding_top"
+        android:singleLine="true"
+        android:text="项目名称"
+        android:textColor="@color/listitem_black"
+        android:textSize="17dip" />
+  <TextView
+        android:id="@+id/address"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/projectname"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:lineSpacingMultiplier="1.2"
+        android:paddingBottom="2dip"
+        android:paddingLeft="10dip"
+        android:text="地址"
+        android:textColor="@color/list_item_abstract"
+        android:textSize="14dip" />
+
+
+    <TextView
+        android:id="@+id/starttime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/address"
+        android:gravity="left"
+        android:lines="1"
+        android:paddingBottom="@dimen/list_item_padding_bottom"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:text="开始时间"
+        android:textColor="@color/content"
+        android:textSize="11dip" />
+     <ImageView
+           android:layout_width="fill_parent"
+           android:layout_height="1dp"
+           android:layout_alignBottom="@+id/starttime"
+           android:layout_alignParentLeft="true"
+           android:background="#bbb" />
+    
+    <TextView
+        android:id="@+id/endtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/starttime"
+        android:layout_marginLeft="50dp"
+        android:layout_toRightOf="@+id/starttime"
+        android:text="结束时间："
+        android:textColor="@color/content"
+        android:textColorHint="@color/black"
+        android:textSize="11dip" />
+    
+</RelativeLayout>
