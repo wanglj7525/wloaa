@@ -230,7 +230,7 @@ public class SendTaskActivity extends AbActivity {
 
 				});
 
-		setAbContentView(R.layout.layout_addzhiliangreport);
+		setAbContentView(R.layout.layout_addtask);
 		context = SendTaskActivity.this;
 		loginKey = application.getProperty("loginKey");
 		userName = application.getProperty("userName");

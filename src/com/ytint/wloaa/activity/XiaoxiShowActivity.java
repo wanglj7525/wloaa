@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
 
@@ -36,8 +37,14 @@ public class XiaoxiShowActivity extends AbActivity {
 	TextView msg_content;
 	@AbIocView(id = R.id.msg_title)
 	TextView msg_title;
+	@AbIocView(id = R.id.msg_topeople)
+	TextView msg_topeople;
+	@AbIocView(id = R.id.msg_frompeople)
+	TextView msg_frompeple;
 	@AbIocView(id = R.id.to_msg)
 	Button to_msg;
+	@AbIocView (id=R.id.showtopeople)
+	LinearLayout showtopeople;
 	String host;
 	@Override
 	protected void onResume() {
@@ -80,6 +87,7 @@ public class XiaoxiShowActivity extends AbActivity {
 		if (from == 0) {
 			mAbTitleBar.setTitleText("公告详情");
 			to_msg.setVisibility(View.GONE);
+			showtopeople.setVisibility(View.GONE);
 		} else {
 			mAbTitleBar.setTitleText("消息详情");
 		}
@@ -128,6 +136,8 @@ public class XiaoxiShowActivity extends AbActivity {
 								shenpi = gList.getInfo();
 								msg_content.setText(shenpi.content);
 								msg_title.setText(shenpi.title);
+								msg_frompeple.setText(shenpi.push_user_name);
+								msg_topeople.setText(shenpi.receive_user_id);
 								message=shenpi.title;
 								push_user_id=shenpi.push_user_id;
 								if (loginKey.equals(shenpi.push_user_id+"")) {
