@@ -11,12 +11,15 @@ import android.widget.Button;
 import com.ytint.wloaa.R;
 import com.ytint.wloaa.activity.SendXiaoGaoActivity;
 import com.ytint.wloaa.activity.XiaoxGaoListActivity;
+import com.ytint.wloaa.app.MyApplication;
 
 public class GonggaoFragment extends Fragment {
 	
 	private Button button1;
 	private Button button2;
-	
+	private MyApplication application;
+	private String userType;
+	private String departmentId;
 	public GonggaoFragment(){}
 	
 	@Override
@@ -24,6 +27,9 @@ public class GonggaoFragment extends Fragment {
             Bundle savedInstanceState) {
  
         View rootView = inflater.inflate(R.layout.fragment_gonggao, container, false);
+        application = (MyApplication) getActivity().getApplication();
+        userType = application.getProperty("userType");
+        departmentId = application.getProperty("departmentId");
         findView(rootView);
         return rootView;
     }
@@ -39,7 +45,10 @@ public class GonggaoFragment extends Fragment {
 				startActivity(intent);
 			}
 		});
-		
+		//科员不能发布公告
+		if (userType.equals("4")) {
+			button1.setEnabled(false);
+		}
 		button2=(Button)rootView.findViewById(R.id.gonggaolist);
 		button2.setOnClickListener(new View.OnClickListener() {
 			
