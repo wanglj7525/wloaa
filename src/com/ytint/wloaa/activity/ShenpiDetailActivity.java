@@ -101,8 +101,8 @@ public class ShenpiDetailActivity extends AbActivity {
 	@AbIocView(id = R.id.gridView_image)
 	GridView gridView_image;
 	
-	@AbIocView(id=R.id.task_finish)
-	Button task_finish;
+//	@AbIocView(id=R.id.task_finish)
+//	Button task_finish;
 	private String userType;
 	private int from;
 	Integer shenpi_id;
@@ -157,14 +157,14 @@ public class ShenpiDetailActivity extends AbActivity {
 		shenpi_id=intent.getIntExtra("shenpi_id",0);
 		scrollView_image.setHorizontalScrollBarEnabled(true);
 		loadDatas();
-		task_finish.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				// 科长点击 上报任务 完成
-				finishTask();
-			}
-		});
+//		task_finish.setOnClickListener(new View.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View arg0) {
+//				// 科长点击 上报任务 完成
+//				finishTask();
+//			}
+//		});
 	}
 	
 	@SuppressLint("NewApi")
@@ -195,7 +195,7 @@ public class ShenpiDetailActivity extends AbActivity {
 									.parseJson(content);
 							if (gList.code == 200) {
 								UIHelper.ToastMessage(context, "任务已完成");
-								task_finish.setVisibility(View.GONE);
+//								task_finish.setVisibility(View.GONE);
 							} else {
 								UIHelper.ToastMessage(context, gList.msg);
 							}
@@ -268,10 +268,10 @@ public class ShenpiDetailActivity extends AbActivity {
 							detail_handle_mode.setVisibility(View.GONE);
 							showImageText.setVisibility(View.GONE);
 							showmodeLiner.setVisibility(View.GONE);
-							task_finish.setVisibility(View.GONE);
+//							task_finish.setVisibility(View.GONE);
 						}else{
 							if (userType.equals("3")) {
-								task_finish.setVisibility(View.VISIBLE);
+//								task_finish.setVisibility(View.VISIBLE);
 							}
 						}
 						mPlayer = new MediaPlayer();

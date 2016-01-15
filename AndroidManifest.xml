@@ -349,6 +349,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.ytint.wloaa.activity.ProjectDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
                 <!-- 版本更新下载service -->
         <service
             android:name="com.ytint.wloaa.service.AppUpgradeService"

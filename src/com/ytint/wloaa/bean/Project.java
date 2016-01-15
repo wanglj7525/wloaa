@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Project implements java.io.Serializable{
 	
-	public long id;
+	public int id;
 	public String name;
 	public long regionid;
 	public String address;

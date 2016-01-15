@@ -21,7 +21,7 @@
                 android:id="@+id/textViewShenpiDetailName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="工程名称"
+                android:text="任务名称"
                 android:textColor="@color/content"
                 android:textSize="18dp" />
 
@@ -345,7 +345,7 @@
                 </LinearLayout>
             </HorizontalScrollView>
         </LinearLayout>
-
+<!-- 
         <Button
             android:id="@+id/task_finish"
             android:layout_width="match_parent"
@@ -383,6 +383,7 @@
                 android:textSize="18sp" >
             </EditText>
         </LinearLayout>
+ -->
     </LinearLayout>
 
 </ScrollView>

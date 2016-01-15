@@ -285,14 +285,12 @@ public class ProjectListActivity extends AbActivity {
 					@Override
 					public void onItemClick(AdapterView<?> arg0, View arg1,
 							int index, long arg3) {
-						// 点击进入 审批事项 详情页
-//						Integer shenpi_id = projects.get(index-1).id;
-//						Intent intent = new Intent(ProjectListActivity.this,
-//								ShenpiDetailActivity.class);
-//						intent.putExtra("shenpi_id", shenpi_id);
-//						intent.putExtra("from", from);
-//						System.out.println(intent.getIntExtra("shenpi_id", 0));
-//						startActivity(intent);
+						//点击进入项目详情
+						Integer project_id = projects.get(index-1).id;
+						Intent intent = new Intent(ProjectListActivity.this,
+								ProjectDetailActivity.class);
+						intent.putExtra("project_id", project_id);
+						startActivity(intent);
 
 					}
 				});
@@ -356,8 +354,8 @@ public class ProjectListActivity extends AbActivity {
             		.findViewById(R.id.starttime);
             endtime = (TextView) convertView
             		.findViewById(R.id.endtime);
-            name.setText("项目名称："+news.name);
-            address.setText("项目地址："+news.address);
+            name.setText("工程名称："+news.name);
+            address.setText("工程地址："+news.address);
             starttime.setText("开始时间："+news.starttime);
             endtime.setText("结束时间："+news.endtime);
 			return convertView;
