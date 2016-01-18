@@ -48,8 +48,8 @@ public class SendXiaoGaoActivity extends AbActivity {
 	private int from;
 	private int message_id;
 	private String message;
-	@AbIocView(id = R.id.select_people_xiaoxi)
-	Spinner peopleSpinner;
+//	@AbIocView(id = R.id.select_people_xiaoxi)
+//	Spinner peopleSpinner;
 	@AbIocView(id = R.id.commitXiaoxi)
 	Button commitXiaoxi;
 	@AbIocView(id = R.id.xiaoxi_info)
@@ -62,6 +62,10 @@ public class SendXiaoGaoActivity extends AbActivity {
 	Button xiaoxicancel;
 	@AbIocView(id = R.id.showSelectPeople)
 	LinearLayout showSelectPeople;
+	@AbIocView(id=R.id.add_people)
+	Button add_people;
+	@AbIocView(id=R.id.edit_people)
+	EditText edit_people;
 	private String peopleId;
 	String host;
 	@Override
@@ -131,6 +135,15 @@ public class SendXiaoGaoActivity extends AbActivity {
 		if (from==3) {
 			xiaoxi_title.setText("回复："+message);
 		}
+		add_people.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				// 选择联系人
+				Intent intent = new Intent(SendXiaoGaoActivity.this,
+						SelectPeopleActivity.class);
+				startActivityForResult(intent,20);
+			}
+		});
 		// 添加
 		commitXiaoxi.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -162,39 +175,39 @@ public class SendXiaoGaoActivity extends AbActivity {
 		addxiaoxi_full.setClickable(true);
 		addxiaoxi_full.setOnClickListener(keyboard_hide);
 	}
-	private void initSpinner() {
-		// 将可选内容与ArrayAdapter连接起来
-		adapter = new ArrayAdapter<String>(SendXiaoGaoActivity.this,
-				R.layout.spinner_item, people_names);
-		// 设置下拉列表的风格
-		adapter.setDropDownViewResource(R.layout.drop_down_item);
-		// 将adapter 添加到spinner中
-		peopleSpinner.setAdapter(adapter);
-		// 设置默认选中
-		// channelSpinner.setSelection(0);
-		// 设置默认值
-		// channelSpinner.setVisibility(View.VISIBLE);
-		peopleSpinner
-				.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
-					@Override
-					public void onItemSelected(AdapterView<?> arg0, View view,
-							int arg2, long arg3) {
-						people = peoples.get(arg2).id;
-						peopleId=people+"";
-						TextView tv = (TextView) view;
-						tv.setTextColor(getResources().getColor(R.color.black)); // 设置颜色
-						tv.setGravity(android.view.Gravity.CENTER); // 设置居中
-
-					}
-
-					@Override
-					public void onNothingSelected(AdapterView<?> arg0) {
-						arg0.setVisibility(View.VISIBLE);
-					}
-
-				});
-
-	}
+//	private void initSpinner() {
+//		// 将可选内容与ArrayAdapter连接起来
+//		adapter = new ArrayAdapter<String>(SendXiaoGaoActivity.this,
+//				R.layout.spinner_item, people_names);
+//		// 设置下拉列表的风格
+//		adapter.setDropDownViewResource(R.layout.drop_down_item);
+//		// 将adapter 添加到spinner中
+//		peopleSpinner.setAdapter(adapter);
+//		// 设置默认选中
+//		// channelSpinner.setSelection(0);
+//		// 设置默认值
+//		// channelSpinner.setVisibility(View.VISIBLE);
+//		peopleSpinner
+//				.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+//					@Override
+//					public void onItemSelected(AdapterView<?> arg0, View view,
+//							int arg2, long arg3) {
+//						people = peoples.get(arg2).id;
+//						peopleId=people+"";
+//						TextView tv = (TextView) view;
+//						tv.setTextColor(getResources().getColor(R.color.black)); // 设置颜色
+//						tv.setGravity(android.view.Gravity.CENTER); // 设置居中
+//
+//					}
+//
+//					@Override
+//					public void onNothingSelected(AdapterView<?> arg0) {
+//						arg0.setVisibility(View.VISIBLE);
+//					}
+//
+//				});
+//
+//	}
 
 	/**
 	 * 下发任务
@@ -308,7 +321,7 @@ public class SendXiaoGaoActivity extends AbActivity {
 							people_names[i] = cn.name;
 							i++;
 						}
-						initSpinner();
+//						initSpinner();
 					} else {
 						showToast(cList.msg);
 					}

@@ -13,6 +13,35 @@
         android:orientation="vertical" >
 
         <LinearLayout
+            android:id="@+id/showSelectPeople"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="联系人"
+                android:textColor="@color/content"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/edit_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10" />
+
+            <Button
+                android:id="@+id/add_people"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/add" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp" >
@@ -21,7 +50,7 @@
                 android:id="@+id/textViewAddXiaoxiTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="消息标题"
+                android:text="标题"
                 android:textColor="@color/content"
                 android:textSize="18dp" />
 
@@ -41,7 +70,7 @@
                 <requestFocus />
             </EditText>
         </LinearLayout>
-
+<!-- 
         <LinearLayout
             android:id="@+id/showSelectPeople"
             android:layout_width="match_parent"
@@ -69,6 +98,7 @@
                 android:popupBackground="@drawable/spinner_pop_style"
                 android:textSize="18sp" />
         </LinearLayout>
+ -->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,7 +109,7 @@
                 android:id="@+id/textViewAddXiaoxiDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="消息详情"
+                android:text="详情"
                 android:textColor="@color/content"
                 android:textSize="18dp" />
 
