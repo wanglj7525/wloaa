@@ -453,14 +453,15 @@ public class TaskListActivity extends AbActivity {
 			}
 			timeView = (TextView) convertView
 					.findViewById(R.id.shenpi_create_time);
-			String html = "【";
-			if (from == 1) {
-				html += "质量检查】 ";
-			} else if (from == 2) {
-				html += "安全检查】";
-			} else {
-				html += "执法管理】";
-			}
+//			String html = "【";
+//			if (from == 1) {
+//				html += "质量检查】 ";
+//			} else if (from == 2) {
+//				html += "安全检查】";
+//			} else {
+//				html += "执法管理】";
+//			}
+			String html="";
 			html += "<font color='#A00000'>" + news.create_user_name
 					+ "&nbsp;</font>" + news.name
 					+ "&nbsp;<font color='#505050'>" + news.company_name
@@ -486,17 +487,17 @@ public class TaskListActivity extends AbActivity {
 			}
 			html += "<font color='#6495ED'>" + flag3 + "</font>录音";
 			
-			if (news.task_type==1) {
-				if (news.status==2) {
-					html += "<font color='red'>&nbsp;&nbsp;【未完成】</font>";
-				}else{
-					html += "<font color='green'>&nbsp;&nbsp;【已完成】</font>";
-				}
-			}
+//			if (news.task_type==1) {
+//				if (news.status==2) {
+//					html += "<font color='red'>&nbsp;&nbsp;【未完成】</font>";
+//				}else{
+//					html += "<font color='green'>&nbsp;&nbsp;【已完成】</font>";
+//				}
+//			}
 			frompeo.setText(Html.fromHtml(html));
-			topeo.setText("接收人：" + news.receive_user_name);
+			topeo.setText("发布人：" + news.create_user_name);
 			// abstr.setText(news.content);
-			timeView.setText("申请时间：" + news.create_time_string);
+			timeView.setText("发布时间：" + news.create_time_string);
 			imageList = new ArrayList<String>();
 			if (news.attachment != "") {
 				for (int i = 0; i < news.attachment.split(",").length; i++) {

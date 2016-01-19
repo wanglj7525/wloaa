@@ -231,6 +231,7 @@ public class LoginActivity extends AbActivity {
 								String name=info.getString("name");
 								String user_type=info.getString("user_type");
 								String department_id=info.getString("department_id");
+								String phone=info.getString("phone");
 								application.setProperty("loginKey",id);
 								application.setProperty(Constants.USER_NAME,
 										username);
@@ -238,8 +239,10 @@ public class LoginActivity extends AbActivity {
 										name);
 								application.setProperty("userType",
 										user_type);
-								application.setProperty("departmentId",
+								application.setProperty("department_id",
 										department_id);
+								application.setProperty("phone",
+										phone);
 								// 跳转到首页
 								
 								 Intent intent = new Intent(LoginActivity.this,

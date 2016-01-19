@@ -90,7 +90,9 @@ public class SendTaskActivity extends AbActivity {
 
 	Context context = null;
 	private String loginKey;
+	private String department_id;
 	private String userName;
+	private String phone;
 	@AbIocView(id = R.id.task_people)
 	EditText task_people;
 	// @AbIocView(id = R.id.select_people_report)
@@ -233,7 +235,9 @@ public class SendTaskActivity extends AbActivity {
 		setAbContentView(R.layout.layout_addtask);
 		context = SendTaskActivity.this;
 		loginKey = application.getProperty("loginKey");
+		department_id = application.getProperty("department_id");
 		userName = application.getProperty("userName");
+		phone = application.getProperty("phone");
 		initData();
 		initUi();
 		// 加载联系人下拉框
@@ -326,64 +330,64 @@ public class SendTaskActivity extends AbActivity {
 				});
 	}
 
-	@SuppressLint("NewApi")
-	private void loadPeoples() {
-
-		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
-		if (!application.isNetworkConnected()) {
-			showToast("请检查网络连接");
-			return;
-		}
-		mAbHttpUtil.get(host + URLs.USERLIST + "?user_id=" + loginKey
-				+ "&department_id=" + from + "&type=1",
-				new AbStringHttpResponseListener() {
-					// 获取数据成功会调用这里
-					@Override
-					public void onSuccess(int statusCode, String content) {
-						try {
-							PeopleList cList = PeopleList.parseJson(content);
-							if (cList.code == 200) {
-								peoples = cList.getInfo();
-								application.saveObject((Serializable) peoples,
-										"peoples");
-								people_names = new String[peoples.size()];
-								int i = 0;
-								for (People cn : peoples) {
-									people_names[i] = cn.name;
-									i++;
-								}
-								initSpinner();
-							} else {
-								showToast(cList.msg);
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
-							showToast("数据解析失败");
-						}
-					};
-
-					// 开始执行前
-					@Override
-					public void onStart() {
-						// 显示进度框
-						showProgressDialog();
-					}
-
-					@Override
-					public void onFailure(int statusCode, String content,
-							Throwable error) {
-						showToast("网络连接失败！");
-					}
-
-					// 完成后调用，失败，成功
-					@Override
-					public void onFinish() {
-						// 移除进度框
-						removeProgressDialog();
-					};
-
-				});
-	}
+//	@SuppressLint("NewApi")
+//	private void loadPeoples() {
+//
+//		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+//		if (!application.isNetworkConnected()) {
+//			showToast("请检查网络连接");
+//			return;
+//		}
+//		mAbHttpUtil.get(host + URLs.USERLIST + "?user_id=" + loginKey
+//				+ "&department_id=" + from + "&type=1",
+//				new AbStringHttpResponseListener() {
+//					// 获取数据成功会调用这里
+//					@Override
+//					public void onSuccess(int statusCode, String content) {
+//						try {
+//							PeopleList cList = PeopleList.parseJson(content);
+//							if (cList.code == 200) {
+//								peoples = cList.getInfo();
+//								application.saveObject((Serializable) peoples,
+//										"peoples");
+//								people_names = new String[peoples.size()];
+//								int i = 0;
+//								for (People cn : peoples) {
+//									people_names[i] = cn.name;
+//									i++;
+//								}
+//								initSpinner();
+//							} else {
+//								showToast(cList.msg);
+//							}
+//						} catch (Exception e) {
+//							e.printStackTrace();
+//							showToast("数据解析失败");
+//						}
+//					};
+//
+//					// 开始执行前
+//					@Override
+//					public void onStart() {
+//						// 显示进度框
+//						showProgressDialog();
+//					}
+//
+//					@Override
+//					public void onFailure(int statusCode, String content,
+//							Throwable error) {
+//						showToast("网络连接失败！");
+//					}
+//
+//					// 完成后调用，失败，成功
+//					@Override
+//					public void onFinish() {
+//						// 移除进度框
+//						removeProgressDialog();
+//					};
+//
+//				});
+//	}
 
 	private void initProject() {
 		// 将可选内容与ArrayAdapter连接起来
@@ -599,6 +603,7 @@ public class SendTaskActivity extends AbActivity {
 		addxiapai_full.setOnClickListener(keyboard_hide);
 
 		task_people.setText(userName);
+		task_tell.setText(phone);
 		if (from==2) {
 			showProgect.setVisibility(View.GONE);
 			projectId="-1";
@@ -722,53 +727,13 @@ public class SendTaskActivity extends AbActivity {
 		}
 		AbRequestParams params = new AbRequestParams();
 		params.put("taskInfo.name", task_name.getText().toString());
-		// System.out.println(peopleSpinner.getSelectedItem().toString());
-		params.put("taskInfo.receive_user_id", peopleId);
 		params.put("taskInfo.company_id", companyId);
 		params.put("taskInfo.project_id", projectId);
 		params.put("taskInfo.contact", task_tell.getText().toString());
-		// params.put("taskInfo.handle_mode", task_method.getText().toString());
 		params.put("taskInfo.remark", task_remark.getText().toString());
-		System.out.println();
-//		String reply = "2";
-//		if (is_reply.isChecked()) {
-//			reply = "1";
-//		}
-//		String review = "2";
-//		if (is_review.isChecked()) {
-//			review = "1";
-//		}
-//		params.put("taskInfo.is_reply", reply);
-//		params.put("taskInfo.is_review", review);
-		// String attachments = "";
-		// for (int i = 0; i < attachment.size(); i++) {
-		// if (i==attachment.size()-1) {
-		// attachments+=attachment.get(i);
-		// }else{
-		// attachments+=attachment.get(i)+",";
-		// }
-		// }
-		// if (video.size()>0) {
-		// if (attachments.length()==0) {
-		// attachments+=video.get(0);
-		// }else{
-		// attachments+=","+video.get(0);
-		// }
-		// }
-		// params.put("taskInfo.attachment",attachments);
-		// String medias = "";
-		// for (int i = 0; i < media.size(); i++) {
-		// if (i==media.size()-1) {
-		// medias+=media.get(i);
-		// }else{
-		// medias+=media.get(i)+",";
-		// }
-		//
-		// }
-		// params.put("taskInfo.media", medias);
-		params.put("taskInfo.task_type", "1");
+		params.put("taskInfo.task_type", from + "");
 		params.put("taskInfo.create_user_id", loginKey);
-		params.put("taskInfo.department_id", from + "");
+		params.put("taskInfo.department_id", department_id);
 		params.put("taskInfo.status", "0");
 		System.out.println(params.toString());
 		Log.e(TAG, String.format("%s?%s", host + URLs.ADDSHENPI, params));
@@ -782,13 +747,13 @@ public class SendTaskActivity extends AbActivity {
 							if (gList.code == 200) {
 								Shenpi shenpi = gList.getInfo();
 								commitId = shenpi.id.toString();
-
 								// 上传文件
 								if (mVoicesList.size() == 0
 										&& imagelist.size() == 0) {
 									showToast("提交成功！");
 									// Toast.makeText(getApplicationContext(),
 									// "请添加文件", 0).show();
+									finish();
 								} else {
 									// 录音
 									new FileHelper().submitUploadFile(
