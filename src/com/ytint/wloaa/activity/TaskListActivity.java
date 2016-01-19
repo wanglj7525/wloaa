@@ -149,10 +149,11 @@ public class TaskListActivity extends AbActivity {
 			return;
 		}
 		page++;
+		String searchText = edit_text.getText().toString();
 		String url = String.format(
-				"%s?user_id=%s&p=%d&ps=%d&department_id=%d&task_type=%d",
+				"%s?user_id=%s&p=%d&ps=%d&department_id=%d&keywords=%s",
 				host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, from,
-				select_show);
+				searchText);
 		Log.e("url", url);
 
 		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
@@ -219,9 +220,9 @@ public class TaskListActivity extends AbActivity {
 		}
 		String searchText = edit_text.getText().toString();
 		String url = String.format(
-				"%s?user_id=%s&p=%d&ps=%d&department_id=%d&task_type=%d&keywords=%s",
+				"%s?user_id=%s&p=%d&ps=%d&department_id=%d&keywords=%s",
 				host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, from,
-				select_show,searchText);
+				searchText);
 		Log.d(TAG, url);
 		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
 			@Override
@@ -447,7 +448,12 @@ public class TaskListActivity extends AbActivity {
 			}
 			timeView = (TextView) convertView
 					.findViewById(R.id.shenpi_create_time);
-//			String html = "【";
+			String html = "【";
+			if(news.task_type==1){
+				html += "工程任务】 ";
+			}else{
+				html += "自定义任务】 ";
+			}
 //			if (from == 1) {
 //				html += "质量检查】 ";
 //			} else if (from == 2) {
@@ -455,7 +461,6 @@ public class TaskListActivity extends AbActivity {
 //			} else {
 //				html += "执法管理】";
 //			}
-			String html="";
 			html += "<font color='#A00000'>" + news.create_user_name
 					+ "&nbsp;</font>" + news.name
 					+ "&nbsp;<font color='#505050'>" + news.company_name
@@ -471,11 +476,11 @@ public class TaskListActivity extends AbActivity {
 					flag1 -= 1;
 				}
 			}
-			if (news.task_type == 1) {
+//			if (news.task_type == 1) {
 				html += "<font color='#6495ED'>" + flag1
 						+ "</font>图片，<font color='#6495ED'>" + flag2
 						+ "</font>视频，";
-			}
+//			}
 			if (news.media.length() > 0) {
 				flag3 = news.media.split(",").length;
 			}
