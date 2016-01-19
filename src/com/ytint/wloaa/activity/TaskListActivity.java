@@ -217,10 +217,11 @@ public class TaskListActivity extends AbActivity {
 			shenpiListView.stopRefresh();
 			return;
 		}
+		String searchText = edit_text.getText().toString();
 		String url = String.format(
-				"%s?user_id=%s&p=%d&ps=%d&department_id=%d&task_type=%d",
+				"%s?user_id=%s&p=%d&ps=%d&department_id=%d&task_type=%d&keywords=%s",
 				host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, from,
-				select_show);
+				select_show,searchText);
 		Log.d(TAG, url);
 		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
 			@Override
@@ -308,7 +309,7 @@ public class TaskListActivity extends AbActivity {
 							InputMethodManager imm = (InputMethodManager) TaskListActivity.this
 									.getSystemService(Context.INPUT_METHOD_SERVICE);
 							imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-
+							getGroupData();
 //							recommend_search_layout.setVisibility(View.GONE);
 //							change_button.setVisibility(View.GONE);
 //							mAbPullListView.setVisibility(View.VISIBLE);
@@ -326,22 +327,15 @@ public class TaskListActivity extends AbActivity {
 			@Override
 			public void onClick(View v) {
 				String search_text = edit_text.getText().toString();
-				if (search_text == null
-						|| search_text.trim().equalsIgnoreCase("")) {
-					Toast.makeText(TaskListActivity.this, "搜索内容不能为空", Toast.LENGTH_SHORT).show();
-				} else { // 关闭键盘
+//				if (search_text == null
+//						|| search_text.trim().equalsIgnoreCase("")) {
+//					Toast.makeText(TaskListActivity.this, "搜索内容不能为空", Toast.LENGTH_SHORT).show();
+//				} else { // 关闭键盘
 					InputMethodManager imm = (InputMethodManager) TaskListActivity.this
 							.getSystemService(Context.INPUT_METHOD_SERVICE);
 					imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-
-//					recommend_search_layout.setVisibility(View.GONE);
-//					change_button.setVisibility(View.GONE);
-//					list.clear();
-//					myListViewAdapter.notifyDataSetChanged();
-//					mAbPullListView.setVisibility(View.VISIBLE);
-//					searchItemLayout.setVisibility(View.VISIBLE);
-//					mAbPullListView.startRefresh();
-				}
+					getGroupData();
+//				}
 
 			}
 		});
