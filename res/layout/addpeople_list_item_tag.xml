@@ -2,17 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="#666666"
+    android:background="@color/darkgrey"
     android:gravity="center_vertical"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:paddingLeft="10dp" >
 
     <TextView
         android:id="@+id/addpeople_list_item_text"
         android:layout_width="wrap_content"
-        android:layout_height="20dip"
+        android:layout_height="35dip"
+        android:layout_weight="0.8"
         android:gravity="center_vertical"
         android:text="金融考试"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:textSize="17sp" />
+
+    <CheckBox
+        android:id="@+id/addpeople_list_item_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
 
 </LinearLayout>

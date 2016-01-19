@@ -10,14 +10,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_weight="0.6"
+        android:layout_weight="1"
         android:text="TextView"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="17sp" />
 
     <CheckBox
         android:id="@+id/people_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.4" />
+         android:focusable="false"  
+        android:focusableInTouchMode="false"  
+        android:clickable="false"   />
 
 </LinearLayout>

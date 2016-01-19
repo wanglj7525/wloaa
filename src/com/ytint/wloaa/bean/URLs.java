@@ -28,6 +28,7 @@ public class URLs implements Serializable {
 
 	//获取用户列表
 	public  static String USERLIST=URL_API_HOST+"api/user/get_user_list";
+	public  static String DEPLIST=URL_API_HOST+"api/department/get_department_list";
 	//获取用户列表
 	public  static String COMPANYLIST=URL_API_HOST+"api/company/get_company_list";
 	//获取项目列表
