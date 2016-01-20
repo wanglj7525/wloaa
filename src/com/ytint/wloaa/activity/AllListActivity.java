@@ -37,7 +37,7 @@ import com.ab.util.AbStrUtil;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.listener.AbOnListViewListener;
 import com.ytint.wloaa.R;
-import com.ytint.wloaa.activity.ShenpiDetailActivity.ViewHolder;
+import com.ytint.wloaa.activity.TaskDetailActivity.ViewHolder;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
@@ -322,7 +322,7 @@ public class AllListActivity extends AbActivity {
 						// 点击进入 审批事项 详情页
 						Integer shenpi_id = shenpiList.get(index-1).id;
 						Intent intent = new Intent(AllListActivity.this,
-								ShenpiDetailActivity.class);
+								TaskDetailActivity.class);
 						intent.putExtra("shenpi_id", shenpi_id);
 						intent.putExtra("from", status);
 						System.out.println(intent.getIntExtra("shenpi_id", 0));

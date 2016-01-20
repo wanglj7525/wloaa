@@ -3,6 +3,7 @@ package com.ytint.wloaa.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.bean.Project;
 import com.ytint.wloaa.bean.URLs;
+import com.ytint.wloaa.widget.TitleBar;
 
 /**
  * 项目详情
@@ -66,30 +68,46 @@ public class ProjectDetailActivity extends AbActivity {
 		application = (MyApplication) this.getApplication();
 		host = URLs.HTTP + application.getProperty("HOST") + ":"
 				+ application.getProperty("PORT");
-		AbTitleBar mAbTitleBar = this.getTitleBar();
 		Intent intent = getIntent();
-		mAbTitleBar.setTitleText("工程详情");
-		mAbTitleBar.setLogo(R.drawable.button_selector_back);
-		// 设置文字边距，常用来控制高度：
-		mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
-		// 设置标题栏背景：
-		mAbTitleBar.setTitleBarBackground(R.drawable.abg_top);
-		// 左边图片右边的线：
-		mAbTitleBar.setLogoLine(R.drawable.aline);
-		// 左边图片的点击事件：
-		mAbTitleBar.getLogoView().setOnClickListener(
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						finish();
-					}
-
-				});
+//		AbTitleBar mAbTitleBar = this.getTitleBar();
+//		mAbTitleBar.setTitleText("工程详情");
+//		mAbTitleBar.setLogo(R.drawable.button_selector_back);
+//		// 设置文字边距，常用来控制高度：
+//		mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
+//		// 设置标题栏背景：
+//		mAbTitleBar.setTitleBarBackground(R.drawable.abg_top);
+//		// 左边图片右边的线：
+//		mAbTitleBar.setLogoLine(R.drawable.aline);
+//		// 左边图片的点击事件：
+//		mAbTitleBar.getLogoView().setOnClickListener(
+//				new View.OnClickListener() {
+//					@Override
+//					public void onClick(View v) {
+//						finish();
+//					}
+//
+//				});
 
 		setAbContentView(R.layout.layout_projectdetail);
 		context = ProjectDetailActivity.this;
 		userType = application.getProperty("userType");
 		project_id = intent.getIntExtra("project_id", 0);
+		
+		AbTitleBar mAbTitleBar = this.getTitleBar();
+		mAbTitleBar.setVisibility(View.GONE);
+		final TitleBar titleBar = (TitleBar) findViewById(R.id.title_barpdetail);
+		titleBar.setLeftImageResource(R.drawable.back_green);
+		titleBar.setLeftText("返回");
+		titleBar.setLeftTextColor(Color.WHITE);
+		titleBar.setLeftClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
+		titleBar.setTitle("工程详情");
+		titleBar.setTitleColor(Color.WHITE);
+		titleBar.setDividerColor(Color.GRAY);
 		loadDatas();
 	}
 

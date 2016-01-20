@@ -270,7 +270,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.ytint.wloaa.activity.ShenpiDetailActivity"
+            android:name="com.ytint.wloaa.activity.TaskDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
