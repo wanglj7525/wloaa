@@ -81,8 +81,6 @@ public class TaskDetailActivity extends AbActivity {
 	TextView task_project;
 	@AbIocView(id = R.id.task_name_detail)
 	TextView task_name_detail;
-	@AbIocView(id = R.id.detail_handle_mode)
-	TextView detail_handle_mode;
 
 	@AbIocView(id = R.id.taskForwardInfo)
 	TextView taskForwardInfo;
@@ -91,8 +89,6 @@ public class TaskDetailActivity extends AbActivity {
 	@AbIocView(id = R.id.showImageText)
 	TextView showImageText;
 
-	@AbIocView(id = R.id.showmodeLiner)
-	LinearLayout showmodeLiner;
 	@AbIocView(id = R.id.shenpi_detail_full)
 	LinearLayout shenpi_detail_full;
 
@@ -271,8 +267,10 @@ public class TaskDetailActivity extends AbActivity {
 								task_name_detail.setText(shenpi.name);
 								task_create.setText(shenpi.create_user_name);
 								task_project.setText(shenpi.project_name);
+								if (shenpi.task_type==2) {
+									task_project.setText("自定义任务");
+								}
 								task_tell_detail.setText(shenpi.contact);
-								detail_handle_mode.setText(shenpi.handle_mode);
 								taskForwardInfo.setText(shenpi.taskForwardInfo);
 								taskRemarkInfo.setText(shenpi.remark);
 								if (shenpi.attachment != "") {
@@ -288,9 +286,7 @@ public class TaskDetailActivity extends AbActivity {
 
 								if (shenpi.task_type == 2) {
 									// taskRemarkInfo.setVisibility(View.GONE);
-									detail_handle_mode.setVisibility(View.GONE);
 									showImageText.setVisibility(View.GONE);
-									showmodeLiner.setVisibility(View.GONE);
 									// task_finish.setVisibility(View.GONE);
 								} else {
 									if (userType.equals("3")) {
