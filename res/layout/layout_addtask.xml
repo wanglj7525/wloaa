@@ -1,72 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent" 
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/addshenpi_full"
+    <com.ytint.wloaa.widget.TitleBar
+        android:id="@+id/title_bart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.35"
-        android:orientation="vertical" >
+        android:background="@color/titlebar" >
+    </com.ytint.wloaa.widget.TitleBar>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white" >
 
         <LinearLayout
+            android:id="@+id/addshenpi_full"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" >
+            android:layout_weight="0.35"
+            android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/textViewAddZhiliangReportName"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="任务名称"
-                android:textColor="@color/content"
-                android:textSize="18dp" />
+                android:layout_marginTop="10dp" >
 
-            <EditText
-                android:id="@+id/task_name_report"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textViewAddZhiliangReportName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="任务名称"
+                    android:textColor="@color/content"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:id="@+id/task_name_report"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/editor_bg_style"
+                    android:ems="10"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" >
+
+                    <requestFocus />
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/showProgect"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/editor_bg_style"
-                android:ems="10"
-                android:inputType="textMultiLine"
-                android:textColor="@color/black"
-                android:textSize="18sp" >
+                android:layout_marginTop="10dp" >
 
-                <requestFocus />
-            </EditText>
-        </LinearLayout>
-		<LinearLayout
-		    android:id="@+id/showProgect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" >
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="所属工程"
+                    android:textColor="@color/content"
+                    android:textSize="18dp" />
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="所属工程"
-                android:textColor="@color/content"
-                android:textSize="18dp" />
-
-            <Spinner
-                android:id="@+id/select_project"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/spinner_bg"
-                android:divider="@color/full_transparent"
-                android:gravity="center"
-                android:popupBackground="@drawable/spinner_pop_style"
-                android:textSize="18sp" />
-        </LinearLayout>
-        <!-- 
+                <Spinner
+                    android:id="@+id/select_project"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/spinner_bg"
+                    android:divider="@color/full_transparent"
+                    android:gravity="center"
+                    android:popupBackground="@drawable/spinner_pop_style"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,68 +107,66 @@
                 android:popupBackground="@drawable/spinner_pop_style"
                 android:textSize="18sp" />
         </LinearLayout>
-         -->
+            -->
 
-        
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" >
-
-            <TextView
-                android:id="@+id/textViewAddZhiliangReportShangbaoName"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="上报人员"
-                android:textColor="@color/content"
-                android:textSize="18dp" />
+                android:layout_marginTop="10dp" >
 
-            <EditText
-                android:id="@+id/task_people"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textViewAddZhiliangReportShangbaoName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上报人员"
+                    android:textColor="@color/content"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:id="@+id/task_people"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/editor_bg_style"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:inputType="textMultiLine"
+                    android:text="上报人员"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/editor_bg_style"
-                android:ems="10"
-                android:enabled="false"
-                android:inputType="textMultiLine"
-                android:text="上报人员"
-                android:textColor="@color/black"
-                android:textSize="18sp" >
-            </EditText>
-        </LinearLayout>
+                android:layout_marginTop="10dp" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" >
+                <TextView
+                    android:id="@+id/textViewAddZhiliangReportTel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系方式"
+                    android:textColor="@color/content"
+                    android:textSize="18dp" />
 
-            <TextView
-                android:id="@+id/textViewAddZhiliangReportTel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="联系方式"
-                android:textColor="@color/content"
-                android:textSize="18dp" />
-
-            <EditText
-                android:id="@+id/task_tell"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/editor_bg_style"
-                android:ems="10"
-                android:inputType="textMultiLine"
-                android:textColor="@color/black"
-                android:textSize="18sp" >
-            </EditText>
-        </LinearLayout>
-<!-- 
-
+                <EditText
+                    android:id="@+id/task_tell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/editor_bg_style"
+                    android:ems="10"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" >
+                </EditText>
+            </LinearLayout>
+            <!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -183,65 +195,65 @@
                 android:textSize="18sp" >
             </EditText>
         </LinearLayout>
- -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" >
+            -->
 
-            <TextView
-                android:id="@+id/textremark"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="备注信息"
-                android:textColor="@color/content"
-                android:textSize="18dp" />
+                android:layout_marginTop="10dp" >
 
-            <EditText
-                android:id="@+id/task_remark"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textremark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="备注信息"
+                    android:textColor="@color/content"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:id="@+id/task_remark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/editor_bg_style"
+                    android:ems="10"
+                    android:inputType="textMultiLine"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="18sp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/editor_bg_style"
-                android:ems="10"
-                android:inputType="textMultiLine"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="18sp" >
-            </EditText>
-        </LinearLayout>
+                android:layout_marginTop="10dp"
+                android:visibility="gone" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:visibility="gone" >
+                <TextView
+                    android:id="@+id/textViewAddZhiliangReportCompony"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="相关企业"
+                    android:textColor="@color/content"
+                    android:textSize="18dp" />
 
-            <TextView
-                android:id="@+id/textViewAddZhiliangReportCompony"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="相关企业"
-                android:textColor="@color/content"
-                android:textSize="18dp" />
-
-            <Spinner
-                android:id="@+id/select_company_report"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/spinner_bg"
-                android:divider="@color/full_transparent"
-                android:gravity="center"
-                android:popupBackground="@drawable/spinner_pop_style"
-                android:textSize="18sp" />
-        </LinearLayout>
-        <!-- 
-
+                <Spinner
+                    android:id="@+id/select_company_report"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/spinner_bg"
+                    android:divider="@color/full_transparent"
+                    android:gravity="center"
+                    android:popupBackground="@drawable/spinner_pop_style"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -295,41 +307,42 @@
                 android:text="保存" />
 
         </LinearLayout>
-         -->
-        <TextView
-            android:id="@+id/textViewAddZhiliangReportList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="图片、视频列表（新拍图片、选择本地图片，长按删除）"
-            android:textSize="18sp" />
+            -->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" >
-
-            <Button
-                android:id="@+id/add_video"
+            <TextView
+                android:id="@+id/textViewAddZhiliangReportList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/videocamera" />
+                android:layout_marginTop="10dp"
+                android:text="图片、视频列表（新拍图片、选择本地图片，长按删除）"
+                android:textSize="18sp" />
 
-            <Button
-                android:id="@+id/add_photo"
-                android:layout_width="80dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/photos" />
+                android:layout_marginTop="10dp" >
 
-            <Button
-                android:id="@+id/add_camera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/camera" />
+                <Button
+                    android:id="@+id/add_video"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/videocamera" />
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/add_photo"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/photos" />
+
+                <Button
+                    android:id="@+id/add_camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/camera" />
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" >
@@ -355,52 +368,52 @@
                 </HorizontalScrollView>
             </LinearLayout>
 
-        <TextView
-            android:id="@+id/textViewAddZhiliangReportVoice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="可发送音频消息（按住录音，长按删除）"
-            android:textSize="18sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" >
-
-            <Button
-                android:id="@+id/addVoicereport"
+            <TextView
+                android:id="@+id/textViewAddZhiliangReportVoice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/microphone"
-                android:text="" />
+                android:layout_marginTop="10dp"
+                android:text="可发送音频消息（按住录音，长按删除）"
+                android:textSize="18sp" />
 
             <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
 
-                <HorizontalScrollView
-                    android:id="@+id/horizontalScrollView_addvoicereport"
-                    android:layout_width="fill_parent"
+                <Button
+                    android:id="@+id/addVoicereport"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#FFFFFF"
-                    android:orientation="horizontal" >
+                    android:background="@drawable/microphone"
+                    android:text="" />
 
-                    <LinearLayout
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <HorizontalScrollView
+                        android:id="@+id/horizontalScrollView_addvoicereport"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
                         android:orientation="horizontal" >
 
-                        <GridView
-                            android:id="@+id/addvoicegridviewreport"
-                            android:layout_width="match_parent"
-                            android:layout_height="70dp" >
-                        </GridView>
-                    </LinearLayout>
-                </HorizontalScrollView>
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal" >
+
+                            <GridView
+                                android:id="@+id/addvoicegridviewreport"
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp" >
+                            </GridView>
+                        </LinearLayout>
+                    </HorizontalScrollView>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-<!-- 
+            <!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -420,30 +433,30 @@
                 android:layout_gravity="center"
                 android:text="" />
         </LinearLayout>
- -->
+            -->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp" >
-
-            <Button
-                android:id="@+id/commitShenpi"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="0.43"
-                android:text="保存" />
+                android:layout_marginTop="20dp" >
 
-            <Button
-                android:id="@+id/reportcancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="0.43"
-                android:text="取消" />
+                <Button
+                    android:id="@+id/commitShenpi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.43"
+                    android:text="保存" />
 
+                <Button
+                    android:id="@+id/reportcancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.43"
+                    android:text="取消" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
-</ScrollView>
+</LinearLayout>

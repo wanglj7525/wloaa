@@ -31,7 +31,7 @@ public class TaskFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_zhifa, container, false);
         application = (MyApplication) getActivity().getApplication();
         userType = application.getProperty("userType");
-        departmentId = application.getProperty("departmentId");
+        departmentId = application.getProperty("department_id");
         findView(rootView);
         return rootView;
     }

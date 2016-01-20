@@ -17,21 +17,16 @@
             android:id="@+id/showsearch"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@drawable/abg_top" >
+        android:background="@color/titlebar" >
 
 		<RelativeLayout
-            android:id="@+id/backproject"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_selector_back" >
-
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/r"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/aline" >
+		    android:id="@+id/backproject"
+		    android:layout_width="25dp"
+		    android:layout_height="25dp"
+		    android:layout_gravity="center_vertical"
+		    android:layout_marginLeft="2dp"
+		    android:layout_marginRight="10dp"
+		    android:background="@drawable/back_green" >
 
         </RelativeLayout>
 

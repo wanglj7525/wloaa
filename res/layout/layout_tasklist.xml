@@ -3,7 +3,7 @@
     android:id="@+id/addxiapai_full111"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
+    android:layout_gravity="center_vertical"
     android:background="@color/white"
     android:orientation="vertical" >
 
@@ -16,22 +16,17 @@
     <LinearLayout
         android:id="@+id/showtitle"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/black" >
+        android:layout_height="48dp"
+        android:background="@color/titlebar" >
 
 		<RelativeLayout
-            android:id="@+id/addShenpi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_selector_back" >
-
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/r"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/aline" >
+		    android:id="@+id/addShenpi"
+		    android:layout_width="25dp"
+		    android:layout_height="25dp"
+		    android:layout_gravity="center_vertical"
+		    android:layout_marginLeft="2dp"
+		    android:layout_marginRight="10dp"
+		    android:background="@drawable/back_green" >
 
         </RelativeLayout>
 

@@ -17,6 +17,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -70,9 +71,11 @@ import com.ytint.wloaa.bean.ProjectList;
 import com.ytint.wloaa.bean.Shenpi;
 import com.ytint.wloaa.bean.ShenpiInfo;
 import com.ytint.wloaa.bean.URLs;
+import com.ytint.wloaa.widget.TitleBar;
 
 /**
  * 自定义任务
+ * 
  * @author wlj
  * @date 2016-1-12下午2:41:14
  */
@@ -103,7 +106,7 @@ public class SendTaskActivity extends AbActivity {
 	// Spinner companySpinner;
 	@AbIocView(id = R.id.addshenpi_full)
 	LinearLayout addxiapai_full;
-	@AbIocView(id=R.id.showProgect)
+	@AbIocView(id = R.id.showProgect)
 	LinearLayout showProgect;
 	@AbIocView(id = R.id.gridView_image_report)
 	GridView gridView_image_report;
@@ -125,17 +128,17 @@ public class SendTaskActivity extends AbActivity {
 	// EditText task_method;
 	@AbIocView(id = R.id.task_remark)
 	EditText task_remark;
-//	@AbIocView(id = R.id.is_reply)
-//	CheckBox is_reply;
-//	@AbIocView(id = R.id.is_review)
-//	CheckBox is_review;
+	// @AbIocView(id = R.id.is_reply)
+	// CheckBox is_reply;
+	// @AbIocView(id = R.id.is_review)
+	// CheckBox is_review;
 
 	// /** 确定位置*/
 	// @AbIocView(id = R.id.findlocal)
 	// Button findlocal;
-//	/** 显示当前位置 */
-//	@AbIocView(id = R.id.showlocal)
-//	TextView showlocal;
+	// /** 显示当前位置 */
+	// @AbIocView(id = R.id.showlocal)
+	// TextView showlocal;
 	/** 选择本地图片上传 */
 	@AbIocView(id = R.id.add_photo)
 	Button add_photo;
@@ -182,7 +185,7 @@ public class SendTaskActivity extends AbActivity {
 	public static ArrayList<String> video = new ArrayList<String>();
 	private AbImageDownloader mAbImageDownloader = null;
 
-	private String peopleId= "0";
+	private String peopleId = "0";
 	private String projectId = "0";
 	private String companyId = "0";
 	private static String srcPath;
@@ -190,8 +193,10 @@ public class SendTaskActivity extends AbActivity {
 
 	private String commitId;
 	String host;
-	private String path = Environment.getExternalStorageDirectory() + "/wloaaImage/";
+	private String path = Environment.getExternalStorageDirectory()
+			+ "/wloaaImage/";
 	private String fileName;
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -212,25 +217,25 @@ public class SendTaskActivity extends AbActivity {
 				+ application.getProperty("PORT");
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
-		AbTitleBar mAbTitleBar = this.getTitleBar();
-		 if (from==1) {
-			 mAbTitleBar.setTitleText("工程任务");
-		 }else if(from==2){
-			 mAbTitleBar.setTitleText("自定义任务");
-		 }
-//		mAbTitleBar.setTitleText("上报任务");
-		mAbTitleBar.setLogo(R.drawable.button_selector_back);
-		mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
-		mAbTitleBar.setTitleBarBackground(R.drawable.abg_top);
-		mAbTitleBar.setLogoLine(R.drawable.aline);
-		mAbTitleBar.getLogoView().setOnClickListener(
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						finish();
-					}
-
-				});
+		// AbTitleBar mAbTitleBar = this.getTitleBar();
+		// if (from==1) {
+		// mAbTitleBar.setTitleText("工程任务");
+		// }else if(from==2){
+		// mAbTitleBar.setTitleText("自定义任务");
+		// }
+		// // mAbTitleBar.setTitleText("上报任务");
+		// mAbTitleBar.setLogo(R.drawable.button_selector_back);
+		// mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
+		// mAbTitleBar.setTitleBarBackground(R.drawable.abg_top);
+		// mAbTitleBar.setLogoLine(R.drawable.aline);
+		// mAbTitleBar.getLogoView().setOnClickListener(
+		// new View.OnClickListener() {
+		// @Override
+		// public void onClick(View v) {
+		// finish();
+		// }
+		//
+		// });
 
 		setAbContentView(R.layout.layout_addtask);
 		context = SendTaskActivity.this;
@@ -238,11 +243,31 @@ public class SendTaskActivity extends AbActivity {
 		department_id = application.getProperty("department_id");
 		userName = application.getProperty("userName");
 		phone = application.getProperty("phone");
+
+		AbTitleBar mAbTitleBar = this.getTitleBar();
+		mAbTitleBar.setVisibility(View.GONE);
+		final TitleBar titleBar = (TitleBar) findViewById(R.id.title_bart);
+		titleBar.setLeftImageResource(R.drawable.back_green);
+		titleBar.setLeftText("返回");
+		titleBar.setLeftTextColor(Color.WHITE);
+		titleBar.setLeftClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
+		if (from == 1) {
+			titleBar.setTitle("工程任务");
+		} else if (from == 2) {
+			titleBar.setTitle("自定义任务");
+		}
+		titleBar.setTitleColor(Color.WHITE);
+		titleBar.setDividerColor(Color.GRAY);
 		initData();
 		initUi();
 		// 加载联系人下拉框
-//		loadPeoples();
-		if (from==1) {
+		// loadPeoples();
+		if (from == 1) {
 			loadProject();
 		}
 		// loadComapny();
@@ -330,64 +355,64 @@ public class SendTaskActivity extends AbActivity {
 				});
 	}
 
-//	@SuppressLint("NewApi")
-//	private void loadPeoples() {
-//
-//		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
-//		if (!application.isNetworkConnected()) {
-//			showToast("请检查网络连接");
-//			return;
-//		}
-//		mAbHttpUtil.get(host + URLs.USERLIST + "?user_id=" + loginKey
-//				+ "&department_id=" + from + "&type=1",
-//				new AbStringHttpResponseListener() {
-//					// 获取数据成功会调用这里
-//					@Override
-//					public void onSuccess(int statusCode, String content) {
-//						try {
-//							PeopleList cList = PeopleList.parseJson(content);
-//							if (cList.code == 200) {
-//								peoples = cList.getInfo();
-//								application.saveObject((Serializable) peoples,
-//										"peoples");
-//								people_names = new String[peoples.size()];
-//								int i = 0;
-//								for (People cn : peoples) {
-//									people_names[i] = cn.name;
-//									i++;
-//								}
-//								initSpinner();
-//							} else {
-//								showToast(cList.msg);
-//							}
-//						} catch (Exception e) {
-//							e.printStackTrace();
-//							showToast("数据解析失败");
-//						}
-//					};
-//
-//					// 开始执行前
-//					@Override
-//					public void onStart() {
-//						// 显示进度框
-//						showProgressDialog();
-//					}
-//
-//					@Override
-//					public void onFailure(int statusCode, String content,
-//							Throwable error) {
-//						showToast("网络连接失败！");
-//					}
-//
-//					// 完成后调用，失败，成功
-//					@Override
-//					public void onFinish() {
-//						// 移除进度框
-//						removeProgressDialog();
-//					};
-//
-//				});
-//	}
+	// @SuppressLint("NewApi")
+	// private void loadPeoples() {
+	//
+	// final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+	// if (!application.isNetworkConnected()) {
+	// showToast("请检查网络连接");
+	// return;
+	// }
+	// mAbHttpUtil.get(host + URLs.USERLIST + "?user_id=" + loginKey
+	// + "&department_id=" + from + "&type=1",
+	// new AbStringHttpResponseListener() {
+	// // 获取数据成功会调用这里
+	// @Override
+	// public void onSuccess(int statusCode, String content) {
+	// try {
+	// PeopleList cList = PeopleList.parseJson(content);
+	// if (cList.code == 200) {
+	// peoples = cList.getInfo();
+	// application.saveObject((Serializable) peoples,
+	// "peoples");
+	// people_names = new String[peoples.size()];
+	// int i = 0;
+	// for (People cn : peoples) {
+	// people_names[i] = cn.name;
+	// i++;
+	// }
+	// initSpinner();
+	// } else {
+	// showToast(cList.msg);
+	// }
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// showToast("数据解析失败");
+	// }
+	// };
+	//
+	// // 开始执行前
+	// @Override
+	// public void onStart() {
+	// // 显示进度框
+	// showProgressDialog();
+	// }
+	//
+	// @Override
+	// public void onFailure(int statusCode, String content,
+	// Throwable error) {
+	// showToast("网络连接失败！");
+	// }
+	//
+	// // 完成后调用，失败，成功
+	// @Override
+	// public void onFinish() {
+	// // 移除进度框
+	// removeProgressDialog();
+	// };
+	//
+	// });
+	// }
 
 	private void initProject() {
 		// 将可选内容与ArrayAdapter连接起来
@@ -481,6 +506,7 @@ public class SendTaskActivity extends AbActivity {
 
 				});
 	}
+
 	private void initUi() {
 		horizontalScrollView_addvoicereport.setHorizontalScrollBarEnabled(true);
 		horizontalScrollView_report.setHorizontalScrollBarEnabled(true);
@@ -492,12 +518,13 @@ public class SendTaskActivity extends AbActivity {
 			public void onClick(View v) {
 				Intent intent = new Intent(SendTaskActivity.this,
 						AlbumActivity.class);
-				startActivityForResult(intent,20);
-//				overridePendingTransition(R.anim.activity_translate_in, R.anim.activity_translate_out);
-//				Intent intent = new Intent(Intent.ACTION_PICK);// 打开相册
-//				intent.setDataAndType(
-//						MediaStore.Images.Media.INTERNAL_CONTENT_URI, "image/*");
-//				startActivityForResult(intent, 11);
+				startActivityForResult(intent, 20);
+				// overridePendingTransition(R.anim.activity_translate_in,
+				// R.anim.activity_translate_out);
+				// Intent intent = new Intent(Intent.ACTION_PICK);// 打开相册
+				// intent.setDataAndType(
+				// MediaStore.Images.Media.INTERNAL_CONTENT_URI, "image/*");
+				// startActivityForResult(intent, 11);
 			}
 		});
 		// 拍照
@@ -518,9 +545,9 @@ public class SendTaskActivity extends AbActivity {
 					if (!file.exists()) {
 						file.mkdirs();
 					}
-					fileName = String.valueOf(System.currentTimeMillis())+".jpg";
-					Uri imageUri = Uri
-							.fromFile(new File(path, fileName));
+					fileName = String.valueOf(System.currentTimeMillis())
+							+ ".jpg";
+					Uri imageUri = Uri.fromFile(new File(path, fileName));
 					intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
 					startActivityForResult(intent, 12);
 				} else {
@@ -563,29 +590,29 @@ public class SendTaskActivity extends AbActivity {
 		addVoicereport.setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-//				if (commitId.equals("0")) {
-//					Toast.makeText(getApplicationContext(), "请先保存上面的信息", 0)
-//							.show();
-//				} else {
-					switch (event.getAction()) {
-					case MotionEvent.ACTION_DOWN:
-						if (mVoicesList.size() >= 1) {
-							Toast.makeText(getApplicationContext(), "只能上传一个录音",
-									0).show();
-						} else {
-							startVoice();
-						}
-						break;
-					case MotionEvent.ACTION_UP:
-						if (mVoicesList.size() >= 1) {
-						} else {
-							stopVoice();
-						}
-						break;
-					default:
-						break;
+				// if (commitId.equals("0")) {
+				// Toast.makeText(getApplicationContext(), "请先保存上面的信息", 0)
+				// .show();
+				// } else {
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					if (mVoicesList.size() >= 1) {
+						Toast.makeText(getApplicationContext(), "只能上传一个录音", 0)
+								.show();
+					} else {
+						startVoice();
 					}
-//				}
+					break;
+				case MotionEvent.ACTION_UP:
+					if (mVoicesList.size() >= 1) {
+					} else {
+						stopVoice();
+					}
+					break;
+				default:
+					break;
+				}
+				// }
 				return false;
 			}
 		});
@@ -604,9 +631,9 @@ public class SendTaskActivity extends AbActivity {
 
 		task_people.setText(userName);
 		task_tell.setText(phone);
-		if (from==2) {
+		if (from == 2) {
 			showProgect.setVisibility(View.GONE);
-			projectId="-1";
+			projectId = "-1";
 		}
 	}
 
@@ -627,13 +654,14 @@ public class SendTaskActivity extends AbActivity {
 		if (resultCode == Activity.RESULT_OK) {
 			switch (requestCode) {
 			case 20:
-				 ArrayList<String> result = data.getExtras().getStringArrayList("result");//得到新Activity 关闭后返回的数据
-				 for (int i = 0; i < result.size(); i++) {
-					 if (!imagelist.contains(result.get(i))) {
-						 imagelist.add(result.get(i));
+				ArrayList<String> result = data.getExtras().getStringArrayList(
+						"result");// 得到新Activity 关闭后返回的数据
+				for (int i = 0; i < result.size(); i++) {
+					if (!imagelist.contains(result.get(i))) {
+						imagelist.add(result.get(i));
 					}
-				 }
-				 setImageGrideValue();
+				}
+				setImageGrideValue();
 				break;
 			case 10:
 				Uri uriVideo = data.getData();
@@ -685,20 +713,21 @@ public class SendTaskActivity extends AbActivity {
 				setImageGrideValue();
 				Log.e(TAG, "path + fileName = " + path + fileName);
 				// 两种方式 获取拍好的图片
-//				if (data.getData() != null || data.getExtras() != null) { // 防止没有返回结果
-//					if (uriCamre != null) {
-//						photo = BitmapFactory.decodeFile(uriCamre.getPath()); // 拿到图片
-//					}
-//					if (photo == null) {
-//						Bundle bundle = data.getExtras();
-//						if (bundle != null) {
-//							photo = (Bitmap) bundle.get("data");
-//						} else {
-//							Toast.makeText(getApplicationContext(), "找不到图片",
-//									Toast.LENGTH_SHORT).show();
-//						}
-//					}
-//				}
+				// if (data.getData() != null || data.getExtras() != null) { //
+				// 防止没有返回结果
+				// if (uriCamre != null) {
+				// photo = BitmapFactory.decodeFile(uriCamre.getPath()); // 拿到图片
+				// }
+				// if (photo == null) {
+				// Bundle bundle = data.getExtras();
+				// if (bundle != null) {
+				// photo = (Bitmap) bundle.get("data");
+				// } else {
+				// Toast.makeText(getApplicationContext(), "找不到图片",
+				// Toast.LENGTH_SHORT).show();
+				// }
+				// }
+				// }
 				break;
 			default:
 				break;
@@ -721,7 +750,7 @@ public class SendTaskActivity extends AbActivity {
 			UIHelper.ToastMessage(context, "请检查网络连接");
 			return;
 		}
-		if (task_name.getText().toString().trim() == "") {
+		if (task_name.getText().toString().trim().length() == 0) {
 			UIHelper.ToastMessage(context, "请输入内容");
 			return;
 		}
@@ -838,9 +867,10 @@ public class SendTaskActivity extends AbActivity {
 			addvoicegridviewreport.setAdapter(mAdapter);
 			initGridView();
 			// new FileHelper().submitUploadFile(mVoicesList, loginKey,"3");
-			Toast.makeText(getApplicationContext(), "保存录音" + mFileName, 0).show();
+			Toast.makeText(getApplicationContext(), "保存录音" + mFileName, 0)
+					.show();
 		} catch (Exception e) {
-			Toast.makeText(getApplicationContext(), "请长按录音！" , 0).show();
+			Toast.makeText(getApplicationContext(), "请长按录音！", 0).show();
 			e.printStackTrace();
 		}
 	}

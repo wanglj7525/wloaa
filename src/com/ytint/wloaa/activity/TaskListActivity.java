@@ -64,7 +64,7 @@ public class TaskListActivity extends AbActivity {
 	private List<Shenpi> shenpiList = new ArrayList<Shenpi>();
 	private AbImageDownloader mAbImageDownloader = null;
 	private ShenpiListAdapter listItemAdapter;
-	private int from;
+	private int from=0;
 	private int whichOne = 1;
 
 	String TAG = "ZhiliangListActivity";
