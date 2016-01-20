@@ -1,7 +1,5 @@
 package com.ytint.wloaa.adapter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,26 +12,19 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.ytint.wloaa.R;
-import com.ytint.wloaa.bean.Department;
-import com.ytint.wloaa.bean.People;
 
 public class SelectPeopleAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
 	private List<Map<String, Object>> mData;
 	public static Map<Integer, Boolean> isSelected;
-	private List<People> peoplelist;
-	private List<Department> deptartments;
-	private List<String> groupkey = new ArrayList<String>();
-	private List<String> aList = new ArrayList<String>();
-	private List<String> bList = new ArrayList<String>();
 
-	public SelectPeopleAdapter(Context context, List<Map<String, Object>> mDatas) {
+	public SelectPeopleAdapter(Context context, List<Map<String, Object>> mDatas,Map<Integer, Boolean> isSelecteds) {
 		mInflater = LayoutInflater.from(context);
-		init(mDatas);
+		init(mDatas,isSelecteds);
 	}
 
 	// 初始化
-	private void init(List<Map<String, Object>> mDatas) {
+	private void init(List<Map<String, Object>> mDatas,Map<Integer, Boolean> isSelecteds) {
 //		mData = new ArrayList<Map<String, Object>>();
 		// this.peoplelist=peoplelist;
 		// this.deptartments=deptartments;
@@ -56,11 +47,12 @@ public class SelectPeopleAdapter extends BaseAdapter {
 //			}
 //		}
 		mData=mDatas;
-		// 这儿定义isSelected这个map是记录每个listitem的状态，初始状态全部为false。
-		isSelected = new HashMap<Integer, Boolean>();
-		for (int i = 0; i < mData.size(); i++) {
-			isSelected.put(i, false);
-		}
+		isSelected=isSelecteds;
+//		// 这儿定义isSelected这个map是记录每个listitem的状态，初始状态全部为false。
+//		isSelected = new HashMap<Integer, Boolean>();
+//		for (int i = 0; i < mData.size(); i++) {
+//			isSelected.put(i, false);
+//		}
 	}
 
 	@Override

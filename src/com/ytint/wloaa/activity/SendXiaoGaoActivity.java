@@ -1,9 +1,10 @@
 package com.ytint.wloaa.activity;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,13 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
 
 import com.ab.activity.AbActivity;
@@ -30,9 +28,9 @@ import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.People;
-import com.ytint.wloaa.bean.PeopleList;
 import com.ytint.wloaa.bean.QunfaInfo;
 import com.ytint.wloaa.bean.URLs;
+import com.ytint.wloaa.widget.AutolinefeedView;
 
 public class SendXiaoGaoActivity extends AbActivity {
 	String TAG = "AddXiaoxiSendActivity";
@@ -64,10 +62,13 @@ public class SendXiaoGaoActivity extends AbActivity {
 	LinearLayout showSelectPeople;
 	@AbIocView(id=R.id.add_people)
 	Button add_people;
-	@AbIocView(id=R.id.edit_people)
-	EditText edit_people;
-	private String peopleId;
+//	@AbIocView(id=R.id.edit_people)
+//	EditText edit_people;
+	@AbIocView(id=R.id.autolinefeedView1)
+	AutolinefeedView autolinefeedView1;
+	private String peopleId="";
 	String host;
+	private ArrayList<String> userlist = new ArrayList<String>();
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -123,7 +124,7 @@ public class SendXiaoGaoActivity extends AbActivity {
 		// 加载联系人下拉框
 		
 		if (from==1) {
-			loadPeoples();
+//			loadPeoples();
 		}else{
 			showSelectPeople.setVisibility(View.GONE);
 		}
@@ -141,6 +142,7 @@ public class SendXiaoGaoActivity extends AbActivity {
 				// 选择联系人
 				Intent intent = new Intent(SendXiaoGaoActivity.this,
 						SelectPeopleActivity.class);
+				intent.putExtra("userlist", userlist);
 				startActivityForResult(intent,20);
 			}
 		});
@@ -175,6 +177,38 @@ public class SendXiaoGaoActivity extends AbActivity {
 		addxiaoxi_full.setClickable(true);
 		addxiaoxi_full.setOnClickListener(keyboard_hide);
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		if (resultCode == Activity.RESULT_OK) {
+			switch (requestCode) {
+			case 20:
+				userlist=new ArrayList<String>();
+				autolinefeedView1.removeAllViews();
+				ArrayList<Map<String, Object>> result = (ArrayList<Map<String, Object>>) data.getExtras().get("result");//得到新Activity 关闭后返回的数据
+				 for (int i = 0; i < result.size(); i++) {
+					userlist.add(result.get(i).get("peopleid").toString());
+					final Button bt=new Button(context);
+					bt.setText(result.get(i).get("name").toString());
+					bt.setTag(result.get(i).get("peopleid").toString());
+					bt.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View arg0) {
+							autolinefeedView1.removeView(bt);
+							userlist.remove(bt.getTag());
+						}
+					});
+					autolinefeedView1.addView(bt);
+				 }
+				break;
+			default:
+				break;
+			}
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+	
 //	private void initSpinner() {
 //		// 将可选内容与ArrayAdapter连接起来
 //		adapter = new ArrayAdapter<String>(SendXiaoGaoActivity.this,
@@ -223,7 +257,7 @@ public class SendXiaoGaoActivity extends AbActivity {
 			UIHelper.ToastMessage(context, "请检查网络连接");
 			return;
 		}
-		if (xiaoxi_title.getText().toString().trim()==""||xiaoxi_info.getText().toString().trim()=="") {
+		if (xiaoxi_title.getText().toString().trim().length()==0||xiaoxi_info.getText().toString().trim().length()==0) {
 			UIHelper.ToastMessage(context, "请输入内容");
 			return;
 		}
@@ -232,12 +266,24 @@ public class SendXiaoGaoActivity extends AbActivity {
 		params.put("androidNoticeInfo.content", xiaoxi_info.getText().toString());
 		params.put("androidNoticeInfo.receive_user_type", "3");//接收人类型：1：全部成员；2：本科室成员；3：指定人员
 		if (from==2) {
+			//发送公告
 			params.put("androidNoticeInfo.notice_type", "0");
 			params.put("receive_user_ids","1");
 		}else{
 			if (from==3) {
+				//回复消息
 				params.put("receive_user_ids",push_user_id+"");
 			}else{
+				for (int i = 0; i < userlist.size(); i++) {
+					peopleId+=userlist.get(i)+",";
+				}
+				if (peopleId.length()>0) {
+					peopleId=peopleId.substring(0, peopleId.length()-1);
+				}else{
+					UIHelper.ToastMessage(context, "请选择联系人");
+					return;
+				}
+				//发送消息
 				params.put("receive_user_ids",peopleId);
 			}
 			params.put("androidNoticeInfo.notice_type", "1");
@@ -289,70 +335,70 @@ public class SendXiaoGaoActivity extends AbActivity {
 				});
 	}
 
-	@SuppressLint("NewApi")
-	private void loadPeoples() {
-
-		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
-		if (!application.isNetworkConnected()) {
-			showToast("请检查网络连接");
-			return;
-		}
-		String host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
-		mAbHttpUtil.get(host+URLs.USERLIST+"?user_id=0" ,
-			 new AbStringHttpResponseListener() {
-			// 获取数据成功会调用这里
-			@Override
-			public void onSuccess(int statusCode, String content) {
-				try {
-					PeopleList cList = PeopleList.parseJson(content);
-					if (cList.code == 200) {
-						peoples = cList.getInfo();
-						for (int i = 0; i < peoples.size(); i++) {
-							if (loginKey.equals(peoples.get(i).id+"")) {
-								peoples.remove(i);
-							}
-						}
-						peopleId=peoples.get(0).id+"";
-						application.saveObject((Serializable) peoples,
-								"peoples");
-						people_names = new String[peoples.size()];
-						int i = 0;
-						for (People cn : peoples) {
-							people_names[i] = cn.name;
-							i++;
-						}
-//						initSpinner();
-					} else {
-						showToast(cList.msg);
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-					showToast("数据解析失败");
-				}
-			};
-
-			// 开始执行前
-			@Override
-			public void onStart() {
-				// 显示进度框
-				showProgressDialog();
-			}
-
-			@Override
-			public void onFailure(int statusCode, String content,
-					Throwable error) {
-				showToast("网络连接失败！");
-			}
-
-			// 完成后调用，失败，成功
-			@Override
-			public void onFinish() {
-				// 移除进度框
-				removeProgressDialog();
-			};
-
-		});
-	}
+//	@SuppressLint("NewApi")
+//	private void loadPeoples() {
+//
+//		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+//		if (!application.isNetworkConnected()) {
+//			showToast("请检查网络连接");
+//			return;
+//		}
+//		String host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
+//		mAbHttpUtil.get(host+URLs.USERLIST+"?user_id=0" ,
+//			 new AbStringHttpResponseListener() {
+//			// 获取数据成功会调用这里
+//			@Override
+//			public void onSuccess(int statusCode, String content) {
+//				try {
+//					PeopleList cList = PeopleList.parseJson(content);
+//					if (cList.code == 200) {
+//						peoples = cList.getInfo();
+//						for (int i = 0; i < peoples.size(); i++) {
+//							if (loginKey.equals(peoples.get(i).id+"")) {
+//								peoples.remove(i);
+//							}
+//						}
+//						peopleId=peoples.get(0).id+"";
+//						application.saveObject((Serializable) peoples,
+//								"peoples");
+//						people_names = new String[peoples.size()];
+//						int i = 0;
+//						for (People cn : peoples) {
+//							people_names[i] = cn.name;
+//							i++;
+//						}
+////						initSpinner();
+//					} else {
+//						showToast(cList.msg);
+//					}
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//					showToast("数据解析失败");
+//				}
+//			};
+//
+//			// 开始执行前
+//			@Override
+//			public void onStart() {
+//				// 显示进度框
+//				showProgressDialog();
+//			}
+//
+//			@Override
+//			public void onFailure(int statusCode, String content,
+//					Throwable error) {
+//				showToast("网络连接失败！");
+//			}
+//
+//			// 完成后调用，失败，成功
+//			@Override
+//			public void onFinish() {
+//				// 移除进度框
+//				removeProgressDialog();
+//			};
+//
+//		});
+//	}
 
 
 }

@@ -7,11 +7,19 @@ import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import cn.jpush.android.api.JPushInterface;
@@ -30,6 +38,7 @@ import com.ytint.wloaa.bean.DepartmentList;
 import com.ytint.wloaa.bean.People;
 import com.ytint.wloaa.bean.PeopleList;
 import com.ytint.wloaa.bean.URLs;
+import com.ytint.wloaa.widget.TitleBar;
 
 /**
  * 选择联系人
@@ -53,6 +62,7 @@ public class SelectPeopleActivity extends AbActivity {
 	private List<Department> deptartments;
 	private SelectPeopleAdapter adapter;
 	private List<Map<String, Object>> mData;
+	private List<String> userlist=new ArrayList<String>();
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -72,38 +82,59 @@ public class SelectPeopleActivity extends AbActivity {
 		host = URLs.HTTP + application.getProperty("HOST") + ":"
 				+ application.getProperty("PORT");
 		Intent intent = getIntent();
-		AbTitleBar mAbTitleBar = this.getTitleBar();
-		mAbTitleBar.setTitleText("选择联系人");
-		mAbTitleBar.setLogo(R.drawable.button_selector_back);
-		// 设置文字边距，常用来控制高度：
-		mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
-		// 设置标题栏背景：
-		mAbTitleBar.setTitleBarBackground(R.drawable.abg_top);
-		// 左边图片右边的线：
-		mAbTitleBar.setLogoLine(R.drawable.aline);
-		// 左边图片的点击事件：
-		mAbTitleBar.getLogoView().setOnClickListener(
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						finish();
-					}
-
-				});
-
+		userlist=intent.getStringArrayListExtra("userlist");
 		setAbContentView(R.layout.layout_select_people);
 		context = SelectPeopleActivity.this;
 		loginKey = application.getProperty("loginKey");
-//		initData();
-//		MyAdapter adapter = new MyAdapter();
-//		listView_people_list.setAdapter(adapter);
+		AbTitleBar mAbTitleBar = this.getTitleBar();
+		mAbTitleBar.setVisibility(View.GONE);
+		final TitleBar titleBar = (TitleBar) findViewById(R.id.title_bar);
+		titleBar.setLeftImageResource(R.drawable.back_green);
+		titleBar.setLeftText("返回");
+		titleBar.setLeftTextColor(Color.WHITE);
+		titleBar.setLeftClickListener(new View.OnClickListener() {
+		    @Override
+		    public void onClick(View v) {
+		        finish();
+		    }
+		});
+		titleBar.setTitle("选择联系人");
+		titleBar.setTitleColor(Color.WHITE);
+		titleBar.setDividerColor(Color.GRAY);
+		titleBar.setActionTextColor(Color.WHITE);
+		titleBar.addAction(new TitleBar.TextAction("完成") {
+		    @Override
+		    public void performAction(View view) {
+		    	//数据是使用Intent返回
+	            Intent intent = new Intent();
+	            ArrayList<Map<String, Object>> datas=new ArrayList<Map<String, Object>>();
+	            //获得选择的人员列表
+	            for (int i = 0; i < isSelected.size(); i++) {
+	            	if (isSelected.get(i)) {
+	            		if (!mData.get(i).get("peopleid").toString().equals("0")) {
+	            			datas.add(mData.get(i));
+	            		}
+	            	}
+	            }
+//	            for (int i = 0; i < peopleidlist.size(); i++) {
+//	            	if (!mData.get(i).get("peopleid").toString().equals("0")) {
+//	            		datas.add(mData.get(i));
+//					}
+//				}
+	            //把返回数据存入Intent
+	            intent.putExtra("result", datas);
+	            //设置返回数据
+	            SelectPeopleActivity.this.setResult(RESULT_OK, intent);
+	            //关闭Activity
+	            SelectPeopleActivity.this.finish();
+		    }
+		});
 		loadDept();
 
 	}
 	
 	@SuppressLint("NewApi")
 	private void loadDept() {
-
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		if (!application.isNetworkConnected()) {
 			showToast("请检查网络连接");
@@ -195,8 +226,16 @@ public class SelectPeopleActivity extends AbActivity {
 								}
 							}
 						}
-						
-						adapter=new SelectPeopleAdapter(context,mData);  
+						// 这儿定义isSelected这个map是记录每个listitem的状态，初始状态全部为false。
+						isSelected = new HashMap<Integer, Boolean>();
+						for (int i = 0; i < mData.size(); i++) {
+							if (userlist.contains(mData.get(i).get("peopleid").toString())) {
+								isSelected.put(i, true);
+							}else{
+								isSelected.put(i, false);
+							}
+						}
+						adapter=new SelectPeopleAdapter(context,mData,isSelected);  
 						listView_people_list.setAdapter(adapter);  
 						listView_people_list.setItemsCanFocus(false);  
 						listView_people_list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);  
@@ -209,25 +248,24 @@ public class SelectPeopleActivity extends AbActivity {
 								//在每次获取点击的item时将对于的checkbox状态改变，同时修改map的值。  
 								vHollder.cBox.toggle();  
 								SelectPeopleAdapter.isSelected.put(position, vHollder.cBox.isChecked());  
-								if (vHollder.cBox.isChecked()) {
-									peopleidlist.add(position+"");
-								}else {
-									peopleidlist.remove(position+"");
-								}
+//								if (vHollder.cBox.isChecked()) {
+//									peopleidlist.add(position+"");
+//								}else {
+//									peopleidlist.remove(position+"");
+//								}
 								//判断是否是部门，选择部门下的用户
 								if (vHollder.isdept.equals("1")) {
 									for (int i = 1; i <= vHollder.user_num; i++) {
 										SelectPeopleAdapter.isSelected.put(position+i, vHollder.cBox.isChecked());
-										if (vHollder.cBox.isChecked()) {
-											peopleidlist.add(position+i+"");
-										}else {
-											peopleidlist.remove(position+i+"");
-										}
+//										if (vHollder.cBox.isChecked()) {
+//											peopleidlist.add(position+i+"");
+//										}else {
+//											peopleidlist.remove(position+i+"");
+//										}
 									}
 									// 通知listView刷新  
 									adapter.notifyDataSetChanged();  
 								}
-								System.out.println(peopleidlist);
 							}  
 						});
 					} else {

@@ -218,4 +218,6 @@
  
  <color name="style_red">#ff4c41</color>
  <color name="style_divider_color">#C9C7CD</color>
+ 
+ <color name="titlebar">#64b4ff</color>
 </resources>

@@ -5,10 +5,17 @@
     android:background="#ffffff"
     android:orientation="vertical" >
 
-    <ListView
-        android:id="@+id/listView_people_list"
+    <com.ytint.wloaa.widget.TitleBar
+        android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+        android:layout_height="wrap_content"
+        android:background="@color/titlebar" >
+    </com.ytint.wloaa.widget.TitleBar>
+
+	<ListView
+	    android:id="@+id/listView_people_list"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+	</ListView>
 
 </LinearLayout>
