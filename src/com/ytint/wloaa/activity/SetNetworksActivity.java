@@ -3,6 +3,7 @@ package com.ytint.wloaa.activity;
 import java.util.regex.Pattern;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,8 +16,10 @@ import cn.jpush.android.api.JPushInterface;
 
 import com.ab.activity.AbActivity;
 import com.ab.view.ioc.AbIocView;
+import com.ab.view.titlebar.AbTitleBar;
 import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.MyApplication;
+import com.ytint.wloaa.widget.TitleBar;
 
 /**
  * @author wlj
@@ -31,8 +34,6 @@ public class SetNetworksActivity extends AbActivity {
 	private LinearLayout full_screen_layout;
 	@AbIocView(id = R.id.networks_ip)
 	private EditText networks_ip; 
-	@AbIocView(id = R.id.networks_closePass)
-	private RelativeLayout networks_closePass; 
 	@AbIocView(id = R.id.networks_port)
 	private EditText networks_port; 
 	@AbIocView(id = R.id.networks_name)
@@ -45,15 +46,26 @@ public class SetNetworksActivity extends AbActivity {
 		application= (MyApplication) this.getApplication();
 		context=SetNetworksActivity.this;
 		setContentView(R.layout.layout_networks);
-		networks_name.setText(null==application.getProperty("IPNAME")?"默认":application.getProperty("IPNAME"));
-		networks_ip.setText(application.getProperty("HOST"));
-		networks_port.setText(application.getProperty("PORT"));
-		networks_closePass.setOnClickListener(new View.OnClickListener() {
+		
+		AbTitleBar mAbTitleBar = this.getTitleBar();
+		mAbTitleBar.setVisibility(View.GONE);
+		final TitleBar titleBar = (TitleBar) findViewById(R.id.title_barn);
+		titleBar.setLeftImageResource(R.drawable.back_green);
+		titleBar.setLeftText("返回");
+		titleBar.setLeftTextColor(Color.WHITE);
+		titleBar.setLeftClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				finish();
 			}
 		});
+		titleBar.setTitle("网络配置");
+		titleBar.setTitleColor(Color.WHITE);
+		titleBar.setDividerColor(Color.GRAY);
+		
+		networks_name.setText(null==application.getProperty("IPNAME")?"默认":application.getProperty("IPNAME"));
+		networks_ip.setText(application.getProperty("HOST"));
+		networks_port.setText(application.getProperty("PORT"));
 		networks_confirm_button.setOnClickListener(new OnClickListener() {
 			
 			@Override

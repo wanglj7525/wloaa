@@ -6,37 +6,12 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/showtitle"
+    <com.ytint.wloaa.widget.TitleBar
+        android:id="@+id/title_barn"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@drawable/abg_top" >
-
-        <RelativeLayout
-            android:id="@+id/networks_closePass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_selector_back" >
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/r"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/aline" >
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/titlebar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/my_set_networks_config"
-            android:textColor="@color/white"
-            android:textSize="@dimen/title_size" />
-    </LinearLayout>
-
+        android:layout_height="wrap_content"
+        android:background="@color/titlebar" >
+    </com.ytint.wloaa.widget.TitleBar>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -147,9 +122,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:background="@color/global_blue"
         android:text="@string/my_set_networks_confirm"
-        android:textColor="@color/white"
         android:textSize="15dp" />
 
 </LinearLayout>

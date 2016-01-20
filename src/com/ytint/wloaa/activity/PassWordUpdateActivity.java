@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -25,11 +26,13 @@ import com.ab.http.AbHttpUtil;
 import com.ab.http.AbRequestParams;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
+import com.ab.view.titlebar.AbTitleBar;
 import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.URLs;
+import com.ytint.wloaa.widget.TitleBar;
 
 /**
  * @author wlj
@@ -51,21 +54,33 @@ public class PassWordUpdateActivity extends AbActivity {
 	// 获取Http工具类
 	final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 	String host;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		application= (MyApplication) this.getApplication();
-		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
-		context=PassWordUpdateActivity.this;
+		application = (MyApplication) this.getApplication();
+		host = URLs.HTTP + application.getProperty("HOST") + ":"
+				+ application.getProperty("PORT");
+		context = PassWordUpdateActivity.this;
 		setContentView(R.layout.layout_password);
-		loginKey=application.getProperty("loginKey");
-		RelativeLayout closeActi = (RelativeLayout) findViewById(R.id.closePass);
-		closeActi.setOnClickListener(new View.OnClickListener() {
+		loginKey = application.getProperty("loginKey");
+
+		AbTitleBar mAbTitleBar = this.getTitleBar();
+		mAbTitleBar.setVisibility(View.GONE);
+		final TitleBar titleBar = (TitleBar) findViewById(R.id.title_barp);
+		titleBar.setLeftImageResource(R.drawable.back_green);
+		titleBar.setLeftText("返回");
+		titleBar.setLeftTextColor(Color.WHITE);
+		titleBar.setLeftClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				finish();
 			}
 		});
+		titleBar.setTitle("修改密码");
+		titleBar.setTitleColor(Color.WHITE);
+		titleBar.setDividerColor(Color.GRAY);
+
 		Button button = (Button) findViewById(R.id.update_button);
 		button.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -84,8 +99,7 @@ public class PassWordUpdateActivity extends AbActivity {
 				if (actionId == EditorInfo.IME_ACTION_DONE) {
 					// 隐藏软键盘
 					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-					imm.hideSoftInputFromWindow(new_pass1.getWindowToken(),
-							0);
+					imm.hideSoftInputFromWindow(new_pass1.getWindowToken(), 0);
 					update();
 					return true;
 				}
@@ -115,7 +129,7 @@ public class PassWordUpdateActivity extends AbActivity {
 			Toast.makeText(PassWordUpdateActivity.this, "密码不能为空！",
 					Toast.LENGTH_SHORT).show();
 			return;
-		}else if (!password.equals(new_pass2.getText().toString())) {
+		} else if (!password.equals(new_pass2.getText().toString())) {
 			Toast.makeText(PassWordUpdateActivity.this, "密码不一致！",
 					Toast.LENGTH_SHORT).show();
 			return;
@@ -130,8 +144,8 @@ public class PassWordUpdateActivity extends AbActivity {
 			UIHelper.ToastMessage(PassWordUpdateActivity.this, "请检查网络连接");
 			return;
 		}
-		
-		mAbHttpUtil.post(host+URLs.PASSWORD, params,
+
+		mAbHttpUtil.post(host + URLs.PASSWORD, params,
 				new AbStringHttpResponseListener() {
 
 					// 获取数据成功会调用这里
@@ -144,16 +158,19 @@ public class PassWordUpdateActivity extends AbActivity {
 							int code = Integer.parseInt(jsonObject.getString(
 									"code").toString());
 							if (code == Constants.SUCCESS) {
-								
-								application.setProperty("is_login","0");
+
+								application.setProperty("is_login", "0");
 								// 跳转到登录
-								 Intent intent = new Intent(PassWordUpdateActivity.this,
-								  LoginActivity.class);
-								 PassWordUpdateActivity.this.startActivity(intent);
-								 PassWordUpdateActivity.this.finish();
+								Intent intent = new Intent(
+										PassWordUpdateActivity.this,
+										LoginActivity.class);
+								PassWordUpdateActivity.this
+										.startActivity(intent);
+								PassWordUpdateActivity.this.finish();
 
 							} else {
-								Toast.makeText(PassWordUpdateActivity.this, jsonObject.getString("msg"),
+								Toast.makeText(PassWordUpdateActivity.this,
+										jsonObject.getString("msg"),
 										Toast.LENGTH_SHORT).show();
 							}
 						} catch (Exception e) {
@@ -188,6 +205,7 @@ public class PassWordUpdateActivity extends AbActivity {
 
 				});
 	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
