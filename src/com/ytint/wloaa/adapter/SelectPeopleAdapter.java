@@ -25,34 +25,8 @@ public class SelectPeopleAdapter extends BaseAdapter {
 
 	// 初始化
 	private void init(List<Map<String, Object>> mDatas,Map<Integer, Boolean> isSelecteds) {
-//		mData = new ArrayList<Map<String, Object>>();
-		// this.peoplelist=peoplelist;
-		// this.deptartments=deptartments;
-//		for (Department department : deptartments) {
-//			Map<String, Object> map = new HashMap<String, Object>();
-//			map.put("name", department.name);
-//			map.put("isdept", "1");
-//			map.put("dept_id", department.id);
-//			map.put("peopleid", 0);
-//			mData.add(map);
-//			for (People people : peoplelist) {
-//				if (people.department_id.trim().equals(department.id.trim())) {
-//					map = new HashMap<String, Object>();
-//					map.put("name", people.name);
-//					map.put("isdept", "2");
-//					map.put("dept_id",people.department_id);
-//					map.put("peopleid",people.id);
-//					mData.add(map);
-//				}
-//			}
-//		}
 		mData=mDatas;
 		isSelected=isSelecteds;
-//		// 这儿定义isSelected这个map是记录每个listitem的状态，初始状态全部为false。
-//		isSelected = new HashMap<Integer, Boolean>();
-//		for (int i = 0; i < mData.size(); i++) {
-//			isSelected.put(i, false);
-//		}
 	}
 
 	@Override

@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-<LinearLayout 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/addxiapai_full"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical" >
-	<LinearLayout
+
+    <com.ytint.wloaa.widget.TitleBar
+        android:id="@+id/title_bara"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/titlebar" >
+    </com.ytint.wloaa.widget.TitleBar>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -21,21 +34,21 @@
                 android:textSize="16dp" />
 
             <TextView
-		        android:id="@+id/msg_title"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:gravity="left"
-		        android:paddingBottom="@dimen/list_item_title_bottom"
-		        android:paddingLeft="10dip"
-		        android:paddingRight="10dip"
-		        android:paddingTop="@dimen/list_item_padding_top"
-		        android:singleLine="false"
-		        android:text=""
-		        android:textColor="@color/listitem_black"
-		        android:textSize="16dip" />
-
+                android:id="@+id/msg_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingBottom="@dimen/list_item_title_bottom"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:paddingTop="@dimen/list_item_padding_top"
+                android:singleLine="false"
+                android:text=""
+                android:textColor="@color/listitem_black"
+                android:textSize="16dip" />
         </LinearLayout>
-	<LinearLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -48,22 +61,21 @@
                 android:textSize="16dp" />
 
             <TextView
-		        android:id="@+id/msg_content"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:gravity="left"
-		        android:paddingBottom="@dimen/list_item_title_bottom"
-		        android:paddingLeft="10dip"
-		        android:paddingRight="10dip"
-		        android:paddingTop="@dimen/list_item_padding_top"
-		        android:singleLine="false"
-		        android:text=""
-		        android:textColor="@color/listitem_black"
-		        android:textSize="16dip" />
-
+                android:id="@+id/msg_content"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingBottom="@dimen/list_item_title_bottom"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:paddingTop="@dimen/list_item_padding_top"
+                android:singleLine="false"
+                android:text=""
+                android:textColor="@color/listitem_black"
+                android:textSize="16dip" />
         </LinearLayout>
 
-	<LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -76,22 +88,22 @@
                 android:textSize="16dp" />
 
             <TextView
-		        android:id="@+id/msg_frompeople"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:gravity="left"
-		        android:paddingBottom="@dimen/list_item_title_bottom"
-		        android:paddingLeft="10dip"
-		        android:paddingRight="10dip"
-		        android:paddingTop="@dimen/list_item_padding_top"
-		        android:singleLine="false"
-		        android:text=""
-		        android:textColor="@color/listitem_black"
-		        android:textSize="16dip" />
-
+                android:id="@+id/msg_frompeople"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingBottom="@dimen/list_item_title_bottom"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:paddingTop="@dimen/list_item_padding_top"
+                android:singleLine="false"
+                android:text=""
+                android:textColor="@color/listitem_black"
+                android:textSize="16dip" />
         </LinearLayout>
-	<LinearLayout
-	    android:id="@+id/showtopeople"
+
+        <LinearLayout
+            android:id="@+id/showtopeople"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -104,26 +116,27 @@
                 android:textSize="16dp" />
 
             <TextView
-		        android:id="@+id/msg_topeople"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:gravity="left"
-		        android:paddingBottom="@dimen/list_item_title_bottom"
-		        android:paddingLeft="10dip"
-		        android:paddingRight="10dip"
-		        android:paddingTop="@dimen/list_item_padding_top"
-		        android:singleLine="false"
-		        android:text=""
-		        android:textColor="@color/listitem_black"
-		        android:textSize="16dip" />
-
+                android:id="@+id/msg_topeople"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingBottom="@dimen/list_item_title_bottom"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:paddingTop="@dimen/list_item_padding_top"
+                android:singleLine="false"
+                android:text=""
+                android:textColor="@color/listitem_black"
+                android:textSize="16dip" />
         </LinearLayout>
-	<Button
-	    android:id="@+id/to_msg"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_gravity="center"
-	    android:text="回复" />
+
+        <Button
+            android:id="@+id/to_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="回复" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
-</ScrollView>

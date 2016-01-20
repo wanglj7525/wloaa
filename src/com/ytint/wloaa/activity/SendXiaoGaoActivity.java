@@ -7,6 +7,7 @@ import java.util.Map;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.ytint.wloaa.bean.People;
 import com.ytint.wloaa.bean.QunfaInfo;
 import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.widget.AutolinefeedView;
+import com.ytint.wloaa.widget.TitleBar;
 
 public class SendXiaoGaoActivity extends AbActivity {
 	String TAG = "AddXiaoxiSendActivity";
@@ -46,8 +48,8 @@ public class SendXiaoGaoActivity extends AbActivity {
 	private int from;
 	private int message_id;
 	private String message;
-//	@AbIocView(id = R.id.select_people_xiaoxi)
-//	Spinner peopleSpinner;
+	// @AbIocView(id = R.id.select_people_xiaoxi)
+	// Spinner peopleSpinner;
 	@AbIocView(id = R.id.commitXiaoxi)
 	Button commitXiaoxi;
 	@AbIocView(id = R.id.xiaoxi_info)
@@ -60,15 +62,16 @@ public class SendXiaoGaoActivity extends AbActivity {
 	Button xiaoxicancel;
 	@AbIocView(id = R.id.showSelectPeople)
 	LinearLayout showSelectPeople;
-	@AbIocView(id=R.id.add_people)
+	@AbIocView(id = R.id.add_people)
 	Button add_people;
-//	@AbIocView(id=R.id.edit_people)
-//	EditText edit_people;
-	@AbIocView(id=R.id.autolinefeedView1)
+	// @AbIocView(id=R.id.edit_people)
+	// EditText edit_people;
+	@AbIocView(id = R.id.autolinefeedView1)
 	AutolinefeedView autolinefeedView1;
-	private String peopleId="";
+	private String peopleId = "";
 	String host;
 	private ArrayList<String> userlist = new ArrayList<String>();
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -80,61 +83,91 @@ public class SendXiaoGaoActivity extends AbActivity {
 		super.onPause();
 		JPushInterface.onPause(this);
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		application= (MyApplication) this.getApplication();
-		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
+		application = (MyApplication) this.getApplication();
+		host = URLs.HTTP + application.getProperty("HOST") + ":"
+				+ application.getProperty("PORT");
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
-		AbTitleBar mAbTitleBar = this.getTitleBar();
-		if (from == 1) {
-			mAbTitleBar.setTitleText("发送消息");
-		} else if (from == 2){
-			mAbTitleBar.setTitleText("发送公告");
-		}else{
-			mAbTitleBar.setTitleText("回复消息");
-			message_id = Integer.parseInt(intent.getExtras().get("message_id").toString());
-			message = intent.getExtras().get("message").toString();
-			push_user_id = Integer.parseInt(intent.getExtras().get("push_user_id").toString());
-		}
-		mAbTitleBar.setLogo(R.drawable.button_selector_back);
-		// 设置文字边距，常用来控制高度：
-		mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
-		// 设置标题栏背景：
-		mAbTitleBar.setTitleBarBackground(R.drawable.abg_top);
-		// 左边图片右边的线：
-		mAbTitleBar.setLogoLine(R.drawable.aline);
-		// 左边图片的点击事件：
-		mAbTitleBar.getLogoView().setOnClickListener(
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						finish();
-					}
-
-				});
-
 		setAbContentView(R.layout.layout_addxiaoxi);
 		context = SendXiaoGaoActivity.this;
 		loginKey = application.getProperty("loginKey");
 		departmentId = application.getProperty("departmentId");
+		
+		AbTitleBar mAbTitleBar = this.getTitleBar();
+		mAbTitleBar.setVisibility(View.GONE);
+		final TitleBar titleBar = (TitleBar) findViewById(R.id.title_bar);
+		titleBar.setLeftImageResource(R.drawable.back_green);
+		titleBar.setLeftText("返回");
+		titleBar.setLeftTextColor(Color.WHITE);
+		titleBar.setLeftClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
+		if (from == 1) {
+			titleBar.setTitle("发送消息");
+		} else if (from == 2) {
+			titleBar.setTitle("发送公告");
+		} else {
+			titleBar.setTitle("回复消息");
+			message_id = Integer.parseInt(intent.getExtras().get("message_id")
+					.toString());
+			message = intent.getExtras().get("message").toString();
+			push_user_id = Integer.parseInt(intent.getExtras()
+					.get("push_user_id").toString());
+		}
+		titleBar.setTitleColor(Color.WHITE);
+		titleBar.setDividerColor(Color.GRAY);
+		// AbTitleBar mAbTitleBar = this.getTitleBar();
+		// if (from == 1) {
+		// mAbTitleBar.setTitleText("发送消息");
+		// } else if (from == 2){
+		// mAbTitleBar.setTitleText("发送公告");
+		// }else{
+		// mAbTitleBar.setTitleText("回复消息");
+		// message_id =
+		// Integer.parseInt(intent.getExtras().get("message_id").toString());
+		// message = intent.getExtras().get("message").toString();
+		// push_user_id =
+		// Integer.parseInt(intent.getExtras().get("push_user_id").toString());
+		// }
+		// mAbTitleBar.setLogo(R.drawable.button_selector_back);
+		// // 设置文字边距，常用来控制高度：
+		// mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
+		// // 设置标题栏背景：
+		// mAbTitleBar.setTitleBarBackground(R.drawable.abg_top);
+		// // 左边图片右边的线：
+		// mAbTitleBar.setLogoLine(R.drawable.aline);
+		// // 左边图片的点击事件：
+		// mAbTitleBar.getLogoView().setOnClickListener(
+		// new View.OnClickListener() {
+		// @Override
+		// public void onClick(View v) {
+		// finish();
+		// }
+		//
+		// });
+
+		
 		initUi();
 		// 加载联系人下拉框
-		
-		if (from==1) {
-//			loadPeoples();
-		}else{
+
+		if (from == 1) {
+			// loadPeoples();
+		} else {
 			showSelectPeople.setVisibility(View.GONE);
 		}
-		
 
 	}
 
 	private void initUi() {
-		if (from==3) {
-			xiaoxi_title.setText("回复："+message);
+		if (from == 3) {
+			xiaoxi_title.setText("回复：" + message);
 		}
 		add_people.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -143,7 +176,7 @@ public class SendXiaoGaoActivity extends AbActivity {
 				Intent intent = new Intent(SendXiaoGaoActivity.this,
 						SelectPeopleActivity.class);
 				intent.putExtra("userlist", userlist);
-				startActivityForResult(intent,20);
+				startActivityForResult(intent, 20);
 			}
 		});
 		// 添加
@@ -177,19 +210,20 @@ public class SendXiaoGaoActivity extends AbActivity {
 		addxiaoxi_full.setClickable(true);
 		addxiaoxi_full.setOnClickListener(keyboard_hide);
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		if (resultCode == Activity.RESULT_OK) {
 			switch (requestCode) {
 			case 20:
-				userlist=new ArrayList<String>();
+				userlist = new ArrayList<String>();
 				autolinefeedView1.removeAllViews();
-				ArrayList<Map<String, Object>> result = (ArrayList<Map<String, Object>>) data.getExtras().get("result");//得到新Activity 关闭后返回的数据
-				 for (int i = 0; i < result.size(); i++) {
+				ArrayList<Map<String, Object>> result = (ArrayList<Map<String, Object>>) data
+						.getExtras().get("result");// 得到新Activity 关闭后返回的数据
+				for (int i = 0; i < result.size(); i++) {
 					userlist.add(result.get(i).get("peopleid").toString());
-					final Button bt=new Button(context);
+					final Button bt = new Button(context);
 					bt.setText(result.get(i).get("name").toString());
 					bt.setTag(result.get(i).get("peopleid").toString());
 					bt.setOnClickListener(new OnClickListener() {
@@ -200,7 +234,7 @@ public class SendXiaoGaoActivity extends AbActivity {
 						}
 					});
 					autolinefeedView1.addView(bt);
-				 }
+				}
 				break;
 			default:
 				break;
@@ -208,40 +242,40 @@ public class SendXiaoGaoActivity extends AbActivity {
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
-	
-//	private void initSpinner() {
-//		// 将可选内容与ArrayAdapter连接起来
-//		adapter = new ArrayAdapter<String>(SendXiaoGaoActivity.this,
-//				R.layout.spinner_item, people_names);
-//		// 设置下拉列表的风格
-//		adapter.setDropDownViewResource(R.layout.drop_down_item);
-//		// 将adapter 添加到spinner中
-//		peopleSpinner.setAdapter(adapter);
-//		// 设置默认选中
-//		// channelSpinner.setSelection(0);
-//		// 设置默认值
-//		// channelSpinner.setVisibility(View.VISIBLE);
-//		peopleSpinner
-//				.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
-//					@Override
-//					public void onItemSelected(AdapterView<?> arg0, View view,
-//							int arg2, long arg3) {
-//						people = peoples.get(arg2).id;
-//						peopleId=people+"";
-//						TextView tv = (TextView) view;
-//						tv.setTextColor(getResources().getColor(R.color.black)); // 设置颜色
-//						tv.setGravity(android.view.Gravity.CENTER); // 设置居中
-//
-//					}
-//
-//					@Override
-//					public void onNothingSelected(AdapterView<?> arg0) {
-//						arg0.setVisibility(View.VISIBLE);
-//					}
-//
-//				});
-//
-//	}
+
+	// private void initSpinner() {
+	// // 将可选内容与ArrayAdapter连接起来
+	// adapter = new ArrayAdapter<String>(SendXiaoGaoActivity.this,
+	// R.layout.spinner_item, people_names);
+	// // 设置下拉列表的风格
+	// adapter.setDropDownViewResource(R.layout.drop_down_item);
+	// // 将adapter 添加到spinner中
+	// peopleSpinner.setAdapter(adapter);
+	// // 设置默认选中
+	// // channelSpinner.setSelection(0);
+	// // 设置默认值
+	// // channelSpinner.setVisibility(View.VISIBLE);
+	// peopleSpinner
+	// .setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+	// @Override
+	// public void onItemSelected(AdapterView<?> arg0, View view,
+	// int arg2, long arg3) {
+	// people = peoples.get(arg2).id;
+	// peopleId=people+"";
+	// TextView tv = (TextView) view;
+	// tv.setTextColor(getResources().getColor(R.color.black)); // 设置颜色
+	// tv.setGravity(android.view.Gravity.CENTER); // 设置居中
+	//
+	// }
+	//
+	// @Override
+	// public void onNothingSelected(AdapterView<?> arg0) {
+	// arg0.setVisibility(View.VISIBLE);
+	// }
+	//
+	// });
+	//
+	// }
 
 	/**
 	 * 下发任务
@@ -257,47 +291,49 @@ public class SendXiaoGaoActivity extends AbActivity {
 			UIHelper.ToastMessage(context, "请检查网络连接");
 			return;
 		}
-		if (xiaoxi_title.getText().toString().trim().length()==0||xiaoxi_info.getText().toString().trim().length()==0) {
+		if (xiaoxi_title.getText().toString().trim().length() == 0
+				|| xiaoxi_info.getText().toString().trim().length() == 0) {
 			UIHelper.ToastMessage(context, "请输入内容");
 			return;
 		}
 		AbRequestParams params = new AbRequestParams();
 		params.put("androidNoticeInfo.title", xiaoxi_title.getText().toString());
-		params.put("androidNoticeInfo.content", xiaoxi_info.getText().toString());
-		params.put("androidNoticeInfo.receive_user_type", "3");//接收人类型：1：全部成员；2：本科室成员；3：指定人员
-		if (from==2) {
-			//发送公告
+		params.put("androidNoticeInfo.content", xiaoxi_info.getText()
+				.toString());
+		params.put("androidNoticeInfo.receive_user_type", "3");// 接收人类型：1：全部成员；2：本科室成员；3：指定人员
+		if (from == 2) {
+			// 发送公告
 			params.put("androidNoticeInfo.notice_type", "0");
-			params.put("receive_user_ids","1");
-		}else{
-			if (from==3) {
-				//回复消息
-				params.put("receive_user_ids",push_user_id+"");
-			}else{
+			params.put("receive_user_ids", "1");
+		} else {
+			if (from == 3) {
+				// 回复消息
+				params.put("receive_user_ids", push_user_id + "");
+			} else {
 				for (int i = 0; i < userlist.size(); i++) {
-					peopleId+=userlist.get(i)+",";
+					peopleId += userlist.get(i) + ",";
 				}
-				if (peopleId.length()>0) {
-					peopleId=peopleId.substring(0, peopleId.length()-1);
-				}else{
+				if (peopleId.length() > 0) {
+					peopleId = peopleId.substring(0, peopleId.length() - 1);
+				} else {
 					UIHelper.ToastMessage(context, "请选择联系人");
 					return;
 				}
-				//发送消息
-				params.put("receive_user_ids",peopleId);
+				// 发送消息
+				params.put("receive_user_ids", peopleId);
 			}
 			params.put("androidNoticeInfo.notice_type", "1");
 		}
 		params.put("androidNoticeInfo.push_user_id", loginKey);
 		params.put("androidNoticeInfo.department_id", departmentId);
-		if (from==3) {
-			params.put("androidNoticeInfo.reply_notice_id", message_id+"");
-		}else{
+		if (from == 3) {
+			params.put("androidNoticeInfo.reply_notice_id", message_id + "");
+		} else {
 			params.put("androidNoticeInfo.reply_notice_id", "0");
 		}
-		Log.e(TAG, String.format("%s?%s", host+URLs.ADDMSG,
-				params.toString()));
-		mAbHttpUtil.post(host+URLs.ADDMSG ,params,
+		Log.e(TAG,
+				String.format("%s?%s", host + URLs.ADDMSG, params.toString()));
+		mAbHttpUtil.post(host + URLs.ADDMSG, params,
 				new AbStringHttpResponseListener() {
 					@Override
 					public void onSuccess(int statusCode, String content) {
@@ -335,70 +371,70 @@ public class SendXiaoGaoActivity extends AbActivity {
 				});
 	}
 
-//	@SuppressLint("NewApi")
-//	private void loadPeoples() {
-//
-//		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
-//		if (!application.isNetworkConnected()) {
-//			showToast("请检查网络连接");
-//			return;
-//		}
-//		String host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
-//		mAbHttpUtil.get(host+URLs.USERLIST+"?user_id=0" ,
-//			 new AbStringHttpResponseListener() {
-//			// 获取数据成功会调用这里
-//			@Override
-//			public void onSuccess(int statusCode, String content) {
-//				try {
-//					PeopleList cList = PeopleList.parseJson(content);
-//					if (cList.code == 200) {
-//						peoples = cList.getInfo();
-//						for (int i = 0; i < peoples.size(); i++) {
-//							if (loginKey.equals(peoples.get(i).id+"")) {
-//								peoples.remove(i);
-//							}
-//						}
-//						peopleId=peoples.get(0).id+"";
-//						application.saveObject((Serializable) peoples,
-//								"peoples");
-//						people_names = new String[peoples.size()];
-//						int i = 0;
-//						for (People cn : peoples) {
-//							people_names[i] = cn.name;
-//							i++;
-//						}
-////						initSpinner();
-//					} else {
-//						showToast(cList.msg);
-//					}
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//					showToast("数据解析失败");
-//				}
-//			};
-//
-//			// 开始执行前
-//			@Override
-//			public void onStart() {
-//				// 显示进度框
-//				showProgressDialog();
-//			}
-//
-//			@Override
-//			public void onFailure(int statusCode, String content,
-//					Throwable error) {
-//				showToast("网络连接失败！");
-//			}
-//
-//			// 完成后调用，失败，成功
-//			@Override
-//			public void onFinish() {
-//				// 移除进度框
-//				removeProgressDialog();
-//			};
-//
-//		});
-//	}
-
+	// @SuppressLint("NewApi")
+	// private void loadPeoples() {
+	//
+	// final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+	// if (!application.isNetworkConnected()) {
+	// showToast("请检查网络连接");
+	// return;
+	// }
+	// String
+	// host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
+	// mAbHttpUtil.get(host+URLs.USERLIST+"?user_id=0" ,
+	// new AbStringHttpResponseListener() {
+	// // 获取数据成功会调用这里
+	// @Override
+	// public void onSuccess(int statusCode, String content) {
+	// try {
+	// PeopleList cList = PeopleList.parseJson(content);
+	// if (cList.code == 200) {
+	// peoples = cList.getInfo();
+	// for (int i = 0; i < peoples.size(); i++) {
+	// if (loginKey.equals(peoples.get(i).id+"")) {
+	// peoples.remove(i);
+	// }
+	// }
+	// peopleId=peoples.get(0).id+"";
+	// application.saveObject((Serializable) peoples,
+	// "peoples");
+	// people_names = new String[peoples.size()];
+	// int i = 0;
+	// for (People cn : peoples) {
+	// people_names[i] = cn.name;
+	// i++;
+	// }
+	// // initSpinner();
+	// } else {
+	// showToast(cList.msg);
+	// }
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// showToast("数据解析失败");
+	// }
+	// };
+	//
+	// // 开始执行前
+	// @Override
+	// public void onStart() {
+	// // 显示进度框
+	// showProgressDialog();
+	// }
+	//
+	// @Override
+	// public void onFailure(int statusCode, String content,
+	// Throwable error) {
+	// showToast("网络连接失败！");
+	// }
+	//
+	// // 完成后调用，失败，成功
+	// @Override
+	// public void onFinish() {
+	// // 移除进度框
+	// removeProgressDialog();
+	// };
+	//
+	// });
+	// }
 
 }

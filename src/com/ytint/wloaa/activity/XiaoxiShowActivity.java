@@ -3,6 +3,7 @@ package com.ytint.wloaa.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.Qunfa;
 import com.ytint.wloaa.bean.QunfaInfo;
 import com.ytint.wloaa.bean.URLs;
+import com.ytint.wloaa.widget.TitleBar;
 
 public class XiaoxiShowActivity extends AbActivity {
 	String TAG = "XiaoxiShowActivity";
@@ -43,9 +45,10 @@ public class XiaoxiShowActivity extends AbActivity {
 	TextView msg_frompeple;
 	@AbIocView(id = R.id.to_msg)
 	Button to_msg;
-	@AbIocView (id=R.id.showtopeople)
+	@AbIocView(id = R.id.showtopeople)
 	LinearLayout showtopeople;
 	String host;
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -57,90 +60,115 @@ public class XiaoxiShowActivity extends AbActivity {
 		super.onPause();
 		JPushInterface.onPause(this);
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		application= (MyApplication) this.getApplication();
-		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
+		application = (MyApplication) this.getApplication();
+		host = URLs.HTTP + application.getProperty("HOST") + ":"
+				+ application.getProperty("PORT");
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
-		AbTitleBar mAbTitleBar = this.getTitleBar();
-		mAbTitleBar.setLogo(R.drawable.button_selector_back);
-		// 设置文字边距，常用来控制高度：
-		mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
-		// 设置标题栏背景：
-		mAbTitleBar.setTitleBarBackground(R.drawable.abg_top);
-		// 左边图片右边的线：
-		mAbTitleBar.setLogoLine(R.drawable.aline);
-		// 左边图片的点击事件：
-		mAbTitleBar.getLogoView().setOnClickListener(
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						finish();
-					}
-
-				});
-
+		context = XiaoxiShowActivity.this;
+		loginKey = application.getProperty("loginKey");
+		message_id = Integer.parseInt(intent.getExtras().get("message_id")
+				.toString());
 		setAbContentView(R.layout.layout_showmessage);
+
+		AbTitleBar mAbTitleBar = this.getTitleBar();
+		mAbTitleBar.setVisibility(View.GONE);
+		final TitleBar titleBar = (TitleBar) findViewById(R.id.title_bara);
+		titleBar.setLeftImageResource(R.drawable.back_green);
+		titleBar.setLeftText("返回");
+		titleBar.setLeftTextColor(Color.WHITE);
+		titleBar.setLeftClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 		if (from == 0) {
-			mAbTitleBar.setTitleText("公告详情");
+			titleBar.setTitle("公告详情");
 			to_msg.setVisibility(View.GONE);
 			showtopeople.setVisibility(View.GONE);
 		} else {
-			mAbTitleBar.setTitleText("消息详情");
+			titleBar.setTitle("消息详情");
 		}
-		context = XiaoxiShowActivity.this;
-		loginKey = application.getProperty("loginKey");
+		titleBar.setTitleColor(Color.WHITE);
+		titleBar.setDividerColor(Color.GRAY);
 
-		message_id=Integer.parseInt(intent.getExtras().get("message_id").toString());
+		// AbTitleBar mAbTitleBar = this.getTitleBar();
+		// mAbTitleBar.setLogo(R.drawable.button_selector_back);
+		// // 设置文字边距，常用来控制高度：
+		// mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
+		// // 设置标题栏背景：
+		// mAbTitleBar.setTitleBarBackground(R.drawable.abg_top);
+		// // 左边图片右边的线：
+		// mAbTitleBar.setLogoLine(R.drawable.aline);
+		// // 左边图片的点击事件：
+		// mAbTitleBar.getLogoView().setOnClickListener(
+		// new View.OnClickListener() {
+		// @Override
+		// public void onClick(View v) {
+		// finish();
+		// }
+		//
+		// });
+		//
+		// if (from == 0) {
+		// mAbTitleBar.setTitleText("公告详情");
+		// to_msg.setVisibility(View.GONE);
+		// showtopeople.setVisibility(View.GONE);
+		// } else {
+		// mAbTitleBar.setTitleText("消息详情");
+		// }
+
 		loadDatas();
-		
+
 		to_msg.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
-				
-				Intent intent = new Intent(XiaoxiShowActivity.this,SendXiaoGaoActivity.class);
+
+				Intent intent = new Intent(XiaoxiShowActivity.this,
+						SendXiaoGaoActivity.class);
 				intent.putExtra("from", 3);
 				intent.putExtra("message_id", message_id);
 				intent.putExtra("message", message);
 				intent.putExtra("push_user_id", push_user_id);
 				startActivity(intent);
-				
+
 			}
 		});
 	}
-	
+
 	@SuppressLint("NewApi")
 	private void loadDatas() {
-		
+
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		final String loginKey = application.getProperty("loginKey");
 		if (!application.isNetworkConnected()) {
 			showToast("请检查网络连接");
 			return;
 		}
-		mAbHttpUtil.get(host+URLs.MSGDETAIL + "?id=" + message_id,
+		mAbHttpUtil.get(host + URLs.MSGDETAIL + "?id=" + message_id,
 				new AbStringHttpResponseListener() {
 					// 获取数据成功会调用这里
 					@Override
 					public void onSuccess(int statusCode, String content) {
 						Log.d(TAG, content);
 						try {
-							
-							QunfaInfo gList = QunfaInfo
-									.parseJson(content);
+
+							QunfaInfo gList = QunfaInfo.parseJson(content);
 							if (gList.code == 200) {
 								shenpi = gList.getInfo();
 								msg_content.setText(shenpi.content);
 								msg_title.setText(shenpi.title);
 								msg_frompeple.setText(shenpi.push_user_name);
 								msg_topeople.setText(shenpi.receive_user_id);
-								message=shenpi.title;
-								push_user_id=shenpi.push_user_id;
-								if (loginKey.equals(shenpi.push_user_id+"")) {
+								message = shenpi.title;
+								push_user_id = shenpi.push_user_id;
+								if (loginKey.equals(shenpi.push_user_id + "")) {
 									to_msg.setVisibility(View.GONE);
 								}
 							} else {

@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,7 @@ import com.ab.http.AbStringHttpResponseListener;
 import com.ab.util.AbStrUtil;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.listener.AbOnListViewListener;
+import com.ab.view.titlebar.AbTitleBar;
 import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
@@ -37,6 +39,7 @@ import com.ytint.wloaa.bean.Qunfa;
 import com.ytint.wloaa.bean.QunfaInfoList;
 import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.widget.AbPullListView;
+import com.ytint.wloaa.widget.TitleBar;
 
 /**
  *消息列表 公告列表
@@ -57,12 +60,12 @@ public class XiaoxGaoListActivity extends AbActivity{
 	
 	@AbIocView(id = R.id.qunfa_list)
 	AbPullListView qunfaListView;
-	@AbIocView(id = R.id.titlebarxs)
-	TextView titlebar;
-	@AbIocView(id = R.id.showtitle)
-	LinearLayout showtitle;
-	@AbIocView(id = R.id.addShenpi)
-	RelativeLayout addShenpi;
+//	@AbIocView(id = R.id.titlebarxs)
+//	TextView titlebar;
+//	@AbIocView(id = R.id.showtitle)
+//	LinearLayout showtitle;
+//	@AbIocView(id = R.id.addShenpi)
+//	RelativeLayout addShenpi;
 	private int from;
 	private int page = 1;
 	@Override
@@ -87,28 +90,31 @@ public class XiaoxGaoListActivity extends AbActivity{
 		setContentView(R.layout.layout_xiaoxi);
 		context = XiaoxGaoListActivity.this;
 		loginKey = application.getProperty("loginKey");
-		initData();
-		getGroupData();
 		
-		if (from==0) {
-			titlebar.setText("公告列表");
-		}else{
-			titlebar.setText("消息列表");
-		}
 		
-		Rect frame = new Rect();  
-		getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);  
-		int statusBarHeight = frame.top;
-		int contentTop = getWindow().findViewById(Window.ID_ANDROID_CONTENT).getTop();  
-		//statusBarHeight是上面所求的状态栏的高度  
-		int titleBarHeight = contentTop - statusBarHeight ;
-		showtitle.setMinimumHeight(titleBarHeight);
-		addShenpi.setOnClickListener(new View.OnClickListener() {
+		AbTitleBar mAbTitleBar = this.getTitleBar();
+		mAbTitleBar.setVisibility(View.GONE);
+		final TitleBar titleBar = (TitleBar) findViewById(R.id.title_bars);
+		titleBar.setLeftImageResource(R.drawable.back_green);
+		titleBar.setLeftText("返回");
+		titleBar.setLeftTextColor(Color.WHITE);
+		titleBar.setLeftClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				finish();
 			}
 		});
+		if (from == 0) {
+			titleBar.setTitle("公告列表");
+		} else {
+			titleBar.setTitle("消息列表");
+		}
+		titleBar.setTitleColor(Color.WHITE);
+		titleBar.setDividerColor(Color.GRAY);
+		
+		
+		initData();
+		getGroupData();
 		initListView();
 	}
 

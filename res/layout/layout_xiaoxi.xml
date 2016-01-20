@@ -4,6 +4,13 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
+    <com.ytint.wloaa.widget.TitleBar
+        android:id="@+id/title_bars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/titlebar" >
+    </com.ytint.wloaa.widget.TitleBar>
+    <!-- 
 <LinearLayout
             android:id="@+id/showtitle"
         android:layout_width="match_parent"
@@ -36,6 +43,7 @@
 
         
     </LinearLayout>
+     -->
      <com.ytint.wloaa.widget.AbPullListView
          android:id="@+id/qunfa_list"
          android:layout_width="match_parent"
