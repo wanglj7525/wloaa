@@ -11,26 +11,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.35"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical" >
 
-    <LinearLayout
+        <LinearLayout
             android:id="@+id/showsearch"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/titlebar" >
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/titlebar" >
 
-		<RelativeLayout
-		    android:id="@+id/backproject"
-		    android:layout_width="25dp"
-		    android:layout_height="25dp"
-		    android:layout_gravity="center_vertical"
-		    android:layout_marginLeft="2dp"
-		    android:layout_marginRight="10dp"
-		    android:background="@drawable/back_green" >
+            <RelativeLayout
+                android:id="@+id/backproject"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/back_green" >
+            </RelativeLayout>
 
-        </RelativeLayout>
-
-         <EditText
+            <EditText
                 android:id="@+id/EditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -45,30 +46,30 @@
                 android:textColorHint="@color/white"
                 android:textSize="@dimen/title_textsize" />
 
-        <Button
-            android:id="@+id/search"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/search"
-            android:text="" />
-        
+            <Button
+                android:id="@+id/search"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/search"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.35"
+            android:orientation="vertical" >
+
+            <com.ytint.wloaa.widget.AbPullListView
+                android:id="@+id/project_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="#00000000"
+                android:divider="@color/white"
+                android:gravity="center" >
+            </com.ytint.wloaa.widget.AbPullListView>
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.35"
-        android:orientation="vertical" >
-	 <com.ytint.wloaa.widget.AbPullListView
-       android:id="@+id/project_list"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:cacheColorHint="#00000000"
-         android:divider="@color/white"
-         android:gravity="center"  >
-    </com.ytint.wloaa.widget.AbPullListView>
 </LinearLayout>
-</LinearLayout>
-</LinearLayout>
-    

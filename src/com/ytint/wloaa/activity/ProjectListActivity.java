@@ -10,12 +10,17 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -62,7 +67,8 @@ public class ProjectListActivity extends AbActivity {
 	private ShenpiListAdapter listItemAdapter;
 	private int from;
 	private int whichOne = 1;
-
+	Button search;
+	EditText edit_text;
 	String TAG = "ProjectListActivity";
 	private ProgressDialog mProgressDialog;
 	private String loginKey;
@@ -127,6 +133,43 @@ public class ProjectListActivity extends AbActivity {
 				finish();
 			}
 		});
+		
+		
+		edit_text = (EditText) findViewById(R.id.EditText);
+		edit_text.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+		edit_text
+				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+					@Override
+					public boolean onEditorAction(TextView v, int actionId,
+							KeyEvent event) {
+						// TODO Auto-generated method stub
+						if (actionId == EditorInfo.IME_ACTION_SEARCH
+								|| (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+							// 关闭键盘
+							InputMethodManager imm = (InputMethodManager) ProjectListActivity.this
+									.getSystemService(Context.INPUT_METHOD_SERVICE);
+							imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+							getGroupData();
+							return true;
+						}
+						return false;
+					}
+
+				});
+		search = (Button) findViewById(R.id.search);
+		search.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				String search_text = edit_text.getText().toString();
+					InputMethodManager imm = (InputMethodManager) ProjectListActivity.this
+							.getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+					getGroupData();
+
+			}
+		});
+		
 
 	}
 
@@ -158,9 +201,10 @@ public class ProjectListActivity extends AbActivity {
 			return;
 		}
 		page++;
+		String searchText = edit_text.getText().toString();
 		String url = String.format(
-				"%s?p=%d&ps=%d",
-				host+URLs.PROJECTLIST,  page, Constants.PAGE_SIZE);
+				"%s?p=%d&ps=%d&keywords=%s",
+				host+URLs.PROJECTLIST,  page, Constants.PAGE_SIZE,searchText);
 		Log.e("url", url);
 
 		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
@@ -225,9 +269,10 @@ public class ProjectListActivity extends AbActivity {
 			projectListView.stopRefresh();
 			return;
 		}
+		String searchText = edit_text.getText().toString();
 		String url = String.format(
-				"%s?p=%d&ps=%d",
-				host+URLs.PROJECTLIST, page, Constants.PAGE_SIZE);
+				"%s?p=%d&ps=%d&keywords=%s",
+				host+URLs.PROJECTLIST, page, Constants.PAGE_SIZE,searchText);
 		Log.d(TAG, url);
 		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
 			@Override
