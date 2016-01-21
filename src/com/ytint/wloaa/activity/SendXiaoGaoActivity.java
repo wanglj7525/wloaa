@@ -75,6 +75,8 @@ public class SendXiaoGaoActivity extends AbActivity {
 	AutolinefeedView autolinefeedView1;
 	private String peopleId = "";
 	private int receive_type = 0;
+	private int receive_user_type = 1;
+	private String userType;
 	String host;
 	private ArrayList<String> userlist = new ArrayList<String>();
 
@@ -148,29 +150,13 @@ public class SendXiaoGaoActivity extends AbActivity {
 		if (from == 3) {
 			xiaoxi_title.setText("回复：" + message);
 		}
-		if (from == 2) {
-			// 根据ID找到RadioGroup实例
-			// RadioGroup group =
-			// (RadioGroup)this.findViewById(R.id.radioGroup1);
-			// //绑定一个匿名监听器
-			// group.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			//
-			// @Override
-			// public void onCheckedChanged(RadioGroup arg0, int arg1) {
-			// // TODO Auto-generated method stub
-			// //获取变更后的选中项的ID
-			// int radioButtonId = arg0.getCheckedRadioButtonId();
-			// //根据ID获取RadioButton的实例
-			// RadioButton rb =
-			// (RadioButton)SendXiaoGaoActivity.this.findViewById(radioButtonId);
-			// //更新文本内容，以符合选中项
-			// if(rb.getText().equals("本科室")){
-			// receive_type=0;
-			// }else{
-			// receive_type=2;
-			// }
-			// }
-			// });
+		userType = application.getProperty("userType");
+		if (userType.equals("0")||userType.equals("1")||userType.equals("2")) {
+			//管理员，局长。副局长
+			RadioButton radio=(RadioButton)this.findViewById(R.id.radio0);
+			radio.setVisibility(View.GONE);
+			RadioButton radio1=(RadioButton)this.findViewById(R.id.radio1);
+			radio1.setChecked(true);
 		}
 		add_people.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -313,11 +299,12 @@ public class SendXiaoGaoActivity extends AbActivity {
 			RadioGroup group = (RadioGroup) this.findViewById(R.id.radioGroup1);
 			RadioButton radioButton = (RadioButton) findViewById(group
 					.getCheckedRadioButtonId());
-
 			if (radioButton.getText().equals("本科室")) {
-				receive_type = 2;
+				receive_type = 0;
+				receive_user_type=2;
 			} else {
 				receive_type = 1;
+				receive_user_type=1;
 			}
 		} else {
 			if (from == 3) {
@@ -336,10 +323,11 @@ public class SendXiaoGaoActivity extends AbActivity {
 				// 发送消息
 				params.put("receive_user_ids", peopleId);
 			}
-			receive_type = 3;
+			receive_type = 2;
+			receive_user_type=3;
 			params.put("androidNoticeInfo.notice_type", "1");
 		}
-		params.put("androidNoticeInfo.receive_user_type", receive_type + "");// 接收人类型：1：全部成员；2：本科室成员；3：指定人员
+		params.put("androidNoticeInfo.receive_user_type", receive_user_type + "");// 接收人类型：1：全部成员；2：本科室成员；3：指定人员
 		params.put("receive_type", receive_type + "");// receive_type
 																		// 接受用户类型，主要针对科长发布公告，0：本科室；1：全部；2：指定人（具体接收人在receive_user_ids中指明）
 		params.put("androidNoticeInfo.push_user_id", loginKey);
