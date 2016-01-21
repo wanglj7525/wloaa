@@ -138,7 +138,7 @@ public class MainActivity extends BaseActivity {
 			//、管理员，局长、副局长
 			keshiname="任务列表";
 			keshiimage=R.drawable.menu_liebiao;
-			fragment1 = new AllListFragment();
+			fragment1 = new TaskFragment();
 		}else{
 			keshiimage=R.drawable.menu_zhifa;
 			fragment1 =new TaskFragment();

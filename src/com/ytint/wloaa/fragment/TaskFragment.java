@@ -65,6 +65,11 @@ public class TaskFragment extends Fragment {
 //		}else if (userType.equals("4")) {
 //			button2.setEnabled(true);
 //		}
+		if (userType.equals("0")||userType.equals("1")||userType.equals("2")) {
+			button1.setVisibility(View.GONE);
+			button2.setVisibility(View.GONE);
+			departmentId="0";
+		}
 		//任务列表
 		button3=(Button)rootView.findViewById(R.id.zhifa3);
 		button3.setOnClickListener(new View.OnClickListener() {

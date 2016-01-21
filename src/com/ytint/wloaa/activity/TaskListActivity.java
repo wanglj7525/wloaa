@@ -154,6 +154,12 @@ public class TaskListActivity extends AbActivity {
 				"%s?user_id=%s&p=%d&ps=%d&department_id=%d&keywords=%s",
 				host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, from,
 				searchText);
+		if (from==0) {
+			//、管理员，局长、副局长
+			 url = String.format(
+						"%s?user_id=%s&p=%d&ps=%d&keywords=%s",
+						host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE,searchText);
+		}
 		Log.e("url", url);
 
 		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
@@ -223,6 +229,12 @@ public class TaskListActivity extends AbActivity {
 				"%s?user_id=%s&p=%d&ps=%d&department_id=%d&keywords=%s",
 				host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE, from,
 				searchText);
+		if (from==0) {
+			//、管理员，局长、副局长
+			 url = String.format(
+						"%s?user_id=%s&p=%d&ps=%d&keywords=%s",
+						host+URLs.TASKLIST, loginKey, page, Constants.PAGE_SIZE,searchText);
+		}
 		Log.d(TAG, url);
 		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
 			@Override
