@@ -22,7 +22,8 @@ public class BaseActivity extends FragmentActivity {
 	            } else { 
 	            	application.IMAGE_CACHE.saveDataToDb(this, "wloaa");
 	            	ExitActivityManger.getInstance().finish();
-	                System.exit(0);//否则退出程序 
+//	                System.exit(0);//否则退出程序 
+	            	this.finish();
 	            } 
 	        } 
 	        return super.onKeyUp(keyCode, event); 

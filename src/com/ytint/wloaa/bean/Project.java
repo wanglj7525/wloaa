@@ -23,12 +23,14 @@ public class Project implements java.io.Serializable{
     public String manager;
     public String telephone;
     public int construction_id;
-    public String cname;
+    public String cname;//施工单位
     public int build_id;
-    public String bname;
+    public String bname;//建设单位
     public int supervise_id;
-    public String sname;
+    public String sname;//监理单位
     public String checktime;
     public String result;
+    
+    public String regionname;//所属区域
 
 }

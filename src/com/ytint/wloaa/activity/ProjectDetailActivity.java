@@ -144,10 +144,10 @@ public class ProjectDetailActivity extends AbActivity {
 					if (gList.code == 200) {
 						Project project=gList.getInfo();
 						project_name.setText(project.name);
-						project_quyu.setText(project.regionid+" ");
-						project_shigong.setText(project.construction_id+" ");
-						project_jianshe.setText(project.build_id+" ");
-						project_jianli.setText(project.supervise_id+" ");
+						project_quyu.setText(project.regionname+" ");
+						project_shigong.setText(project.cname+" ");
+						project_jianshe.setText(project.bname+" ");
+						project_jianli.setText(project.sname+" ");
 						project_address.setText(project.address+" ");
 						project_mianji.setText(project.area+" ");
 						project_jiegou.setText(project.structure+" ");
