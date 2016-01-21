@@ -579,22 +579,6 @@ public class SendTaskActivity extends AbActivity {
 				imagelist.add(path + fileName);
 				setImageGrideValue();
 				Log.e(TAG, "path + fileName = " + path + fileName);
-				// 两种方式 获取拍好的图片
-				// if (data.getData() != null || data.getExtras() != null) { //
-				// 防止没有返回结果
-				// if (uriCamre != null) {
-				// photo = BitmapFactory.decodeFile(uriCamre.getPath()); // 拿到图片
-				// }
-				// if (photo == null) {
-				// Bundle bundle = data.getExtras();
-				// if (bundle != null) {
-				// photo = (Bitmap) bundle.get("data");
-				// } else {
-				// Toast.makeText(getApplicationContext(), "找不到图片",
-				// Toast.LENGTH_SHORT).show();
-				// }
-				// }
-				// }
 				break;
 			default:
 				break;
@@ -871,9 +855,9 @@ public class SendTaskActivity extends AbActivity {
 		@Override
 		public View getView(int position, View contentView, ViewGroup arg2) {
 			String image = imagelist.get(position);
-			if (image.contains("3gp") || image.contains("mp4")) {
-				image = host + "/public/images/video_play_btn.png";
-			}
+//			if (image.contains("3gp") || image.contains("mp4")) {
+//				image = host + "/public/images/video_play_btn.png";
+//			}
 			Log.e(TAG, image);
 			ViewHolder holder;
 			if (contentView == null) {
@@ -903,15 +887,17 @@ public class SendTaskActivity extends AbActivity {
 			} else {
 				holder = (ViewHolder) contentView.getTag();
 			}
-			
-			if (path.contains("camera_default")) {
-				holder.imageView.setImageResource(R.drawable.friends_sends_pictures_no);
+			if (image.contains("3gp") || image.contains("mp4")) {
+				holder.imageView.setImageResource(R.drawable.video_play_btn);
+//			}
+//			if (path.contains("camera_default")) {
+//				holder.imageView.setImageResource(R.drawable.friends_sends_pictures_no);
 			} else {
 //				ImageManager2.from(mContext).displayImage(viewHolder.imageView,
 //						path, Res.getDrawableID("plugin_camera_camera_default"), 100, 100);
 //				final ImageItem item = dataList.get(position);
-				holder.imageView.setTag(imagelist.get(position));
-				cache.displayBmp(holder.imageView, imagelist.get(position),imagelist.get(position),
+				holder.imageView.setTag(image);
+				cache.displayBmp(holder.imageView, image,image,
 						callback);
 			}
 			return contentView;
