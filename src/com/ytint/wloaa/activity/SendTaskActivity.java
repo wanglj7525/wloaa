@@ -177,7 +177,7 @@ public class SendTaskActivity extends AbActivity {
 	private String commitId;
 	String host;
 	private String path = Environment.getExternalStorageDirectory()
-			+ "/wloaaImage/";
+			+ "/wloaa/BigImage/";
 	private String fileName;
 
 	@Override
@@ -413,7 +413,7 @@ public class SendTaskActivity extends AbActivity {
 						file.mkdirs();
 					}
 					fileName = String.valueOf(System.currentTimeMillis())
-							+ ".jpg";
+							+ ".png";
 					Uri imageUri = Uri.fromFile(new File(path, fileName));
 					intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
 					startActivityForResult(intent, 12);

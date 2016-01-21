@@ -403,16 +403,16 @@ public class TaskDetailActivity extends AbActivity {
 		@Override
 		public View getView(int position, View contentView, ViewGroup arg2) {
 			String image = imageList.get(position);
-			if (image.contains("3gp")) {
-				image = host + URLs.URL_API_HOST
-						+ "public/images/video_play_btn.png";
-			}
 			ViewHolder holder;
 			if (contentView == null) {
 				holder = new ViewHolder();
 				contentView = mInflater.inflate(R.layout.gridview_item, null);
 				holder.mImg = (ImageView) contentView.findViewById(R.id.mImage);
-				application.IMAGE_CACHE.get(image, holder.mImg);
+				if (image.contains("3gp") || image.contains("mp4")) {
+					holder.mImg.setImageResource(R.drawable.video_play_btn);
+				}else{
+					application.IMAGE_CACHE.get(image, holder.mImg);
+				}
 				// mAbImageDownloader.display(holder.mImg,image);
 			} else {
 				holder = (ViewHolder) contentView.getTag();

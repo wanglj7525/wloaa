@@ -30,6 +30,7 @@ import cn.jpush.android.api.JPushInterface;
 import com.ab.activity.AbActivity;
 import com.ab.view.ioc.AbIocView;
 import com.ytint.wloaa.R;
+import com.ytint.wloaa.app.MyApplication;
 
 /**
  * 大图预览 功能描述：一般我们浏览一个应用，别人发布的状态或新闻都会有很多配图， 我们点击图片时可以浏览大图，这张大图一般可以放大，放大到超过屏幕后
@@ -39,6 +40,7 @@ import com.ytint.wloaa.R;
  * 
  */
 public class PicturePreviewActivity extends AbActivity {
+	private MyApplication application;
 	private ImageView zoomView;
 	private Context ctx;
 	private GestureDetector gestureDetector;
@@ -59,6 +61,7 @@ public class PicturePreviewActivity extends AbActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		application = (MyApplication) this.getApplication();
 		setContentView(R.layout.image_dialog);
 		addShenpi.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -77,6 +80,11 @@ public class PicturePreviewActivity extends AbActivity {
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		final int widthPixels = metrics.widthPixels;
 		final int heightPixels = metrics.heightPixels;
+		//使用缓存中的图片  太小了
+//		zoomView.setImageBitmap(zoomBitmap(
+//				application.IMAGE_CACHE.get(url).getData(), widthPixels,
+//				heightPixels));
+//		;
 		File bigPicFile = new File(getLocalPath(url));
 		if (bigPicFile.exists()) {/* 如果已经下载过了,直接从本地文件中读取 */
 			zoomView.setImageBitmap(zoomBitmap(
@@ -238,7 +246,7 @@ public class PicturePreviewActivity extends AbActivity {
 			// fileName = fileName.replaceAll("?", "");
 			// }
 		}
-		return Environment.getExternalStorageDirectory() + "/" + fileName;
+		return Environment.getExternalStorageDirectory() + "/wloaa/BigImage/" + fileName;
 	}
 
 	/**
