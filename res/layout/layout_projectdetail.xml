@@ -42,7 +42,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:text="工程1"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -56,7 +56,103 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="工程地点："
+                android:text="所属区域："
+                android:textColor="@color/content"
+                android:textSize="18dp" />
+ 			<TextView
+                android:id="@+id/project_quyu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/p_shigong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="施工单位："
+                android:textColor="@color/content"
+                android:textSize="18dp" />
+ 			<TextView
+                android:id="@+id/project_shigong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/p_jianshe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="建设单位："
+                android:textColor="@color/content"
+                android:textSize="18dp" />
+ 			<TextView
+                android:id="@+id/project_jianshe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/p_jianli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="监理单位："
+                android:textColor="@color/content"
+                android:textSize="18dp" />
+ 			<TextView
+                android:id="@+id/project_jianli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/p_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="工程地址："
                 android:textColor="@color/content"
                 android:textSize="18dp" />
  			<TextView
@@ -67,7 +163,127 @@
                 android:layout_marginStart="15dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:text="山海路"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/p_mianji"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="建筑面积："
+                android:textColor="@color/content"
+                android:textSize="18dp" />
+ 			<TextView
+                android:id="@+id/project_mianji"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/p_jiegoui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="结构形式："
+                android:textColor="@color/content"
+                android:textSize="18dp" />
+ 			<TextView
+                android:id="@+id/project_jiegou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/p_chuangyou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="安全生产创优目标："
+                android:textColor="@color/content"
+                android:textSize="18dp" />
+ 			<TextView
+                android:id="@+id/project_chuangyou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/p_zaojia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="工程造价："
+                android:textColor="@color/content"
+                android:textSize="18dp" />
+ 			<TextView
+                android:id="@+id/project_zaojia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/p_cengshu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="层数："
+                android:textColor="@color/content"
+                android:textSize="18dp" />
+ 			<TextView
+                android:id="@+id/project_cengshu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -80,7 +296,7 @@
                 android:id="@+id/Projectstart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="开始时间："
+                android:text="开工日期："
                 android:textColor="@color/content"
                 android:textSize="18dp" />
 
@@ -106,7 +322,7 @@
                 android:id="@+id/Projectend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="结束时间："
+                android:text="竣工日期："
                 android:textColor="@color/content"
                 android:textSize="18dp" />
 
@@ -119,6 +335,81 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:text="2016-01-01"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/p_gaodu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="总高度："
+                android:textColor="@color/content"
+                android:textSize="18dp" />
+
+             <TextView
+                android:id="@+id/project_gaodu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/p_chuli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="处理情况："
+                android:textColor="@color/content"
+                android:textSize="18dp" />
+
+             <TextView
+                android:id="@+id/project_chuli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/p_jindu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="工程进度："
+                android:textColor="@color/content"
+                android:textSize="18dp" />
+
+             <TextView
+                android:id="@+id/project_jindu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="18sp" />
         </LinearLayout>

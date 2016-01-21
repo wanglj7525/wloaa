@@ -21,6 +21,7 @@ import com.ytint.wloaa.R;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.Project;
+import com.ytint.wloaa.bean.ProjectInfo;
 import com.ytint.wloaa.bean.QunfaInfo;
 import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.widget.TitleBar;
@@ -43,13 +44,37 @@ public class ProjectDetailActivity extends AbActivity {
 	}
 
 	@AbIocView(id = R.id.project_name)
-	TextView project_name_detail;
+	TextView project_name;
+	@AbIocView(id = R.id.project_quyu)
+	TextView project_quyu;
+	@AbIocView(id = R.id.project_shigong)
+	TextView project_shigong;
+	@AbIocView(id = R.id.project_jianshe)
+	TextView project_jianshe;
+	@AbIocView(id = R.id.project_jianli)
+	TextView project_jianli;
 	@AbIocView(id = R.id.project_address)
 	TextView project_address;
+	@AbIocView(id = R.id.project_mianji)
+	TextView project_mianji;
+	@AbIocView(id = R.id.project_jiegou)
+	TextView project_jiegou;
+	@AbIocView(id = R.id.project_chuangyou)
+	TextView project_chuangyou;
+	@AbIocView(id = R.id.project_zaojia)
+	TextView project_zaojia;
+	@AbIocView(id = R.id.project_cengshu)
+	TextView project_cengshu;
 	@AbIocView(id = R.id.project_starttime)
 	TextView project_starttime;
 	@AbIocView(id = R.id.project_endtime)
 	TextView project_endtime;
+	@AbIocView(id = R.id.project_gaodu)
+	TextView project_gaodu;
+	@AbIocView(id = R.id.project_chuli)
+	TextView project_chuli;
+	@AbIocView(id = R.id.project_jindu)
+	TextView project_jindu;
 	private String userType;
 	Integer project_id;
 	private Project project = new Project();
@@ -73,24 +98,6 @@ public class ProjectDetailActivity extends AbActivity {
 		host = URLs.HTTP + application.getProperty("HOST") + ":"
 				+ application.getProperty("PORT");
 		Intent intent = getIntent();
-		// AbTitleBar mAbTitleBar = this.getTitleBar();
-		// mAbTitleBar.setTitleText("工程详情");
-		// mAbTitleBar.setLogo(R.drawable.button_selector_back);
-		// // 设置文字边距，常用来控制高度：
-		// mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
-		// // 设置标题栏背景：
-		// mAbTitleBar.setTitleBarBackground(R.drawable.abg_top);
-		// // 左边图片右边的线：
-		// mAbTitleBar.setLogoLine(R.drawable.aline);
-		// // 左边图片的点击事件：
-		// mAbTitleBar.getLogoView().setOnClickListener(
-		// new View.OnClickListener() {
-		// @Override
-		// public void onClick(View v) {
-		// finish();
-		// }
-		//
-		// });
 
 		setAbContentView(R.layout.layout_projectdetail);
 		context = ProjectDetailActivity.this;
@@ -132,9 +139,26 @@ public class ProjectDetailActivity extends AbActivity {
 			public void onSuccess(int statusCode, String content) {
 				Log.e(TAG, content);
 				try {
-
-//					QunfaInfo gList = QunfaInfo.parseJson(content);
-//					if (gList.code == 200) {
+					
+					ProjectInfo gList = ProjectInfo.parseJson(content);
+					if (gList.code == 200) {
+						Project project=gList.getInfo();
+						project_name.setText(project.name);
+						project_quyu.setText(project.regionid+" ");
+						project_shigong.setText(project.construction_id+" ");
+						project_jianshe.setText(project.build_id+" ");
+						project_jianli.setText(project.supervise_id+" ");
+						project_address.setText(project.address+" ");
+						project_mianji.setText(project.area+" ");
+						project_jiegou.setText(project.structure+" ");
+						project_chuangyou.setText(project.goals+" ");
+						project_zaojia.setText(project.cost+" ");
+						project_cengshu.setText(project.layers+" ");
+						project_starttime.setText(project.starttime+" ");
+						project_endtime.setText(project.endtime+" ");
+						project_gaodu.setText(project.height+" ");
+						project_chuli.setText(project.result+" ");
+						project_jindu.setText(project.schedule+" ");
 //						shenpi = gList.getInfo();
 //						msg_content.setText(shenpi.content);
 //						msg_title.setText(shenpi.title);
@@ -146,9 +170,9 @@ public class ProjectDetailActivity extends AbActivity {
 //							to_msg.setVisibility(View.GONE);
 //						}
 //						msg_topeople.setText(shenpi.receive_user_names);
-//					} else {
-//						UIHelper.ToastMessage(context, gList.msg);
-//					}
+					} else {
+						UIHelper.ToastMessage(context, gList.msg);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 					showToast("数据解析失败");
