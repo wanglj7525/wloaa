@@ -126,31 +126,6 @@ public class TaskDetailActivity extends AbActivity {
 				+ application.getProperty("PORT");
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
-		// AbTitleBar mAbTitleBar = this.getTitleBar();
-		// mAbTitleBar.setTitleText("任务详情");
-		// // if (from==1) {
-		// // mAbTitleBar.setTitleText("质量检查-任务详情");
-		// // }else if(from==2){
-		// // mAbTitleBar.setTitleText("安全检查-任务详情");
-		// // }else{
-		// // mAbTitleBar.setTitleText("执法管理-任务详情");
-		// // }
-		// mAbTitleBar.setLogo(R.drawable.button_selector_back);
-		// // 设置文字边距，常用来控制高度：
-		// mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
-		// // 设置标题栏背景：
-		// mAbTitleBar.setTitleBarBackground(R.drawable.abg_top);
-		// // 左边图片右边的线：
-		// mAbTitleBar.setLogoLine(R.drawable.aline);
-		// // 左边图片的点击事件：
-		// mAbTitleBar.getLogoView().setOnClickListener(new
-		// View.OnClickListener() {
-		// @Override
-		// public void onClick(View v) {
-		// finish();
-		// }
-		//
-		// });
 
 		setAbContentView(R.layout.layout_shenpidetail);
 		context = TaskDetailActivity.this;
@@ -174,14 +149,6 @@ public class TaskDetailActivity extends AbActivity {
 		titleBar.setTitleColor(Color.WHITE);
 		titleBar.setDividerColor(Color.GRAY);
 		loadDatas();
-		// task_finish.setOnClickListener(new View.OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View arg0) {
-		// // 科长点击 上报任务 完成
-		// finishTask();
-		// }
-		// });
 	}
 
 	@SuppressLint("NewApi")

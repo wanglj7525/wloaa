@@ -44,6 +44,7 @@ import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ToggleButton;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -71,6 +72,9 @@ import com.ytint.wloaa.bean.ProjectList;
 import com.ytint.wloaa.bean.Shenpi;
 import com.ytint.wloaa.bean.ShenpiInfo;
 import com.ytint.wloaa.bean.URLs;
+import com.ytint.wloaa.utils.BitmapCache;
+import com.ytint.wloaa.utils.ImageItem;
+import com.ytint.wloaa.utils.BitmapCache.ImageCallback;
 import com.ytint.wloaa.widget.TitleBar;
 
 /**
@@ -98,47 +102,26 @@ public class SendTaskActivity extends AbActivity {
 	private String phone;
 	@AbIocView(id = R.id.task_people)
 	EditText task_people;
-	// @AbIocView(id = R.id.select_people_report)
-	// Spinner peopleSpinner;
 	@AbIocView(id = R.id.select_project)
 	Spinner projectSpinner;
-	// @AbIocView(id = R.id.select_company_report)
-	// Spinner companySpinner;
 	@AbIocView(id = R.id.addshenpi_full)
 	LinearLayout addxiapai_full;
 	@AbIocView(id = R.id.showProgect)
 	LinearLayout showProgect;
 	@AbIocView(id = R.id.gridView_image_report)
 	GridView gridView_image_report;
-	// @AbIocView(id = R.id.select_shenpi_people)
-	// Spinner peopleSpinner;
 	/** 添加文件 */
 	@AbIocView(id = R.id.commitShenpi)
 	Button commitFile;
 	/** 提交上报 */
-	// @AbIocView(id = R.id.commitNoFile)
-	// Button commitNoFile;
 	@AbIocView(id = R.id.reportcancel)
 	Button reportcancel;
 	@AbIocView(id = R.id.task_name_report)
 	EditText task_name;
 	@AbIocView(id = R.id.task_tell)
 	EditText task_tell;
-	// @AbIocView(id = R.id.task_method)
-	// EditText task_method;
 	@AbIocView(id = R.id.task_remark)
 	EditText task_remark;
-	// @AbIocView(id = R.id.is_reply)
-	// CheckBox is_reply;
-	// @AbIocView(id = R.id.is_review)
-	// CheckBox is_review;
-
-	// /** 确定位置*/
-	// @AbIocView(id = R.id.findlocal)
-	// Button findlocal;
-	// /** 显示当前位置 */
-	// @AbIocView(id = R.id.showlocal)
-	// TextView showlocal;
 	/** 选择本地图片上传 */
 	@AbIocView(id = R.id.add_photo)
 	Button add_photo;
@@ -217,25 +200,6 @@ public class SendTaskActivity extends AbActivity {
 				+ application.getProperty("PORT");
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
-		// AbTitleBar mAbTitleBar = this.getTitleBar();
-		// if (from==1) {
-		// mAbTitleBar.setTitleText("工程任务");
-		// }else if(from==2){
-		// mAbTitleBar.setTitleText("自定义任务");
-		// }
-		// // mAbTitleBar.setTitleText("上报任务");
-		// mAbTitleBar.setLogo(R.drawable.button_selector_back);
-		// mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
-		// mAbTitleBar.setTitleBarBackground(R.drawable.abg_top);
-		// mAbTitleBar.setLogoLine(R.drawable.aline);
-		// mAbTitleBar.getLogoView().setOnClickListener(
-		// new View.OnClickListener() {
-		// @Override
-		// public void onClick(View v) {
-		// finish();
-		// }
-		//
-		// });
 
 		setAbContentView(R.layout.layout_addtask);
 		context = SendTaskActivity.this;
@@ -275,39 +239,6 @@ public class SendTaskActivity extends AbActivity {
 		commitId = "0";
 	}
 
-	private void initSpinner() {
-		// // 将可选内容与ArrayAdapter连接起来
-		// adapter = new ArrayAdapter<String>(AddZhiliangReportActivity.this,
-		// R.layout.spinner_item, people_names);
-		// // 设置下拉列表的风格
-		// adapter.setDropDownViewResource(R.layout.drop_down_item);
-		// // 将adapter 添加到spinner中
-		// peopleSpinner.setAdapter(adapter);
-		// // 设置默认选中
-		// peopleSpinner.setSelection(0);
-		// // 设置默认值
-		// // channelSpinner.setVisibility(View.VISIBLE);
-		// peopleSpinner
-		// .setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
-		// @Override
-		// public void onItemSelected(AdapterView<?> arg0, View view,
-		// int arg2, long arg3) {
-		// people = peoples.get(arg2).id;
-		// peopleId=peoples.get(arg2).id+"";
-		// TextView tv = (TextView) view;
-		// tv.setTextColor(getResources().getColor(R.color.black)); // 设置颜色
-		// tv.setGravity(android.view.Gravity.CENTER); // 设置居中
-		//
-		// }
-		//
-		// @Override
-		// public void onNothingSelected(AdapterView<?> arg0) {
-		// arg0.setVisibility(View.VISIBLE);
-		// }
-		//
-		// });
-
-	}
 
 	/** 初始化数据 */
 	private void initData() {
@@ -355,64 +286,6 @@ public class SendTaskActivity extends AbActivity {
 				});
 	}
 
-	// @SuppressLint("NewApi")
-	// private void loadPeoples() {
-	//
-	// final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
-	// if (!application.isNetworkConnected()) {
-	// showToast("请检查网络连接");
-	// return;
-	// }
-	// mAbHttpUtil.get(host + URLs.USERLIST + "?user_id=" + loginKey
-	// + "&department_id=" + from + "&type=1",
-	// new AbStringHttpResponseListener() {
-	// // 获取数据成功会调用这里
-	// @Override
-	// public void onSuccess(int statusCode, String content) {
-	// try {
-	// PeopleList cList = PeopleList.parseJson(content);
-	// if (cList.code == 200) {
-	// peoples = cList.getInfo();
-	// application.saveObject((Serializable) peoples,
-	// "peoples");
-	// people_names = new String[peoples.size()];
-	// int i = 0;
-	// for (People cn : peoples) {
-	// people_names[i] = cn.name;
-	// i++;
-	// }
-	// initSpinner();
-	// } else {
-	// showToast(cList.msg);
-	// }
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// showToast("数据解析失败");
-	// }
-	// };
-	//
-	// // 开始执行前
-	// @Override
-	// public void onStart() {
-	// // 显示进度框
-	// showProgressDialog();
-	// }
-	//
-	// @Override
-	// public void onFailure(int statusCode, String content,
-	// Throwable error) {
-	// showToast("网络连接失败！");
-	// }
-	//
-	// // 完成后调用，失败，成功
-	// @Override
-	// public void onFinish() {
-	// // 移除进度框
-	// removeProgressDialog();
-	// };
-	//
-	// });
-	// }
 
 	private void initProject() {
 		// 将可选内容与ArrayAdapter连接起来
@@ -519,12 +392,6 @@ public class SendTaskActivity extends AbActivity {
 				Intent intent = new Intent(SendTaskActivity.this,
 						AlbumActivity.class);
 				startActivityForResult(intent, 20);
-				// overridePendingTransition(R.anim.activity_translate_in,
-				// R.anim.activity_translate_out);
-				// Intent intent = new Intent(Intent.ACTION_PICK);// 打开相册
-				// intent.setDataAndType(
-				// MediaStore.Images.Media.INTERNAL_CONTENT_URI, "image/*");
-				// startActivityForResult(intent, 11);
 			}
 		});
 		// 拍照
@@ -956,20 +823,16 @@ public class SendTaskActivity extends AbActivity {
 	}
 
 	class MAImagedapter extends BaseAdapter {
+		BitmapCache cache;
 		Context mContext;
 		LayoutInflater mInflater;
-
+		private class ViewHolder {
+			public ImageView imageView;
+		}
 		public MAImagedapter(Context c) {
 			mContext = c;
 			mInflater = LayoutInflater.from(mContext);
-			// // 图片下载器
-			// mAbImageDownloader = new AbImageDownloader(mContext);
-			// mAbImageDownloader.setWidth(120);
-			// mAbImageDownloader.setHeight(100);
-			// mAbImageDownloader.setType(AbConstant.SCALEIMG);
-			// mAbImageDownloader.setLoadingImage(R.drawable.image_loading);
-			// mAbImageDownloader.setErrorImage(R.drawable.image_error);
-			// mAbImageDownloader.setNoImage(R.drawable.image_no);
+			cache = new BitmapCache();
 		}
 
 		@Override
@@ -989,7 +852,22 @@ public class SendTaskActivity extends AbActivity {
 			// TODO Auto-generated method stub
 			return arg0;
 		}
-
+		ImageCallback callback = new ImageCallback() {
+			@Override
+			public void imageLoad(ImageView imageView, Bitmap bitmap,
+					Object... params) {
+				if (imageView != null && bitmap != null) {
+					String url = (String) params[0];
+					if (url != null && url.equals((String) imageView.getTag())) {
+						((ImageView) imageView).setImageBitmap(bitmap);
+					} else {
+						Log.e(TAG, "callback, bmp not match");
+					}
+				} else {
+					Log.e(TAG, "callback, bmp null");
+				}
+			}
+		};
 		@Override
 		public View getView(int position, View contentView, ViewGroup arg2) {
 			String image = imagelist.get(position);
@@ -1001,30 +879,41 @@ public class SendTaskActivity extends AbActivity {
 			if (contentView == null) {
 				holder = new ViewHolder();
 				contentView = mInflater.inflate(R.layout.gridview_item, null);
-				holder.mImg = (ImageView) contentView.findViewById(R.id.mImage);
-				Bitmap bitmap = ImageLoader.getInstance().loadImage(image, 200,
-						100, new OnCallBackListener() {
-							@Override
-							public void setOnCallBackListener(Bitmap bitmap,
-									String url) {
-								ImageView image = (ImageView) gridView_image_report
-										.findViewWithTag(url);
-								if (image != null && bitmap != null) {
-									image.setImageBitmap(bitmap);
-								}
-							}
-						});
-				if (bitmap != null) {
-					holder.mImg.setImageBitmap(bitmap);
-				} else {
-					holder.mImg
-							.setImageResource(R.drawable.friends_sends_pictures_no);
-				}
+				holder.imageView = (ImageView) contentView.findViewById(R.id.mImage);
+				contentView.setTag(holder);
+//				Bitmap bitmap = ImageLoader.getInstance().loadImage(image, 200,
+//						100, new OnCallBackListener() {
+//							@Override
+//							public void setOnCallBackListener(Bitmap bitmap,
+//									String url) {
+//								ImageView image = (ImageView) gridView_image_report
+//										.findViewWithTag(url);
+//								if (image != null && bitmap != null) {
+//									image.setImageBitmap(bitmap);
+//								}
+//							}
+//						});
+//				if (bitmap != null) {
+//					holder.mImg.setImageBitmap(bitmap);
+//				} else {
+//					holder.mImg
+//							.setImageResource(R.drawable.friends_sends_pictures_no);
+//				}
 				// mAbImageDownloader.display(holder.mImg,image);
 			} else {
 				holder = (ViewHolder) contentView.getTag();
 			}
-			contentView.setTag(holder);
+			
+			if (path.contains("camera_default")) {
+				holder.imageView.setImageResource(R.drawable.friends_sends_pictures_no);
+			} else {
+//				ImageManager2.from(mContext).displayImage(viewHolder.imageView,
+//						path, Res.getDrawableID("plugin_camera_camera_default"), 100, 100);
+//				final ImageItem item = dataList.get(position);
+				holder.imageView.setTag(imagelist.get(position));
+				cache.displayBmp(holder.imageView, imagelist.get(position),imagelist.get(position),
+						callback);
+			}
 			return contentView;
 		}
 
