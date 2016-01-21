@@ -22,5 +22,10 @@ public class Qunfa implements java.io.Serializable{
 	public Integer department_id;
 	public String department_name;
 	public String create_time_string;
+	
+	public String receive_user_ids;
+	public String receive_user_names;
+	public String unreceive_user_names;
+	public String unreceive_user_ids;
 
 }

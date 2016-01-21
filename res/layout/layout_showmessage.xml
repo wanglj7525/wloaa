@@ -111,8 +111,8 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="接收人："
-                android:textColor="@color/content"
+                android:text="已读："
+                android:textColor="@color/darkgray"
                 android:textSize="16dp" />
 
             <TextView
@@ -126,7 +126,34 @@
                 android:paddingTop="@dimen/list_item_padding_top"
                 android:singleLine="false"
                 android:text=""
-                android:textColor="@color/listitem_black"
+                android:textColor="@color/gray"
+                android:textSize="16dip" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/showtounpeople"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="未读："
+                android:textColor="@color/darkgray"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/msgun_topeople"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingBottom="@dimen/list_item_title_bottom"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:paddingTop="@dimen/list_item_padding_top"
+                android:singleLine="false"
+                android:text=""
+                android:textColor="@color/gray"
                 android:textSize="16dip" />
         </LinearLayout>
 

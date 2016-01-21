@@ -17,6 +17,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import cn.jpush.android.api.JPushInterface;
 
 import com.ab.activity.AbActivity;
@@ -62,6 +65,8 @@ public class SendXiaoGaoActivity extends AbActivity {
 	Button xiaoxicancel;
 	@AbIocView(id = R.id.showSelectPeople)
 	LinearLayout showSelectPeople;
+	@AbIocView(id = R.id.showrange)
+	LinearLayout showrange;
 	@AbIocView(id = R.id.add_people)
 	Button add_people;
 	// @AbIocView(id=R.id.edit_people)
@@ -69,6 +74,7 @@ public class SendXiaoGaoActivity extends AbActivity {
 	@AbIocView(id = R.id.autolinefeedView1)
 	AutolinefeedView autolinefeedView1;
 	private String peopleId = "";
+	private int receive_type = 0;
 	String host;
 	private ArrayList<String> userlist = new ArrayList<String>();
 
@@ -96,7 +102,7 @@ public class SendXiaoGaoActivity extends AbActivity {
 		context = SendXiaoGaoActivity.this;
 		loginKey = application.getProperty("loginKey");
 		departmentId = application.getProperty("departmentId");
-		
+
 		AbTitleBar mAbTitleBar = this.getTitleBar();
 		mAbTitleBar.setVisibility(View.GONE);
 		final TitleBar titleBar = (TitleBar) findViewById(R.id.title_bar);
@@ -123,43 +129,16 @@ public class SendXiaoGaoActivity extends AbActivity {
 		}
 		titleBar.setTitleColor(Color.WHITE);
 		titleBar.setDividerColor(Color.GRAY);
-		// AbTitleBar mAbTitleBar = this.getTitleBar();
-		// if (from == 1) {
-		// mAbTitleBar.setTitleText("发送消息");
-		// } else if (from == 2){
-		// mAbTitleBar.setTitleText("发送公告");
-		// }else{
-		// mAbTitleBar.setTitleText("回复消息");
-		// message_id =
-		// Integer.parseInt(intent.getExtras().get("message_id").toString());
-		// message = intent.getExtras().get("message").toString();
-		// push_user_id =
-		// Integer.parseInt(intent.getExtras().get("push_user_id").toString());
-		// }
-		// mAbTitleBar.setLogo(R.drawable.button_selector_back);
-		// // 设置文字边距，常用来控制高度：
-		// mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
-		// // 设置标题栏背景：
-		// mAbTitleBar.setTitleBarBackground(R.drawable.abg_top);
-		// // 左边图片右边的线：
-		// mAbTitleBar.setLogoLine(R.drawable.aline);
-		// // 左边图片的点击事件：
-		// mAbTitleBar.getLogoView().setOnClickListener(
-		// new View.OnClickListener() {
-		// @Override
-		// public void onClick(View v) {
-		// finish();
-		// }
-		//
-		// });
 
-		
 		initUi();
 		// 加载联系人下拉框
 
 		if (from == 1) {
-			// loadPeoples();
+			showrange.setVisibility(View.GONE);
+		} else if (from == 2) {
+			showSelectPeople.setVisibility(View.GONE);
 		} else {
+			showrange.setVisibility(View.GONE);
 			showSelectPeople.setVisibility(View.GONE);
 		}
 
@@ -168,6 +147,30 @@ public class SendXiaoGaoActivity extends AbActivity {
 	private void initUi() {
 		if (from == 3) {
 			xiaoxi_title.setText("回复：" + message);
+		}
+		if (from == 2) {
+			// 根据ID找到RadioGroup实例
+			// RadioGroup group =
+			// (RadioGroup)this.findViewById(R.id.radioGroup1);
+			// //绑定一个匿名监听器
+			// group.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			//
+			// @Override
+			// public void onCheckedChanged(RadioGroup arg0, int arg1) {
+			// // TODO Auto-generated method stub
+			// //获取变更后的选中项的ID
+			// int radioButtonId = arg0.getCheckedRadioButtonId();
+			// //根据ID获取RadioButton的实例
+			// RadioButton rb =
+			// (RadioButton)SendXiaoGaoActivity.this.findViewById(radioButtonId);
+			// //更新文本内容，以符合选中项
+			// if(rb.getText().equals("本科室")){
+			// receive_type=0;
+			// }else{
+			// receive_type=2;
+			// }
+			// }
+			// });
 		}
 		add_people.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -297,14 +300,25 @@ public class SendXiaoGaoActivity extends AbActivity {
 			return;
 		}
 		AbRequestParams params = new AbRequestParams();
+
 		params.put("androidNoticeInfo.title", xiaoxi_title.getText().toString());
 		params.put("androidNoticeInfo.content", xiaoxi_info.getText()
 				.toString());
-		params.put("androidNoticeInfo.receive_user_type", "3");// 接收人类型：1：全部成员；2：本科室成员；3：指定人员
+		// params.put("androidNoticeInfo.receive_user_type", "3");//
+		// 接收人类型：1：全部成员；2：本科室成员；3：指定人员
 		if (from == 2) {
 			// 发送公告
 			params.put("androidNoticeInfo.notice_type", "0");
 			params.put("receive_user_ids", "1");
+			RadioGroup group = (RadioGroup) this.findViewById(R.id.radioGroup1);
+			RadioButton radioButton = (RadioButton) findViewById(group
+					.getCheckedRadioButtonId());
+
+			if (radioButton.getText().equals("本科室")) {
+				receive_type = 2;
+			} else {
+				receive_type = 1;
+			}
 		} else {
 			if (from == 3) {
 				// 回复消息
@@ -322,8 +336,12 @@ public class SendXiaoGaoActivity extends AbActivity {
 				// 发送消息
 				params.put("receive_user_ids", peopleId);
 			}
+			receive_type = 3;
 			params.put("androidNoticeInfo.notice_type", "1");
 		}
+		params.put("androidNoticeInfo.receive_user_type", receive_type + "");// 接收人类型：1：全部成员；2：本科室成员；3：指定人员
+		params.put("receive_type", receive_type + "");// receive_type
+																		// 接受用户类型，主要针对科长发布公告，0：本科室；1：全部；2：指定人（具体接收人在receive_user_ids中指明）
 		params.put("androidNoticeInfo.push_user_id", loginKey);
 		params.put("androidNoticeInfo.department_id", departmentId);
 		if (from == 3) {

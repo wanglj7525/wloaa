@@ -141,7 +141,9 @@ public class SelectPeopleActivity extends AbActivity {
 			return;
 		}
 		String host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
-		mAbHttpUtil.get(host+URLs.DEPLIST+"?user_id="+loginKey,
+		String url=host+URLs.DEPLIST+"?user_id="+loginKey;
+		Log.e(TAG, url);
+		mAbHttpUtil.get(url,
 			 new AbStringHttpResponseListener() {
 			// 获取数据成功会调用这里
 			@Override

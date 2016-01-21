@@ -41,12 +41,16 @@ public class XiaoxiShowActivity extends AbActivity {
 	TextView msg_title;
 	@AbIocView(id = R.id.msg_topeople)
 	TextView msg_topeople;
+	@AbIocView(id = R.id.msgun_topeople)
+	TextView msgun_topeople;
 	@AbIocView(id = R.id.msg_frompeople)
 	TextView msg_frompeple;
 	@AbIocView(id = R.id.to_msg)
 	Button to_msg;
 	@AbIocView(id = R.id.showtopeople)
 	LinearLayout showtopeople;
+	@AbIocView(id = R.id.showtounpeople)
+	LinearLayout showtounpeople;
 	String host;
 
 	@Override
@@ -90,38 +94,11 @@ public class XiaoxiShowActivity extends AbActivity {
 		if (from == 0) {
 			titleBar.setTitle("公告详情");
 			to_msg.setVisibility(View.GONE);
-			showtopeople.setVisibility(View.GONE);
 		} else {
 			titleBar.setTitle("消息详情");
 		}
 		titleBar.setTitleColor(Color.WHITE);
 		titleBar.setDividerColor(Color.GRAY);
-
-		// AbTitleBar mAbTitleBar = this.getTitleBar();
-		// mAbTitleBar.setLogo(R.drawable.button_selector_back);
-		// // 设置文字边距，常用来控制高度：
-		// mAbTitleBar.setTitleTextMargin(10, 0, 0, 0);
-		// // 设置标题栏背景：
-		// mAbTitleBar.setTitleBarBackground(R.drawable.abg_top);
-		// // 左边图片右边的线：
-		// mAbTitleBar.setLogoLine(R.drawable.aline);
-		// // 左边图片的点击事件：
-		// mAbTitleBar.getLogoView().setOnClickListener(
-		// new View.OnClickListener() {
-		// @Override
-		// public void onClick(View v) {
-		// finish();
-		// }
-		//
-		// });
-		//
-		// if (from == 0) {
-		// mAbTitleBar.setTitleText("公告详情");
-		// to_msg.setVisibility(View.GONE);
-		// showtopeople.setVisibility(View.GONE);
-		// } else {
-		// mAbTitleBar.setTitleText("消息详情");
-		// }
 
 		loadDatas();
 
@@ -151,12 +128,14 @@ public class XiaoxiShowActivity extends AbActivity {
 			showToast("请检查网络连接");
 			return;
 		}
-		mAbHttpUtil.get(host + URLs.MSGDETAIL + "?id=" + message_id,
+		String url=host + URLs.MSGDETAIL + "?id=" + message_id+"&user_id="+loginKey;
+		Log.e(TAG, url);
+		mAbHttpUtil.get(url,
 				new AbStringHttpResponseListener() {
 					// 获取数据成功会调用这里
 					@Override
 					public void onSuccess(int statusCode, String content) {
-						Log.d(TAG, content);
+						Log.e(TAG, content);
 						try {
 
 							QunfaInfo gList = QunfaInfo.parseJson(content);
@@ -170,6 +149,12 @@ public class XiaoxiShowActivity extends AbActivity {
 								push_user_id = shenpi.push_user_id;
 								if (loginKey.equals(shenpi.push_user_id + "")) {
 									to_msg.setVisibility(View.GONE);
+										//公告发送者可以查看 已读 未读人信息
+										msg_topeople.setText(shenpi.receive_user_names);
+										msgun_topeople.setText(shenpi.unreceive_user_names);
+								}else{
+									showtopeople.setVisibility(View.GONE);
+									showtounpeople.setVisibility(View.GONE);
 								}
 							} else {
 								UIHelper.ToastMessage(context, gList.msg);
