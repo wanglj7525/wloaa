@@ -150,8 +150,8 @@ public class XiaoxiShowActivity extends AbActivity {
 								if (loginKey.equals(shenpi.push_user_id + "")) {
 									to_msg.setVisibility(View.GONE);
 										//公告发送者可以查看 已读 未读人信息
-										msg_topeople.setText(shenpi.receive_user_names);
-										msgun_topeople.setText(shenpi.unreceive_user_names);
+										msg_topeople.setText(shenpi.receive_user_names.length()==0?"无":shenpi.receive_user_names);
+										msgun_topeople.setText(shenpi.unreceive_user_names.length()==0?"无":shenpi.unreceive_user_names);
 								}else{
 									showtopeople.setVisibility(View.GONE);
 									showtounpeople.setVisibility(View.GONE);
