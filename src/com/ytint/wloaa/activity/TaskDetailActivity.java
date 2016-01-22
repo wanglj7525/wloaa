@@ -151,65 +151,65 @@ public class TaskDetailActivity extends AbActivity {
 		loadDatas();
 	}
 
-	@SuppressLint("NewApi")
-	private void finishTask() {
-
-		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
-		String loginKey = application.getProperty("loginKey");
-		if (!application.isNetworkConnected()) {
-			showToast("请检查网络连接");
-			return;
-		}
-		// 绑定参数
-		AbRequestParams params = new AbRequestParams();
-		params.put("task_id", shenpi_id.toString());
-		params.put("verify_status", "1");
-		params.put("verify_user_id", loginKey);
-		params.put("verify_commit", "");
-		params.put("verify_type", "1");
-		params.put("receive_user_id", loginKey);
-		mAbHttpUtil.post(host + URLs.SHENPI, params,
-				new AbStringHttpResponseListener() {
-					// 获取数据成功会调用这里
-					@Override
-					public void onSuccess(int statusCode, String content) {
-						Log.d(TAG, content);
-						try {
-							ShenpiInfo gList = ShenpiInfo.parseJson(content);
-							if (gList.code == 200) {
-								UIHelper.ToastMessage(context, "任务已完成");
-								// task_finish.setVisibility(View.GONE);
-							} else {
-								UIHelper.ToastMessage(context, gList.msg);
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
-							showToast("数据解析失败");
-						}
-					};
-
-					// 开始执行前
-					@Override
-					public void onStart() {
-						// 显示进度框
-						showProgressDialog();
-					}
-
-					@Override
-					public void onFailure(int statusCode, String content,
-							Throwable error) {
-						showToast("网络连接失败！");
-					}
-
-					// 完成后调用，失败，成功
-					@Override
-					public void onFinish() {
-						// 移除进度框
-						removeProgressDialog();
-					};
-
-				});
-	}
+//	@SuppressLint("NewApi")
+//	private void finishTask() {
+//
+//		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+//		String loginKey = application.getProperty("loginKey");
+//		if (!application.isNetworkConnected()) {
+//			showToast("请检查网络连接");
+//			return;
+//		}
+//		// 绑定参数
+//		AbRequestParams params = new AbRequestParams();
+//		params.put("task_id", shenpi_id.toString());
+//		params.put("verify_status", "1");
+//		params.put("verify_user_id", loginKey);
+//		params.put("verify_commit", "");
+//		params.put("verify_type", "1");
+//		params.put("receive_user_id", loginKey);
+//		mAbHttpUtil.post(host + URLs.SHENPI, params,
+//				new AbStringHttpResponseListener() {
+//					// 获取数据成功会调用这里
+//					@Override
+//					public void onSuccess(int statusCode, String content) {
+//						Log.d(TAG, content);
+//						try {
+//							ShenpiInfo gList = ShenpiInfo.parseJson(content);
+//							if (gList.code == 200) {
+//								UIHelper.ToastMessage(context, "任务已完成");
+//								// task_finish.setVisibility(View.GONE);
+//							} else {
+//								UIHelper.ToastMessage(context, gList.msg);
+//							}
+//						} catch (Exception e) {
+//							e.printStackTrace();
+//							showToast("数据解析失败");
+//						}
+//					};
+//
+//					// 开始执行前
+//					@Override
+//					public void onStart() {
+//						// 显示进度框
+//						showProgressDialog();
+//					}
+//
+//					@Override
+//					public void onFailure(int statusCode, String content,
+//							Throwable error) {
+//						showToast("网络连接失败！");
+//					}
+//
+//					// 完成后调用，失败，成功
+//					@Override
+//					public void onFinish() {
+//						// 移除进度框
+//						removeProgressDialog();
+//					};
+//
+//				});
+//	}
 
 	@SuppressLint("NewApi")
 	private void loadDatas() {

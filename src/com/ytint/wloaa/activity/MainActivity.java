@@ -4,6 +4,10 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -14,6 +18,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -29,6 +35,7 @@ import cn.jpush.android.api.JPushInterface;
 import com.ab.http.AbHttpUtil;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ytint.wloaa.R;
+import com.ytint.wloaa.app.BadgeView;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
@@ -73,8 +80,10 @@ public class MainActivity extends BaseActivity {
 	private boolean showUpdate = true;
 	private Date lastShowUpdateTime;
 	String host="";
-	int news=5;
-//	BadgeView badgeView ;
+	int news=0;
+	int news0=0;
+	BadgeView badgeView ;
+	BadgeView badgeView0 ;
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -112,7 +121,8 @@ public class MainActivity extends BaseActivity {
 			startActivity(intent);
 			return;
 		}
-//		badgeView = new BadgeView(this);
+		badgeView = new BadgeView(this);
+		badgeView0 = new BadgeView(this);
 		main_show_keshi_rela=(RelativeLayout)findViewById(R.id.main_show_keshi_rela);
 		main_show_gonggao_rela=(RelativeLayout)findViewById(R.id.main_show_gonggao_rela);
 		main_show_xiaoxi_rela=(RelativeLayout)findViewById(R.id.main_show_xiaoxi_rela);
@@ -174,14 +184,96 @@ public class MainActivity extends BaseActivity {
 		FragmentTransaction ft = fm.beginTransaction();
 		ft.add(R.id.showContentFrame, fragment1).commit();
 		initUi();
-		
+		Timer timer = new Timer();  
+		timer.scheduleAtFixedRate(new Mytack(), 1, 30000);  
+		timer.scheduleAtFixedRate(new Mytack0(), 1, 30000);  
 		// 检查版本
 		initLocalVersion();
 		if (showUpdate) {
 			getNewVersion();
 		}
 	}
-	
+	String TAG = "MainActivity";
+	protected void updateTitle(final int from) {  
+		//请求查询消息和公告的未读数量
+		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+		mAbHttpUtil.setDebug(true);
+		if (!application.isNetworkConnected()) {
+			UIHelper.ToastMessage(context, "请检查网络连接");
+			return;
+		}
+		String url = String.format(
+				"%s?user_id=%s&notice_type=%d",
+				host+URLs.NEWNUM, loginKey,from);
+		Log.d(TAG, url);
+		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
+			@Override
+			public void onSuccess(int statusCode, String content) {
+				Log.d(TAG, content);
+				try {
+					JSONObject myJsonObject = new JSONObject(content); 
+					if (from==0) {
+						//公告
+						news0=myJsonObject.getInt("info");
+						badgeView0.setHideOnZero(news0);
+					}else{
+						news=myJsonObject.getInt("info");
+						badgeView.setHideOnZero(news);
+					}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			@Override
+			public void onFailure(int statusCode, String content,
+					Throwable error) {
+			}
+
+			@Override
+			public void onStart() {
+			}
+
+			// 完成后调用
+			@Override
+			public void onFinish() {
+			};
+		});
+
+		
+	}  
+    private Handler changeTitleHandler = new Handler() {  
+        @Override  
+        public void handleMessage(Message msg) {  
+            switch (msg.what) {  
+            case 1:  
+            	//消息
+                updateTitle(1);  
+                break;  
+            case 0:  
+            	//公告
+            	updateTitle(0);  
+            	break;  
+            }  
+        }  
+    };  
+    private class Mytack extends TimerTask {// public abstract class TimerTask implements Runnable{}  
+        @Override  
+        public void run() {  
+            Message msg = new Message();  
+            msg.what = 1;  
+            changeTitleHandler.sendMessage(msg);  
+        }  
+    }  
+    private class Mytack0 extends TimerTask {// public abstract class TimerTask implements Runnable{}  
+    	@Override  
+    	public void run() {  
+    		Message msg = new Message();  
+    		msg.what = 0;  
+    		changeTitleHandler.sendMessage(msg);  
+    	}  
+    }  
 	private void initUi(){
 		
 		OnClickListener relaClick = new OnClickListener() {
@@ -204,7 +296,7 @@ public class MainActivity extends BaseActivity {
 					ft.commit();		
 					break;
 				case R.id.main_show_xiaoxi_rela:
-					news=0;
+//					news=0;
 //					badgeView.setHideOnZero(news);
 					main_show_xiaoxi_rela.setBackgroundResource(R.drawable.bg_leftbutton_selected);
 					ft.replace(R.id.showContentFrame,fragment3 );
@@ -226,8 +318,6 @@ public class MainActivity extends BaseActivity {
 					ft.commit();		
 					break;
 				case R.id.main_show_xiaoxi:
-					news=0;
-//					badgeView.setHideOnZero(news);
 					main_show_xiaoxi_rela.setBackgroundResource(R.drawable.bg_leftbutton_selected);
 					ft.replace(R.id.showContentFrame,fragment3 );
 					ft.commit();
@@ -255,9 +345,13 @@ public class MainActivity extends BaseActivity {
 		main_show_shezhi.setOnClickListener(relaClick);
 		
 		
-//		badgeView.setTargetView(main_show_xiaoxi_rela);
-//		badgeView.setHideOnZero(news);
-//		badgeView.setBadgeMargin(50, 20, 10, 40);
+		badgeView.setTargetView(main_show_xiaoxi_rela);
+		badgeView.setHideOnZero(news);
+		badgeView.setBadgeMargin(50, 20, 10, 40);
+		
+		badgeView0.setTargetView(main_show_gonggao_rela);
+		badgeView0.setHideOnZero(news);
+		badgeView0.setBadgeMargin(50, 20, 10, 40);
 		
 	}
 	public void initLocalVersion() {

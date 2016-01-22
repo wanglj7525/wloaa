@@ -3,7 +3,7 @@ package com.ytint.wloaa.bean;
 import java.io.Serializable;
 
 /**
- * 实体�?
+ * 实体�?
  * 
  * @author zhangyg
  * @version 1.0

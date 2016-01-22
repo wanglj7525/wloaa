@@ -57,6 +57,9 @@ public class URLs implements Serializable {
 	//发送消息或任务
 	public  static String ADDSHENPI=URL_API_HOST+"api/verify/add_apply_info";
 	
+	//未读消息公告
+	public  static String NEWNUM=URL_API_HOST+"api/notice/get_unread_notice_count";
+	
 	//上报下派
 	public  static String ADDRS=URL_API_HOST+"api/task/add_task_info";
 	
