@@ -2,24 +2,17 @@ package com.ytint.wloaa.activity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import cn.jpush.android.api.JPushInterface;
@@ -55,8 +48,6 @@ public class SelectPeopleActivity extends AbActivity {
 	String host;
 	@AbIocView(id = R.id.listView_people_list)
 	ListView listView_people_list;
-//	private List<String> peopleidlist = new ArrayList<String>();
-	private HashSet<String> peopleidlist=new HashSet<String>(); 
 	public static Map<Integer, Boolean> isSelected;
 	private List<People> peoples;
 	private List<Department> deptartments;
@@ -116,11 +107,6 @@ public class SelectPeopleActivity extends AbActivity {
 	            		}
 	            	}
 	            }
-//	            for (int i = 0; i < peopleidlist.size(); i++) {
-//	            	if (!mData.get(i).get("peopleid").toString().equals("0")) {
-//	            		datas.add(mData.get(i));
-//					}
-//				}
 	            //把返回数据存入Intent
 	            intent.putExtra("result", datas);
 	            //设置返回数据
@@ -250,20 +236,10 @@ public class SelectPeopleActivity extends AbActivity {
 								//在每次获取点击的item时将对于的checkbox状态改变，同时修改map的值。  
 								vHollder.cBox.toggle();  
 								SelectPeopleAdapter.isSelected.put(position, vHollder.cBox.isChecked());  
-//								if (vHollder.cBox.isChecked()) {
-//									peopleidlist.add(position+"");
-//								}else {
-//									peopleidlist.remove(position+"");
-//								}
 								//判断是否是部门，选择部门下的用户
 								if (vHollder.isdept.equals("1")) {
 									for (int i = 1; i <= vHollder.user_num; i++) {
 										SelectPeopleAdapter.isSelected.put(position+i, vHollder.cBox.isChecked());
-//										if (vHollder.cBox.isChecked()) {
-//											peopleidlist.add(position+i+"");
-//										}else {
-//											peopleidlist.remove(position+i+"");
-//										}
 									}
 									// 通知listView刷新  
 									adapter.notifyDataSetChanged();  
@@ -301,113 +277,4 @@ public class SelectPeopleActivity extends AbActivity {
 			
 		});
 	}
-//	public void initData() {
-//		peoplelist = new ArrayList<String>();  
-//        
-//        groupkey.add("A组");  
-//        groupkey.add("B组");  
-//          
-//        for(int i=0; i<10; i++){  
-//            aList.add("A组"+i);  
-//        }  
-//        peoplelist.add("A组");  
-//        peoplelist.addAll(aList);  
-//          
-//        for(int i=0; i<18; i++){  
-//            bList.add("B组"+i);  
-//        }  
-//        peoplelist.add("B组");  
-//        peoplelist.addAll(bList);  
-//        
-//      //这儿定义isSelected这个map是记录每个listitem的状态，初始状态全部为false。  
-//        isSelected = new HashMap<Integer, Boolean>();  
-//        for (int i = 0; i < peoplelist.size(); i++) {  
-//            isSelected.put(i, false);  
-//        }  
-//	}
-//
-//	private class MyAdapter extends BaseAdapter {
-//		 private LayoutInflater mInflater;  
-//		    private List<Map<String, Object>> mData;  
-//		                                                      
-//		    public void MyAdapter(Context context) {  
-//		        mInflater = LayoutInflater.from(context);  
-//		    }  
-//		                                                      
-//		@Override
-//		public int getCount() {
-//			// TODO Auto-generated method stub
-//			return peoplelist.size();
-//		}
-//
-//		@Override
-//		public Object getItem(int position) {
-//			// TODO Auto-generated method stub
-//			return peoplelist.get(position);
-//		}
-//
-//		@Override
-//		public long getItemId(int position) {
-//			// TODO Auto-generated method stub
-//			return position;
-//		}
-//
-//		@Override
-//		public boolean isEnabled(int position) {
-//			// TODO Auto-generated method stub
-//			if (groupkey.contains(getItem(position))) {
-//				return false;
-//			}
-//			return super.isEnabled(position);
-//		}
-//
-//		@Override
-//		public View getView(int position, View convertView, ViewGroup parent) {
-//			
-//			
-//			 ViewHolder holder = null;  
-//		        //convertView为null的时候初始化convertView。  
-//		        if (convertView == null) {  
-//		            holder = new ViewHolder();  
-//		            if (groupkey.contains(getItem(position))) {
-//		            	convertView = LayoutInflater.from(getApplicationContext()).inflate(
-//								R.layout.addpeople_list_item_tag, null);
-//		            	holder.title=(TextView)convertView.findViewById(R.id.addpeople_list_item_text);
-//					} else {
-//						convertView = LayoutInflater.from(getApplicationContext()).inflate(
-//								R.layout.addpeople_list_item, null);
-//						holder.title=(TextView)convertView.findViewById(R.id.people_one);
-//					} 
-//		            holder.cBox = (CheckBox) convertView.findViewById(R.id.people_check);  
-//		            convertView.setTag(holder);  
-//		        } else {  
-//		            holder = (ViewHolder) convertView.getTag();  
-//		        }  
-//		        holder.title.setText((CharSequence) getItem(position));  
-//		        holder.cBox.setChecked(isSelected.get(position));  
-//			
-////			// TODO Auto-generated method stub
-////			View view = convertView;
-////			TextView text;
-////			if (groupkey.contains(getItem(position))) {
-////				view = LayoutInflater.from(getApplicationContext()).inflate(
-////						R.layout.addpeople_list_item_tag, null);
-////				text=(TextView)view.findViewById(R.id.addpeople_list_item_text);
-////			} else {
-////				view = LayoutInflater.from(getApplicationContext()).inflate(
-////						R.layout.addpeople_list_item, null);
-////				text=(TextView)view.findViewById(R.id.people_one);
-////			}
-////			text.setText((CharSequence) getItem(position));
-//////			TextView text = (TextView) view
-//////					.findViewById(R.id.addpeople_list_item_tagtext);
-//////			text.setText((CharSequence) getItem(position));
-//			return convertView;
-//		}
-//
-//	}
-//	public final class ViewHolder {  
-//        public TextView title;  
-//        public CheckBox cBox;  
-//    }  
 }
