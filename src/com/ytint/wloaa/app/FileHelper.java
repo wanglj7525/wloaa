@@ -3,12 +3,16 @@ package com.ytint.wloaa.app;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.channels.FileChannel;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -16,11 +20,12 @@ import java.util.UUID;
 
 import org.json.JSONObject;
 
-import android.os.Bundle;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.ab.activity.AbActivity;
 import com.ytint.wloaa.bean.URLs;
 
 public class FileHelper {
@@ -180,6 +185,12 @@ public class FileHelper {
 								"code").toString());
 						if (code == Constants.SUCCESS) {
 							String ids=jsonObject.getString("info");
+							String temppath = Environment.getExternalStorageDirectory()+"/wloaa/Temp/";
+							File storageDir=new File(temppath);
+					        if (!storageDir.exists()) {
+					        	storageDir.mkdir();
+					        	  }
+							deleteFile(temppath);
 							System.out.println(ids+"====="+type);
 //							if (type.equals("1")) {
 //								AddZhiliangReportActivity.attachment.add(ids);
@@ -205,5 +216,113 @@ public class FileHelper {
 		}
 		return result;
 	}
-
+	
+	/**
+	 * 删除temp下的压缩图片
+	 * @author wlj
+	 * @date 2016-1-22下午2:16:10
+	 * @param file
+	 */
+	private void deleteFile(String  path){
+		File file=new File(path);
+	     if(file.isDirectory()){
+	          File[] files = file.listFiles();
+	          for(int i=0; i<files.length; i++){
+	               files[i].delete();
+	          }
+	     }
+	}
+	
+	public static File scal(String path){
+//        String path = fileUri.getPath();
+        File outputFile = new File(path);
+        long fileSize = outputFile.length();
+        final long fileMaxSize = 200 * 1024;
+         if (fileSize >= fileMaxSize) {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                BitmapFactory.decodeFile(path, options);
+                int height = options.outHeight;
+                int width = options.outWidth;
+ 
+                double scale = Math.sqrt((float) fileSize / fileMaxSize);
+                options.outHeight = (int) (height / scale);
+                options.outWidth = (int) (width / scale);
+                options.inSampleSize = (int) (scale + 0.5);
+                options.inJustDecodeBounds = false;
+ 
+                Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+                outputFile = new File(createImageFile().getPath());
+                FileOutputStream fos = null;
+                try {
+                    fos = new FileOutputStream(outputFile);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos);
+                    fos.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                if (!bitmap.isRecycled()) {
+                    bitmap.recycle();
+                }else{
+                    File tempFile = outputFile;
+                    outputFile = new File(createImageFile().getPath());
+                    copyFileUsingFileChannels(tempFile, outputFile);
+                }
+                 
+            }
+         return outputFile;
+         
+    }
+	public static Uri createImageFile(){
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp +"_";
+        String temppath = Environment.getExternalStorageDirectory()+"/wloaa/Temp/";
+        File storageDir=new File(temppath);
+        if (!storageDir.exists()) {
+        	storageDir.mkdir();
+        	  }
+//        File storageDir = Environment.getExternalStoragePublicDirectory(
+//                Environment.DIRECTORY_PICTURES);
+        String filename="";
+        File image = null;
+        try {
+            image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+            );
+            filename=temppath+"/"+imageFileName+".jpg";
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+ 
+//         Save a file: path for use with ACTION_VIEW intents
+        return Uri.fromFile(image);
+//        return filename;
+    }
+    public static void copyFileUsingFileChannels(File source, File dest){
+        FileChannel inputChannel = null;
+        FileChannel outputChannel = null;
+        try {
+            try {
+                inputChannel = new FileInputStream(source).getChannel();
+                outputChannel = new FileOutputStream(dest).getChannel();
+                outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } finally {
+            try {
+                inputChannel.close();
+                outputChannel.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
 }

@@ -38,13 +38,11 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ToggleButton;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -59,21 +57,16 @@ import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
 import com.ytint.wloaa.R;
-import com.ytint.wloaa.activity.TaskDetailActivity.ViewHolder;
 import com.ytint.wloaa.app.FileHelper;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
-import com.ytint.wloaa.bean.ImageLoader;
-import com.ytint.wloaa.bean.ImageLoader.OnCallBackListener;
 import com.ytint.wloaa.bean.People;
-import com.ytint.wloaa.bean.PeopleList;
 import com.ytint.wloaa.bean.Project;
 import com.ytint.wloaa.bean.ProjectList;
 import com.ytint.wloaa.bean.Shenpi;
 import com.ytint.wloaa.bean.ShenpiInfo;
 import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.utils.BitmapCache;
-import com.ytint.wloaa.utils.ImageItem;
 import com.ytint.wloaa.utils.BitmapCache.ImageCallback;
 import com.ytint.wloaa.widget.TitleBar;
 
@@ -521,16 +514,20 @@ public class SendTaskActivity extends AbActivity {
 		if (resultCode == Activity.RESULT_OK) {
 			switch (requestCode) {
 			case 20:
+				//相册选择
 				ArrayList<String> result = data.getExtras().getStringArrayList(
 						"result");// 得到新Activity 关闭后返回的数据
 				for (int i = 0; i < result.size(); i++) {
-					if (!imagelist.contains(result.get(i))) {
-						imagelist.add(result.get(i));
+					File image=FileHelper.scal(result.get(i));
+					if (!imagelist.contains(image.getPath())) {
+						imagelist.add(image.getPath());
+						Log.e(TAG, image.getPath());
 					}
 				}
 				setImageGrideValue();
 				break;
 			case 10:
+				//录像
 				Uri uriVideo = data.getData();
 				Cursor cursors = this.getContentResolver().query(uriVideo,
 						null, null, null, null);
@@ -543,40 +540,42 @@ public class SendTaskActivity extends AbActivity {
 					setImageGrideValue();
 				}
 				break;
-			case 11:
-				Uri uri = data.getData();
-				Log.e(TAG, "uri = " + uri);
-				try {
-					String[] pojo = { MediaStore.Images.Media.DATA };
-					Cursor cursor = managedQuery(uri, pojo, null, null, null);
-					if (cursor != null) {
-						ContentResolver cr = this.getContentResolver();
-						int colunm_index = cursor
-								.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-						cursor.moveToFirst();
-						String path = cursor.getString(colunm_index);
-						/***
-						 * 这里加这样一个判断主要是为了第三方的软件选择，比如：使用第三方的文件管理器的话，
-						 * 你选择的文件就不一定是图片了， 这样的话，我们判断文件的后缀名 如果是图片格式的话，那么才可以
-						 */
-						if (path.endsWith("jpg") || path.endsWith("png")) {
-							srcPath = path;
-							imagelist.add(srcPath);
-							Log.e(TAG, "srcPath = " + srcPath);
-							setImageGrideValue();
-						} else {
-							alert();
-						}
-					} else {
-						alert();
-					}
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				break;
+//			case 11:
+//				Uri uri = data.getData();
+//				Log.e(TAG, "uri = " + uri);
+//				try {
+//					String[] pojo = { MediaStore.Images.Media.DATA };
+//					Cursor cursor = managedQuery(uri, pojo, null, null, null);
+//					if (cursor != null) {
+//						ContentResolver cr = this.getContentResolver();
+//						int colunm_index = cursor
+//								.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//						cursor.moveToFirst();
+//						String path = cursor.getString(colunm_index);
+//						/***
+//						 * 这里加这样一个判断主要是为了第三方的软件选择，比如：使用第三方的文件管理器的话，
+//						 * 你选择的文件就不一定是图片了， 这样的话，我们判断文件的后缀名 如果是图片格式的话，那么才可以
+//						 */
+//						if (path.endsWith("jpg") || path.endsWith("png")) {
+//							srcPath = path;
+//							imagelist.add(srcPath);
+//							Log.e(TAG, "srcPath = " + srcPath);
+//							setImageGrideValue();
+//						} else {
+//							alert();
+//						}
+//					} else {
+//						alert();
+//					}
+//
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//				break;
 			case 12:
-				imagelist.add(path + fileName);
+				//相机拍照
+				File image=FileHelper.scal(path + fileName);
+				imagelist.add(image.getPath());
 				setImageGrideValue();
 				Log.e(TAG, "path + fileName = " + path + fileName);
 				break;
