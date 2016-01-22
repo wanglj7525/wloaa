@@ -178,7 +178,7 @@ public class AlbumActivity extends AbActivity {
 		gridView.setEmptyView(tv);
 		okButton = (Button) findViewById(R.id.ok_button);
 		okButton.setText("完成"+"(" + Bimp.tempSelectBitmap.size()
-				+ "/"+PublicWay.num+")");
+				+ ")");//"/"+PublicWay.num+
 	}
 
 	private void initListener() {
@@ -189,24 +189,24 @@ public class AlbumActivity extends AbActivity {
 					@Override
 					public void onItemClick(final ToggleButton toggleButton,
 							int position, boolean isChecked,Button chooseBt) {
-						if (Bimp.tempSelectBitmap.size() >= PublicWay.num) {
-							toggleButton.setChecked(false);
-							chooseBt.setVisibility(View.GONE);
-							if (!removeOneData(dataList.get(position))) {
-								Toast.makeText(AlbumActivity.this, R.string.only_choose_num,
-										200).show();
-							}
-							return;
-						}
+//						if (Bimp.tempSelectBitmap.size() >= PublicWay.num) {
+//							toggleButton.setChecked(false);
+//							chooseBt.setVisibility(View.GONE);
+//							if (!removeOneData(dataList.get(position))) {
+//								Toast.makeText(AlbumActivity.this, R.string.only_choose_num,
+//										200).show();
+//							}
+//							return;
+//						}
 						if (isChecked) {
 							chooseBt.setVisibility(View.VISIBLE);
 							Bimp.tempSelectBitmap.add(dataList.get(position));
 							okButton.setText("完成"+"(" + Bimp.tempSelectBitmap.size()
-									+ "/"+PublicWay.num+")");
+									+ ")");//"/"+PublicWay.num+
 						} else {
 							Bimp.tempSelectBitmap.remove(dataList.get(position));
 							chooseBt.setVisibility(View.GONE);
-							okButton.setText("完成"+"(" + Bimp.tempSelectBitmap.size() + "/"+PublicWay.num+")");
+							okButton.setText("完成"+"(" + Bimp.tempSelectBitmap.size() + ")");//"/"+PublicWay.num+
 						}
 						isShowOkBt();
 					}
@@ -219,7 +219,7 @@ public class AlbumActivity extends AbActivity {
 	private boolean removeOneData(ImageItem imageItem) {
 			if (Bimp.tempSelectBitmap.contains(imageItem)) {
 				Bimp.tempSelectBitmap.remove(imageItem);
-				okButton.setText("完成"+"(" +Bimp.tempSelectBitmap.size() + "/"+PublicWay.num+")");
+				okButton.setText("完成"+"(" +Bimp.tempSelectBitmap.size() +")");// "/"+PublicWay.num+
 				return true;
 			}
 		return false;
@@ -227,7 +227,7 @@ public class AlbumActivity extends AbActivity {
 	
 	public void isShowOkBt() {
 		if (Bimp.tempSelectBitmap.size() > 0) {
-			okButton.setText("完成"+"(" + Bimp.tempSelectBitmap.size() + "/"+PublicWay.num+")");
+			okButton.setText("完成"+"(" + Bimp.tempSelectBitmap.size() + ")");//"/"+PublicWay.num+
 //			preview.setPressed(true);
 			okButton.setPressed(true);
 //			preview.setClickable(true);
@@ -235,7 +235,7 @@ public class AlbumActivity extends AbActivity {
 			okButton.setTextColor(Color.WHITE);
 //			preview.setTextColor(Color.WHITE);
 		} else {
-			okButton.setText("完成"+"(" + Bimp.tempSelectBitmap.size() + "/"+PublicWay.num+")");
+			okButton.setText("完成"+"(" + Bimp.tempSelectBitmap.size() + ")");//"/"+PublicWay.num+
 //			preview.setPressed(false);
 //			preview.setClickable(false);
 			okButton.setPressed(false);
