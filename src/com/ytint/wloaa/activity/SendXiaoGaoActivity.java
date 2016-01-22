@@ -44,6 +44,7 @@ public class SendXiaoGaoActivity extends AbActivity {
 	private String loginKey;
 	private String departmentId;
 	private int push_user_id;
+	private String push_user_name;
 	private ArrayAdapter<String> adapter;
 	String[] people_names = new String[0];
 	private long people = 0;
@@ -65,12 +66,14 @@ public class SendXiaoGaoActivity extends AbActivity {
 	Button xiaoxicancel;
 	@AbIocView(id = R.id.showSelectPeople)
 	LinearLayout showSelectPeople;
+	@AbIocView(id = R.id.showReplayPeople)
+	LinearLayout showReplayPeople;
 	@AbIocView(id = R.id.showrange)
 	LinearLayout showrange;
 	@AbIocView(id = R.id.add_people)
 	Button add_people;
-	// @AbIocView(id=R.id.edit_people)
-	// EditText edit_people;
+	 @AbIocView(id=R.id.edit_people)
+	 EditText edit_people;
 	@AbIocView(id = R.id.autolinefeedView1)
 	AutolinefeedView autolinefeedView1;
 	private String peopleId = "";
@@ -126,6 +129,7 @@ public class SendXiaoGaoActivity extends AbActivity {
 			message_id = Integer.parseInt(intent.getExtras().get("message_id")
 					.toString());
 			message = intent.getExtras().get("message").toString();
+			push_user_name = intent.getExtras().get("push_user_name").toString();
 			push_user_id = Integer.parseInt(intent.getExtras()
 					.get("push_user_id").toString());
 		}
@@ -142,6 +146,8 @@ public class SendXiaoGaoActivity extends AbActivity {
 		} else {
 			showrange.setVisibility(View.GONE);
 			showSelectPeople.setVisibility(View.GONE);
+			showReplayPeople.setVisibility(View.VISIBLE);
+			edit_people.setText(push_user_name+"");
 		}
 
 	}

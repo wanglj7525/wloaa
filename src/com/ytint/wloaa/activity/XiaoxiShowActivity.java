@@ -34,6 +34,7 @@ public class XiaoxiShowActivity extends AbActivity {
 	Integer message_id;
 	String message;
 	Integer push_user_id;
+	String push_user_name;
 	private Qunfa shenpi = new Qunfa();
 	@AbIocView(id = R.id.msg_content)
 	TextView msg_content;
@@ -113,6 +114,7 @@ public class XiaoxiShowActivity extends AbActivity {
 				intent.putExtra("message_id", message_id);
 				intent.putExtra("message", message);
 				intent.putExtra("push_user_id", push_user_id);
+				intent.putExtra("push_user_name", push_user_name);
 				startActivity(intent);
 
 			}
@@ -147,6 +149,7 @@ public class XiaoxiShowActivity extends AbActivity {
 								msg_topeople.setText(shenpi.receive_user_id);
 								message = shenpi.title;
 								push_user_id = shenpi.push_user_id;
+								push_user_name = shenpi.push_user_name;
 								if (loginKey.equals(shenpi.push_user_id + "")) {
 									to_msg.setVisibility(View.GONE);
 										//公告发送者可以查看 已读 未读人信息
