@@ -40,6 +40,7 @@ import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.URLs;
+import com.ytint.wloaa.utils.Crypto;
 
 /**
  * @author wlj
@@ -199,7 +200,7 @@ public class LoginActivity extends AbActivity {
 		// 绑定参数
 		AbRequestParams params = new AbRequestParams();
 		params.put("user_name", username);
-		params.put("password", password);
+		params.put("password", Crypto.passwordHash(password));
 		params.put("jpush_registration_id", jpush_registration_id);
 //		params.put("user_imei_id", application.getProperty("imei"));
 
