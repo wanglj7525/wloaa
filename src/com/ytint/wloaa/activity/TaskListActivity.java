@@ -73,21 +73,10 @@ public class TaskListActivity extends AbActivity {
 
 	@AbIocView(id = R.id.shenpi_list)
 	AbPullListView shenpiListView;
-
 	@AbIocView(id = R.id.showtitle)
 	LinearLayout showtitle;
-
-//	@AbIocView(id = R.id.titlebar)
-//	TextView titlebar;
-
 	@AbIocView(id = R.id.addShenpi)
 	RelativeLayout addShenpi;
-//	@AbIocView(id = R.id.report_list)
-//	RadioButton report_list;
-//	@AbIocView(id = R.id.send_list)
-//	RadioButton send_list;
-	// @AbIocView(id = R.id.radiogroup1)
-	// RadioGroup selectList;
 	Button search;
 	EditText edit_text;
 	private int select_show = 1;
