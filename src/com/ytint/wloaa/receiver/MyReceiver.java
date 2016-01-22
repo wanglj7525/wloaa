@@ -119,7 +119,7 @@ public class MyReceiver extends BroadcastReceiver {
 				e.printStackTrace();
 			}
 			Intent i = new Intent(context, XiaoxiShowActivity.class);
-			i.putExtra("shenpi_id", docId);
+			i.putExtra("message_id", docId);
 			i.putExtra("from", from);
 			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			context.startActivity(i);
