@@ -21,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -38,6 +39,7 @@ import com.ab.view.ioc.AbIocView;
 import com.ab.view.listener.AbOnListViewListener;
 import com.ab.view.titlebar.AbTitleBar;
 import com.ytint.wloaa.R;
+import com.ytint.wloaa.activity.XiaoxGaoListActivity.QunfaListAdapter.ViewHolder;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
@@ -338,8 +340,12 @@ public class XiaoxGaoListActivity extends AbActivity {
 								XiaoxiShowActivity.class);
 						intent.putExtra("message_id", message_id);
 						intent.putExtra("from", from);
+						//未读的信息 点击后 更新列表 为已读
+						if (qunfaList.get(index - 1).if_read==0) {
+							ViewHolder vHollder = (ViewHolder) arg1.getTag();  
+							vHollder.frompeo.setText(qunfaList.get(index - 1).title);
+						}
 						startActivity(intent);
-
 					}
 				});
 	}
@@ -405,33 +411,41 @@ public class XiaoxGaoListActivity extends AbActivity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			Qunfa news = qunfaList.get(position);
-
-			TextView frompeo = null;
-			TextView abstr = null;
-			TextView timeView = null;
-			TextView topeo = null;
-			convertView = mInflater.inflate(
-					R.layout.listitem_qunfalist_noimage, null);
-			frompeo = (TextView) convertView.findViewById(R.id.push_user_id);
-			topeo = (TextView) convertView.findViewById(R.id.receive_user_ids);
-			abstr = (TextView) convertView.findViewById(R.id.content);
-			timeView = (TextView) convertView.findViewById(R.id.create_time);
+			ViewHolder holder = null;
+			if (convertView == null) {
+				holder = new ViewHolder();
+				convertView = mInflater.inflate(
+						R.layout.listitem_qunfalist_noimage, null);
+				holder.frompeo = (TextView) convertView.findViewById(R.id.push_user_id);
+				holder.topeo = (TextView) convertView.findViewById(R.id.receive_user_ids);
+				holder.abstr = (TextView) convertView.findViewById(R.id.content);
+				holder.timeView = (TextView) convertView.findViewById(R.id.create_time);
+				
+				convertView.setTag(holder);
+			}else{
+				holder = (ViewHolder) convertView.getTag();
+			}
 			String html="";
 			if (news.if_read==0) {
 				html += "<font color='red'>【未读】</font>";
 			}
 			html+=news.title;
-			frompeo.setText(Html.fromHtml(html));
-			topeo.setText(" " + news.push_user_name);
+			holder.frompeo.setText(Html.fromHtml(html));
+			holder.topeo.setText(" " + news.push_user_name);
 			String abstrs = news.content;
 			if (abstrs.length() >= 100) {
 				abstrs = abstrs.substring(0, 99) + "...";
 			}
-			abstr.setText(abstrs);
-			timeView.setText(news.create_time_string);
+			holder.abstr.setText(abstrs);
+			holder.timeView.setText(news.create_time_string);
 			return convertView;
 		}
-
+		public final class ViewHolder {
+			TextView frompeo ;
+			TextView abstr ;
+			TextView timeView ;
+			TextView topeo ;
+		}
 	}
 
 }
