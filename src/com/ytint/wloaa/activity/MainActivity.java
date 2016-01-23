@@ -185,8 +185,7 @@ public class MainActivity extends BaseActivity {
 		ft.add(R.id.showContentFrame, fragment1).commit();
 		initUi();
 		Timer timer = new Timer();  
-		timer.scheduleAtFixedRate(new Mytack(), 1, 30000);  
-		timer.scheduleAtFixedRate(new Mytack0(), 1, 30000);  
+		timer.scheduleAtFixedRate(new Mytack(), 1, 10000);  
 		// 检查版本
 		initLocalVersion();
 		if (showUpdate) {
@@ -194,7 +193,7 @@ public class MainActivity extends BaseActivity {
 		}
 	}
 	String TAG = "MainActivity";
-	protected void updateTitle(final int from) {  
+	protected void updateTitle() {  
 		//请求查询消息和公告的未读数量
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		mAbHttpUtil.setDebug(true);
@@ -203,8 +202,8 @@ public class MainActivity extends BaseActivity {
 			return;
 		}
 		String url = String.format(
-				"%s?user_id=%s&notice_type=%d",
-				host+URLs.NEWNUM, loginKey,from);
+				"%s?user_id=%s&notice_type=0",
+				host+URLs.NEWNUM, loginKey);
 		Log.d(TAG, url);
 		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
 			@Override
@@ -212,14 +211,12 @@ public class MainActivity extends BaseActivity {
 				Log.d(TAG, content);
 				try {
 					JSONObject myJsonObject = new JSONObject(content); 
-					if (from==0) {
+					JSONObject infoJsonObject=myJsonObject.getJSONObject("info");
 						//公告
-						news0=myJsonObject.getInt("info");
+						news0=infoJsonObject.getInt("gg");
 						badgeView0.setHideOnZero(news0);
-					}else{
-						news=myJsonObject.getInt("info");
+						news=infoJsonObject.getInt("xx");
 						badgeView.setHideOnZero(news);
-					}
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -248,13 +245,8 @@ public class MainActivity extends BaseActivity {
         public void handleMessage(Message msg) {  
             switch (msg.what) {  
             case 1:  
-            	//消息
-                updateTitle(1);  
+                updateTitle();  
                 break;  
-            case 0:  
-            	//公告
-            	updateTitle(0);  
-            	break;  
             }  
         }  
     };  
@@ -265,14 +257,6 @@ public class MainActivity extends BaseActivity {
             msg.what = 1;  
             changeTitleHandler.sendMessage(msg);  
         }  
-    }  
-    private class Mytack0 extends TimerTask {// public abstract class TimerTask implements Runnable{}  
-    	@Override  
-    	public void run() {  
-    		Message msg = new Message();  
-    		msg.what = 0;  
-    		changeTitleHandler.sendMessage(msg);  
-    	}  
     }  
 	private void initUi(){
 		
