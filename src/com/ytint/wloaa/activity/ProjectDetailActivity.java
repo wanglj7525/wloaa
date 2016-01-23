@@ -143,22 +143,22 @@ public class ProjectDetailActivity extends AbActivity {
 					ProjectInfo gList = ProjectInfo.parseJson(content);
 					if (gList.code == 200) {
 						Project project=gList.getInfo();
-						project_name.setText(project.name);
-						project_quyu.setText(project.regionname+" ");
-						project_shigong.setText(project.cname+" ");
-						project_jianshe.setText(project.bname+" ");
-						project_jianli.setText(project.sname+" ");
-						project_address.setText(project.address+" ");
-						project_mianji.setText(project.area+" ");
-						project_jiegou.setText(project.structure+" ");
-						project_chuangyou.setText(project.goals+" ");
-						project_zaojia.setText(project.cost+" ");
-						project_cengshu.setText(project.layers+" ");
-						project_starttime.setText(project.starttime+" ");
-						project_endtime.setText(project.endtime+" ");
-						project_gaodu.setText(project.height+" ");
-						project_chuli.setText(project.result+" ");
-						project_jindu.setText(project.schedule+" ");
+						project_name.setText(show(project.name));
+						project_quyu.setText(show(project.regionname+" "));
+						project_shigong.setText(show(project.cname+" "));
+						project_jianshe.setText(show(project.bname+" "));
+						project_jianli.setText(show(project.sname+" "));
+						project_address.setText(show(project.address+" "));
+						project_mianji.setText(show(project.area+" "));
+						project_jiegou.setText(show(project.structure+" "));
+						project_chuangyou.setText(show(project.goals+" "));
+						project_zaojia.setText(show(project.cost+" "));
+						project_cengshu.setText(show(project.layers+" "));
+						project_starttime.setText(show(project.starttimeString+" "));
+						project_endtime.setText(show(project.endtimeString+" "));
+						project_gaodu.setText(show(project.height+" "));
+						project_chuli.setText(show(project.result+" "));
+						project_jindu.setText(show(project.schedule+" "));
 //						shenpi = gList.getInfo();
 //						msg_content.setText(shenpi.content);
 //						msg_title.setText(shenpi.title);
@@ -200,5 +200,12 @@ public class ProjectDetailActivity extends AbActivity {
 			};
 
 		});
+	}
+	public String show(String show){
+		String result="无";
+		if (show.trim().length()!=0) {
+			result=show;
+		}
+		return result;
 	}
 }

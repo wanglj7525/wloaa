@@ -12,7 +12,9 @@ public class Project implements java.io.Serializable{
     public String area;
     public String cost;
     public String starttime;
+    public String starttimeString;
     public String endtime;
+    public String endtimeString;
     public String structure;
     public String layers;
     public String height;
