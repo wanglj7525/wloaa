@@ -31,6 +31,8 @@ public class Shenpi implements java.io.Serializable{
 	public String receive_user_name;
 	public String contact;
 	public String attachment;
+	//缩略图
+	public String attachment_simp;
 	public String media;
 	public String company_name;
 	public String handle_mode;

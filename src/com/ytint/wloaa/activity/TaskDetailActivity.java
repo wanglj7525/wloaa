@@ -51,6 +51,7 @@ public class TaskDetailActivity extends AbActivity {
 	private AbImageDownloader mAbImageDownloader = null;
 	Context context = null;
 	private List<String> imageList = new ArrayList<String>();
+	private List<String> imageBigList = new ArrayList<String>();
 	String host;
 
 	static class ViewHolder {
@@ -240,10 +241,13 @@ public class TaskDetailActivity extends AbActivity {
 								task_tell_detail.setText(shenpi.contact);
 								taskForwardInfo.setText(shenpi.taskForwardInfo);
 								taskRemarkInfo.setText(shenpi.remark);
-								if (shenpi.attachment != "") {
-									for (int i = 0; i < shenpi.attachment
+								if (shenpi.attachment_simp != "") {
+									for (int i = 0; i < shenpi.attachment_simp
 											.split(",").length; i++) {
 										imageList.add(host
+												+ URLs.URL_API_HOST
+												+ shenpi.attachment_simp.split(",")[i]);
+										imageBigList.add(host
 												+ URLs.URL_API_HOST
 												+ shenpi.attachment.split(",")[i]);
 									}
@@ -349,7 +353,7 @@ public class TaskDetailActivity extends AbActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Log.e(TAG, "position = " + position);
-				String url = imageList.get(position);
+				String url = imageBigList.get(position);
 				if (url.contains("3gp") || url.contains("mp4")) {
 					Intent intent = new Intent(TaskDetailActivity.this,
 							MediaPlayerDemo_Video.class);

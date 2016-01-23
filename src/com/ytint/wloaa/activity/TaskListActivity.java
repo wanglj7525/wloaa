@@ -444,7 +444,7 @@ public class TaskListActivity extends AbActivity {
 					.findViewById(R.id.first_verify_user_name);
 			gridView_image_list = (GridView) convertView
 					.findViewById(R.id.gridView_image_list);
-			if (news.attachment == "" && news.media == "") {
+			if (news.attachment_simp == "" && news.media == "") {
 				gridView_image_list.setVisibility(View.GONE);
 			}
 			timeView = (TextView) convertView
@@ -469,10 +469,10 @@ public class TaskListActivity extends AbActivity {
 			int flag1 = 0;
 			int flag2 = 0;
 			int flag3 = 0;
-			if (news.attachment.length() > 0) {
-				flag1 = news.attachment.split(",").length;
-				if (news.attachment.contains("3gp")
-						|| news.attachment.contains("mp4")) {
+			if (news.attachment_simp.length() > 0) {
+				flag1 = news.attachment_simp.split(",").length;
+				if (news.attachment_simp.contains("3gp")
+						|| news.attachment_simp.contains("mp4")) {
 					flag2 = 1;
 					flag1 -= 1;
 				}
@@ -499,10 +499,10 @@ public class TaskListActivity extends AbActivity {
 			// abstr.setText(news.content);
 			timeView.setText("发布时间：" + news.create_time_string);
 			imageList = new ArrayList<String>();
-			if (news.attachment != "") {
-				for (int i = 0; i < news.attachment.split(",").length; i++) {
+			if (news.attachment_simp != "") {
+				for (int i = 0; i < news.attachment_simp.split(",").length; i++) {
 					imageList.add(host+URLs.URL_API_HOST
-							+ news.attachment.split(",")[i]);
+							+ news.attachment_simp.split(",")[i]);
 				}
 			}
 			MAdapter mAdapter = new MAdapter(context);
