@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -415,7 +416,12 @@ public class XiaoxGaoListActivity extends AbActivity {
 			topeo = (TextView) convertView.findViewById(R.id.receive_user_ids);
 			abstr = (TextView) convertView.findViewById(R.id.content);
 			timeView = (TextView) convertView.findViewById(R.id.create_time);
-			frompeo.setText(news.title);
+			String html="";
+			if (news.if_read==0) {
+				html += "<font color='red'>【未读】</font>";
+			}
+			html+=news.title;
+			frompeo.setText(Html.fromHtml(html));
 			topeo.setText(" " + news.push_user_name);
 			String abstrs = news.content;
 			if (abstrs.length() >= 100) {
