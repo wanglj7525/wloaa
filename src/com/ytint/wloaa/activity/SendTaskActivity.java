@@ -20,7 +20,9 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -230,9 +232,37 @@ public class SendTaskActivity extends AbActivity {
 		// loadComapny();
 
 		commitId = "0";
+		
+		//扫描相册 防止有新的图片，缩略图不全 目测不能立即生效
+		if (Build.VERSION.SDK_INT >= 19) {// Build.VERSION_CODES.KITKAT) { //
+			folderScan();
+		} else {
+			sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
+					Uri.parse("file://"
+							+ Environment.getExternalStorageDirectory())));
+		}
 	}
 
-
+	public void folderScan() {
+		File file = new File(Environment
+						.getExternalStoragePublicDirectory(
+								Environment.DIRECTORY_DCIM).getPath()
+						+ "/Camera/");
+		if (file.isDirectory()) {
+			File[] array = file.listFiles();
+			for (int i = 0; i < array.length; i++) {
+				File f = array[i];
+				if (f.isFile()) {// FILE TYPE
+					String name = f.getName();
+					if (name.contains(".jpg")) {
+						Log.e("TAG", "file:" + f.getAbsolutePath());
+						MediaScannerConnection
+						.scanFile(this, new String[] { f.getAbsolutePath() }, null, null);
+					}
+				}
+			}
+		}
+	}
 	/** 初始化数据 */
 	private void initData() {
 		mVoicesList = new ArrayList<String>();
