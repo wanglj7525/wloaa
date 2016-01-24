@@ -344,6 +344,7 @@ public class XiaoxGaoListActivity extends AbActivity {
 						if (qunfaList.get(index - 1).if_read==0) {
 							ViewHolder vHollder = (ViewHolder) arg1.getTag();  
 							vHollder.frompeo.setText(qunfaList.get(index - 1).title);
+							qunfaList.get(index - 1).if_read=1;
 						}
 						startActivity(intent);
 					}
