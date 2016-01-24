@@ -80,34 +80,6 @@
                     android:popupBackground="@drawable/spinner_pop_style"
                     android:textSize="18sp" />
             </LinearLayout>
-            <!--
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" >
-
-            <TextView
-                android:id="@+id/textViewAddZhiliangReportShenpiName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="审批人员"
-                android:textColor="@color/content"
-                android:textSize="18dp" />
-
-            <Spinner
-                android:id="@+id/select_people_report"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/spinner_bg"
-                android:divider="@color/full_transparent"
-                android:gravity="center"
-                android:popupBackground="@drawable/spinner_pop_style"
-                android:textSize="18sp" />
-        </LinearLayout>
-            -->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -373,20 +345,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="可发送音频消息（按住录音，长按删除）"
+                android:text="可发送音频消息（点击录音，长按删除）"
                 android:textSize="18sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp" >
-
+<!-- 
                 <Button
                     android:id="@+id/addVoicereport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/microphone"
                     android:text="" />
+ -->
+
+                <ToggleButton
+                    android:id="@+id/toggleButton1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="开始录音"
+                    android:textOn="停止录音" />
+
+                <Chronometer
+                    android:id="@+id/chronometer1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -413,27 +398,6 @@
                     </HorizontalScrollView>
                 </LinearLayout>
             </LinearLayout>
-            <!--
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone" >
-
-            <Button
-                android:id="@+id/findlocal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="当前位置" />
-
-            <TextView
-                android:id="@+id/showlocal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="" />
-        </LinearLayout>
-            -->
 
             <LinearLayout
                 android:layout_width="match_parent"

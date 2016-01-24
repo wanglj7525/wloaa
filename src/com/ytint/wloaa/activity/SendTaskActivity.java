@@ -11,7 +11,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,13 +24,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -40,6 +38,9 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Chronometer;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
@@ -49,6 +50,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 import cn.jpush.android.api.JPushInterface;
 
 import com.ab.activity.AbActivity;
@@ -127,8 +129,12 @@ public class SendTaskActivity extends AbActivity {
 	@AbIocView(id = R.id.add_video)
 	Button add_video;
 	/** 添加录音 */
-	@AbIocView(id = R.id.addVoicereport)
-	Button addVoicereport;
+//	@AbIocView(id = R.id.addVoicereport)
+//	Button addVoicereport;
+	@AbIocView(id=R.id.toggleButton1)
+	ToggleButton  voiceToggleButton ;
+	@AbIocView(id=R.id.chronometer1)
+	Chronometer  chronometer1 ;
 	/** 显示录音 */
 	@AbIocView(id = R.id.addvoicegridviewreport)
 	GridView addvoicegridviewreport;
@@ -232,8 +238,8 @@ public class SendTaskActivity extends AbActivity {
 		// loadComapny();
 
 		commitId = "0";
-		
-		//扫描相册 防止有新的图片，缩略图不全 目测不能立即生效
+
+		// 扫描相册 防止有新的图片，缩略图不全 目测不能立即生效
 		if (Build.VERSION.SDK_INT >= 19) {// Build.VERSION_CODES.KITKAT) { //
 			folderScan();
 		} else {
@@ -244,10 +250,9 @@ public class SendTaskActivity extends AbActivity {
 	}
 
 	public void folderScan() {
-		File file = new File(Environment
-						.getExternalStoragePublicDirectory(
-								Environment.DIRECTORY_DCIM).getPath()
-						+ "/Camera/");
+		File file = new File(Environment.getExternalStoragePublicDirectory(
+				Environment.DIRECTORY_DCIM).getPath()
+				+ "/Camera/");
 		if (file.isDirectory()) {
 			File[] array = file.listFiles();
 			for (int i = 0; i < array.length; i++) {
@@ -256,18 +261,21 @@ public class SendTaskActivity extends AbActivity {
 					String name = f.getName();
 					if (name.contains(".jpg")) {
 						Log.e("TAG", "file:" + f.getAbsolutePath());
-						MediaScannerConnection
-						.scanFile(this, new String[] { f.getAbsolutePath() }, null, null);
+						MediaScannerConnection.scanFile(this,
+								new String[] { f.getAbsolutePath() }, null,
+								null);
 					}
 				}
 			}
 		}
 	}
+
 	/** 初始化数据 */
 	private void initData() {
 		mVoicesList = new ArrayList<String>();
 		mVoicesListname = new ArrayList<String>();
 		mPlayer = new MediaPlayer();
+		chronometer1.setBase(SystemClock.elapsedRealtime());
 	}
 
 	private void initGridView() {
@@ -308,7 +316,6 @@ public class SendTaskActivity extends AbActivity {
 					}
 				});
 	}
-
 
 	private void initProject() {
 		// 将可选内容与ArrayAdapter连接起来
@@ -476,36 +483,67 @@ public class SendTaskActivity extends AbActivity {
 				finish();
 			}
 		});
-		// 添加录音
-		addVoicereport.setOnTouchListener(new OnTouchListener() {
+		voiceToggleButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				// if (commitId.equals("0")) {
-				// Toast.makeText(getApplicationContext(), "请先保存上面的信息", 0)
-				// .show();
-				// } else {
-				switch (event.getAction()) {
-				case MotionEvent.ACTION_DOWN:
+			public void onCheckedChanged(CompoundButton arg0, boolean isCheck) {
+				if (isCheck) {
+					//开始录音
+					System.out.println("开始录音");
 					if (mVoicesList.size() >= 1) {
 						Toast.makeText(getApplicationContext(), "只能上传一个录音", 0)
 								.show();
+						voiceToggleButton.setChecked(false);
 					} else {
+						//开始计时
+						chronometer1.setBase(SystemClock.elapsedRealtime());
+						chronometer1.start();
 						startVoice();
 					}
-					break;
-				case MotionEvent.ACTION_UP:
-					if (mVoicesList.size() >= 1) {
-					} else {
-						stopVoice();
-					}
-					break;
-				default:
-					break;
+				}else{
+					//结束录音
+					System.out.println("结束录音");
+					chronometer1.stop();
+					stopVoice();
 				}
-				// }
-				return false;
 			}
 		});
+//		addVoicereport.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View arg0) {
+//				// 点击开始录音 再点击结束录音
+//			}
+//		});
+//		// 添加录音
+//		addVoicereport.setOnTouchListener(new OnTouchListener() {
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//				// if (commitId.equals("0")) {
+//				// Toast.makeText(getApplicationContext(), "请先保存上面的信息", 0)
+//				// .show();
+//				// } else {
+//				switch (event.getAction()) {
+//				case MotionEvent.ACTION_DOWN:
+//					if (mVoicesList.size() >= 1) {
+//						Toast.makeText(getApplicationContext(), "只能上传一个录音", 0)
+//								.show();
+//					} else {
+//						startVoice();
+//					}
+//					break;
+//				case MotionEvent.ACTION_UP:
+//					if (mVoicesList.size() >= 1) {
+//					} else {
+//						stopVoice();
+//					}
+//					break;
+//				default:
+//					break;
+//				}
+//				// }
+//				return false;
+//			}
+//		});
 
 		OnClickListener keyboard_hide = new OnClickListener() {
 
@@ -544,11 +582,11 @@ public class SendTaskActivity extends AbActivity {
 		if (resultCode == Activity.RESULT_OK) {
 			switch (requestCode) {
 			case 20:
-				//相册选择
+				// 相册选择
 				ArrayList<String> result = data.getExtras().getStringArrayList(
 						"result");// 得到新Activity 关闭后返回的数据
 				for (int i = 0; i < result.size(); i++) {
-					File image=FileHelper.scal(result.get(i));
+					File image = FileHelper.scal(result.get(i));
 					if (!imagelist.contains(image.getPath())) {
 						imagelist.add(image.getPath());
 						Log.e(TAG, image.getPath());
@@ -557,7 +595,7 @@ public class SendTaskActivity extends AbActivity {
 				setImageGrideValue();
 				break;
 			case 10:
-				//录像
+				// 录像
 				Uri uriVideo = data.getData();
 				Cursor cursors = this.getContentResolver().query(uriVideo,
 						null, null, null, null);
@@ -570,41 +608,41 @@ public class SendTaskActivity extends AbActivity {
 					setImageGrideValue();
 				}
 				break;
-//			case 11:
-//				Uri uri = data.getData();
-//				Log.e(TAG, "uri = " + uri);
-//				try {
-//					String[] pojo = { MediaStore.Images.Media.DATA };
-//					Cursor cursor = managedQuery(uri, pojo, null, null, null);
-//					if (cursor != null) {
-//						ContentResolver cr = this.getContentResolver();
-//						int colunm_index = cursor
-//								.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//						cursor.moveToFirst();
-//						String path = cursor.getString(colunm_index);
-//						/***
-//						 * 这里加这样一个判断主要是为了第三方的软件选择，比如：使用第三方的文件管理器的话，
-//						 * 你选择的文件就不一定是图片了， 这样的话，我们判断文件的后缀名 如果是图片格式的话，那么才可以
-//						 */
-//						if (path.endsWith("jpg") || path.endsWith("png")) {
-//							srcPath = path;
-//							imagelist.add(srcPath);
-//							Log.e(TAG, "srcPath = " + srcPath);
-//							setImageGrideValue();
-//						} else {
-//							alert();
-//						}
-//					} else {
-//						alert();
-//					}
-//
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//				break;
+			// case 11:
+			// Uri uri = data.getData();
+			// Log.e(TAG, "uri = " + uri);
+			// try {
+			// String[] pojo = { MediaStore.Images.Media.DATA };
+			// Cursor cursor = managedQuery(uri, pojo, null, null, null);
+			// if (cursor != null) {
+			// ContentResolver cr = this.getContentResolver();
+			// int colunm_index = cursor
+			// .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+			// cursor.moveToFirst();
+			// String path = cursor.getString(colunm_index);
+			// /***
+			// * 这里加这样一个判断主要是为了第三方的软件选择，比如：使用第三方的文件管理器的话，
+			// * 你选择的文件就不一定是图片了， 这样的话，我们判断文件的后缀名 如果是图片格式的话，那么才可以
+			// */
+			// if (path.endsWith("jpg") || path.endsWith("png")) {
+			// srcPath = path;
+			// imagelist.add(srcPath);
+			// Log.e(TAG, "srcPath = " + srcPath);
+			// setImageGrideValue();
+			// } else {
+			// alert();
+			// }
+			// } else {
+			// alert();
+			// }
+			//
+			// } catch (Exception e) {
+			// e.printStackTrace();
+			// }
+			// break;
 			case 12:
-				//相机拍照
-				File image=FileHelper.scal(path + fileName);
+				// 相机拍照
+				File image = FileHelper.scal(path + fileName);
 				imagelist.add(image.getPath());
 				setImageGrideValue();
 				Log.e(TAG, "path + fileName = " + path + fileName);
@@ -710,28 +748,29 @@ public class SendTaskActivity extends AbActivity {
 	/** 开始录音 */
 	private void startVoice() {
 		// 设置录音保存路径
-		mFileNameShow = UUID.randomUUID().toString();
-		mFileName = PATH + mFileNameShow + ".amr";
-		String state = android.os.Environment.getExternalStorageState();
-		if (!state.equals(android.os.Environment.MEDIA_MOUNTED)) {
-			Log.i(TAG, "SD Card is not mounted,It is  " + state + ".");
-		}
-		File directory = new File(mFileName).getParentFile();
-		if (!directory.exists() && !directory.mkdirs()) {
-			Log.i(TAG, "Path to file could not be created");
-		}
-		Toast.makeText(getApplicationContext(), "开始录音", 0).show();
-		mRecorder = new MediaRecorder();
-		mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-		mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-		mRecorder.setOutputFile(mFileName);
-		mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
 		try {
+			mFileNameShow = UUID.randomUUID().toString();
+			mFileName = PATH + mFileNameShow + ".amr";
+			String state = android.os.Environment.getExternalStorageState();
+			if (!state.equals(android.os.Environment.MEDIA_MOUNTED)) {
+				Log.i(TAG, "SD Card is not mounted,It is  " + state + ".");
+			}
+			File directory = new File(mFileName).getParentFile();
+			if (!directory.exists() && !directory.mkdirs()) {
+				Log.i(TAG, "Path to file could not be created");
+			}
+			Toast.makeText(getApplicationContext(), "开始录音", 0).show();
+			mRecorder = new MediaRecorder();
+			mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+			mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+			mRecorder.setOutputFile(mFileName);
+			mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
 			mRecorder.prepare();
-		} catch (IOException e) {
-			Log.e(TAG, "prepare() failed");
+			mRecorder.start();
+		} catch (Exception e) {
+			Toast.makeText(getApplicationContext(), "录音失败，请重试！", 0).show();
+			e.printStackTrace();
 		}
-		mRecorder.start();
 	}
 
 	/** 停止录音 */
@@ -746,11 +785,10 @@ public class SendTaskActivity extends AbActivity {
 			mAdapter = new MyGridAdapter(SendTaskActivity.this);
 			addvoicegridviewreport.setAdapter(mAdapter);
 			initGridView();
-			// new FileHelper().submitUploadFile(mVoicesList, loginKey,"3");
 			Toast.makeText(getApplicationContext(), "保存录音" + mFileName, 0)
 					.show();
 		} catch (Exception e) {
-			Toast.makeText(getApplicationContext(), "请长按录音！", 0).show();
+			Toast.makeText(getApplicationContext(), "录音失败，请重试！", 0).show();
 			e.printStackTrace();
 		}
 	}
@@ -785,8 +823,8 @@ public class SendTaskActivity extends AbActivity {
 		@Override
 		public View getView(int position, View contentView, ViewGroup arg2) {
 			contentView = mInflater.inflate(R.layout.item_voicelist, null);
-			TextView tv = (TextView) contentView.findViewById(R.id.tv_armName);
-			tv.setText(mVoicesListname.get(position) + ".amr");
+//			TextView tv = (TextView) contentView.findViewById(R.id.tv_armName);
+//			tv.setText(mVoicesListname.get(position) + ".amr");
 			return contentView;
 		}
 
@@ -807,21 +845,21 @@ public class SendTaskActivity extends AbActivity {
 	}
 
 	private void setImageListener() {
-		gridView_image_report.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				Log.e(TAG, "position = " + position);
-				String url = imagelist.get(position);
-				// Intent intent = new Intent(AddZhiliangReportActivity.this,
-				// PicturePreviewActivity.class);
-				// intent.putExtra("url", url);
-				// startActivity(intent);
-			}
-
-		});
+//		gridView_image_report.setOnItemClickListener(new OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> parent, View view,
+//					int position, long id) {
+//				// TODO Auto-generated method stub
+//				Log.e(TAG, "position = " + position);
+//				String url = imagelist.get(position);
+//				// Intent intent = new Intent(AddZhiliangReportActivity.this,
+//				// PicturePreviewActivity.class);
+//				// intent.putExtra("url", url);
+//				// startActivity(intent);
+//			}
+//
+//		});
 
 		gridView_image_report
 				.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -839,9 +877,11 @@ public class SendTaskActivity extends AbActivity {
 		BitmapCache cache;
 		Context mContext;
 		LayoutInflater mInflater;
+
 		private class ViewHolder {
 			public ImageView imageView;
 		}
+
 		public MAImagedapter(Context c) {
 			mContext = c;
 			mInflater = LayoutInflater.from(mContext);
@@ -865,6 +905,7 @@ public class SendTaskActivity extends AbActivity {
 			// TODO Auto-generated method stub
 			return arg0;
 		}
+
 		ImageCallback callback = new ImageCallback() {
 			@Override
 			public void imageLoad(ImageView imageView, Bitmap bitmap,
@@ -881,53 +922,56 @@ public class SendTaskActivity extends AbActivity {
 				}
 			}
 		};
+
 		@Override
 		public View getView(int position, View contentView, ViewGroup arg2) {
 			String image = imagelist.get(position);
-//			if (image.contains("3gp") || image.contains("mp4")) {
-//				image = host + "/public/images/video_play_btn.png";
-//			}
+			// if (image.contains("3gp") || image.contains("mp4")) {
+			// image = host + "/public/images/video_play_btn.png";
+			// }
 			Log.e(TAG, image);
 			ViewHolder holder;
 			if (contentView == null) {
 				holder = new ViewHolder();
 				contentView = mInflater.inflate(R.layout.gridview_item, null);
-				holder.imageView = (ImageView) contentView.findViewById(R.id.mImage);
+				holder.imageView = (ImageView) contentView
+						.findViewById(R.id.mImage);
 				contentView.setTag(holder);
-//				Bitmap bitmap = ImageLoader.getInstance().loadImage(image, 200,
-//						100, new OnCallBackListener() {
-//							@Override
-//							public void setOnCallBackListener(Bitmap bitmap,
-//									String url) {
-//								ImageView image = (ImageView) gridView_image_report
-//										.findViewWithTag(url);
-//								if (image != null && bitmap != null) {
-//									image.setImageBitmap(bitmap);
-//								}
-//							}
-//						});
-//				if (bitmap != null) {
-//					holder.mImg.setImageBitmap(bitmap);
-//				} else {
-//					holder.mImg
-//							.setImageResource(R.drawable.friends_sends_pictures_no);
-//				}
+				// Bitmap bitmap = ImageLoader.getInstance().loadImage(image,
+				// 200,
+				// 100, new OnCallBackListener() {
+				// @Override
+				// public void setOnCallBackListener(Bitmap bitmap,
+				// String url) {
+				// ImageView image = (ImageView) gridView_image_report
+				// .findViewWithTag(url);
+				// if (image != null && bitmap != null) {
+				// image.setImageBitmap(bitmap);
+				// }
+				// }
+				// });
+				// if (bitmap != null) {
+				// holder.mImg.setImageBitmap(bitmap);
+				// } else {
+				// holder.mImg
+				// .setImageResource(R.drawable.friends_sends_pictures_no);
+				// }
 				// mAbImageDownloader.display(holder.mImg,image);
 			} else {
 				holder = (ViewHolder) contentView.getTag();
 			}
 			if (image.contains("3gp") || image.contains("mp4")) {
 				holder.imageView.setImageResource(R.drawable.video_play_btn);
-//			}
-//			if (path.contains("camera_default")) {
-//				holder.imageView.setImageResource(R.drawable.friends_sends_pictures_no);
+				// }
+				// if (path.contains("camera_default")) {
+				// holder.imageView.setImageResource(R.drawable.friends_sends_pictures_no);
 			} else {
-//				ImageManager2.from(mContext).displayImage(viewHolder.imageView,
-//						path, Res.getDrawableID("plugin_camera_camera_default"), 100, 100);
-//				final ImageItem item = dataList.get(position);
+				// ImageManager2.from(mContext).displayImage(viewHolder.imageView,
+				// path, Res.getDrawableID("plugin_camera_camera_default"), 100,
+				// 100);
+				// final ImageItem item = dataList.get(position);
 				holder.imageView.setTag(image);
-				cache.displayBmp(holder.imageView, image,image,
-						callback);
+				cache.displayBmp(holder.imageView, image, image, callback);
 			}
 			return contentView;
 		}
