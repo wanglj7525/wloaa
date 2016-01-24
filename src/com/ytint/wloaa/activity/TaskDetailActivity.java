@@ -457,8 +457,8 @@ public class TaskDetailActivity extends AbActivity {
 		@Override
 		public View getView(int position, View contentView, ViewGroup arg2) {
 			contentView = mInflater.inflate(R.layout.item_voicelist, null);
-			TextView tv = (TextView) contentView.findViewById(R.id.tv_armName);
-			tv.setText(mVoicesList.get(position));
+//			TextView tv = (TextView) contentView.findViewById(R.id.tv_armName);
+//			tv.setText(mVoicesList.get(position));
 			return contentView;
 		}
 

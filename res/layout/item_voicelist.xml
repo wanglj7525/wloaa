@@ -3,13 +3,14 @@
 	android:layout_width="wrap_content" android:layout_height="wrap_content"
 	xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<TextView
-	    android:id="@+id/tv_armName"
-	    android:layout_width="fill_parent"
-	    android:layout_height="70dp"
-	    android:background="@drawable/chat_button_fillet_shape"
-	    android:gravity="center"
-	    android:text="123.arm" >
 
-	</TextView>
+	<ImageView
+	    android:id="@+id/tv_armName"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_centerVertical="true"
+	    android:layout_marginLeft="50dp"
+	    android:src="@drawable/video_play_btn" />
+
 </RelativeLayout>
