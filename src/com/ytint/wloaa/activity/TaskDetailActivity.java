@@ -255,15 +255,15 @@ public class TaskDetailActivity extends AbActivity {
 								setValue();
 								setListener();
 
-								if (shenpi.task_type == 2) {
-									// taskRemarkInfo.setVisibility(View.GONE);
-									showImageText.setVisibility(View.GONE);
-									// task_finish.setVisibility(View.GONE);
-								} else {
-									if (userType.equals("3")) {
-										// task_finish.setVisibility(View.VISIBLE);
-									}
-								}
+//								if (shenpi.task_type == 2) {
+//									// taskRemarkInfo.setVisibility(View.GONE);
+//									showImageText.setVisibility(View.GONE);
+//									// task_finish.setVisibility(View.GONE);
+//								} else {
+//									if (userType.equals("3")) {
+//										// task_finish.setVisibility(View.VISIBLE);
+//									}
+//								}
 								mPlayer = new MediaPlayer();
 								if (shenpi.media != "") {
 									for (int i = 0; i < shenpi.media.split(",").length; i++) {
