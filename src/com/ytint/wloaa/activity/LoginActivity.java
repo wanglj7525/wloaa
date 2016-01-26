@@ -16,6 +16,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
@@ -65,6 +66,8 @@ public class LoginActivity extends AbActivity {
 	private EditText inputPassword;
 	@AbIocView(id = R.id.network)
 	private TextView network;
+	@AbIocView(id = R.id.getnewversion)
+	private TextView getnewversion;
 	@AbIocView(id = R.id.layoutpic2)
 	private LinearLayout full_screen_layout;
 	private static MyApplication application;
@@ -72,7 +75,7 @@ public class LoginActivity extends AbActivity {
 	// 获取Http工具类
 	final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 	String host;
-	
+
 	private int mVersionCode;
 	private String mVersionName;
 	private int mLatestVersionCode = 1;
@@ -80,75 +83,88 @@ public class LoginActivity extends AbActivity {
 	private String mLatestVersionDownload = "";
 	private boolean showUpdate = true;
 	private Date lastShowUpdateTime;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		application= (MyApplication) this.getApplication();
-		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
-//		// 添加百度地图SDK
-//		SDKInitializer.initialize(getApplicationContext());  
+		application = (MyApplication) this.getApplication();
+		host = URLs.HTTP + application.getProperty("HOST") + ":"
+				+ application.getProperty("PORT");
+		// // 添加百度地图SDK
+		// SDKInitializer.initialize(getApplicationContext());
 		setContentView(R.layout.layout_login);
-		context=LoginActivity.this;
+		context = LoginActivity.this;
 		AbTitleBar mAbTitleBar = this.getTitleBar();
 		mAbTitleBar.setVisibility(View.GONE);
-		
-		application.setProperty("is_login","0");
-		
+
+		application.setProperty("is_login", "0");
+
 		String username = application.getProperty(Constants.USER_NAME);
 		if (null != username && username.length() > 0) {
 			inputUsername.setText(username);
 		}
 
-		// 检查版本
-		initLocalVersion();
-		if (showUpdate) {
-			getNewVersion();
-		}
+//		// 检查版本
+//		initLocalVersion();
+//		if (showUpdate) {
+//			getNewVersion();
+//		}
+		getnewversion.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				initLocalVersion();
+				getNewVersion();
+			}
+		});
+		
 		network.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				final CustomDialog.Builder builder = new LoginActivity.CustomDialog.Builder(
 						LoginActivity.this);
-				builder.setTitle("网络配置")
-						.setNegativeButton("取消",
-								new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface dialog,
-											int which) {
-//										InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//										imm.hideSoftInputFromWindow(v.getWindowToken(),
-//												0);
-										dialog.dismiss();
-									}
-								});
+				builder.setTitle("网络配置").setNegativeButton("取消",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// InputMethodManager imm = (InputMethodManager)
+								// getSystemService(Context.INPUT_METHOD_SERVICE);
+								// imm.hideSoftInputFromWindow(v.getWindowToken(),
+								// 0);
+								dialog.dismiss();
+							}
+						});
 				builder.setPositiveButton("确定",
 						getResources().getColor(R.color.global_blue),
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int which) {
-								
-								String host=builder.networks_ipl.getText().toString().trim();
-								String port=builder.networks_portl.getText().toString().trim();
+
+								String host = builder.networks_ipl.getText()
+										.toString().trim();
+								String port = builder.networks_portl.getText()
+										.toString().trim();
 								String regex = "[1-9](\\d{1,2})?\\.(0|([1-9](\\d{1,2})?))\\.(0|([1-9](\\d{1,2})?))\\.(0|([1-9](\\d{1,2})?))";
-								String regexyu="^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$";
+								String regexyu = "^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$";
 								if (!Pattern.matches(regex, host)) {
 									if (!Pattern.matches(regexyu, host)) {
 										showToast("地址不合法！");
 										return;
 									}
 								}
-								if (port.length()==0) {
+								if (port.length() == 0) {
 									showToast("端口不能为空！");
 									return;
 								}
-								application.setProperty("HOST",host);
-								application.setProperty("PORT",port);
+								application.setProperty("HOST", host);
+								application.setProperty("PORT", port);
 								showToast("设置成功！");
-//								InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//								imm.hideSoftInputFromWindow(v.getWindowToken(),
-//										0);
+								// InputMethodManager imm = (InputMethodManager)
+								// getSystemService(Context.INPUT_METHOD_SERVICE);
+								// imm.hideSoftInputFromWindow(v.getWindowToken(),
+								// 0);
 								dialog.dismiss();
 
 							}
@@ -158,7 +174,7 @@ public class LoginActivity extends AbActivity {
 				builder.create().show();
 			}
 		});
-		
+
 		Button button = (Button) findViewById(R.id.login_button);
 
 		button.setOnClickListener(new View.OnClickListener() {
@@ -202,7 +218,8 @@ public class LoginActivity extends AbActivity {
 	}
 
 	private void login() {
-		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
+		host = URLs.HTTP + application.getProperty("HOST") + ":"
+				+ application.getProperty("PORT");
 		final String username = inputUsername.getText().toString();
 		final String password = inputPassword.getText().toString();
 		if (username == null || password == null || username.equals("")
@@ -215,26 +232,36 @@ public class LoginActivity extends AbActivity {
 		// 从缓存里读jpushid
 		jpush_registration_id = application.getProperty("registrationID");
 		// 如果缓存中不存在，则设为空值
-		if (null==jpush_registration_id) {
+		if (null == jpush_registration_id) {
 			initialLocalConfig();
-			 JPushInterface.init(getApplicationContext());
-			 jpush_registration_id=JPushInterface.getRegistrationID(context);
-			 application.setProperty("registrationID", jpush_registration_id);
+			JPushInterface.init(getApplicationContext());
+			jpush_registration_id = JPushInterface.getRegistrationID(context);
+			application.setProperty("registrationID", jpush_registration_id);
 		}
 		// 绑定参数
 		AbRequestParams params = new AbRequestParams();
 		params.put("user_name", username);
 		params.put("password", Crypto.passwordHash(password));
+		PackageInfo pinfo;
+		try {
+			pinfo = this.getPackageManager().getPackageInfo(getPackageName(),
+					PackageManager.GET_CONFIGURATIONS);
+			mVersionCode = pinfo.versionCode;
+		} catch (NameNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		//版本号
+		params.put("mVersionCode", mVersionCode+"");
 		params.put("jpush_registration_id", jpush_registration_id);
-//		params.put("user_imei_id", application.getProperty("imei"));
+		// params.put("user_imei_id", application.getProperty("imei"));
 
 		if (!application.isNetworkConnected()) {
 			UIHelper.ToastMessage(LoginActivity.this, "请检查网络连接");
 			return;
 		}
-		String a = host+URLs.LOGINURL;
+		String a = host + URLs.LOGINURL;
 		System.out.println(a);
-		mAbHttpUtil.post(host+URLs.LOGINURL, params,
+		mAbHttpUtil.post(host + URLs.LOGINURL, params,
 				new AbStringHttpResponseListener() {
 
 					// 获取数据成功会调用这里
@@ -248,32 +275,31 @@ public class LoginActivity extends AbActivity {
 							int code = Integer.parseInt(jsonObject.getString(
 									"code").toString());
 							if (code == Constants.SUCCESS) {
-								
-								application.setProperty("is_login","1");
-								
-								JSONObject info=jsonObject.getJSONObject("info");
-								String id=info.getString("id");
-								String name=info.getString("name");
-								String user_type=info.getString("user_type");
-								String department_id=info.getString("department_id");
-								String phone=info.getString("phone");
-								application.setProperty("loginKey",id);
+
+								application.setProperty("is_login", "1");
+
+								JSONObject info = jsonObject
+										.getJSONObject("info");
+								String id = info.getString("id");
+								String name = info.getString("name");
+								String user_type = info.getString("user_type");
+								String department_id = info
+										.getString("department_id");
+								String phone = info.getString("phone");
+								application.setProperty("loginKey", id);
 								application.setProperty(Constants.USER_NAME,
 										username);
-								application.setProperty("userName",
-										name);
-								application.setProperty("userType",
-										user_type);
+								application.setProperty("userName", name);
+								application.setProperty("userType", user_type);
 								application.setProperty("department_id",
 										department_id);
-								application.setProperty("phone",
-										phone);
+								application.setProperty("phone", phone);
 								// 跳转到首页
-								
-								 Intent intent = new Intent(LoginActivity.this,
-								  MainActivity.class);
-								 LoginActivity.this.startActivity(intent);
-								 LoginActivity.this.finish();
+
+								Intent intent = new Intent(LoginActivity.this,
+										MainActivity.class);
+								LoginActivity.this.startActivity(intent);
+								LoginActivity.this.finish();
 
 							} else {
 								Toast.makeText(LoginActivity.this, "用户名或密码错误！",
@@ -310,6 +336,7 @@ public class LoginActivity extends AbActivity {
 
 				});
 	}
+
 	/**
 	 * 初始化本地数据
 	 */
@@ -334,8 +361,7 @@ public class LoginActivity extends AbActivity {
 		}
 
 	}
-	
-	
+
 	public static class CustomDialog extends Dialog {
 
 		public CustomDialog(Context context, int theme) {
@@ -567,8 +593,10 @@ public class LoginActivity extends AbActivity {
 							View.GONE);
 				}
 				// set the content message
-				networks_portl=(EditText) layout.findViewById(R.id.networks_portl);
-				networks_ipl=(EditText) layout.findViewById(R.id.networks_ipl);
+				networks_portl = (EditText) layout
+						.findViewById(R.id.networks_portl);
+				networks_ipl = (EditText) layout
+						.findViewById(R.id.networks_ipl);
 				networks_ipl.setText(application.getProperty("HOST"));
 				networks_portl.setText(application.getProperty("PORT"));
 				dialog.setContentView(layout);
@@ -577,7 +605,6 @@ public class LoginActivity extends AbActivity {
 		}
 	}
 
-	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -590,7 +617,6 @@ public class LoginActivity extends AbActivity {
 		JPushInterface.onPause(this);
 	}
 
-	
 	public void initLocalVersion() {
 		PackageInfo pinfo;
 		try {
@@ -598,8 +624,9 @@ public class LoginActivity extends AbActivity {
 					PackageManager.GET_CONFIGURATIONS);
 			mVersionCode = pinfo.versionCode;
 			mVersionName = pinfo.versionName;
-	        application.setProperty(Constants.VERSION_NAME, mVersionName);
-	        application.setProperty(Constants.VERSION_CODE, String.valueOf(mVersionCode));
+			application.setProperty(Constants.VERSION_NAME, mVersionName);
+			application.setProperty(Constants.VERSION_CODE,
+					String.valueOf(mVersionCode));
 			String lastDateStr = application.getProperty("showupdatetime");
 			if (null != lastDateStr) {
 				SimpleDateFormat format = new SimpleDateFormat(
@@ -620,6 +647,7 @@ public class LoginActivity extends AbActivity {
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * 获取版本信息
 	 */
@@ -628,44 +656,45 @@ public class LoginActivity extends AbActivity {
 			UIHelper.ToastMessage(context, "网络连接失败！");
 			return;
 		} else {
-			mAbHttpUtil.get(host+URLs.GETVERSION + "?id="+mVersionCode, new AbStringHttpResponseListener() {
-				@Override
-				public void onSuccess(int statusCode, String content) {
-					try {
-						VersionInfo vi = VersionInfo.parseJson(content);
-						if (vi.code == 200) {
-							Version v = vi.getInfo();
-							mLatestVersionCode = v.id;
-							mLatestVersionUpdate = "";
-							for (String str : v.introduce) {
-								mLatestVersionUpdate += str + "<br>";
+			mAbHttpUtil.get(host + URLs.GETVERSION + "?id=" + mVersionCode,
+					new AbStringHttpResponseListener() {
+						@Override
+						public void onSuccess(int statusCode, String content) {
+							try {
+								VersionInfo vi = VersionInfo.parseJson(content);
+								if (vi.code == 200) {
+									Version v = vi.getInfo();
+									mLatestVersionCode = v.id;
+									mLatestVersionUpdate = "";
+									for (String str : v.introduce) {
+										mLatestVersionUpdate += str + "<br>";
+									}
+									mLatestVersionDownload = v.download_address;
+									checkNewVersion();
+								} else {
+									UIHelper.ToastMessage(context, vi.msg);
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+								UIHelper.ToastMessage(context, "数据解析失败");
 							}
-							mLatestVersionDownload = v.download_address;
-							checkNewVersion();
-						} else {
-							UIHelper.ToastMessage(context, vi.msg);
 						}
-					} catch (Exception e) {
-						e.printStackTrace();
-						UIHelper.ToastMessage(context, "数据解析失败");
-					}
-				}
 
-				@Override
-				public void onFailure(int statusCode, String content,
-						Throwable error) {
-					UIHelper.ToastMessage(context, "网络连接失败！");
-				}
+						@Override
+						public void onFailure(int statusCode, String content,
+								Throwable error) {
+							UIHelper.ToastMessage(context, "网络连接失败！");
+						}
 
-				@Override
-				public void onStart() {
-				}
+						@Override
+						public void onStart() {
+						}
 
-				// 完成后调用
-				@Override
-				public void onFinish() {
-				};
-			});
+						// 完成后调用
+						@Override
+						public void onFinish() {
+						};
+					});
 		}
 	}
 
@@ -693,14 +722,14 @@ public class LoginActivity extends AbActivity {
 											mLatestVersionDownload);
 									startService(intent);
 								}
-							})
-					.setNegativeButton(R.string.app_upgrade_cancel,
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-								}
 							}).create().show();
+			// .setNegativeButton(R.string.app_upgrade_cancel,
+			// new DialogInterface.OnClickListener() {
+			// @Override
+			// public void onClick(DialogInterface dialog,
+			// int which) {
+			// }
+			// }).create().show();
 		}
 
 		if (mVersionCode >= mLatestVersionCode) {

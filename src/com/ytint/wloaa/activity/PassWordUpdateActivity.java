@@ -32,6 +32,7 @@ import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.URLs;
+import com.ytint.wloaa.utils.Crypto;
 import com.ytint.wloaa.widget.TitleBar;
 
 /**
@@ -137,8 +138,8 @@ public class PassWordUpdateActivity extends AbActivity {
 		// 绑定参数
 		AbRequestParams params = new AbRequestParams();
 		params.put("user_id", loginKey);
-		params.put("password", oldpass);
-		params.put("new_password", password);
+		params.put("password", Crypto.passwordHash(oldpass));
+		params.put("new_password", Crypto.passwordHash(password));
 
 		if (!application.isNetworkConnected()) {
 			UIHelper.ToastMessage(PassWordUpdateActivity.this, "请检查网络连接");

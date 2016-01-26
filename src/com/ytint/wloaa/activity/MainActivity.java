@@ -440,14 +440,14 @@ public class MainActivity extends BaseActivity {
 											mLatestVersionDownload);
 									startService(intent);
 								}
-							})
-					.setNegativeButton(R.string.app_upgrade_cancel,
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-								}
 							}).create().show();
+//					.setNegativeButton(R.string.app_upgrade_cancel,
+//							new DialogInterface.OnClickListener() {
+//								@Override
+//								public void onClick(DialogInterface dialog,
+//										int which) {
+//								}
+//							}).create().show();
 		}
 
 		if (mVersionCode >= mLatestVersionCode) {
