@@ -27,7 +27,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
@@ -65,11 +65,11 @@ public class MainActivity extends BaseActivity {
 	RelativeLayout main_show_gonggao_rela;
 	RelativeLayout main_show_xiaoxi_rela;
 	RelativeLayout main_show_shezhi_rela;
-	ImageButton main_show_keshi;
+	ImageView main_show_keshi;
 	TextView main_show_keshiname;
-	ImageButton main_show_gonggao;
-	ImageButton main_show_xiaoxi;
-	ImageButton main_show_shezhi;
+	ImageView main_show_gonggao;
+	ImageView main_show_xiaoxi;
+	ImageView main_show_shezhi;
 	TextView main_show_user;
 	
 	private int mVersionCode;
@@ -127,11 +127,11 @@ public class MainActivity extends BaseActivity {
 		main_show_gonggao_rela=(RelativeLayout)findViewById(R.id.main_show_gonggao_rela);
 		main_show_xiaoxi_rela=(RelativeLayout)findViewById(R.id.main_show_xiaoxi_rela);
 		main_show_shezhi_rela=(RelativeLayout)findViewById(R.id.main_show_shezhi_rela);
-		main_show_keshi=(ImageButton)findViewById(R.id.main_show_keshi);
+		main_show_keshi=(ImageView)findViewById(R.id.main_show_keshi);
 		main_show_keshiname=(TextView)findViewById(R.id.main_show_keshiname);
-		main_show_gonggao=(ImageButton)findViewById(R.id.main_show_gonggao);
-		main_show_xiaoxi=(ImageButton)findViewById(R.id.main_show_xiaoxi);
-		main_show_shezhi=(ImageButton)findViewById(R.id.main_show_shezhi);
+		main_show_gonggao=(ImageView)findViewById(R.id.main_show_gonggao);
+		main_show_xiaoxi=(ImageView)findViewById(R.id.main_show_xiaoxi);
+		main_show_shezhi=(ImageView)findViewById(R.id.main_show_shezhi);
 		main_show_user=(TextView)findViewById(R.id.main_show_user);
 		main_show_user.setText("您好，" + userName);
 		
