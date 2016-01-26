@@ -58,8 +58,8 @@ public class MyApplication extends Application {
 		super.onCreate();
 		
 		if (null==getProperty("HOST")) {
-//			setProperty("HOST", "112.33.6.14");
-			setProperty("HOST", "windoer.com");
+			setProperty("HOST", "112.33.6.14");
+//			setProperty("HOST", "windoer.com");
 			setProperty("PORT", "9002");
 //			URLs.HOST= getProperty("HOST");
 		}else{
