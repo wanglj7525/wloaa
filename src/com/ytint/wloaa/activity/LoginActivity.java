@@ -76,7 +76,7 @@ public class LoginActivity extends AbActivity {
 	final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 	String host;
 
-	private int mVersionCode;
+	private int mVersionCode=4;
 	private String mVersionName;
 	private int mLatestVersionCode = 1;
 	private String mLatestVersionUpdate = "mLatestVersionUpdate";
