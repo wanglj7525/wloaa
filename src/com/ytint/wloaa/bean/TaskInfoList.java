@@ -9,24 +9,24 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 @SuppressWarnings("serial")
-public class ShenpiInfo extends Entity {
-	private Shenpi info = new Shenpi();
+public class TaskInfoList extends Entity {
+	private List<Task> info = new ArrayList<Task>();
 
-	public static ShenpiInfo parseJson(String strResult)
+	public static TaskInfoList parseJson(String strResult)
 			throws JsonParseException, JsonMappingException, IOException {
-		ShenpiInfo list = null;
+		TaskInfoList list = null;
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.getDeserializationConfig().set(                  
 				org.codehaus.jackson.map.DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		list = mapper.readValue(strResult, ShenpiInfo.class);
+		list = mapper.readValue(strResult, TaskInfoList.class);
 		return list;
 	}
 
-	public Shenpi getInfo() {
+	public List<Task> getInfo() {
 		return info;
 	}
 
-	public void setInfo(Shenpi info) {
+	public void setInfo(List<Task> info) {
 		this.info = info;
 	}
 

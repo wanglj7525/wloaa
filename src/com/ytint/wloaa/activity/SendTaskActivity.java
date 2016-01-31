@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import android.annotation.SuppressLint;
@@ -67,11 +68,12 @@ import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.People;
 import com.ytint.wloaa.bean.Project;
 import com.ytint.wloaa.bean.ProjectList;
-import com.ytint.wloaa.bean.Shenpi;
-import com.ytint.wloaa.bean.ShenpiInfo;
+import com.ytint.wloaa.bean.Task;
+import com.ytint.wloaa.bean.TaskInfo;
 import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.utils.BitmapCache;
 import com.ytint.wloaa.utils.BitmapCache.ImageCallback;
+import com.ytint.wloaa.widget.AutolinefeedView;
 import com.ytint.wloaa.widget.TitleBar;
 
 /**
@@ -91,6 +93,7 @@ public class SendTaskActivity extends AbActivity {
 	private List<People> peoples;
 	private List<Project> projects;
 	private int from;
+	private int reply_task_id=0;
 
 	Context context = null;
 	private String loginKey;
@@ -142,6 +145,14 @@ public class SendTaskActivity extends AbActivity {
 	HorizontalScrollView horizontalScrollView_addvoicereport;
 	@AbIocView(id = R.id.horizontalScrollView_report)
 	HorizontalScrollView horizontalScrollView_report;
+	
+	@AbIocView(id = R.id.showTaskSelectPeople)
+	LinearLayout showTaskSelectPeople;
+	@AbIocView(id = R.id.add_Taskpeople)
+	Button add_Taskpeople;
+	@AbIocView(id = R.id.autolinefeedTaskView1)
+	AutolinefeedView autolinefeedTaskView1;
+	
 	/** 语音列表适配器 */
 	private MyGridAdapter mAdapter;
 	/** 语音列表 */
@@ -169,7 +180,7 @@ public class SendTaskActivity extends AbActivity {
 	public static ArrayList<String> video = new ArrayList<String>();
 	private AbImageDownloader mAbImageDownloader = null;
 
-	private String peopleId = "0";
+	private String peopleId = "";
 	private String projectId = "0";
 	private String companyId = "0";
 	private static String srcPath;
@@ -180,7 +191,7 @@ public class SendTaskActivity extends AbActivity {
 	private String path = Environment.getExternalStorageDirectory()
 			+ "/wloaa/BigImage/";
 	private String fileName;
-
+	private ArrayList<String> userlist = new ArrayList<String>();
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -201,6 +212,7 @@ public class SendTaskActivity extends AbActivity {
 				+ application.getProperty("PORT");
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
+		reply_task_id = Integer.parseInt(intent.getExtras().get("reply_task_id").toString());
 
 		setAbContentView(R.layout.layout_addtask);
 		context = SendTaskActivity.this;
@@ -225,6 +237,8 @@ public class SendTaskActivity extends AbActivity {
 			titleBar.setTitle("工程任务");
 		} else if (from == 2) {
 			titleBar.setTitle("自定义任务");
+		}else if (from==3) {
+			titleBar.setTitle("回复任务");
 		}
 		titleBar.setTitleColor(Color.WHITE);
 		titleBar.setDividerColor(Color.GRAY);
@@ -415,6 +429,16 @@ public class SendTaskActivity extends AbActivity {
 		horizontalScrollView_report.setHorizontalScrollBarEnabled(true);
 		initGridView();
 		setImageGrideValue();
+		add_Taskpeople.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				// 选择联系人
+				Intent intent = new Intent(SendTaskActivity.this,
+						SelectPeopleActivity.class);
+				intent.putExtra("userlist", userlist);
+				startActivityForResult(intent, 30);
+			}
+		});
 		// 相册
 		add_photo.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -559,7 +583,7 @@ public class SendTaskActivity extends AbActivity {
 
 		task_people.setText(userName);
 		task_tell.setText(phone);
-		if (from == 2) {
+		if (from == 2||from==3) {
 			showProgect.setVisibility(View.GONE);
 			projectId = "-1";
 		}
@@ -581,6 +605,26 @@ public class SendTaskActivity extends AbActivity {
 
 		if (resultCode == Activity.RESULT_OK) {
 			switch (requestCode) {
+			case 30:
+				userlist = new ArrayList<String>();
+				autolinefeedTaskView1.removeAllViews();
+				ArrayList<Map<String, Object>> userresult = (ArrayList<Map<String, Object>>) data
+						.getExtras().get("result");// 得到新Activity 关闭后返回的数据
+				for (int i = 0; i < userresult.size(); i++) {
+					userlist.add(userresult.get(i).get("peopleid").toString());
+					final Button bt = new Button(context);
+					bt.setText(userresult.get(i).get("name").toString());
+					bt.setTag(userresult.get(i).get("peopleid").toString());
+					bt.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View arg0) {
+							autolinefeedTaskView1.removeView(bt);
+							userlist.remove(bt.getTag());
+						}
+					});
+					autolinefeedTaskView1.addView(bt);
+				}
+				break;
 			case 20:
 				// 相册选择
 				ArrayList<String> result = data.getExtras().getStringArrayList(
@@ -672,13 +716,33 @@ public class SendTaskActivity extends AbActivity {
 			UIHelper.ToastMessage(context, "请输入内容");
 			return;
 		}
+		for (int i = 0; i < userlist.size(); i++) {
+			peopleId += userlist.get(i) + ",";
+		}
+		if (peopleId.length() > 0) {
+			peopleId = peopleId.substring(0, peopleId.length() - 1);
+		} else {
+			UIHelper.ToastMessage(context, "请选择联系人");
+			return;
+		}
+		// 发送消息
 		AbRequestParams params = new AbRequestParams();
+		params.put("receive_user_ids", peopleId);
+		params.put("receive_type", "2");// receive_type
+		// 接受用户类型，主要针对科长发布公告，0：本科室；1：全部；2：指定人（具体接收人在receive_user_ids中指明）
+		params.put("taskInfo.reply_task_id", reply_task_id+"");
+		params.put("taskInfo.if_open", "0");
+		
 		params.put("taskInfo.name", task_name.getText().toString());
 		params.put("taskInfo.company_id", companyId);
 		params.put("taskInfo.project_id", projectId);
 		params.put("taskInfo.contact", task_tell.getText().toString());
 		params.put("taskInfo.remark", task_remark.getText().toString());
-		params.put("taskInfo.task_type", from + "");
+		if (from>=3) {
+			params.put("taskInfo.task_type", from-2+"");
+		}else{
+			params.put("taskInfo.task_type", from + "");
+		}
 		params.put("taskInfo.create_user_id", loginKey);
 		params.put("taskInfo.department_id", department_id);
 		params.put("taskInfo.status", "0");
@@ -690,9 +754,9 @@ public class SendTaskActivity extends AbActivity {
 					public void onSuccess(int statusCode, String content) {
 						Log.d(TAG, content);
 						try {
-							ShenpiInfo gList = ShenpiInfo.parseJson(content);
+							TaskInfo gList = TaskInfo.parseJson(content);
 							if (gList.code == 200) {
-								Shenpi shenpi = gList.getInfo();
+								Task shenpi = gList.getInfo();
 								commitId = shenpi.id.toString();
 								// 上传文件
 								if (mVoicesList.size() == 0

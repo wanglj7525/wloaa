@@ -48,8 +48,8 @@ import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.Project;
 import com.ytint.wloaa.bean.ProjectList;
-import com.ytint.wloaa.bean.Shenpi;
-import com.ytint.wloaa.bean.ShenpiInfoList;
+import com.ytint.wloaa.bean.Task;
+import com.ytint.wloaa.bean.TaskInfoList;
 import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.widget.AbPullListView;
 

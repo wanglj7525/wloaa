@@ -46,6 +46,7 @@ public class TaskFragment extends Fragment {
 //				Intent intent = new Intent(getActivity(),AddZhiliangSendActivity.class);
 				Intent intent = new Intent(getActivity(),SendTaskActivity.class);
 				intent.putExtra("from", 1);
+				intent.putExtra("reply_task_id", 0);
 				startActivity(intent);
 			}
 		});
@@ -56,6 +57,7 @@ public class TaskFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(getActivity(),SendTaskActivity.class);
+				intent.putExtra("reply_task_id", 0);
 				intent.putExtra("from", 2);
 				startActivity(intent);
 			}

@@ -322,14 +322,20 @@
                     </LinearLayout>
                 </HorizontalScrollView>
             </LinearLayout>
-            <!--
         <Button
-            android:id="@+id/task_finish"
+            android:id="@+id/task_reply"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            android:text="完成" />
+            android:text="回复" />
+        <Button
+            android:id="@+id/task_open"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:text="公开" />
 
+            <!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -22,7 +22,54 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.35"
             android:orientation="vertical" >
+ <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.35"
+            android:orientation="vertical" >
 
+            <LinearLayout
+                android:id="@+id/showTaskSelectPeople"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系人"
+                    android:textColor="@color/content"
+                    android:textSize="18dp" />
+                <!--
+            <EditText
+                android:id="@+id/edit_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10" />
+                -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <com.ytint.wloaa.widget.AutolinefeedView
+                        android:id="@+id/autolinefeedTaskView1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" >
+                    </com.ytint.wloaa.widget.AutolinefeedView>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/add_Taskpeople"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/add" />
+            </LinearLayout>
+           </LinearLayout> 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

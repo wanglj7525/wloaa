@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -25,23 +26,19 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
-import cn.trinea.android.common.service.impl.ImageCache;
-import cn.trinea.android.common.util.CacheManager;
 
 import com.ab.activity.AbActivity;
 import com.ab.bitmap.AbImageDownloader;
-import com.ab.global.AbConstant;
 import com.ab.http.AbHttpUtil;
 import com.ab.http.AbRequestParams;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.view.ioc.AbIocView;
 import com.ab.view.titlebar.AbTitleBar;
 import com.ytint.wloaa.R;
-import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
-import com.ytint.wloaa.bean.Shenpi;
-import com.ytint.wloaa.bean.ShenpiInfo;
+import com.ytint.wloaa.bean.Task;
+import com.ytint.wloaa.bean.TaskInfo;
 import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.widget.TitleBar;
 
@@ -62,6 +59,10 @@ public class TaskDetailActivity extends AbActivity {
 	GridView gridView_voice;
 	@AbIocView(id = R.id.horizontalScrollView_voicelist_detail)
 	HorizontalScrollView horizontalScrollView_voicelist_detail;
+	@AbIocView(id=R.id.task_open)
+	Button task_open;
+	@AbIocView(id=R.id.task_reply)
+	Button task_reply;
 	/** 语音列表 */
 	private List<String> mVoicesList = new ArrayList<String>();
 	/** 用于语音播放 */
@@ -104,8 +105,9 @@ public class TaskDetailActivity extends AbActivity {
 	// Button task_finish;
 	private String userType;
 	private int from;
+	private int reply_from=1;
 	Integer shenpi_id;
-	private Shenpi shenpi = new Shenpi();
+	private Task shenpi = new Task();
 
 	@Override
 	protected void onResume() {
@@ -150,67 +152,82 @@ public class TaskDetailActivity extends AbActivity {
 		titleBar.setTitleColor(Color.WHITE);
 		titleBar.setDividerColor(Color.GRAY);
 		loadDatas();
+		
+		task_open.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				openTask();
+			}
+		});
+		
+		task_reply.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(TaskDetailActivity.this,
+						SendTaskActivity.class);
+				intent.putExtra("from", reply_from+2);
+				intent.putExtra("reply_task_id", shenpi_id.toString());
+				startActivity(intent);
+			}
+		});
 	}
 
-//	@SuppressLint("NewApi")
-//	private void finishTask() {
-//
-//		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
-//		String loginKey = application.getProperty("loginKey");
-//		if (!application.isNetworkConnected()) {
-//			showToast("请检查网络连接");
-//			return;
-//		}
-//		// 绑定参数
-//		AbRequestParams params = new AbRequestParams();
-//		params.put("task_id", shenpi_id.toString());
-//		params.put("verify_status", "1");
-//		params.put("verify_user_id", loginKey);
-//		params.put("verify_commit", "");
-//		params.put("verify_type", "1");
-//		params.put("receive_user_id", loginKey);
-//		mAbHttpUtil.post(host + URLs.SHENPI, params,
-//				new AbStringHttpResponseListener() {
-//					// 获取数据成功会调用这里
-//					@Override
-//					public void onSuccess(int statusCode, String content) {
-//						Log.d(TAG, content);
-//						try {
-//							ShenpiInfo gList = ShenpiInfo.parseJson(content);
-//							if (gList.code == 200) {
-//								UIHelper.ToastMessage(context, "任务已完成");
-//								// task_finish.setVisibility(View.GONE);
-//							} else {
-//								UIHelper.ToastMessage(context, gList.msg);
-//							}
-//						} catch (Exception e) {
-//							e.printStackTrace();
-//							showToast("数据解析失败");
-//						}
-//					};
-//
-//					// 开始执行前
-//					@Override
-//					public void onStart() {
-//						// 显示进度框
-//						showProgressDialog();
-//					}
-//
-//					@Override
-//					public void onFailure(int statusCode, String content,
-//							Throwable error) {
-//						showToast("网络连接失败！");
-//					}
-//
-//					// 完成后调用，失败，成功
-//					@Override
-//					public void onFinish() {
-//						// 移除进度框
-//						removeProgressDialog();
-//					};
-//
-//				});
-//	}
+	@SuppressLint("NewApi")
+	private void openTask() {
+		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+		String loginKey = application.getProperty("loginKey");
+		if (!application.isNetworkConnected()) {
+			showToast("请检查网络连接");
+			return;
+		}
+		// 绑定参数
+		AbRequestParams params = new AbRequestParams();
+		params.put("task_id", shenpi_id.toString());
+		params.put("user_id", loginKey);
+		mAbHttpUtil.post(host + URLs.OPEN, params,
+				new AbStringHttpResponseListener() {
+					// 获取数据成功会调用这里
+					@Override
+					public void onSuccess(int statusCode, String content) {
+						Log.d(TAG, content);
+						try {
+							TaskInfo gList = TaskInfo.parseJson(content);
+							if (gList.code == 200) {
+								UIHelper.ToastMessage(context, "任务公开");
+								// task_finish.setVisibility(View.GONE);
+							} else {
+								UIHelper.ToastMessage(context, gList.msg);
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							showToast("数据解析失败");
+						}
+					};
+
+					// 开始执行前
+					@Override
+					public void onStart() {
+						// 显示进度框
+						showProgressDialog();
+					}
+
+					@Override
+					public void onFailure(int statusCode, String content,
+							Throwable error) {
+						showToast("网络连接失败！");
+					}
+
+					// 完成后调用，失败，成功
+					@Override
+					public void onFinish() {
+						// 移除进度框
+						removeProgressDialog();
+					};
+
+				});
+	}
 
 	@SuppressLint("NewApi")
 	private void loadDatas() {
@@ -221,7 +238,9 @@ public class TaskDetailActivity extends AbActivity {
 			showToast("请检查网络连接");
 			return;
 		}
-		mAbHttpUtil.get(host + URLs.SHENPIDETAIL + "?id=" + shenpi_id,
+		String url=host + URLs.SHENPIDETAIL + "?id=" + shenpi_id;
+		Log.d(TAG, url);
+		mAbHttpUtil.get(url,
 				new AbStringHttpResponseListener() {
 					// 获取数据成功会调用这里
 					@Override
@@ -229,18 +248,32 @@ public class TaskDetailActivity extends AbActivity {
 						Log.d(TAG, content);
 						try {
 
-							ShenpiInfo gList = ShenpiInfo.parseJson(content);
+							TaskInfo gList = TaskInfo.parseJson(content);
 							if (gList.code == 200) {
 								shenpi = gList.getInfo();
 								task_name_detail.setText(shenpi.name);
 								task_create.setText(shenpi.create_user_name);
 								task_project.setText(shenpi.project_name);
 								if (shenpi.task_type==2) {
+									reply_from=shenpi.task_type;
 									task_project.setText("自定义任务");
 								}
 								task_tell_detail.setText(shenpi.contact);
 								taskForwardInfo.setText(shenpi.taskForwardInfo);
 								taskRemarkInfo.setText(shenpi.remark);
+								
+								if (loginKey.equals(shenpi.receive_user_id+"")) {
+									System.out.println("发给自己的");
+									//发给自己的任务 区分 是局长或者副局长 显示公开按钮  是科员或者科长显示回复按钮
+									if (userType.equals("0")||userType.equals("1")||userType.equals("2")) {
+										//局长 副局长 管理员
+										task_open.setVisibility(View.VISIBLE);
+									}else{
+										//科长科员
+										task_reply.setVisibility(View.VISIBLE);
+									}
+								}
+								
 								if (shenpi.attachment_simp != "") {
 									for (int i = 0; i < shenpi.attachment_simp
 											.split(",").length; i++) {
@@ -255,6 +288,7 @@ public class TaskDetailActivity extends AbActivity {
 								setValue();
 								setListener();
 
+								
 //								if (shenpi.task_type == 2) {
 //									// taskRemarkInfo.setVisibility(View.GONE);
 //									showImageText.setVisibility(View.GONE);

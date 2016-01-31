@@ -140,10 +140,13 @@ public class SendXiaoGaoActivity extends AbActivity {
 		// 加载联系人下拉框
 
 		if (from == 1) {
+			//消息
 			showrange.setVisibility(View.GONE);
 		} else if (from == 2) {
+			//公告
 			showSelectPeople.setVisibility(View.GONE);
 		} else {
+			//回复
 			showrange.setVisibility(View.GONE);
 			showSelectPeople.setVisibility(View.GONE);
 			showReplayPeople.setVisibility(View.VISIBLE);

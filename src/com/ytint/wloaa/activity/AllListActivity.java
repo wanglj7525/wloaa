@@ -41,8 +41,8 @@ import com.ytint.wloaa.activity.TaskDetailActivity.ViewHolder;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
-import com.ytint.wloaa.bean.Shenpi;
-import com.ytint.wloaa.bean.ShenpiInfoList;
+import com.ytint.wloaa.bean.Task;
+import com.ytint.wloaa.bean.TaskInfoList;
 import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.widget.AbPullListView;
 
@@ -55,7 +55,7 @@ import com.ytint.wloaa.widget.AbPullListView;
 public class AllListActivity extends AbActivity {
 	Context context = null;
 	private MyApplication application;
-	private List<Shenpi> shenpiList = new ArrayList<Shenpi>();
+	private List<Task> shenpiList = new ArrayList<Task>();
 	private AbImageDownloader mAbImageDownloader = null;
 	private ShenpiListAdapter listItemAdapter;
 	private int status;//0所有 1已完成 2未完成
@@ -152,9 +152,9 @@ public class AllListActivity extends AbActivity {
 			@Override
 			public void onSuccess(int statusCode, String content) {
 				try {
-					ShenpiInfoList gList = ShenpiInfoList.parseJson(content);
+					TaskInfoList gList = TaskInfoList.parseJson(content);
 					if (gList.code == 200) {
-						 List<Shenpi> tempList = gList.getInfo();
+						 List<Task> tempList = gList.getInfo();
 						 if (tempList != null && tempList.size() > 0) {
 							 shenpiList.addAll(tempList);
 							 listItemAdapter.notifyDataSetChanged();
@@ -220,7 +220,7 @@ public class AllListActivity extends AbActivity {
 			public void onSuccess(int statusCode, String content) {
 				Log.d(TAG, content);
 				try {
-					ShenpiInfoList gList = ShenpiInfoList.parseJson(content);
+					TaskInfoList gList = TaskInfoList.parseJson(content);
 					if (gList.code == 200) {
 						shenpiList = gList.getInfo();
 						listItemAdapter.notifyDataSetChanged();
@@ -375,7 +375,7 @@ public class AllListActivity extends AbActivity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			Shenpi news = shenpiList.get(position);
+			Task news = shenpiList.get(position);
 
 			TextView frompeo = null;
 			TextView timeView = null;

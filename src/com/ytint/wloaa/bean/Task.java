@@ -7,7 +7,7 @@ package com.ytint.wloaa.bean;
  * @author wlj
  * @date 2015-6-12上午10:33:53
  */
-public class Shenpi implements java.io.Serializable{
+public class Task implements java.io.Serializable{
 	public Integer id;//doc的索引
 	public Integer apply_user_id;//申请人编号
 	public String apply_user_name;//申请人名称
@@ -43,5 +43,9 @@ public class Shenpi implements java.io.Serializable{
 	public String create_time_string;
 	
 	public String project_name;
+	
+	public Integer reply_task_id = 0;//回复任务编号，0为首发任务
+	public Integer if_open = 0;//是否公开，0：不公开；1：公开；如果当前任务是回复任务，则同时将其回复的任务也公开
+
 
 }
