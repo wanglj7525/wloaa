@@ -26,6 +26,7 @@ public class Task implements java.io.Serializable{
 	public String second_verify_time;// 二级批准审核时间
 	
 	public String name;
+	public String create_user_id;
 	public String create_user_name;
 	public String receive_user_id;
 	public String receive_user_name;
@@ -47,5 +48,7 @@ public class Task implements java.io.Serializable{
 	public Integer reply_task_id = 0;//回复任务编号，0为首发任务
 	public Integer if_open = 0;//是否公开，0：不公开；1：公开；如果当前任务是回复任务，则同时将其回复的任务也公开
 
+	public Integer if_receive_user = 0;//是否是接收人，用于判断是否可以回复,0:不是；1：是
+	public Integer if_open_power = 0;//是否有公开权限，只有自己发送或接收的科室领导才能公开。
 
 }

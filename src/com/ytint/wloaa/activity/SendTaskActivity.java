@@ -94,6 +94,8 @@ public class SendTaskActivity extends AbActivity {
 	private List<Project> projects;
 	private int from;
 	private int reply_task_id=0;
+	private String reply_task_name="";
+	private String reply_task_topeople="";
 
 	Context context = null;
 	private String loginKey;
@@ -212,7 +214,11 @@ public class SendTaskActivity extends AbActivity {
 				+ application.getProperty("PORT");
 		Intent intent = getIntent();
 		from = Integer.parseInt(intent.getExtras().get("from").toString());
-		reply_task_id = Integer.parseInt(intent.getExtras().get("reply_task_id").toString());
+		if (from>=3) {
+			reply_task_id = Integer.parseInt(intent.getExtras().get("reply_task_id").toString());
+			reply_task_name = intent.getExtras().get("reply_task_name").toString();
+			reply_task_topeople = intent.getExtras().get("reply_task_topeople").toString();
+		}
 
 		setAbContentView(R.layout.layout_addtask);
 		context = SendTaskActivity.this;
@@ -237,8 +243,12 @@ public class SendTaskActivity extends AbActivity {
 			titleBar.setTitle("工程任务");
 		} else if (from == 2) {
 			titleBar.setTitle("自定义任务");
-		}else if (from==3) {
+		}else if (from>=3) {
 			titleBar.setTitle("回复任务");
+			task_name.setText("回复："+reply_task_name);
+			//回复任务不用选择联系人
+			showTaskSelectPeople.setVisibility(View.GONE);
+			
 		}
 		titleBar.setTitleColor(Color.WHITE);
 		titleBar.setDividerColor(Color.GRAY);
@@ -246,7 +256,7 @@ public class SendTaskActivity extends AbActivity {
 		initUi();
 		// 加载联系人下拉框
 		// loadPeoples();
-		if (from == 1) {
+		if (from == 1||from==3) {
 			loadProject();
 		}
 		// loadComapny();
@@ -532,42 +542,6 @@ public class SendTaskActivity extends AbActivity {
 				}
 			}
 		});
-//		addVoicereport.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View arg0) {
-//				// 点击开始录音 再点击结束录音
-//			}
-//		});
-//		// 添加录音
-//		addVoicereport.setOnTouchListener(new OnTouchListener() {
-//			@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//				// if (commitId.equals("0")) {
-//				// Toast.makeText(getApplicationContext(), "请先保存上面的信息", 0)
-//				// .show();
-//				// } else {
-//				switch (event.getAction()) {
-//				case MotionEvent.ACTION_DOWN:
-//					if (mVoicesList.size() >= 1) {
-//						Toast.makeText(getApplicationContext(), "只能上传一个录音", 0)
-//								.show();
-//					} else {
-//						startVoice();
-//					}
-//					break;
-//				case MotionEvent.ACTION_UP:
-//					if (mVoicesList.size() >= 1) {
-//					} else {
-//						stopVoice();
-//					}
-//					break;
-//				default:
-//					break;
-//				}
-//				// }
-//				return false;
-//			}
-//		});
 
 		OnClickListener keyboard_hide = new OnClickListener() {
 
@@ -583,21 +557,10 @@ public class SendTaskActivity extends AbActivity {
 
 		task_people.setText(userName);
 		task_tell.setText(phone);
-		if (from == 2||from==3) {
+		if (from == 2||from==4) {
 			showProgect.setVisibility(View.GONE);
 			projectId = "-1";
 		}
-	}
-
-	private void alert() {
-		Dialog dialog = new AlertDialog.Builder(this).setTitle("提示")
-				.setMessage("您选择的不是有效的图片")
-				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						srcPath = null;
-					}
-				}).create();
-		dialog.show();
 	}
 
 	@Override
@@ -652,38 +615,6 @@ public class SendTaskActivity extends AbActivity {
 					setImageGrideValue();
 				}
 				break;
-			// case 11:
-			// Uri uri = data.getData();
-			// Log.e(TAG, "uri = " + uri);
-			// try {
-			// String[] pojo = { MediaStore.Images.Media.DATA };
-			// Cursor cursor = managedQuery(uri, pojo, null, null, null);
-			// if (cursor != null) {
-			// ContentResolver cr = this.getContentResolver();
-			// int colunm_index = cursor
-			// .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-			// cursor.moveToFirst();
-			// String path = cursor.getString(colunm_index);
-			// /***
-			// * 这里加这样一个判断主要是为了第三方的软件选择，比如：使用第三方的文件管理器的话，
-			// * 你选择的文件就不一定是图片了， 这样的话，我们判断文件的后缀名 如果是图片格式的话，那么才可以
-			// */
-			// if (path.endsWith("jpg") || path.endsWith("png")) {
-			// srcPath = path;
-			// imagelist.add(srcPath);
-			// Log.e(TAG, "srcPath = " + srcPath);
-			// setImageGrideValue();
-			// } else {
-			// alert();
-			// }
-			// } else {
-			// alert();
-			// }
-			//
-			// } catch (Exception e) {
-			// e.printStackTrace();
-			// }
-			// break;
 			case 12:
 				// 相机拍照
 				File image = FileHelper.scal(path + fileName);
@@ -716,18 +647,22 @@ public class SendTaskActivity extends AbActivity {
 			UIHelper.ToastMessage(context, "请输入内容");
 			return;
 		}
-		for (int i = 0; i < userlist.size(); i++) {
-			peopleId += userlist.get(i) + ",";
-		}
-		if (peopleId.length() > 0) {
-			peopleId = peopleId.substring(0, peopleId.length() - 1);
-		} else {
-			UIHelper.ToastMessage(context, "请选择联系人");
-			return;
-		}
 		// 发送消息
 		AbRequestParams params = new AbRequestParams();
-		params.put("receive_user_ids", peopleId);
+		if (from>=3) {
+			params.put("receive_user_ids", reply_task_topeople);
+		}else{
+			for (int i = 0; i < userlist.size(); i++) {
+				peopleId += userlist.get(i) + ",";
+			}
+			if (peopleId.length() > 0) {
+				peopleId = peopleId.substring(0, peopleId.length() - 1);
+			} else {
+				UIHelper.ToastMessage(context, "请选择联系人");
+				return;
+			}
+			params.put("receive_user_ids", peopleId);
+		}
 		params.put("receive_type", "2");// receive_type
 		// 接受用户类型，主要针对科长发布公告，0：本科室；1：全部；2：指定人（具体接收人在receive_user_ids中指明）
 		params.put("taskInfo.reply_task_id", reply_task_id+"");
@@ -747,7 +682,6 @@ public class SendTaskActivity extends AbActivity {
 		params.put("taskInfo.department_id", department_id);
 		params.put("taskInfo.status", "0");
 		System.out.println(params.toString());
-		Log.e(TAG, String.format("%s?%s", host + URLs.ADDSHENPI, params));
 		mAbHttpUtil.post(host + URLs.ADDRS, params,
 				new AbStringHttpResponseListener() {
 					@Override

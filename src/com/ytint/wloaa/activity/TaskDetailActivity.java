@@ -40,6 +40,7 @@ import com.ytint.wloaa.app.UIHelper;
 import com.ytint.wloaa.bean.Task;
 import com.ytint.wloaa.bean.TaskInfo;
 import com.ytint.wloaa.bean.URLs;
+import com.ytint.wloaa.fragment.TaskFragment;
 import com.ytint.wloaa.widget.TitleBar;
 
 public class TaskDetailActivity extends AbActivity {
@@ -107,6 +108,8 @@ public class TaskDetailActivity extends AbActivity {
 	private int from;
 	private int reply_from=1;
 	Integer shenpi_id;
+	String shenpi_name;
+	String shenpi_topeople;
 	private Task shenpi = new Task();
 
 	@Override
@@ -169,6 +172,8 @@ public class TaskDetailActivity extends AbActivity {
 						SendTaskActivity.class);
 				intent.putExtra("from", reply_from+2);
 				intent.putExtra("reply_task_id", shenpi_id.toString());
+				intent.putExtra("reply_task_name", shenpi_name);
+				intent.putExtra("reply_task_topeople", shenpi_topeople);
 				startActivity(intent);
 			}
 		});
@@ -195,7 +200,7 @@ public class TaskDetailActivity extends AbActivity {
 						try {
 							TaskInfo gList = TaskInfo.parseJson(content);
 							if (gList.code == 200) {
-								UIHelper.ToastMessage(context, "任务公开");
+								UIHelper.ToastMessage(context, "任务已公开");
 								// task_finish.setVisibility(View.GONE);
 							} else {
 								UIHelper.ToastMessage(context, gList.msg);
@@ -238,20 +243,22 @@ public class TaskDetailActivity extends AbActivity {
 			showToast("请检查网络连接");
 			return;
 		}
-		String url=host + URLs.SHENPIDETAIL + "?id=" + shenpi_id;
-		Log.d(TAG, url);
+		String url=host + URLs.SHENPIDETAIL + "?id=" + shenpi_id+"&user_id="+loginKey;
+		Log.i(TAG, url);
 		mAbHttpUtil.get(url,
 				new AbStringHttpResponseListener() {
 					// 获取数据成功会调用这里
 					@Override
 					public void onSuccess(int statusCode, String content) {
-						Log.d(TAG, content);
+						Log.i(TAG, content);
 						try {
 
 							TaskInfo gList = TaskInfo.parseJson(content);
 							if (gList.code == 200) {
 								shenpi = gList.getInfo();
 								task_name_detail.setText(shenpi.name);
+								shenpi_name=shenpi.name;
+								shenpi_topeople=shenpi.create_user_id;
 								task_create.setText(shenpi.create_user_name);
 								task_project.setText(shenpi.project_name);
 								if (shenpi.task_type==2) {
@@ -262,15 +269,15 @@ public class TaskDetailActivity extends AbActivity {
 								taskForwardInfo.setText(shenpi.taskForwardInfo);
 								taskRemarkInfo.setText(shenpi.remark);
 								
-								if (loginKey.equals(shenpi.receive_user_id+"")) {
-									System.out.println("发给自己的");
 									//发给自己的任务 区分 是局长或者副局长 显示公开按钮  是科员或者科长显示回复按钮
-									if (userType.equals("0")||userType.equals("1")||userType.equals("2")) {
-										//局长 副局长 管理员
-										task_open.setVisibility(View.VISIBLE);
-									}else{
-										//科长科员
+								if (userType.equals("0")||userType.equals("1")||userType.equals("2")) {
+									//、管理员，局长、副局长
+								}else{
+									if (shenpi.if_receive_user==1) {
 										task_reply.setVisibility(View.VISIBLE);
+									}
+									if (shenpi.if_open_power==1) {
+										task_open.setVisibility(View.VISIBLE);
 									}
 								}
 								
