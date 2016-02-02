@@ -260,7 +260,7 @@ public class LoginActivity extends AbActivity {
 			return;
 		}
 		String a = host + URLs.LOGINURL;
-		System.out.println(a);
+		System.out.println(a+"?"+params);
 		mAbHttpUtil.post(host + URLs.LOGINURL, params,
 				new AbStringHttpResponseListener() {
 

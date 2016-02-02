@@ -137,7 +137,7 @@
                     android:id="@+id/textViewAddZhiliangReportShangbaoName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="上报人员"
+                    android:text="发布者"
                     android:textColor="@color/content"
                     android:textSize="18dp" />
 
@@ -457,7 +457,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="0.43"
-                    android:text="保存" />
+                    android:text="发布" />
 
                 <Button
                     android:id="@+id/reportcancel"
