@@ -23,6 +23,7 @@ public class TaskFragment extends Fragment {
 	private MyApplication application;
 	private String userType;
 	private String departmentId;
+	private int if_task_power;
 	public TaskFragment(){}
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,6 +33,7 @@ public class TaskFragment extends Fragment {
         application = (MyApplication) getActivity().getApplication();
         userType = application.getProperty("userType");
         departmentId = application.getProperty("department_id");
+        if_task_power =Integer.parseInt(application.getProperty("if_task_power"));
         findView(rootView);
         return rootView;
     }
@@ -94,6 +96,11 @@ public class TaskFragment extends Fragment {
 				startActivity(intent);
 			}
 		});
+		if (if_task_power==0) {
+			//只有质检站、安监站、监察大队、局领导的成员，才能点击这两个按钮，其他人员不能操作工程任务和工程列表。
+			button1.setVisibility(View.GONE);
+			button4.setVisibility(View.GONE);
+		}
 	}
 	
 }

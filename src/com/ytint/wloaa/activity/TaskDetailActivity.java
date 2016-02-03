@@ -62,6 +62,8 @@ public class TaskDetailActivity extends AbActivity {
 	HorizontalScrollView horizontalScrollView_voicelist_detail;
 	@AbIocView(id=R.id.task_open)
 	Button task_open;
+	@AbIocView(id=R.id.task_close)
+	Button task_close;
 	@AbIocView(id=R.id.task_reply)
 	Button task_reply;
 	/** 语音列表 */
@@ -160,7 +162,15 @@ public class TaskDetailActivity extends AbActivity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				openTask();
+				openTask("1");
+			}
+		});
+		
+		task_close.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				openTask("0");
 			}
 		});
 		
@@ -180,7 +190,7 @@ public class TaskDetailActivity extends AbActivity {
 	}
 
 	@SuppressLint("NewApi")
-	private void openTask() {
+	private void openTask(final String if_open) {
 		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
 		String loginKey = application.getProperty("loginKey");
 		if (!application.isNetworkConnected()) {
@@ -191,6 +201,8 @@ public class TaskDetailActivity extends AbActivity {
 		AbRequestParams params = new AbRequestParams();
 		params.put("task_id", shenpi_id.toString());
 		params.put("user_id", loginKey);
+		params.put("if_open", if_open);
+		Log.i(TAG,host + URLs.OPEN+"?"+ params);
 		mAbHttpUtil.post(host + URLs.OPEN, params,
 				new AbStringHttpResponseListener() {
 					// 获取数据成功会调用这里
@@ -200,7 +212,15 @@ public class TaskDetailActivity extends AbActivity {
 						try {
 							TaskInfo gList = TaskInfo.parseJson(content);
 							if (gList.code == 200) {
-								UIHelper.ToastMessage(context, "任务已公开");
+								if (if_open.equals("1")) {
+									UIHelper.ToastMessage(context, "任务已公开");
+									task_close.setVisibility(View.VISIBLE);
+									task_open.setVisibility(View.GONE);
+								}else{
+									UIHelper.ToastMessage(context, "任务已取消公开");
+									task_open.setVisibility(View.VISIBLE);
+									task_close.setVisibility(View.GONE);
+								}
 								// task_finish.setVisibility(View.GONE);
 							} else {
 								UIHelper.ToastMessage(context, gList.msg);
@@ -269,15 +289,22 @@ public class TaskDetailActivity extends AbActivity {
 								taskForwardInfo.setText(shenpi.taskForwardInfo);
 								taskRemarkInfo.setText(shenpi.remark);
 								
-									//发给自己的任务 区分 是局长或者副局长 显示公开按钮  是科员或者科长显示回复按钮
+									//发给自己的任务 区分 是科长显示公开按钮  是科员或者科长显示回复按钮
 								if (userType.equals("0")||userType.equals("1")||userType.equals("2")) {
 									//、管理员，局长、副局长
 								}else{
 									if (shenpi.if_receive_user==1) {
+										//科长 科员显示回复按钮
 										task_reply.setVisibility(View.VISIBLE);
 									}
 									if (shenpi.if_open_power==1) {
-										task_open.setVisibility(View.VISIBLE);
+										if (shenpi.if_open==0) {
+											//没有公开 显示公开按钮
+											task_open.setVisibility(View.VISIBLE);
+										}else{
+											//已经公开 显示取消公开按钮
+											task_close.setVisibility(View.VISIBLE);
+										}
 									}
 								}
 								

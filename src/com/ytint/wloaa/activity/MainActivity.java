@@ -109,6 +109,13 @@ public class MainActivity extends BaseActivity {
 		isLogin = application.getProperty("is_login");
 		userType = application.getProperty("userType");
 		departmentId = application.getProperty("departmentId");
+		String if_task_power=application.getProperty("if_task_power");
+		if (null==if_task_power) {
+			//没有取到权限 需要重新登录
+			Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+			startActivity(intent);
+			return;
+		}
 		host=URLs.HTTP+application.getProperty("HOST")+":"+application.getProperty("PORT");
 		if (isLogin==null) {
 			//未登录
