@@ -94,7 +94,7 @@
                     android:id="@+id/textViewShenpiDetailShangbaoren"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="发布人"
+                    android:text="发  布  人"
                     android:textColor="@color/content"
                     android:textSize="18dp" />
 

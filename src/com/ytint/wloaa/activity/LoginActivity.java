@@ -297,7 +297,6 @@ public class LoginActivity extends AbActivity {
 								application.setProperty("phone", phone);
 								application.setProperty("if_task_power", if_task_power);
 								// 跳转到首页
-
 								Intent intent = new Intent(LoginActivity.this,
 										MainActivity.class);
 								LoginActivity.this.startActivity(intent);

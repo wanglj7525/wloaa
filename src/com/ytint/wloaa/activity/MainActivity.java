@@ -191,8 +191,12 @@ public class MainActivity extends BaseActivity {
 		FragmentTransaction ft = fm.beginTransaction();
 		ft.add(R.id.showContentFrame, fragment1).commit();
 		initUi();
-		Timer timer = new Timer();  
-		timer.scheduleAtFixedRate(new Mytack(), 1, 10000);  
+		if (URLs.timer!= null) {  
+			URLs.timer.cancel();  
+			URLs.timer = null;  
+        }  
+		URLs.timer = new Timer();  
+		URLs.timer.scheduleAtFixedRate(new Mytack(), 1, 10000);  
 		// 检查版本
 		initLocalVersion();
 		if (showUpdate) {

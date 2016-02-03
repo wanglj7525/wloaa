@@ -2,6 +2,7 @@ package com.ytint.wloaa.bean;
 
 import java.io.Serializable;
 import java.net.URLEncoder;
+import java.util.Timer;
 
 import com.ytint.wloaa.app.MyApplication;
 
@@ -84,6 +85,8 @@ public class URLs implements Serializable {
 	public  static String PASSWORD = URL_API_HOST + "api/user/update_user_password";
 
 	public  static String GETVERSION = URL_API_HOST+ "api/version/get_version_info";
+	
+	public static Timer timer=new Timer();
 	/**
 	 * 对URL进行格式处理
 	 * 
