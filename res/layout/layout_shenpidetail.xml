@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/shenpi_detail_full"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical" >
@@ -322,6 +322,60 @@
                     </LinearLayout>
                 </HorizontalScrollView>
             </LinearLayout>
+            <LinearLayout
+            android:id="@+id/showtopeopletask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已读："
+                android:textColor="@color/darkgray"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/task_topeople"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingBottom="@dimen/list_item_title_bottom"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:paddingTop="@dimen/list_item_padding_top"
+                android:singleLine="false"
+                android:text=""
+                android:textColor="@color/gray"
+                android:textSize="16dip" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/showtounpeopletask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="未读："
+                android:textColor="@color/darkgray"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/taskun_topeople"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingBottom="@dimen/list_item_title_bottom"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:paddingTop="@dimen/list_item_padding_top"
+                android:singleLine="false"
+                android:text=""
+                android:textColor="@color/gray"
+                android:textSize="16dip" />
+        </LinearLayout>
         <Button
             android:id="@+id/task_reply"
             android:layout_width="match_parent"

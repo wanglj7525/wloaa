@@ -13,6 +13,7 @@ import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.service.PushService;
 
+import com.ytint.wloaa.activity.TaskDetailActivity;
 import com.ytint.wloaa.activity.XiaoxGaoListActivity;
 import com.ytint.wloaa.activity.XiaoxiShowActivity;
 import com.ytint.wloaa.app.MyApplication;
@@ -118,11 +119,20 @@ public class MyReceiver extends BroadcastReceiver {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			Intent i = new Intent(context, XiaoxiShowActivity.class);
-			i.putExtra("message_id", docId);
-			i.putExtra("from", from);
-			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			context.startActivity(i);
+			if (from.equals("5")) {
+				//任务推送
+				Intent i = new Intent(context, TaskDetailActivity.class);
+				i.putExtra("shenpi_id", docId);
+				i.putExtra("from", from);
+				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				context.startActivity(i);
+			}else{
+				Intent i = new Intent(context, XiaoxiShowActivity.class);
+				i.putExtra("message_id", docId);
+				i.putExtra("from", from);
+				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				context.startActivity(i);
+			}
 
 		} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent
 				.getAction())) {

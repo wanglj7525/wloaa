@@ -103,7 +103,15 @@ public class TaskDetailActivity extends AbActivity {
 	HorizontalScrollView scrollView_image;
 	@AbIocView(id = R.id.gridView_image)
 	GridView gridView_image;
-
+	
+	@AbIocView(id = R.id.task_topeople)
+	TextView task_topeople;
+	@AbIocView(id = R.id.taskun_topeople)
+	TextView taskun_topeople;
+	@AbIocView(id = R.id.showtopeopletask)
+	LinearLayout showtopeopletask;
+	@AbIocView(id = R.id.showtounpeopletask)
+	LinearLayout showtounpeopletask;
 	// @AbIocView(id=R.id.task_finish)
 	// Button task_finish;
 	private String userType;
@@ -292,6 +300,8 @@ public class TaskDetailActivity extends AbActivity {
 									//发给自己的任务 区分 是科长显示公开按钮  是科员或者科长显示回复按钮
 								if (userType.equals("0")||userType.equals("1")||userType.equals("2")) {
 									//、管理员，局长、副局长
+									showtopeopletask.setVisibility(View.GONE);
+									showtounpeopletask.setVisibility(View.GONE);
 								}else{
 									if (shenpi.if_receive_user==1) {
 										//科长 科员显示回复按钮
@@ -305,6 +315,15 @@ public class TaskDetailActivity extends AbActivity {
 											//已经公开 显示取消公开按钮
 											task_close.setVisibility(View.VISIBLE);
 										}
+									}
+									
+									if (loginKey.equals(shenpi.create_user_id + "")) {
+											//公告发送者可以查看 已读 未读人信息
+											task_topeople.setText(shenpi.receive_user_names.length()==0?"无":shenpi.receive_user_names);
+											taskun_topeople.setText(shenpi.unreceive_user_names.length()==0?"无":shenpi.unreceive_user_names);
+									}else{
+										showtopeopletask.setVisibility(View.GONE);
+										showtounpeopletask.setVisibility(View.GONE);
 									}
 								}
 								

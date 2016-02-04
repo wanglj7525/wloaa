@@ -50,5 +50,11 @@ public class Task implements java.io.Serializable{
 
 	public Integer if_receive_user = 0;//是否是接收人，用于判断是否可以回复,0:不是；1：是
 	public Integer if_open_power = 0;//是否有公开权限，只有自己发送或接收的科室领导才能公开。
+	
+	
+	public String receive_user_ids;
+	public String receive_user_names;
+	public String unreceive_user_names;
+	public String unreceive_user_ids;
 
 }
