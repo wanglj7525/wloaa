@@ -146,7 +146,8 @@ public class TaskDetailActivity extends AbActivity {
 		setAbContentView(R.layout.layout_shenpidetail);
 		context = TaskDetailActivity.this;
 		userType = application.getProperty("userType");
-		shenpi_id = intent.getIntExtra("shenpi_id", 0);
+		// shenpi_id = intent.getIntExtra("shenpi_id", 0);
+		shenpi_id = Integer.parseInt(intent.getExtras().get("shenpi_id").toString());
 		scrollView_image.setHorizontalScrollBarEnabled(true);
 
 		AbTitleBar mAbTitleBar = this.getTitleBar();
