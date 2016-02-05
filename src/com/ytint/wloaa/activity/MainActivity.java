@@ -82,6 +82,8 @@ public class MainActivity extends BaseActivity {
 	String host="";
 	int news=0;
 	int news0=0;
+	int newstask=0;
+	BadgeView taskbadgeView ;
 	BadgeView badgeView ;
 	BadgeView badgeView0 ;
 	@Override
@@ -130,6 +132,7 @@ public class MainActivity extends BaseActivity {
 		}
 		badgeView = new BadgeView(this);
 		badgeView0 = new BadgeView(this);
+		taskbadgeView = new BadgeView(this);
 		main_show_keshi_rela=(RelativeLayout)findViewById(R.id.main_show_keshi_rela);
 		main_show_gonggao_rela=(RelativeLayout)findViewById(R.id.main_show_gonggao_rela);
 		main_show_xiaoxi_rela=(RelativeLayout)findViewById(R.id.main_show_xiaoxi_rela);
@@ -228,6 +231,8 @@ public class MainActivity extends BaseActivity {
 						badgeView0.setHideOnZero(news0);
 						news=infoJsonObject.getInt("xx");
 						badgeView.setHideOnZero(news);
+						newstask=infoJsonObject.getInt("rw");
+						taskbadgeView.setHideOnZero(newstask);
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -347,6 +352,10 @@ public class MainActivity extends BaseActivity {
 		badgeView0.setTargetView(main_show_gonggao_rela);
 		badgeView0.setHideOnZero(news);
 		badgeView0.setBadgeMargin(50, 20, 10, 40);
+		
+		taskbadgeView.setTargetView(main_show_keshi_rela);
+		taskbadgeView.setHideOnZero(news);
+		taskbadgeView.setBadgeMargin(50, 20, 10, 40);
 		
 	}
 	public void initLocalVersion() {

@@ -56,5 +56,6 @@ public class Task implements java.io.Serializable{
 	public String receive_user_names;
 	public String unreceive_user_names;
 	public String unreceive_user_ids;
+	public int if_read;
 
 }

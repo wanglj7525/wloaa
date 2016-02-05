@@ -26,17 +26,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
-import cn.trinea.android.common.service.impl.ImageCache;
-import cn.trinea.android.common.util.CacheManager;
 
 import com.ab.activity.AbActivity;
 import com.ab.bitmap.AbImageDownloader;
-import com.ab.global.AbConstant;
 import com.ab.http.AbHttpUtil;
 import com.ab.http.AbStringHttpResponseListener;
 import com.ab.util.AbStrUtil;
@@ -44,6 +39,7 @@ import com.ab.view.ioc.AbIocView;
 import com.ab.view.listener.AbOnListViewListener;
 import com.ytint.wloaa.R;
 import com.ytint.wloaa.activity.TaskDetailActivity.ViewHolder;
+import com.ytint.wloaa.activity.TaskListActivity.ShenpiListAdapter.ListViewHolder;
 import com.ytint.wloaa.app.Constants;
 import com.ytint.wloaa.app.MyApplication;
 import com.ytint.wloaa.app.UIHelper;
@@ -381,6 +377,13 @@ public class TaskListActivity extends AbActivity {
 						intent.putExtra("shenpi_id", shenpi_id);
 						intent.putExtra("from", from);
 						System.out.println(intent.getIntExtra("shenpi_id", 0));
+						//未读的信息 点击后 更新列表 为已读
+						if (shenpiList.get(index - 1).if_read==0) {
+							ListViewHolder vHollder = (ListViewHolder) arg1.getTag();
+							String titleshow=vHollder.frompeo.getText().toString();
+							vHollder.frompeo.setText(Html.fromHtml(titleshow.replace("【未读】", "")));
+							shenpiList.get(index - 1).if_read=1;
+						}
 						startActivity(intent);
 
 					}
@@ -431,37 +434,46 @@ public class TaskListActivity extends AbActivity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			Task news = shenpiList.get(position);
-
-			TextView frompeo = null;
-			TextView timeView = null;
-			TextView topeo = null;
-			GridView gridView_image_list = null;
-
-			convertView = mInflater.inflate(
-					R.layout.listitem_shenpilist_noimage, null);
-			frompeo = (TextView) convertView.findViewById(R.id.apply_user_name);
-			topeo = (TextView) convertView
-					.findViewById(R.id.first_verify_user_name);
-			gridView_image_list = (GridView) convertView
-					.findViewById(R.id.gridView_image_list);
-			if (news.attachment_simp == "" && news.media == "") {
-				gridView_image_list.setVisibility(View.GONE);
-			}
-			timeView = (TextView) convertView
-					.findViewById(R.id.shenpi_create_time);
-			String html = "【";
-			if(news.task_type==1){
-				html += "工程任务】 ";
+			ListViewHolder holder = null;
+			if (convertView == null) {
+				holder = new ListViewHolder();
+				convertView = mInflater.inflate(
+						R.layout.listitem_shenpilist_noimage, null);
+				holder.frompeo = (TextView) convertView.findViewById(R.id.apply_user_name);
+				holder.topeo = (TextView) convertView.findViewById(R.id.first_verify_user_name);
+				holder.timeView = (TextView) convertView.findViewById(R.id.shenpi_create_time);
+				holder.gridView_image_list = (GridView) convertView
+						.findViewById(R.id.gridView_image_list);
+				convertView.setTag(holder);
 			}else{
-				html += "自定义任务】 ";
+				holder = (ListViewHolder) convertView.getTag();
 			}
-//			if (from == 1) {
-//				html += "质量检查】 ";
-//			} else if (from == 2) {
-//				html += "安全检查】";
-//			} else {
-//				html += "执法管理】";
-//			}
+//			TextView frompeo = null;
+//			TextView timeView = null;
+//			TextView topeo = null;
+//			GridView gridView_image_list = null;
+//
+//			convertView = mInflater.inflate(
+//					R.layout.listitem_shenpilist_noimage, null);
+//			frompeo = (TextView) convertView.findViewById(R.id.apply_user_name);
+//			topeo = (TextView) convertView
+//					.findViewById(R.id.first_verify_user_name);
+//			gridView_image_list = (GridView) convertView
+//					.findViewById(R.id.gridView_image_list);
+			if (news.attachment_simp == "" && news.media == "") {
+				holder.gridView_image_list.setVisibility(View.GONE);
+			}
+//			timeView = (TextView) convertView
+//					.findViewById(R.id.shenpi_create_time);
+			String html = "";
+			if (news.if_read==0) {
+				html += "<font color='red'>【未读】</font>";
+			}
+			if(news.task_type==1){
+				html += "【工程任务】 ";
+			}else{
+				html += "【自定义任务】 ";
+			}
 			html += "<font color='#A00000'>" + news.create_user_name
 					+ "&nbsp;</font>" + news.name
 					+ "&nbsp;<font color='#505050'>" + news.company_name
@@ -477,27 +489,16 @@ public class TaskListActivity extends AbActivity {
 					flag1 -= 1;
 				}
 			}
-//			if (news.task_type == 1) {
 				html += "<font color='#6495ED'>" + flag1
 						+ "</font>图片，<font color='#6495ED'>" + flag2
 						+ "</font>视频，";
-//			}
 			if (news.media.length() > 0) {
 				flag3 = news.media.split(",").length;
 			}
 			html += "<font color='#6495ED'>" + flag3 + "</font>录音";
-			
-//			if (news.task_type==1) {
-//				if (news.status==2) {
-//					html += "<font color='red'>&nbsp;&nbsp;【未完成】</font>";
-//				}else{
-//					html += "<font color='green'>&nbsp;&nbsp;【已完成】</font>";
-//				}
-//			}
-			frompeo.setText(Html.fromHtml(html));
-			topeo.setText("发布人：" + news.create_user_name);
-			// abstr.setText(news.content);
-			timeView.setText("发布时间：" + news.create_time_string);
+			holder.frompeo.setText(Html.fromHtml(html));
+			holder.topeo.setText("发布人：" + news.create_user_name);
+			holder.timeView.setText("发布时间：" + news.create_time_string);
 			imageList = new ArrayList<String>();
 			if (news.attachment_simp != "") {
 				for (int i = 0; i < news.attachment_simp.split(",").length; i++) {
@@ -506,15 +507,21 @@ public class TaskListActivity extends AbActivity {
 				}
 			}
 			MAdapter mAdapter = new MAdapter(context);
-			gridView_image_list.setAdapter(mAdapter);
+			holder.gridView_image_list.setAdapter(mAdapter);
 			LayoutParams params = new LayoutParams(mAdapter.getCount()
 					* (120 + 10), LayoutParams.WRAP_CONTENT);
-			gridView_image_list.setLayoutParams(params);
-			gridView_image_list.setColumnWidth(120);
-			gridView_image_list.setHorizontalSpacing(10);
-			gridView_image_list.setStretchMode(GridView.NO_STRETCH);
-			gridView_image_list.setNumColumns(mAdapter.getCount());
+			holder.gridView_image_list.setLayoutParams(params);
+			holder.gridView_image_list.setColumnWidth(120);
+			holder.gridView_image_list.setHorizontalSpacing(10);
+			holder.gridView_image_list.setStretchMode(GridView.NO_STRETCH);
+			holder.gridView_image_list.setNumColumns(mAdapter.getCount());
 			return convertView;
+		}
+		public final class ListViewHolder {
+			TextView frompeo ;
+			GridView gridView_image_list;
+			TextView timeView ;
+			TextView topeo ;
 		}
 
 	}
