@@ -194,6 +194,8 @@ public class MainActivity extends BaseActivity {
 		FragmentTransaction ft = fm.beginTransaction();
 		ft.add(R.id.showContentFrame, fragment1).commit();
 		initUi();
+		
+		
 		if (URLs.timer!= null) {  
 			URLs.timer.cancel();  
 			URLs.timer = null;  
