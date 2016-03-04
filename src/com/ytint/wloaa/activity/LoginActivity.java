@@ -52,6 +52,7 @@ import com.ytint.wloaa.bean.URLs;
 import com.ytint.wloaa.bean.Version;
 import com.ytint.wloaa.bean.VersionInfo;
 import com.ytint.wloaa.service.AppUpgradeService;
+import com.ytint.wloaa.service.ServiceUpdateUI;
 import com.ytint.wloaa.utils.Crypto;
 
 /**
@@ -87,6 +88,11 @@ public class LoginActivity extends AbActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		// 启动服务  
+        Intent intent = new Intent(this, ServiceUpdateUI.class);  
+        stopService(intent); 
+		
 		application = (MyApplication) this.getApplication();
 		host = URLs.HTTP + application.getProperty("HOST") + ":"
 				+ application.getProperty("PORT");

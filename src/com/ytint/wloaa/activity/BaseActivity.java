@@ -1,11 +1,13 @@
 package com.ytint.wloaa.activity;
 
 import android.app.Application;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.ytint.wloaa.app.MyApplication;
+import com.ytint.wloaa.service.ServiceUpdateUI;
 import com.ytint.wloaa.widget.ExitActivityManger;
 
 public class BaseActivity extends FragmentActivity {
@@ -22,6 +24,11 @@ public class BaseActivity extends FragmentActivity {
 	            } else { 
 	            	application.IMAGE_CACHE.saveDataToDb(this, "wloaa");
 	            	ExitActivityManger.getInstance().finish();
+	            	
+	            	// 启动服务  
+	                Intent intent = new Intent(this, ServiceUpdateUI.class);  
+	                stopService(intent); 
+	            	
 //	                System.exit(0);//否则退出程序 
 	            	this.finish();
 	            } 

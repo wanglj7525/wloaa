@@ -4,16 +4,17 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Timer;
 import java.util.TimerTask;
 
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ import com.ytint.wloaa.fragment.ShezhiFragment;
 import com.ytint.wloaa.fragment.TaskFragment;
 import com.ytint.wloaa.fragment.XiaoxiFragment;
 import com.ytint.wloaa.service.AppUpgradeService;
+import com.ytint.wloaa.service.ServiceUpdateUI;
 
 public class MainActivity extends BaseActivity {
 
@@ -86,6 +88,12 @@ public class MainActivity extends BaseActivity {
 	BadgeView taskbadgeView ;
 	BadgeView badgeView ;
 	BadgeView badgeView0 ;
+	
+	//160304
+	 public static final String ACTION_UPDATEUI = "action.updateUI"; 
+	 public static final String HOSTURL = "action.updateUI"; 
+	 UpdateUIBroadcastReceiver broadcastReceiver;  
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -195,87 +203,130 @@ public class MainActivity extends BaseActivity {
 		ft.add(R.id.showContentFrame, fragment1).commit();
 		initUi();
 		
+		//160304
+		 // 动态注册广播  
+        IntentFilter filter = new IntentFilter();  
+        filter.addAction(ACTION_UPDATEUI);  
+        broadcastReceiver = new UpdateUIBroadcastReceiver();  
+        registerReceiver(broadcastReceiver, filter);  
+  
+        // 启动服务  
+        Intent intent = new Intent(this, ServiceUpdateUI.class);  
+        startService(intent); 
+        
+//        
+//		if (URLs.timer!= null) {  
+//			URLs.timer.cancel();  
+//			URLs.timer = null;  
+//        }  
+//		URLs.timer = new Timer();  
+//		URLs.timer.scheduleAtFixedRate(new Mytack(), 1, 10000);  
 		
-		if (URLs.timer!= null) {  
-			URLs.timer.cancel();  
-			URLs.timer = null;  
-        }  
-		URLs.timer = new Timer();  
-		URLs.timer.scheduleAtFixedRate(new Mytack(), 1, 10000);  
 		// 检查版本
 		initLocalVersion();
 		if (showUpdate) {
 			getNewVersion();
 		}
 	}
-	String TAG = "MainActivity";
-	protected void updateTitle() {  
-		//请求查询消息和公告的未读数量
-		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
-		mAbHttpUtil.setDebug(true);
-		if (!application.isNetworkConnected()) {
-			UIHelper.ToastMessage(context, "请检查网络连接");
-			return;
-		}
-		String url = String.format(
-				"%s?user_id=%s&notice_type=0",
-				host+URLs.NEWNUM, loginKey);
-		Log.d(TAG, url);
-		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
-			@Override
-			public void onSuccess(int statusCode, String content) {
-				Log.d(TAG, content);
-				try {
-					JSONObject myJsonObject = new JSONObject(content); 
-					JSONObject infoJsonObject=myJsonObject.getJSONObject("info");
-						//公告
-						news0=infoJsonObject.getInt("gg");
-						badgeView0.setHideOnZero(news0);
-						news=infoJsonObject.getInt("xx");
-						badgeView.setHideOnZero(news);
-						newstask=infoJsonObject.getInt("rw");
-						taskbadgeView.setHideOnZero(newstask);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
-			@Override
-			public void onFailure(int statusCode, String content,
-					Throwable error) {
-			}
-
-			@Override
-			public void onStart() {
-			}
-
-			// 完成后调用
-			@Override
-			public void onFinish() {
-			};
-		});
-
-		
-	}  
-    private Handler changeTitleHandler = new Handler() {  
+	
+	//160304
+	@Override
+	protected void onDestroy() {
+		 System.out.println("onDestroy");  
+        super.onDestroy();  
+        // 注销广播  
+        unregisterReceiver(broadcastReceiver);
+        // 启动服务  
+        Intent intent = new Intent(this, ServiceUpdateUI.class);  
+        stopService(intent); 
+	}
+	
+	 /** 
+     * 定义广播接收器（内部类） 
+     *  160304
+     *  
+     */  
+    private class UpdateUIBroadcastReceiver extends BroadcastReceiver {  
+  
         @Override  
-        public void handleMessage(Message msg) {  
-            switch (msg.what) {  
-            case 1:  
-                updateTitle();  
-                break;  
-            }  
+        public void onReceive(Context context, Intent intent) { 
+        	System.out.println("进入 UpdateUIBroadcastReceiver");
+			badgeView0.setHideOnZero(intent.getExtras().getInt("news0"));
+			badgeView.setHideOnZero(intent.getExtras().getInt("news"));
+			taskbadgeView.setHideOnZero(intent.getExtras().getInt("newstask"));
+//            textView.setText(String.valueOf(intent.getExtras().getInt("count")));  
         }  
-    };  
-    private class Mytack extends TimerTask {// public abstract class TimerTask implements Runnable{}  
-        @Override  
-        public void run() {  
-            Message msg = new Message();  
-            msg.what = 1;  
-            changeTitleHandler.sendMessage(msg);  
-        }  
+  
     }  
+    
+//	String TAG = "MainActivity";
+//	protected void updateTitle() {  
+//		//请求查询消息和公告的未读数量
+//		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+//		mAbHttpUtil.setDebug(true);
+//		if (!application.isNetworkConnected()) {
+//			UIHelper.ToastMessage(context, "请检查网络连接");
+//			return;
+//		}
+//		String url = String.format(
+//				"%s?user_id=%s&notice_type=0",
+//				host+URLs.NEWNUM, loginKey);
+//		Log.d(TAG, url);
+//		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
+//			@Override
+//			public void onSuccess(int statusCode, String content) {
+//				Log.d(TAG, content);
+//				try {
+//					JSONObject myJsonObject = new JSONObject(content); 
+//					JSONObject infoJsonObject=myJsonObject.getJSONObject("info");
+//						//公告
+//						news0=infoJsonObject.getInt("gg");
+//						badgeView0.setHideOnZero(news0);
+//						news=infoJsonObject.getInt("xx");
+//						badgeView.setHideOnZero(news);
+//						newstask=infoJsonObject.getInt("rw");
+//						taskbadgeView.setHideOnZero(newstask);
+//					
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//
+//			@Override
+//			public void onFailure(int statusCode, String content,
+//					Throwable error) {
+//			}
+//
+//			@Override
+//			public void onStart() {
+//			}
+//
+//			// 完成后调用
+//			@Override
+//			public void onFinish() {
+//			};
+//		});
+//
+//		
+//	}  
+//    private Handler changeTitleHandler = new Handler() {  
+//        @Override  
+//        public void handleMessage(Message msg) {  
+//            switch (msg.what) {  
+//            case 1:  
+//                updateTitle();  
+//                break;  
+//            }  
+//        }  
+//    };  
+//    private class Mytack extends TimerTask {// public abstract class TimerTask implements Runnable{}  
+//        @Override  
+//        public void run() {  
+//            Message msg = new Message();  
+//            msg.what = 1;  
+//            changeTitleHandler.sendMessage(msg);  
+//        }  
+//    }  
 	private void initUi(){
 		
 		OnClickListener relaClick = new OnClickListener() {
