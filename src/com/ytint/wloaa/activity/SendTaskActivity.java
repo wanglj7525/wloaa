@@ -573,19 +573,23 @@ public class SendTaskActivity extends AbActivity {
 				autolinefeedTaskView1.removeAllViews();
 				ArrayList<Map<String, Object>> userresult = (ArrayList<Map<String, Object>>) data
 						.getExtras().get("result");// 得到新Activity 关闭后返回的数据
+				System.out.println("userresult=="+userresult);
 				for (int i = 0; i < userresult.size(); i++) {
-					userlist.add(userresult.get(i).get("peopleid").toString());
-					final Button bt = new Button(context);
-					bt.setText(userresult.get(i).get("name").toString());
-					bt.setTag(userresult.get(i).get("peopleid").toString());
-					bt.setOnClickListener(new OnClickListener() {
-						@Override
-						public void onClick(View arg0) {
-							autolinefeedTaskView1.removeView(bt);
-							userlist.remove(bt.getTag());
-						}
-					});
-					autolinefeedTaskView1.addView(bt);
+					if(!userlist.contains(userresult.get(i).get("peopleid").toString())){
+						userlist.add(userresult.get(i).get("peopleid").toString());
+						final Button bt = new Button(context);
+						bt.setText(userresult.get(i).get("name").toString());
+						bt.setTag(userresult.get(i).get("peopleid").toString());
+						bt.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View arg0) {
+								autolinefeedTaskView1.removeView(bt);
+								userlist.remove(bt.getTag());
+							}
+						});
+						autolinefeedTaskView1.addView(bt);
+					}
+					
 				}
 				break;
 			case 20:
@@ -661,6 +665,7 @@ public class SendTaskActivity extends AbActivity {
 				UIHelper.ToastMessage(context, "请选择联系人");
 				return;
 			}
+			System.out.println("peopleId=="+peopleId);
 			params.put("receive_user_ids", peopleId);
 		}
 		params.put("receive_type", "2");// receive_type

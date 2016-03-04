@@ -220,18 +220,20 @@ public class SendXiaoGaoActivity extends AbActivity {
 				ArrayList<Map<String, Object>> result = (ArrayList<Map<String, Object>>) data
 						.getExtras().get("result");// 得到新Activity 关闭后返回的数据
 				for (int i = 0; i < result.size(); i++) {
-					userlist.add(result.get(i).get("peopleid").toString());
-					final Button bt = new Button(context);
-					bt.setText(result.get(i).get("name").toString());
-					bt.setTag(result.get(i).get("peopleid").toString());
-					bt.setOnClickListener(new OnClickListener() {
-						@Override
-						public void onClick(View arg0) {
-							autolinefeedView1.removeView(bt);
-							userlist.remove(bt.getTag());
-						}
-					});
-					autolinefeedView1.addView(bt);
+					if(!userlist.contains(result.get(i).get("peopleid").toString())){
+						userlist.add(result.get(i).get("peopleid").toString());
+						final Button bt = new Button(context);
+						bt.setText(result.get(i).get("name").toString());
+						bt.setTag(result.get(i).get("peopleid").toString());
+						bt.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View arg0) {
+								autolinefeedView1.removeView(bt);
+								userlist.remove(bt.getTag());
+							}
+						});
+						autolinefeedView1.addView(bt);
+					}
 				}
 				break;
 			default:
