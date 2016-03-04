@@ -34,6 +34,8 @@ public class ServiceUpdateUI extends Service {
 	int news0 = 0;
 	int newstask = 0;
 
+	long lasttime=System.currentTimeMillis();
+	
 	@Override
 	public IBinder onBind(Intent intent) {
 		return null;
@@ -47,23 +49,34 @@ public class ServiceUpdateUI extends Service {
 
 		final Intent intent = new Intent();
 		intent.setAction(MainActivity.ACTION_UPDATEUI);
-
+		
+		updatetitle();
+		intent.putExtra("news", news);
+		intent.putExtra("news0", news0);
+		intent.putExtra("newstask", newstask);
+		sendBroadcast(intent);
+		
 		timer = new Timer();
 		task = new TimerTask() {
 
 			@Override
 			public void run() {
-				updatetitle();
-				intent.putExtra("news", news);
-				intent.putExtra("news0", news0);
-				intent.putExtra("newstask", newstask);
-				sendBroadcast(intent);
+				long nowtime=System.currentTimeMillis();
+				if(nowtime/1000-lasttime/1000>=10){
+					updatetitle();
+					intent.putExtra("news", news);
+					intent.putExtra("news0", news0);
+					intent.putExtra("newstask", newstask);
+					sendBroadcast(intent);
+				}
+				
 			}
 		};
 		timer.schedule(task, 1, 10000);
 	}
 
 	public void updatetitle() {
+		lasttime=System.currentTimeMillis();
 		host = URLs.HTTP + application.getProperty("HOST") + ":"
 				+ application.getProperty("PORT");
 		System.out.println("host==="+host);
