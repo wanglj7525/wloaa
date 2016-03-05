@@ -34,7 +34,7 @@ public class ServiceUpdateUI extends Service {
 	int news0 = 0;
 	int newstask = 0;
 
-	long lasttime=System.currentTimeMillis();
+	long lasttime=System.currentTimeMillis()-10000;
 	
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -50,19 +50,17 @@ public class ServiceUpdateUI extends Service {
 		final Intent intent = new Intent();
 		intent.setAction(MainActivity.ACTION_UPDATEUI);
 		
-		updatetitle();
-		intent.putExtra("news", news);
-		intent.putExtra("news0", news0);
-		intent.putExtra("newstask", newstask);
-		sendBroadcast(intent);
-		
+		if (timer!= null) {  
+			timer.cancel();  
+			timer = null;  
+        }  
 		timer = new Timer();
 		task = new TimerTask() {
 
 			@Override
 			public void run() {
 				long nowtime=System.currentTimeMillis();
-				if(nowtime/1000-lasttime/1000>=10){
+				if((nowtime/1000-lasttime/1000)>=10){
 					updatetitle();
 					intent.putExtra("news", news);
 					intent.putExtra("news0", news0);
