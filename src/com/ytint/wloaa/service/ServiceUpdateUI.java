@@ -110,6 +110,7 @@ public class ServiceUpdateUI extends Service {
 			news0 = infoJsonObject.getInt("gg");
 			news = infoJsonObject.getInt("xx");
 			newstask = infoJsonObject.getInt("rw");
+			System.out.println(infoJsonObject+"222==="+news0+"==="+news+"==="+newstask);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("异常"+e);

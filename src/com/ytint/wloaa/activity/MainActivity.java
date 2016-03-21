@@ -289,6 +289,7 @@ public class MainActivity extends BaseActivity {
 						badgeView.setHideOnZero(news);
 						newstask=infoJsonObject.getInt("rw");
 						taskbadgeView.setHideOnZero(newstask);
+						System.out.println(infoJsonObject+"111==="+news0+"==="+news+"==="+newstask);
 					
 				} catch (Exception e) {
 					e.printStackTrace();
