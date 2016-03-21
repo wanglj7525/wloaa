@@ -98,6 +98,9 @@ public class MainActivity extends BaseActivity {
 	protected void onResume() {
 		super.onResume();
 		JPushInterface.onResume(this);
+		//更新未读数量
+		System.out.println("更新未读消息数量");
+		updateNoRead();
 	}
 
 	@Override
@@ -259,56 +262,56 @@ public class MainActivity extends BaseActivity {
   
     }  
     
-//	String TAG = "MainActivity";
-//	protected void updateTitle() {  
-//		//请求查询消息和公告的未读数量
-//		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
-//		mAbHttpUtil.setDebug(true);
-//		if (!application.isNetworkConnected()) {
-//			UIHelper.ToastMessage(context, "请检查网络连接");
-//			return;
-//		}
-//		String url = String.format(
-//				"%s?user_id=%s&notice_type=0",
-//				host+URLs.NEWNUM, loginKey);
-//		Log.d(TAG, url);
-//		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
-//			@Override
-//			public void onSuccess(int statusCode, String content) {
-//				Log.d(TAG, content);
-//				try {
-//					JSONObject myJsonObject = new JSONObject(content); 
-//					JSONObject infoJsonObject=myJsonObject.getJSONObject("info");
-//						//公告
-//						news0=infoJsonObject.getInt("gg");
-//						badgeView0.setHideOnZero(news0);
-//						news=infoJsonObject.getInt("xx");
-//						badgeView.setHideOnZero(news);
-//						newstask=infoJsonObject.getInt("rw");
-//						taskbadgeView.setHideOnZero(newstask);
-//					
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//
-//			@Override
-//			public void onFailure(int statusCode, String content,
-//					Throwable error) {
-//			}
-//
-//			@Override
-//			public void onStart() {
-//			}
-//
-//			// 完成后调用
-//			@Override
-//			public void onFinish() {
-//			};
-//		});
-//
-//		
-//	}  
+	String TAG = "MainActivity";
+	protected void updateNoRead() {  
+		//请求查询消息和公告的未读数量
+		final AbHttpUtil mAbHttpUtil = AbHttpUtil.getInstance(this);
+		mAbHttpUtil.setDebug(true);
+		if (!application.isNetworkConnected()) {
+			UIHelper.ToastMessage(context, "请检查网络连接");
+			return;
+		}
+		String url = String.format(
+				"%s?user_id=%s&notice_type=0",
+				host+URLs.NEWNUM, loginKey);
+		Log.d(TAG, url);
+		mAbHttpUtil.get(url, new AbStringHttpResponseListener() {
+			@Override
+			public void onSuccess(int statusCode, String content) {
+				Log.d(TAG, content);
+				try {
+					JSONObject myJsonObject = new JSONObject(content); 
+					JSONObject infoJsonObject=myJsonObject.getJSONObject("info");
+						//公告
+						news0=infoJsonObject.getInt("gg");
+						badgeView0.setHideOnZero(news0);
+						news=infoJsonObject.getInt("xx");
+						badgeView.setHideOnZero(news);
+						newstask=infoJsonObject.getInt("rw");
+						taskbadgeView.setHideOnZero(newstask);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			@Override
+			public void onFailure(int statusCode, String content,
+					Throwable error) {
+			}
+
+			@Override
+			public void onStart() {
+			}
+
+			// 完成后调用
+			@Override
+			public void onFinish() {
+			};
+		});
+
+		
+	}  
 //    private Handler changeTitleHandler = new Handler() {  
 //        @Override  
 //        public void handleMessage(Message msg) {  
