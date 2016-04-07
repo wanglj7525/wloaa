@@ -71,6 +71,7 @@
                 android:paddingTop="@dimen/list_item_padding_top"
                 android:singleLine="false"
                 android:text=""
+                android:textIsSelectable="true"
                 android:textColor="@color/listitem_black"
                 android:textSize="16dip" />
         </LinearLayout>
