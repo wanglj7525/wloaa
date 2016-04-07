@@ -1,170 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/addxiapai_full"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <com.ytint.wloaa.widget.TitleBar
-        android:id="@+id/title_bara"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/titlebar" >
-    </com.ytint.wloaa.widget.TitleBar>
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
-<LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="标题："
-                android:textColor="@color/content"
-                android:textSize="16dp" />
-
-            <TextView
-                android:id="@+id/msg_title"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:paddingBottom="@dimen/list_item_title_bottom"
-                android:paddingLeft="10dip"
-                android:paddingRight="10dip"
-                android:paddingTop="@dimen/list_item_padding_top"
-                android:singleLine="false"
-                android:text=""
-                android:textColor="@color/listitem_black"
-                android:textSize="16dip" />
-        </LinearLayout>
+        android:layout_height="fill_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical" >
 
         <LinearLayout
+            android:id="@+id/title_bara"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="48dp"
+            android:background="@color/titlebar" >
+
+            <RelativeLayout
+                android:id="@+id/addShenpi"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/back_green" >
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/showTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="内容："
-                android:textColor="@color/content"
-                android:textSize="16dp" />
+                android:layout_gravity="center_vertical|center_horizontal|center"
+                android:layout_weight="0.8"
+                android:gravity="center"
+                android:text="消息详情"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
 
-            <TextView
-                android:id="@+id/msg_content"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:paddingBottom="@dimen/list_item_title_bottom"
-                android:paddingLeft="10dip"
-                android:paddingRight="10dip"
-                android:paddingTop="@dimen/list_item_padding_top"
-                android:singleLine="false"
-                android:text=""
-                android:textIsSelectable="true"
-                android:textColor="@color/listitem_black"
-                android:textSize="16dip" />
+            <Button
+                android:id="@+id/zhuanfa"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/search"
+                android:text="" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="发送人："
-                android:textColor="@color/content"
-                android:textSize="16dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/msg_frompeople"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:paddingBottom="@dimen/list_item_title_bottom"
-                android:paddingLeft="10dip"
-                android:paddingRight="10dip"
-                android:paddingTop="@dimen/list_item_padding_top"
-                android:singleLine="false"
-                android:text=""
-                android:textColor="@color/listitem_black"
-                android:textSize="16dip" />
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
-        <LinearLayout
-            android:id="@+id/showtopeople"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="标题："
+                        android:textColor="@color/content"
+                        android:textSize="16dp" />
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="已读："
-                android:textColor="@color/darkgray"
-                android:textSize="16dp" />
+                    <TextView
+                        android:id="@+id/msg_title"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingBottom="@dimen/list_item_title_bottom"
+                        android:paddingLeft="10dip"
+                        android:paddingRight="10dip"
+                        android:paddingTop="@dimen/list_item_padding_top"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textColor="@color/listitem_black"
+                        android:textSize="16dip" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/msg_topeople"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:paddingBottom="@dimen/list_item_title_bottom"
-                android:paddingLeft="10dip"
-                android:paddingRight="10dip"
-                android:paddingTop="@dimen/list_item_padding_top"
-                android:singleLine="false"
-                android:text=""
-                android:textColor="@color/gray"
-                android:textSize="16dip" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/showtounpeople"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="未读："
-                android:textColor="@color/darkgray"
-                android:textSize="16dp" />
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="内容："
+                        android:textColor="@color/content"
+                        android:textSize="16dp" />
 
-            <TextView
-                android:id="@+id/msgun_topeople"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:paddingBottom="@dimen/list_item_title_bottom"
-                android:paddingLeft="10dip"
-                android:paddingRight="10dip"
-                android:paddingTop="@dimen/list_item_padding_top"
-                android:singleLine="false"
-                android:text=""
-                android:textColor="@color/gray"
-                android:textSize="16dip" />
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/msg_content"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingBottom="@dimen/list_item_title_bottom"
+                        android:paddingLeft="10dip"
+                        android:paddingRight="10dip"
+                        android:paddingTop="@dimen/list_item_padding_top"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textColor="@color/listitem_black"
+                        android:textIsSelectable="true"
+                        android:textSize="16dip" />
+                </LinearLayout>
 
-        <Button
-            android:id="@+id/to_msg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="回复" />
-        </LinearLayout>
-    </ScrollView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="发送人："
+                        android:textColor="@color/content"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/msg_frompeople"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingBottom="@dimen/list_item_title_bottom"
+                        android:paddingLeft="10dip"
+                        android:paddingRight="10dip"
+                        android:paddingTop="@dimen/list_item_padding_top"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textColor="@color/listitem_black"
+                        android:textSize="16dip" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/showtopeople"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="已读："
+                        android:textColor="@color/darkgray"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/msg_topeople"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingBottom="@dimen/list_item_title_bottom"
+                        android:paddingLeft="10dip"
+                        android:paddingRight="10dip"
+                        android:paddingTop="@dimen/list_item_padding_top"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textColor="@color/gray"
+                        android:textSize="16dip" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/showtounpeople"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="未读："
+                        android:textColor="@color/darkgray"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/msgun_topeople"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingBottom="@dimen/list_item_title_bottom"
+                        android:paddingLeft="10dip"
+                        android:paddingRight="10dip"
+                        android:paddingTop="@dimen/list_item_padding_top"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textColor="@color/gray"
+                        android:textSize="16dip" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/to_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="回复" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>

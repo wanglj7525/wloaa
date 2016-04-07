@@ -51,7 +51,8 @@ public class SendXiaoGaoActivity extends AbActivity {
 	private List<People> peoples;
 	private int from;
 	private int message_id;
-	private String message;
+	private String msg_title;
+	private String msg_info;
 	// @AbIocView(id = R.id.select_people_xiaoxi)
 	// Spinner peopleSpinner;
 	@AbIocView(id = R.id.commitXiaoxi)
@@ -124,14 +125,17 @@ public class SendXiaoGaoActivity extends AbActivity {
 			titleBar.setTitle("发送消息");
 		} else if (from == 2) {
 			titleBar.setTitle("发送公告");
-		} else {
+		} else if (from == 3){
 			titleBar.setTitle("回复消息");
 			message_id = Integer.parseInt(intent.getExtras().get("message_id")
 					.toString());
-			message = intent.getExtras().get("message").toString();
+			msg_title = intent.getExtras().get("message").toString();
 			push_user_name = intent.getExtras().get("push_user_name").toString();
 			push_user_id = Integer.parseInt(intent.getExtras()
 					.get("push_user_id").toString());
+		}else{
+			titleBar.setTitle("转发消息");
+			msg_info = intent.getExtras().get("msg_info").toString();
 		}
 		titleBar.setTitleColor(Color.WHITE);
 		titleBar.setDividerColor(Color.GRAY);
@@ -139,13 +143,13 @@ public class SendXiaoGaoActivity extends AbActivity {
 		initUi();
 		// 加载联系人下拉框
 
-		if (from == 1) {
+		if (from == 1||from == 4) {
 			//消息
 			showrange.setVisibility(View.GONE);
 		} else if (from == 2) {
 			//公告
 			showSelectPeople.setVisibility(View.GONE);
-		} else {
+		} else if (from == 3){
 			//回复
 			showrange.setVisibility(View.GONE);
 			showSelectPeople.setVisibility(View.GONE);
@@ -157,7 +161,10 @@ public class SendXiaoGaoActivity extends AbActivity {
 
 	private void initUi() {
 		if (from == 3) {
-			xiaoxi_title.setText("回复：" + message);
+			xiaoxi_title.setText("回复：" + msg_title);
+		}else if(from==4){
+			xiaoxi_title.setText("转发消息");
+			xiaoxi_info.setText(msg_info);
 		}
 		userType = application.getProperty("userType");
 		if (userType.equals("0")||userType.equals("1")||userType.equals("2")) {
